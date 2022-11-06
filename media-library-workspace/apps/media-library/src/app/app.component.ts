@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'media-library-workspace-root',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'media-library';
+  currentYear = new Date().getFullYear();
+
+  constructor(private router: Router) {
+  }
 }

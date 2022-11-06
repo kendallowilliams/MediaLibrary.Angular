@@ -1,1 +1,16 @@
-<media-library-workspace-nx-welcome></media-library-workspace-nx-welcome>
+<div class="flex flex-col h-screen w-screen">
+    <header>
+        <lib-nav-bar>
+            <lib-nav-bar-links>
+                <lib-nav-bar-link [Text]="'Home'" [Path]="''"></lib-nav-bar-link>
+                <lib-nav-bar-link [Text]="'Music'" [Path]="'music'"></lib-nav-bar-link>
+                <lib-nav-bar-link [Text]="'Podcasts'" [Path]="'podcast'"></lib-nav-bar-link>
+                <lib-nav-bar-link [Text]="'Television'" [Path]="'television'"></lib-nav-bar-link>
+                <lib-nav-bar-link [Text]="'Playlists'" [Path]="'playlist'"></lib-nav-bar-link>
+                <lib-nav-bar-link [Text]="'Player'" [Path]="'player'"></lib-nav-bar-link>
+            </lib-nav-bar-links>
+        </lib-nav-bar>
+    </header>
+    <main class="grow"><router-outlet></router-outlet></main>
+    <footer class="text-center">@ {{ currentYear }} - Kendall O. Williams</footer>
+</div>
