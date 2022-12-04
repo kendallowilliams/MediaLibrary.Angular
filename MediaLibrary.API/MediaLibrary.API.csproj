@@ -4,6 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>a226272b-792e-4039-a669-b9b5932d2c72</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,7 +12,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\MediaLibrary.BLL\MediaLibrary.BLL.csproj" />
+    <ProjectReference Include="..\MediaLibrary.DAL\MediaLibrary.DAL.csproj" />
+    <ProjectReference Include="..\MediaLibrary.Shared\MediaLibrary.Shared.csproj" />
   </ItemGroup>
 
 </Project>

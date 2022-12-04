@@ -5,3 +5,11 @@
 /.vs
 /MediaLibrary.API/obj
 /MediaLibrary.API/bin
+/MediaLibrary.BLL/bin
+/MediaLibrary.BLL/obj
+/MediaLibrary.DAL/bin
+/MediaLibrary.DAL/obj
+/MediaLibrary.DB/bin
+/MediaLibrary.DB/obj
+/MediaLibrary.Shared/bin
+/MediaLibrary.Shared/obj
