@@ -13,3 +13,4 @@
 /MediaLibrary.DB/obj
 /MediaLibrary.Shared/bin
 /MediaLibrary.Shared/obj
+*.dbmdl
