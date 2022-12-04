@@ -1,0 +1,22 @@
+<nav class="flex items-stretch px-[20px] gap-[20px] h-full bg-inherit text-inherit">
+  <ng-content select="ml-navbar-brand"></ng-content>
+  <div class="flex items-center grow">
+    <div class="grow hidden lg:flex items-center h-full" #mlNav>
+      <ng-container *ngIf="!isMobile" ngProjectAs="ml-navbar-nav">
+        <ng-container *ngTemplateOutlet="nav" ngProjectAs="ml-navbar-nav"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+  <ng-content select="ml-navbar-controls"></ng-content>
+  <ml-switch (checkedChange)="setDarkMode($event)" [checked]="darkModeEnabled">Dark</ml-switch>
+  <ml-navbar-toggler [(menuOpen)]="menuOpen"></ml-navbar-toggler>
+</nav>
+<ml-navbar-menu [attr.data-menu-open]="menuOpen ? 'true' : 'false'">
+  <ng-container *ngIf="isMobile" ngProjectAs="ml-navbar-nav">
+    <ng-container *ngTemplateOutlet="nav" ngProjectAs="ml-navbar-nav"></ng-container>
+  </ng-container>
+</ml-navbar-menu>
+
+<ng-template #nav>
+  <ng-content select="ml-navbar-nav"></ng-content>
+</ng-template>

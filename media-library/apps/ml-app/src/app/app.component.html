@@ -1,0 +1,18 @@
+<div class="flex flex-col h-screen w-screen">
+  <header>
+    <ml-navbar>
+      <ml-navbar-brand>My Brand</ml-navbar-brand>
+      <ml-navbar-nav>
+        <ml-nav-item>Music</ml-nav-item>
+        <ml-nav-item>Podcasts</ml-nav-item>
+        <ml-nav-item>Television</ml-nav-item>
+        <ml-nav-item>Playlists</ml-nav-item>
+        <ml-nav-item>Player</ml-nav-item>
+      </ml-navbar-nav>
+      <ml-navbar-controls>
+      </ml-navbar-controls>
+    </ml-navbar>
+  </header>
+  <main class="grow"><router-outlet></router-outlet></main>
+  <footer class="flex items-center justify-center h-footer bg-light text-dark dark:bg-dark dark:text-light">&copy; {{year}} - Kendall O. Williams</footer>
+</div>
