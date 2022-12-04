@@ -14,6 +14,6 @@ import {
 export class NavbarMenuComponent {
   private _defaultClasses = `hidden data-[menu-open=true]:block relative float-right 
     h-[calc(100vh-theme(height.navbar)-theme(height.footer))] bg-light text-dark
-    dark:text-light dark:bg-dark sm:w-[100%] md:w-[50%]`;
+    dark:text-light dark:bg-dark w-[100%] md:w-[50%] lg:w-[auto]`;
   @HostBinding('class') private _class = this._defaultClasses;
 }

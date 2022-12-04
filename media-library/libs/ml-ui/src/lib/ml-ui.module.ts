@@ -9,6 +9,12 @@ import { NavbarMenuComponent } from './navbar/navbar-menu/navbar-menu.component'
 import { NavItemComponent } from './navbar/navbar-nav/nav-item/nav-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SwitchComponent } from './controls/switch/switch.component';
+import { HomeComponent } from './content/home/home.component';
+import { MusicComponent } from './content/music/music.component';
+import { PodcastComponent } from './content/podcast/podcast.component';
+import { TelevisionComponent } from './content/television/television.component';
+import { PlaylistComponent } from './content/playlist/playlist.component';
+import { PlayerComponent } from './content/player/player.component';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -21,6 +27,12 @@ import { SwitchComponent } from './controls/switch/switch.component';
     NavbarMenuComponent,
     NavItemComponent,
     SwitchComponent,
+    HomeComponent,
+    MusicComponent,
+    PodcastComponent,
+    TelevisionComponent,
+    PlaylistComponent,
+    PlayerComponent,
   ],
   exports: [
     NavbarComponent,
@@ -31,6 +43,12 @@ import { SwitchComponent } from './controls/switch/switch.component';
     NavbarMenuComponent,
     NavItemComponent,
     SwitchComponent,
+    HomeComponent,
+    MusicComponent,
+    PodcastComponent,
+    TelevisionComponent,
+    PlaylistComponent,
+    PlayerComponent,
   ],
 })
 export class MlUiModule {}

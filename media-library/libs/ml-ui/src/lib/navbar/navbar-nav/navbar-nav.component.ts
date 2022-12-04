@@ -12,6 +12,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarNavComponent {
-  private _defaultClasses = 'flex flex-col lg:flex-row lg:items-stretch h-full';
+  private _defaultClasses = 'flex flex-col lg:flex-row lg:items-stretch lg:h-full px-[20px] gap-[20px]';
   @HostBinding('class') private _class = this._defaultClasses;
 }

@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { MlUiModule } from '@media-library/ml-ui';
 
 import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app.routing.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, MlUiModule, RouterModule],
+  imports: [BrowserModule, MlUiModule, AppRoutingModule],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent],
 })
