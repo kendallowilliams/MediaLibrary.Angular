@@ -14,3 +14,4 @@
 /MediaLibrary.Shared/bin
 /MediaLibrary.Shared/obj
 *.dbmdl
+MediaLibrary.DB/MediaLibrary.DB.jfm

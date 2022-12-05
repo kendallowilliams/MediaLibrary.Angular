@@ -29,3 +29,5 @@ export * from './lib/content/playlist/playlist.component';
 export * from './lib/content/player/player.component';
 
 export * from './lib/controls/page-not-found/page-not-found.component';
+
+export * from './lib/controls/search/search.component';
