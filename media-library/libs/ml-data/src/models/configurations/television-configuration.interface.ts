@@ -1,0 +1,10 @@
+﻿import { TelevisionPages, SeriesSort } from "../../enums/enums";
+import { Configuration } from "./configuration.interface";
+
+export default interface TelevisionConfiguration extends Configuration {
+    SelectedSeriesId: number;
+    SelectedSeason: number;
+    SelectedTelevisionPage: TelevisionPages;
+    SelectedSeriesSort: SeriesSort;
+    FilePath: string;
+}

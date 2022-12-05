@@ -1,7 +1,6 @@
 ﻿using MediaLibrary.DAL.Models;
 using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static MediaLibrary.Shared.Enums;
 
@@ -17,13 +16,13 @@ namespace MediaLibrary.API.Controllers
         {
             this.dataService = _dataService;
         }
-        
+
         [HttpGet]
-        public async Task<IActionResult> Configuration()
+        public async Task<MusicConfiguration> Configuration()
         {
             var data = await dataService.Get<Configuration>(configuration => configuration.Type == ConfigurationTypes.Music);
 
-            return new JsonResult(data.GetConfigurationObject<MusicConfiguration>());
+            return data.GetConfigurationObject<MusicConfiguration>();
         }
     }
 }
