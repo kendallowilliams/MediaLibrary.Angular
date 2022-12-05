@@ -1,9 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { PlaylistService } from '@media-library/ml-data';
+import { PlaylistConfiguration, PlaylistService } from '@media-library/ml-data';
 
 @Component({
   selector: 'ml-playlist',
@@ -11,6 +12,13 @@ import { PlaylistService } from '@media-library/ml-data';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlaylistComponent {
+export class PlaylistComponent implements OnInit {
+  private _configuration?: PlaylistConfiguration;
+
   constructor(private _playlistService: PlaylistService) {}
+  
+  public ngOnInit(): void {
+    this._playlistService.getConfiguration()
+      .subscribe(config => this._configuration = config);
+  }
 }

@@ -16,8 +16,6 @@ export class MusicComponent implements OnInit {
   private _configuration?: MusicConfiguration;
 
   constructor(private _musicService: MusicService) {
-    this._musicService.getConfiguration()
-      .subscribe(config => this._configuration = config);
   }
   
   public ngOnInit(): void {
