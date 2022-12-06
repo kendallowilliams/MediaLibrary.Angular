@@ -15,7 +15,7 @@ export * from './lib/content/podcast/podcast.component';
 export * from './lib/content/television/television.component';
 export * from './lib/content/playlist/playlist.component';
 export * from './lib/content/player/player.component';
-export * from './lib/controls/page-not-found/page-not-found.component';
+export * from './lib/content/page-not-found/page-not-found.component';
 export * from './lib/controls/search/search.component';
 
 /** Search */
