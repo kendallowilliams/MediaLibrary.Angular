@@ -10,7 +10,7 @@
         <ml-nav-item [routerLink]="'player'">Player</ml-nav-item>
       </ml-navbar-nav>
       <ml-navbar-controls>
-        <ml-search></ml-search>
+        <ml-search (search)="handleSearch($event)"></ml-search>
       </ml-navbar-controls>
     </ml-navbar>
   </header>
