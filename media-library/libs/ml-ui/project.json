@@ -10,8 +10,7 @@
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
       "options": {
         "project": "libs/ml-ui/ng-package.json",
-        "tailwindConfig": "libs/ml-ui/tailwind.config.js",
-        "assets": []
+        "tailwindConfig": "libs/ml-ui/tailwind.config.js"
       },
       "configurations": {
         "production": {

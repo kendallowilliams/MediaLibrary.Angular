@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PlaylistConfiguration } from '@media-library/ml-data';
+import { PlaylistConfiguration } from '../../models/configurations/playlist-configuration.interface';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 

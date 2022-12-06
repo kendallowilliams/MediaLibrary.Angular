@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PlayerConfiguration } from '@media-library/ml-data';
+import { PlayerConfiguration } from '../../models/configurations/player-configuration.interface';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 

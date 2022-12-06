@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PodcastConfiguration } from '@media-library/ml-data';
+import { PodcastConfiguration } from '../../models/configurations/podcast-configuration.interface';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 
