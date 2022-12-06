@@ -5,22 +5,6 @@
   "sourceRoot": "libs/ml-data/src",
   "prefix": "ml",
   "targets": {
-    "build": {
-      "executor": "@nrwl/angular:ng-packagr-lite",
-      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
-      "options": {
-        "project": "libs/ml-data/ng-package.json"
-      },
-      "configurations": {
-        "production": {
-          "tsConfig": "libs/ml-data/tsconfig.lib.prod.json"
-        },
-        "development": {
-          "tsConfig": "libs/ml-data/tsconfig.lib.json"
-        }
-      },
-      "defaultConfiguration": "production"
-    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
