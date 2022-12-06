@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostBinding,
-  Input,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -14,8 +13,6 @@ import {
 })
 export class NavItemComponent {
   private _defaultClasses = `flex items-center hover:bg-dark hover:text-light 
-    dark:hover:bg-light dark:hover:text-dark lg:px-[10px]`;
+    dark:hover:bg-light dark:hover:text-dark lg:px-[10px] cursor-pointer`;
   @HostBinding('class') private _class = this._defaultClasses;
-
-  @Input() public routerLink?: string;
 }

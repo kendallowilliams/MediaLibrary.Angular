@@ -15,7 +15,7 @@ import { PodcastComponent } from './content/podcast/podcast.component';
 import { TelevisionComponent } from './content/television/television.component';
 import { PlaylistComponent } from './content/playlist/playlist.component';
 import { PlayerComponent } from './content/player/player.component';
-import { SearchComponent } from './controls/search/search.component';
+import { SearchResultsComponent } from './content/search-results/search-results.component';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -34,7 +34,7 @@ import { SearchComponent } from './controls/search/search.component';
     TelevisionComponent,
     PlaylistComponent,
     PlayerComponent,
-    SearchComponent,
+    SearchResultsComponent
   ],
   exports: [
     NavbarComponent,
@@ -51,7 +51,7 @@ import { SearchComponent } from './controls/search/search.component';
     TelevisionComponent,
     PlaylistComponent,
     PlayerComponent,
-    SearchComponent,
+    SearchResultsComponent
   ],
 })
 export class MlUiModule {}
