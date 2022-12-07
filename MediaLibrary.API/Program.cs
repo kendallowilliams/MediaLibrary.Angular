@@ -1,4 +1,6 @@
 using MediaLibrary.BLL.Extensions;
+using Microsoft.Extensions.FileProviders;
+using static System.Net.Mime.MediaTypeNames;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +15,38 @@ builder.Services.ConfigureServices(builder.Configuration);
 
 var app = builder.Build();
 
+//add this at the start of Configure
+app.Use(async (HttpContext context, Func<Task> next) =>
+{
+    await next.Invoke();
+
+    if (context.Response.StatusCode == 404)
+    {
+        context.Request.Path = new PathString("/index.html");
+        await next.Invoke();
+    }
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    var staticFilesPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["StaticFilesPath"]);
+
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDefaultFiles(new DefaultFilesOptions
+    {
+        FileProvider = new PhysicalFileProvider(staticFilesPath)
+    });
+    app.UseStaticFiles(new StaticFileOptions
+    {
+        FileProvider = new PhysicalFileProvider(staticFilesPath)
+    });
+} else
+{
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
 }
-
-app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
