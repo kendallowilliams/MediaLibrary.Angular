@@ -15,6 +15,5 @@ export class SearchResultsComponent {
   private _query?: string;
 
   constructor(private _route: ActivatedRoute) {
-    this._route.params.subscribe(params => console.log(params));
   }
 }
