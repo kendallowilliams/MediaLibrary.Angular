@@ -10,6 +10,7 @@ module.exports = {
   presets: [require('./libs/ml-ui/tailwind.config')],
   theme: {
     colors: {
+      transparent: 'transparent',
       primary: colors.blue,
       secondary: colors.gray['600'],
       success: colors.green,
