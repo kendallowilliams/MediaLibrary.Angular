@@ -12,7 +12,7 @@ module.exports = {
     },
     extend: {
       height: {
-        'navbar': '75px'
+        'navbar': '50px'
       }
     },
   },

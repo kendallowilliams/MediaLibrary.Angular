@@ -16,3 +16,8 @@ export * from './models/configurations/player-configuration.interface';
 export * from './models/configurations/television-configuration.interface';
 export * from './models/configurations/home-configuration.interface';
 export * from './models/configurations/media-library-configuration.interface';
+
+/** Models */
+export * from './models/music/track.model';
+export * from './models/music/artist.model';
+export * from './models/music/album.model';

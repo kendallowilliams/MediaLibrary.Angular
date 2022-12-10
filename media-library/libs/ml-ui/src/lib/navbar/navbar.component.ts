@@ -19,7 +19,7 @@ import { ThemeService } from '../services/theme/theme.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent implements AfterViewInit, OnDestroy {
-  private _defaultClasses = 'block h-navbar bg-light dark:bg-dark text-dark dark:text-light';
+  private _defaultClasses = 'block h-navbar bg-light dark:bg-dark text-dark dark:text-light shadow';
   @HostBinding('class') private _class = this._defaultClasses;
   @ViewChild('mlNav') private _mlNav!: ElementRef;
 

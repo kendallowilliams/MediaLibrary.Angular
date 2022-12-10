@@ -11,6 +11,7 @@
       </ml-navbar-nav>
       <ml-navbar-controls>
         <ml-search (search)="handleSearch($event)"></ml-search>
+        <ml-navbar-icon [routerLink]="'settings'" [routerLinkActive]="'active'" [iconName]="'gear'"></ml-navbar-icon>
       </ml-navbar-controls>
     </ml-navbar>
   </header>

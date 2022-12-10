@@ -12,7 +12,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarControlsComponent {
-  private _defaultClasses = 'flex items-center h-full';
+  private _defaultClasses = 'flex items-center h-full gap-[20px]';
   @HostBinding('class') private _class = this._defaultClasses;
 }
 

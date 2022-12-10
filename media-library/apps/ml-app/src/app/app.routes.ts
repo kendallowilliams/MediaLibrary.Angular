@@ -3,7 +3,8 @@ import {
   HomeComponent, MusicComponent, PlayerComponent, 
   PlaylistComponent, PodcastComponent, TelevisionComponent, 
   PageNotFoundComponent, 
-  SearchResultsComponent} from "@media-library/ml-ui";
+  SearchResultsComponent,
+  SettingsComponent} from "@media-library/ml-ui";
 
 
 export const routes: Routes = [
@@ -14,6 +15,7 @@ export const routes: Routes = [
   { path: 'playlist', component: PlaylistComponent },
   { path: 'player', component: PlayerComponent },
   { path: 'search', component: SearchResultsComponent },
+  { path: 'settings', component: SettingsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];

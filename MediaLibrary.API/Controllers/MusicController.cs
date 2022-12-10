@@ -1,8 +1,7 @@
-﻿using MediaLibrary.DAL.Models;
-using MediaLibrary.DAL.Services.Interfaces;
+﻿using MediaLibrary.API.Services.Interfaces;
+using MediaLibrary.DAL.Models;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.AspNetCore.Mvc;
-using static MediaLibrary.Shared.Enums;
 
 namespace MediaLibrary.API.Controllers
 {
@@ -10,19 +9,23 @@ namespace MediaLibrary.API.Controllers
     [ApiController]
     public class MusicController : ControllerBase
     {
-        private readonly IDataService dataService;
+        private readonly IMusicService musicService;
 
-        public MusicController(IDataService _dataService) : base()
+        public MusicController(IMusicService _musicService) : base()
         {
-            this.dataService = _dataService;
+            this.musicService = _musicService;
         }
 
         [HttpGet]
-        public async Task<MusicConfiguration> Configuration()
-        {
-            var data = await dataService.Get<Configuration>(configuration => configuration.Type == ConfigurationTypes.Music);
+        public async Task<MusicConfiguration> Configuration() => await musicService.GetConfiguration();
 
-            return data.GetConfigurationObject<MusicConfiguration>();
-        }
+        [HttpGet]
+        public async Task<IEnumerable<Album>> Albums() => await musicService.GetAlbums();
+
+        [HttpGet]
+        public async Task<IEnumerable<Artist>> Artists() => await musicService.GetArtists();
+
+        [HttpGet]
+        public async Task<IEnumerable<Track>> Tracks() => await musicService.GetTracks();
     }
 }

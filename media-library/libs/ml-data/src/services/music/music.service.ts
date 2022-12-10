@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MusicConfiguration } from '../../models/configurations/music-configuration.interface';
+import { Album } from '../../models/music/album.model';
+import { Artist } from '../../models/music/artist.model';
+import { Track } from '../../models/music/track.model';
 import { BaseService } from '../base.service';
 
 @Injectable({
@@ -16,5 +19,17 @@ export class MusicService extends BaseService {
 
   public getConfiguration(): Observable<MusicConfiguration> {
     return this.getBaseConfiguration<MusicConfiguration>(this._controller);
+  }
+
+  public getAlbums(): Observable<Album[]> {
+    return this.get<Album[]>(this._controller, 'Albums');
+  }
+
+  public getArtists(): Observable<Artist[]> {
+    return this.get<Artist[]>(this._controller, 'Artists');
+  }
+
+  public getTracks(): Observable<Track[]> {
+    return this.get<Track[]>(this._controller, 'Tracks');
   }
 }
