@@ -17,6 +17,7 @@ export * from './lib/content/playlist/playlist.component';
 export * from './lib/content/player/player.component';
 export * from './lib/content/page-not-found/page-not-found.component';
 export * from './lib/controls/search/search.component';
+export * from './lib/navbar/navbar-controls/navbar-icon/navbar-icon.component';
 
 /** Search */
 export * from './lib/controls/search/search.module';
@@ -25,3 +26,13 @@ export * from './lib/content/search-results/search-results.component';
 
 /** Services */
 export * from './lib/services/fa-icon/fa-icon.service';
+
+/** Card */
+export * from './lib/controls/card/card.module';
+export * from './lib/content/settings/settings.component';
+export * from './lib/controls/card/card.component';
+export * from './lib/controls/card/card-header/card-header.component';
+export * from './lib/controls/card/card-title/card-title.component';
+export * from './lib/controls/card/card-subtitle/card-subtitle.component';
+export * from './lib/controls/card/card-body/card-body.component';
+export * from './lib/controls/card/card-footer/card-footer.component';

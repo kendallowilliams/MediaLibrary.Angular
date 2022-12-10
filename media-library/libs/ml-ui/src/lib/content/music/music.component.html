@@ -1,1 +1,38 @@
-<p>music works!</p>
+<div class="flex gap-[20px] overflow-auto p-[10px]">
+  <ml-card *ngFor="let album of albums$ | async">
+    <ml-card-header>
+      <ml-card-title>{{album.title}}</ml-card-title>
+      <ml-card-subtitle>
+        <ng-container *ngIf="artists$ | async as artists">
+          {{getArtist(artists, album.artistId)?.name}}
+        </ng-container>
+      </ml-card-subtitle>
+    </ml-card-header>
+    <ml-card-body>
+      body
+    </ml-card-body>
+    <ml-card-footer>
+      footer
+    </ml-card-footer>
+    <ng-container *ngIf="album.id % 2 === 0" ngProjectAs="ml-card-flyout">
+      <ml-card-flyout>Test</ml-card-flyout>
+    </ng-container>
+  </ml-card>
+</div>
+<div class="flex gap-[20px] overflow-auto p-[10px]">
+  <ml-card *ngFor="let artist of artists$ | async">
+    <ml-card-header>
+      <ml-card-title>{{artist.name}}</ml-card-title>
+      <ml-card-subtitle>
+        <ng-container *ngIf="artists$ | async as artists">
+        </ng-container>
+      </ml-card-subtitle>
+    </ml-card-header>
+    <ml-card-body>
+      body
+    </ml-card-body>
+    <ml-card-footer>
+      footer
+    </ml-card-footer>
+  </ml-card>
+</div>

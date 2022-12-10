@@ -16,9 +16,13 @@ import { TelevisionComponent } from './content/television/television.component';
 import { PlaylistComponent } from './content/playlist/playlist.component';
 import { PlayerComponent } from './content/player/player.component';
 import { SearchResultsComponent } from './content/search-results/search-results.component';
+import { CheckboxDirective } from './controls/checkbox/checkbox.directive';
+import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar-icon.component';
+import { SettingsComponent } from './content/settings/settings.component';
+import { CardModule } from './controls/card/card.module';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule],
+  imports: [CommonModule, FontAwesomeModule, CardModule],
   declarations: [
     NavbarComponent,
     NavbarBrandComponent,
@@ -34,7 +38,10 @@ import { SearchResultsComponent } from './content/search-results/search-results.
     TelevisionComponent,
     PlaylistComponent,
     PlayerComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    CheckboxDirective,
+    NavbarIconComponent,
+    SettingsComponent
   ],
   exports: [
     NavbarComponent,
@@ -51,7 +58,10 @@ import { SearchResultsComponent } from './content/search-results/search-results.
     TelevisionComponent,
     PlaylistComponent,
     PlayerComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    CheckboxDirective,
+    NavbarIconComponent,
+    SettingsComponent
   ],
 })
 export class MlUiModule {}

@@ -1,0 +1,20 @@
+<div class="flex flex-col">
+  <ng-content select="ml-card-header"></ng-content>
+  <ng-container *ngIf="cardBody">
+    <input class="peer hidden" type="checkbox" id="{{inputId}}" />
+    <label class="bg-transparent self-end
+      peer-checked:rotate-180 transition-transform cursor-pointer" for="{{inputId}}">
+      <fa-icon *ngIf="angleDown" [icon]="angleDown"></fa-icon>
+      <div class="sr-only">Card body toggle</div>
+    </label>
+    <div class="hidden peer-checked:block">
+      <ng-content select="ml-card-body"></ng-content>
+    </div>
+  </ng-container>
+  <ng-content select="ml-card-footer"></ng-content>
+</div>
+<ng-container *ngIf="flyout">
+  <div class="invisible peer-checked:visible w-0 peer-checked:w-[400px] transition-[width] duration-[1s]">
+    <ng-content select="ml-card-flyout"></ng-content>
+  </div>
+</ng-container>
