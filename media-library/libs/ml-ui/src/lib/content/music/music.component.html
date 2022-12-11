@@ -8,15 +8,8 @@
         </ng-container>
       </ml-card-subtitle>
     </ml-card-header>
-    <ml-card-body>
-      body
-    </ml-card-body>
-    <ml-card-footer>
-      footer
-    </ml-card-footer>
-    <ng-container *ngIf="album.id % 2 === 0" ngProjectAs="ml-card-flyout">
-      <ml-card-flyout>Test</ml-card-flyout>
-    </ng-container>
+    <ml-card-body></ml-card-body>
+    <ml-card-footer></ml-card-footer>
   </ml-card>
 </div>
 <div class="flex gap-[20px] overflow-auto p-[10px]">
@@ -25,14 +18,11 @@
       <ml-card-title>{{artist.name}}</ml-card-title>
       <ml-card-subtitle>
         <ng-container *ngIf="artists$ | async as artists">
+          <div *ngFor="let album of getAlbumByArtistId(artist.id)">{{album.title}}</div>
         </ng-container>
       </ml-card-subtitle>
     </ml-card-header>
-    <ml-card-body>
-      body
-    </ml-card-body>
-    <ml-card-footer>
-      footer
-    </ml-card-footer>
+    <ml-card-body></ml-card-body>
+    <ml-card-footer></ml-card-footer>
   </ml-card>
 </div>

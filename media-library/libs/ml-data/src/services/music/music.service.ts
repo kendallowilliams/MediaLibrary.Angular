@@ -21,6 +21,10 @@ export class MusicService extends BaseService {
     return this.getBaseConfiguration<MusicConfiguration>(this._controller);
   }
 
+  public updateConfiguration(configuration: MusicConfiguration): Observable<MusicConfiguration> {
+    return this.updateBaseConfiguration<MusicConfiguration>(this._controller, configuration);
+  }
+
   public getAlbums(): Observable<Album[]> {
     return this.get<Album[]>(this._controller, 'Albums');
   }

@@ -20,6 +20,7 @@ import { CheckboxDirective } from './controls/checkbox/checkbox.directive';
 import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar-icon.component';
 import { SettingsComponent } from './content/settings/settings.component';
 import { CardModule } from './controls/card/card.module';
+import { LoadingComponent } from './controls/loading/loading.component';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, CardModule],
@@ -41,7 +42,8 @@ import { CardModule } from './controls/card/card.module';
     SearchResultsComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    SettingsComponent
+    SettingsComponent,
+    LoadingComponent,
   ],
   exports: [
     NavbarComponent,
@@ -61,7 +63,8 @@ import { CardModule } from './controls/card/card.module';
     SearchResultsComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    SettingsComponent
+    SettingsComponent,
+    LoadingComponent,
   ],
 })
 export class MlUiModule {}

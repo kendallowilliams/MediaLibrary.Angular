@@ -7,6 +7,8 @@ namespace MediaLibrary.API.Services.Interfaces
     {
         Task<MusicConfiguration> GetConfiguration();
 
+        Task UpdateConfiguration(MusicConfiguration musicConfiguration);
+
         Task<IEnumerable<Album>> GetAlbums(bool reload = false);
 
         Task<IEnumerable<Artist>> GetArtists(bool reload = false);

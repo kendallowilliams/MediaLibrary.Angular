@@ -30,6 +30,14 @@ namespace MediaLibrary.API.Services
             return data.GetConfigurationObject<MusicConfiguration>();
         }
 
+        public async Task UpdateConfiguration(MusicConfiguration musicConfiguration)
+        {
+            var configuration = await _dataService.Get<Configuration>(configuration => configuration.Type == ConfigurationTypes.Music);
+
+            configuration.SetConfigurationObject(musicConfiguration);
+            await _dataService.Update(configuration);
+        }
+
         public async Task<IEnumerable<Album>> GetAlbums(bool reload = false)
         {
             return _memoryCache.TryGetValue(ALBUMS_KEY, out IEnumerable<Album>? albums) && !reload ? 
