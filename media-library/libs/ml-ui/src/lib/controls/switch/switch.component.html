@@ -1,12 +1,7 @@
-<div class="flex gap-[5px] h-full items-center">
-  <div class="text-dark dark:text-light"><ng-content></ng-content>:</div>
-  <div class="flex items-center justify-center">
-    <input class="h-0 w-0 invisible peer" type="checkbox" [checked]="checked" id="switch" #switch />
-    <label class="cursor-pointer w-[35px] h-[20px] bg-dark dark:bg-light block rounded-[17.5px] relative
-      after:content-[''] after:absolute after:top-[2.5px] after:left-[2.5px] after:bg-light dark:after:bg-dark
-      after:w-[15px] after:h-[15px] after:rounded-[17.5px] after:duration-[0.3s] peer-checked:bg-light
-      peer-checked:after:left-[calc(100%-2.5px)] peer-checked:after:translate-x-[-100%] 
-      active:after:w-[20px] indent-[-9999px]"
-      for="switch"></label>
-  </div>
-</div>
+<input class="h-0 w-0 invisible peer" type="checkbox" [checked]="checked" id="{{id}}" #switch />
+<label class="cursor-pointer w-[35px] h-[20px] bg-dark dark:bg-light block rounded-[17.5px] relative
+  after:content-[''] after:absolute after:top-[2.5px] after:left-[2.5px] after:bg-light dark:after:bg-dark
+  after:w-[15px] after:h-[15px] after:rounded-[17.5px] after:duration-[0.3s] peer-checked:bg-light
+  peer-checked:after:left-[calc(100%-2.5px)] peer-checked:after:translate-x-[-100%] 
+  active:after:w-[20px] indent-[-9999px]"
+  for="{{id}}"></label>

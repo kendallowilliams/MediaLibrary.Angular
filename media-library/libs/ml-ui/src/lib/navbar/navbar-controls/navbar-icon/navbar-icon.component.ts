@@ -16,7 +16,7 @@ import { FaIconService } from '../../../services/fa-icon/fa-icon.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarIconComponent implements OnInit {
-  private defaultClasses = 'hover:text-info-300 dark:hover:text-info-300 cursor-pointer';
+  private defaultClasses = 'hover:text-info dark:hover:text-info cursor-pointer';
   @HostBinding('class') private _class = this.defaultClasses;
 
   @Input() public iconName?: IconName;

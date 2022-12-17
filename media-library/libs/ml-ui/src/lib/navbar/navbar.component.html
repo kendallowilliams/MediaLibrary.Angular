@@ -8,7 +8,7 @@
     </div>
   </div>
   <ng-content select="ml-navbar-controls"></ng-content>
-  <ml-switch (checkedChange)="setDarkMode($event)" [checked]="darkModeEnabled">Dark</ml-switch>
+  <ml-switch mlThemeToggle [ngClass]=" { 'hidden': isMobile }"></ml-switch>
   <ml-navbar-toggler [(menuOpen)]="menuOpen"></ml-navbar-toggler>
 </nav>
 <ml-navbar-menu [attr.data-menu-open]="menuOpen ? 'true' : 'false'">

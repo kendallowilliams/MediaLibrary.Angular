@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 export type Theme = 'light' | 'dark' | undefined;
 
@@ -6,17 +7,30 @@ export type Theme = 'light' | 'dark' | undefined;
   providedIn: 'root'
 })
 export class ThemeService {
+  private _darkEnabled$: BehaviorSubject<boolean>;
 
   constructor() {
+    this._darkEnabled$ = new BehaviorSubject<boolean>(this._isDark());
+    this._darkEnabled$.subscribe(enabled => {
+      if (enabled) {
+        this._setDarkTheme();
+      } else {
+        this._setLightTheme();
+      }
+    });
     this._updateDocumentClass();
   }
 
-  public setLightTheme() : void {
+  public getDarkEnabled$() : BehaviorSubject<boolean> {
+    return this._darkEnabled$;
+  }
+
+  private _setLightTheme() : void {
     localStorage['theme'] = 'light';
     this._updateDocumentClass();
   }
 
-  public setDarkTheme() : void {
+  private _setDarkTheme() : void {
     localStorage['theme'] = 'dark';
     this._updateDocumentClass();
   }
@@ -34,7 +48,7 @@ export class ThemeService {
     return localStorage['theme'] === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
   }
 
-  public resetTheme() : void {
+  private _resetTheme() : void {
     localStorage.removeItem('theme');
     this._updateDocumentClass();
   }

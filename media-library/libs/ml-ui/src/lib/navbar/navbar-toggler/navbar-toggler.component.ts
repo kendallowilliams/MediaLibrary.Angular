@@ -40,6 +40,7 @@ export class NavbarTogglerComponent implements OnChanges {
 
   @HostListener('click', ['$event'])
   private _handleClick(event: MouseEvent) : void {
+    event.stopPropagation();
     this.menuOpen = !this.menuOpen;
     this.menuOpenChange.emit(this.menuOpen);
     this._setIcon();

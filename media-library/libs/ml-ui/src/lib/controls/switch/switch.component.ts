@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
   HostListener,
   Input,
   Output,
@@ -17,13 +18,17 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SwitchComponent {
+  @HostBinding('class') private _class = 'flex items-center justify-center';
   @ViewChild('switch') private _input!: ElementRef;
 
+  protected id = `ml-switch-${Math.random().toString(36).substring(2)}`;
+
   @Input() public checked = false;
-  @Output() protected checkedChange = new EventEmitter<boolean>();
+  @Output() public checkedChange = new EventEmitter<boolean>();
 
   @HostListener('click', ['$event'])
   private _handleClick(event: MouseEvent) : void {
+    event.stopPropagation();
     this.checked = this._input.nativeElement.checked;
     this.checkedChange.emit(this.checked);
   }

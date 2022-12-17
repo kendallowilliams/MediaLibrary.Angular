@@ -10,7 +10,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ThemeService } from '../services/theme/theme.service';
 
 @Component({
   selector: 'ml-navbar',
@@ -29,12 +28,9 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
 
   protected isMobile = false;
   protected menuOpen = false;
-  protected darkModeEnabled = true;
 
-  constructor(private _host: ElementRef, private _renderer: Renderer2, private _cd: ChangeDetectorRef,
-    private _themeService: ThemeService) {
+  constructor(private _host: ElementRef, private _renderer: Renderer2, private _cd: ChangeDetectorRef) {
     this._observer = new ResizeObserver(this._handleResize.bind(this));
-    this.darkModeEnabled = this._themeService.getCurrentTheme() === 'dark';
   }
   
   public ngOnDestroy(): void {
@@ -68,13 +64,5 @@ export class NavbarComponent implements AfterViewInit, OnDestroy {
         }
       });
     }, this._timeoutMs);
-  }
-
-  protected setDarkMode(enabled: boolean) : void {
-    if (enabled) {
-      this._themeService.setDarkTheme();
-    } else {
-      this._themeService.setLightTheme();
-    }
   }
 }

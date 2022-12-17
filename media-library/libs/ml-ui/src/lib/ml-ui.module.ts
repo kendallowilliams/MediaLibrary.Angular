@@ -21,6 +21,7 @@ import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar
 import { SettingsComponent } from './content/settings/settings.component';
 import { CardModule } from './controls/card/card.module';
 import { LoadingComponent } from './controls/loading/loading.component';
+import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, CardModule],
@@ -44,6 +45,7 @@ import { LoadingComponent } from './controls/loading/loading.component';
     NavbarIconComponent,
     SettingsComponent,
     LoadingComponent,
+    ThemeToggleDirective,
   ],
   exports: [
     NavbarComponent,
@@ -65,6 +67,7 @@ import { LoadingComponent } from './controls/loading/loading.component';
     NavbarIconComponent,
     SettingsComponent,
     LoadingComponent,
+    ThemeToggleDirective,
   ],
 })
 export class MlUiModule {}

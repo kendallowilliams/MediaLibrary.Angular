@@ -1,6 +1,6 @@
 <input class="w-0 rounded-[15px] data-[visible=true]:px-[10px] text-dark data-[visible=true]:w-[200px] 
   transition-[width] duration-[250ms] ease-linear border-dark border-1 outline-0" 
   placeholder="Enter text..." type="text" #txtSearch (focusout)="handleFocusOut($event)" (keypress)="handleKeyPress($event)" />
-<button class="bg-inherit text-inherit border-0 p-0 m-0 data-[hover=true]:text-info-300" (click)="handleSearch($event)" #btnSearch>
+<button class="bg-inherit text-inherit border-0 p-0 m-0 data-[hover=true]:text-info" (click)="handleSearch($event)" #btnSearch>
   <fa-icon *ngIf="faIcon" [icon]="faIcon"></fa-icon>
 </button>
