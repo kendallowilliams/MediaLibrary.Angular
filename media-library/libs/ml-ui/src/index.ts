@@ -39,3 +39,15 @@ export * from './lib/controls/card/card-footer/card-footer.component';
 
 /** Loading */
 export * from './lib/controls/loading/loading.component';
+
+/** Modal */
+export * from './lib/modal/modal.module';
+export * from './lib/modal/modal.component';
+export * from './lib/modal/modal-header/modal-header.component';
+export * from './lib/modal/modal-title/modal-title.component';
+export * from './lib/modal/modal-body/modal-body.component';
+export * from './lib/modal/modal-footer/modal-footer.component';
+
+/** Message Box */
+export * from './lib/controls/message-box/message-box.component';
+export * from './lib/services/message-box/message-box.service';

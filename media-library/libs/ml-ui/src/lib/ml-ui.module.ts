@@ -22,9 +22,12 @@ import { SettingsComponent } from './content/settings/settings.component';
 import { CardModule } from './controls/card/card.module';
 import { LoadingComponent } from './controls/loading/loading.component';
 import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.directive';
+import { ModalModule } from './modal/modal.module';
+import { MessageBoxComponent } from './controls/message-box/message-box.component';
+import { ButtonDirective } from './controls/button/button.directive';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, CardModule],
+  imports: [CommonModule, FontAwesomeModule, CardModule, ModalModule],
   declarations: [
     NavbarComponent,
     NavbarBrandComponent,
@@ -46,6 +49,8 @@ import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.direc
     SettingsComponent,
     LoadingComponent,
     ThemeToggleDirective,
+    MessageBoxComponent,
+    ButtonDirective,
   ],
   exports: [
     NavbarComponent,
@@ -68,6 +73,8 @@ import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.direc
     SettingsComponent,
     LoadingComponent,
     ThemeToggleDirective,
+    MessageBoxComponent,
+    ButtonDirective,
   ],
 })
 export class MlUiModule {}

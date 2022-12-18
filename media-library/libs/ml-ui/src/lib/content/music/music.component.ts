@@ -9,6 +9,7 @@ import {
 import { MusicService, MusicConfiguration, Album, Artist, Track } from '@media-library/ml-data';
 import { BehaviorSubject, zip } from 'rxjs';
 import { LoadingService } from '../../services/loading/loading.service';
+import { MessageBoxService } from '../../services/message-box/message-box.service';
 
 @Component({
   selector: 'ml-music',
@@ -25,7 +26,7 @@ export class MusicComponent implements OnInit, OnDestroy {
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
 
-  constructor(private _musicService: MusicService, private _loadingService: LoadingService) {
+  constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService) {
   }
   
   public ngOnInit(): void {
