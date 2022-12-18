@@ -2,17 +2,17 @@
   <ng-content select="ml-navbar-brand"></ng-content>
   <div class="flex items-center grow">
     <div class="grow hidden lg:flex items-center h-full" #mlNav>
-      <ng-container *ngIf="!isMobile" ngProjectAs="ml-navbar-nav">
+      <ng-container *ngIf="(isMobile$ | async) === false" ngProjectAs="ml-navbar-nav">
         <ng-container *ngTemplateOutlet="nav" ngProjectAs="ml-navbar-nav"></ng-container>
       </ng-container>
     </div>
   </div>
   <ng-content select="ml-navbar-controls"></ng-content>
-  <ml-switch mlThemeToggle [ngClass]=" { 'hidden': isMobile }"></ml-switch>
-  <ml-navbar-toggler [(menuOpen)]="menuOpen"></ml-navbar-toggler>
+  <ml-switch mlThemeToggle [ngClass]=" { 'hidden': isMobile$ | async }"></ml-switch>
+  <ml-navbar-toggler (menuOpenChange)="menuOpen$.next($event)" [menuOpen]="(menuOpen$ | async) === true"></ml-navbar-toggler>
 </nav>
-<ml-navbar-menu [attr.data-menu-open]="menuOpen ? 'true' : 'false'">
-  <ng-container *ngIf="isMobile" ngProjectAs="ml-navbar-nav">
+<ml-navbar-menu [attr.data-menu-open]="(menuOpen$ | async) ? 'true' : 'false'">
+  <ng-container *ngIf="(isMobile$ | async) === true" ngProjectAs="ml-navbar-nav">
     <ng-container *ngTemplateOutlet="nav" ngProjectAs="ml-navbar-nav"></ng-container>
   </ng-container>
 </ml-navbar-menu>
