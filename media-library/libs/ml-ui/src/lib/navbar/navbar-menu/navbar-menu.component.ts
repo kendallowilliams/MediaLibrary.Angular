@@ -15,6 +15,6 @@ export class NavbarMenuComponent {
   private _defaultClasses = `flex flex-col hidden data-[menu-open=true]:block absolute right-0
     h-[calc(100vh-theme(height.navbar)-theme(height.footer))] bg-light text-dark
     dark:text-light dark:bg-dark w-[100%] md:w-[50%] lg:w-[auto]
-    top-[theme(height.navbar)]`;
+    top-[theme(height.navbar)] z-[1000]`;
   @HostBinding('class') private _class = this._defaultClasses;
 }
