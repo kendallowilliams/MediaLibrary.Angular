@@ -19,8 +19,7 @@ module.exports = {
       danger: '#dc3545',
       light: '#f8f9fa',
       dark: '#343a40',
-      black: '#000',
-      white: '#fff'
+      ...colors
     },
     extend: {
       height: {

@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@media-library/ml-data": ["libs/ml-data/src/index.ts"],
-      "@media-library/ml-ui": ["libs/ml-ui/src/index.ts"]
+      "@media-library/ml-ui": ["libs/ml-ui/src/index.ts"],
+      "@media-library/ml-utility": ["libs/ml-utility/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
