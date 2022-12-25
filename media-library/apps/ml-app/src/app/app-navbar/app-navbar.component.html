@@ -15,7 +15,7 @@
       <ml-search (search)="handleSearch($event)"></ml-search>
       <ml-navbar-icon [routerLink]="'settings'" [routerLinkActive]="'active'" [iconName]="'gear'"></ml-navbar-icon>
     </ml-navbar-controls>
-    <ml-switch mlThemeToggle [ngClass]=" { 'hidden': isMobile}"></ml-switch>
+    <ml-switch mlThemeToggle></ml-switch>
     <ml-navbar-toggler *ngIf="isMobile || (navHidden$ | async)"></ml-navbar-toggler>
   </nav>
   <ml-navbar-menu>

@@ -26,6 +26,7 @@ import { ModalModule } from './modal/modal.module';
 import { MessageBoxComponent } from './controls/message-box/message-box.component';
 import { ButtonDirective } from './controls/button/button.directive';
 import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
+import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-links-hidden/hide-if-nav-links-hidden.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, CardModule, ModalModule],
@@ -53,6 +54,7 @@ import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attrib
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
+    HideIfNavLinksHiddenDirective,
   ],
   exports: [
     NavbarComponent,
@@ -78,6 +80,7 @@ import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attrib
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
+    HideIfNavLinksHiddenDirective,
   ],
 })
 export class MlUiModule {}
