@@ -2,17 +2,14 @@ import {
   ChangeDetectionStrategy,
   Component,
   HostListener,
-  Output,
   ViewEncapsulation,
-  EventEmitter,
-  Input,
   ChangeDetectorRef,
   HostBinding,
-  OnChanges,
-  SimpleChanges
+  OnInit
 } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FaIconService } from '../../services/fa-icon/fa-icon.service';
+import { NavbarMenuService } from '../services/navbar-menu.service';
 
 @Component({
   selector: 'ml-navbar-toggler',
@@ -20,34 +17,31 @@ import { FaIconService } from '../../services/fa-icon/fa-icon.service';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarTogglerComponent implements OnChanges {
-  @HostBinding('class') private _class = 'block lg:hidden';
+export class NavbarTogglerComponent implements OnInit {
+  @HostBinding('class') private _class = 'block';
 
-  @Input() public menuOpen = false;
-  @Output() public menuOpenChange = new EventEmitter<boolean>();
-
+  private _menuOpen = false;
   protected faIcon?: IconDefinition;
 
-  constructor(private _faIconService: FaIconService, private _cd: ChangeDetectorRef) {
-    this._setIcon();
+  constructor(private _faIconService: FaIconService, private _cd: ChangeDetectorRef, private _navbarMenuService: NavbarMenuService) {
   }
 
-  public ngOnChanges(changes: SimpleChanges): void {
-    if (changes['menuOpen']) {
+  public ngOnInit(): void {
+    this._navbarMenuService.getMenuOpen$().subscribe(menuOpen => {
+      this._menuOpen = menuOpen;
       this._setIcon();
-    }
+    });
+    this._navbarMenuService.getMenuOpen$().next(false);
   }
 
   @HostListener('click', ['$event'])
   private _handleClick(event: MouseEvent) : void {
     event.stopPropagation();
-    this.menuOpen = !this.menuOpen;
-    this.menuOpenChange.emit(this.menuOpen);
-    this._setIcon();
+    this._navbarMenuService.getMenuOpen$().next(!this._menuOpen);
   }
 
   private _setIcon() : void {
-    if (this.menuOpen) {
+    if (this._menuOpen) {
       this.faIcon = this._faIconService.getIconDefinition('fas', 'times');
     } else {
       this.faIcon = this._faIconService.getIconDefinition('fas', 'bars');

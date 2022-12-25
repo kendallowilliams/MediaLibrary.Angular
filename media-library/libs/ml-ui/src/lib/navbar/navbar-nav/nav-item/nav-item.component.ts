@@ -13,6 +13,6 @@ import {
 })
 export class NavItemComponent {
   private _defaultClasses = `flex items-center hover:bg-dark hover:text-light 
-    dark:hover:bg-light dark:hover:text-dark lg:px-[10px] cursor-pointer`;
+    dark:hover:bg-light dark:hover:text-dark px-[10px] cursor-pointer`;
   @HostBinding('class') private _class = this._defaultClasses;
 }

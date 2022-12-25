@@ -1,9 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   HostBinding,
+  OnInit,
+  Optional,
+  Renderer2,
+  SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
+import { NavbarMenuComponent } from '../navbar-menu/navbar-menu.component';
 
 @Component({
   selector: 'ml-navbar-nav',
@@ -11,7 +17,16 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavbarNavComponent {
-  private _defaultClasses = 'flex flex-col lg:flex-row lg:items-stretch lg:h-full px-[20px]';
+export class NavbarNavComponent implements OnInit {
+  private _defaultClasses = `flex flex-col px-[20px]
+    data-[menu=false]:flex-row data-[menu=false]:items-stretch data-[menu=false]:h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
+
+  constructor(private _host: ElementRef<HTMLElement>, private _renderer: Renderer2, @SkipSelf() @Optional() private _navbarMenu?: NavbarMenuComponent) {}
+
+  public ngOnInit() : void {
+    const menuFound = !!this._navbarMenu;
+    
+    this._renderer.setAttribute(this._host.nativeElement, 'data-menu', menuFound.toString());
+  }
 }

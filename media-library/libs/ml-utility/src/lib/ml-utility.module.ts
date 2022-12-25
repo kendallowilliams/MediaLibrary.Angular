@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HideIfLargerThanParentDirective } from './dom/hide-if-larger-than-parent/hide-if-larger-than-parent.directive';
+import { UpdateIfLargerThanParentDirective } from './dom/update-if-larger-than-parent/update-if-larger-than-parent.directive';
 
 @NgModule({
   imports: [CommonModule],
   declarations: [
-    HideIfLargerThanParentDirective
+    UpdateIfLargerThanParentDirective
   ],
   exports: [
-    HideIfLargerThanParentDirective
+    UpdateIfLargerThanParentDirective
   ],
 })
 export class MlUtilityModule {}

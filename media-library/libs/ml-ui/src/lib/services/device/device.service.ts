@@ -7,4 +7,8 @@ export class DeviceService {
   public hasMouse() : boolean {
     return window.matchMedia('(pointer:fine)').matches;
   }
+
+  public isMobile() : boolean {
+    return !this.hasMouse();
+  }
 }

@@ -25,6 +25,7 @@ import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.direc
 import { ModalModule } from './modal/modal.module';
 import { MessageBoxComponent } from './controls/message-box/message-box.component';
 import { ButtonDirective } from './controls/button/button.directive';
+import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, CardModule, ModalModule],
@@ -51,6 +52,7 @@ import { ButtonDirective } from './controls/button/button.directive';
     ThemeToggleDirective,
     MessageBoxComponent,
     ButtonDirective,
+    AddIsMobileAttributeDirective,
   ],
   exports: [
     NavbarComponent,
@@ -75,6 +77,7 @@ import { ButtonDirective } from './controls/button/button.directive';
     ThemeToggleDirective,
     MessageBoxComponent,
     ButtonDirective,
+    AddIsMobileAttributeDirective,
   ],
 })
 export class MlUiModule {}

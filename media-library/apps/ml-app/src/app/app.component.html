@@ -1,19 +1,6 @@
-<div class="flex flex-col h-screen w-screen font-sans">
+<div class="flex flex-col h-screen w-screen">
   <header>
-    <ml-navbar>
-      <ml-navbar-brand [routerLink]="'home'" [routerLinkActive]="'active'" class="cursor-pointer">My Brand</ml-navbar-brand>
-      <ml-navbar-nav>
-        <ml-nav-item [routerLink]="'music'" [routerLinkActive]="'active'">Music</ml-nav-item>
-        <ml-nav-item [routerLink]="'podcast'" [routerLinkActive]="'active'">Podcasts</ml-nav-item>
-        <ml-nav-item [routerLink]="'television'" [routerLinkActive]="'active'">Television</ml-nav-item>
-        <ml-nav-item [routerLink]="'playlist'" [routerLinkActive]="'active'">Playlists</ml-nav-item>
-        <ml-nav-item [routerLink]="'player'" [routerLinkActive]="'active'">Player</ml-nav-item>
-      </ml-navbar-nav>
-      <ml-navbar-controls>
-        <ml-search (search)="handleSearch($event)"></ml-search>
-        <ml-navbar-icon [routerLink]="'settings'" [routerLinkActive]="'active'" [iconName]="'gear'"></ml-navbar-icon>
-      </ml-navbar-controls>
-    </ml-navbar>
+    <app-navbar></app-navbar>
   </header>
   <main class="grow"><router-outlet></router-outlet></main>
   <footer class="flex items-center justify-center h-footer bg-light text-dark dark:bg-dark dark:text-light">&copy; {{year}} - Kendall O. Williams</footer>

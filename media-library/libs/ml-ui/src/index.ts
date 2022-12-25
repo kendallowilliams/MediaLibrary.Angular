@@ -26,6 +26,12 @@ export * from './lib/content/search-results/search-results.component';
 
 /** Services */
 export * from './lib/services/fa-icon/fa-icon.service';
+export * from './lib/services/device/device.service';
+export * from './lib/services/loading/loading.service';
+export * from './lib/services/message-box/message-box.service';
+export * from './lib/services/theme/theme.service';
+export * from './lib/navbar/services/navbar.service';
+export * from './lib/navbar/services/navbar-menu.service';
 
 /** Card */
 export * from './lib/controls/card/card.module';
