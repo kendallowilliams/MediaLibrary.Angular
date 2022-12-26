@@ -3,7 +3,7 @@
     <ml-navbar-brand [routerLink]="'home'" [routerLinkActive]="'active'" class="cursor-pointer">My Brand</ml-navbar-brand>
     <div class="grow overflow-hidden">
       <ml-navbar-nav *ngIf="!isMobile" mlUpdateIfLargerThanParent [observeParentResize]="!isMobile" (targetCallback)="handleNavHidden($event)"
-        [updateTarget]="'callback'" [ignoreHeight]="true" [ngClass]="{ 'hidden': (navHidden$ | async) }">
+        [updateTarget]="'callback'" [ignoreHeight]="true" [ngClass]="{ 'hidden': navHidden$ | async }">
         <ml-nav-item [routerLink]="'music'" [routerLinkActive]="'active'">Music</ml-nav-item>
         <ml-nav-item [routerLink]="'podcast'" [routerLinkActive]="'active'">Podcasts</ml-nav-item>
         <ml-nav-item [routerLink]="'television'" [routerLinkActive]="'active'">Television</ml-nav-item>
@@ -28,7 +28,3 @@
     </ml-navbar-nav>
   </ml-navbar-menu>
 </ml-navbar>
-
-<ng-template #nav>
-  <ng-content select="ml-navbar-nav"></ng-content>
-</ng-template>
