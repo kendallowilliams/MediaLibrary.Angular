@@ -57,3 +57,7 @@ export * from './lib/modal/modal-footer/modal-footer.component';
 /** Message Box */
 export * from './lib/controls/message-box/message-box.component';
 export * from './lib/services/message-box/message-box.service';
+
+/** Directives */
+export * from './lib/directives/update-if-larger-than-parent/update-if-larger-than-parent.directive';
+export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.directive';

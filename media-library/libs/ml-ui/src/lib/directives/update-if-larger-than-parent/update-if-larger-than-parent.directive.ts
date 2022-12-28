@@ -7,10 +7,11 @@ type Dimensions = {
   offsetHeight: number 
 };
 
-type UpdateTarget = 'class' | 'attribute' | 'callback' | 'style';
+type UpdateTarget = 'class' | 'attribute' | 'style';
 
 @Directive({
-  selector: '[mlUpdateIfLargerThanParent]'
+  selector: '[mlUpdateIfLargerThanParent]',
+  standalone: true
 })
 export class UpdateIfLargerThanParentDirective implements OnInit, OnDestroy {
   @Input() public ignoreHeight = false;
@@ -20,7 +21,7 @@ export class UpdateIfLargerThanParentDirective implements OnInit, OnDestroy {
   @Input() public targetName?: string | undefined = undefined;
   @Input() public targetValue?: string | ((isLarger: boolean)  => void) | undefined = undefined;
 
-  @Output() public targetCallback = new EventEmitter<boolean>;
+  @Output() public updateCallback = new EventEmitter<boolean>;
 
   private _parent!: HTMLElement;
   private _resizeObserver?: ResizeObserver;
@@ -43,6 +44,7 @@ export class UpdateIfLargerThanParentDirective implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this._resizeObserver?.disconnect();
+    this.updateCallback.unsubscribe();
   }
 
   private _handleResize(/*entries: ResizeObserverEntry[], observer: ResizeObserver*/) : void {
@@ -100,13 +102,11 @@ export class UpdateIfLargerThanParentDirective implements OnInit, OnDestroy {
       case 'style':
         this._toggleStyle(isLarger);
         break;
-      case 'callback':
-        this.targetCallback.emit(isLarger);
-        break;
       default:
         console.warn('UpdateIfLargerThanParentDirective: invalid "updateTarget"');
         break;
     }
+    this.updateCallback.emit(isLarger);
   }
 
   private _toggleStyle(isLarger: boolean) {

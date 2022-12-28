@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  NgZone,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class AppNavbarComponent implements OnInit {
   protected navHidden$?: Observable<boolean>;
 
   constructor(private _navbarService: NavbarService, private _deviceService: DeviceService, private _router: Router,
-    private _cd: ChangeDetectorRef, private _navbarMenuService: NavbarMenuService) {
+    private _cd: ChangeDetectorRef, private _navbarMenuService: NavbarMenuService, private _ngZone: NgZone) {
     this.isMobile = this._deviceService.isMobile();
   }
 

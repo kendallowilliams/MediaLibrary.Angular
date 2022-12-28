@@ -2,8 +2,7 @@
   <nav class="flex items-stretch px-[20px] gap-[20px] h-full bg-inherit text-inherit">
     <ml-navbar-brand [routerLink]="'home'" [routerLinkActive]="'active'" class="cursor-pointer">My Brand</ml-navbar-brand>
     <div class="grow overflow-hidden">
-      <ml-navbar-nav *ngIf="!isMobile" mlUpdateIfLargerThanParent [observeParentResize]="!isMobile" (targetCallback)="handleNavHidden($event)"
-        [updateTarget]="'callback'" [ignoreHeight]="true" [ngClass]="{ 'hidden': navHidden$ | async }">
+      <ml-navbar-nav *ngIf="!isMobile" mlAutoHideNavbarLinks [ngClass]="{ 'hidden': navHidden$ | async }">
         <ml-nav-item [routerLink]="'music'" [routerLinkActive]="'active'">Music</ml-nav-item>
         <ml-nav-item [routerLink]="'podcast'" [routerLinkActive]="'active'">Podcasts</ml-nav-item>
         <ml-nav-item [routerLink]="'television'" [routerLinkActive]="'active'">Television</ml-nav-item>

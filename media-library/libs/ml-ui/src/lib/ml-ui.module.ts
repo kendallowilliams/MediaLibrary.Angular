@@ -54,7 +54,7 @@ import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-l
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
-    HideIfNavLinksHiddenDirective,
+    HideIfNavLinksHiddenDirective
   ],
   exports: [
     NavbarComponent,
@@ -80,7 +80,7 @@ import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-l
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
-    HideIfNavLinksHiddenDirective,
+    HideIfNavLinksHiddenDirective
   ],
 })
 export class MlUiModule {}

@@ -1,13 +1,13 @@
 import { Meta, moduleMetadata, Story } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { UpdateIfLargerThanParentDirective } from './update-if-larger-than-parent.directive';
-import { MlUtilityModule } from '../../ml-utility.module';
+import { MlUiModule } from '../../ml-ui.module';
 
 export default {
   component: UpdateIfLargerThanParentDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MlUtilityModule],
+      imports: [CommonModule, MlUiModule],
     })
   ],
   argTypes: {
