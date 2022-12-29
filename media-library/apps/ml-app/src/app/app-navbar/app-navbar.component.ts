@@ -31,7 +31,7 @@ export class AppNavbarComponent implements OnInit {
 
   protected handleNavHidden(isHidden: boolean) : void {
     this._navbarService.getNavbarNavHidden$().next(isHidden);
-    this._navbarMenuService.getMenuOpen$().next(false);
+    this._navbarService.getNavbarMenuOpen$().next(false);
     this._cd.detectChanges();
   }
 }

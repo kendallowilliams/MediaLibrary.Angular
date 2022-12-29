@@ -27,6 +27,7 @@ export class AutoHideNavbarLinksDirective implements OnDestroy {
   private _handleUpdate(hidden: boolean) : void {
     this._ngZone.run(() => {
       this._navbarService.getNavbarNavHidden$().next(hidden);
+      this._navbarService.getNavbarMenuOpen$().next(false);
     });
   }
 }

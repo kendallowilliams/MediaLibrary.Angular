@@ -8,8 +8,9 @@ import {
   OnInit
 } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { Subscription } from 'rxjs';
 import { FaIconService } from '../../services/fa-icon/fa-icon.service';
-import { NavbarMenuService } from '../services/navbar-menu.service';
+import { NavbarService } from '../services/navbar.service';
 
 @Component({
   selector: 'ml-navbar-toggler',
@@ -20,28 +21,24 @@ import { NavbarMenuService } from '../services/navbar-menu.service';
 export class NavbarTogglerComponent implements OnInit {
   @HostBinding('class') private _class = 'block';
 
-  private _menuOpen = false;
+  private _subscription?: Subscription;
   protected faIcon?: IconDefinition;
 
-  constructor(private _faIconService: FaIconService, private _cd: ChangeDetectorRef, private _navbarMenuService: NavbarMenuService) {
+  constructor(private _faIconService: FaIconService, private _cd: ChangeDetectorRef, private _navbarService: NavbarService) {
   }
 
   public ngOnInit(): void {
-    this._navbarMenuService.getMenuOpen$().subscribe(menuOpen => {
-      this._menuOpen = menuOpen;
-      this._setIcon();
-    });
-    this._navbarMenuService.getMenuOpen$().next(false);
+    this._subscription = this._navbarService.getNavbarMenuOpen$().subscribe(() => this._setIcon());
   }
 
   @HostListener('click', ['$event'])
   private _handleClick(event: MouseEvent) : void {
     event.stopPropagation();
-    this._navbarMenuService.getMenuOpen$().next(!this._menuOpen);
+    this._navbarService.getNavbarMenuOpen$().next(!this._navbarService.getNavbarMenuOpen$().value);
   }
 
   private _setIcon() : void {
-    if (this._menuOpen) {
+    if (this._navbarService.getNavbarMenuOpen$().value) {
       this.faIcon = this._faIconService.getIconDefinition('fas', 'times');
     } else {
       this.faIcon = this._faIconService.getIconDefinition('fas', 'bars');
