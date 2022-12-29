@@ -73,7 +73,7 @@ export class UpdateIfLargerThanParentDirective implements OnInit, OnDestroy {
         (this._previousDimensions?.offsetWidth || 0) !== dimensions.offsetWidth,
       isLarger = isTaller || isWider;
 
-    if (heightChangeValid || widthChangeValid) {
+    if ((!this.ignoreHeight && heightChangeValid) || (!this.ignoreWidth && widthChangeValid)) {
       this._previousDimensions = dimensions;
       if (this._isLarger !== isLarger) {
         this._updateHost(isLarger);
