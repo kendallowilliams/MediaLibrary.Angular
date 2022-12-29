@@ -18,8 +18,8 @@ import { NavbarMenuComponent } from '../navbar-menu/navbar-menu.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarNavComponent implements OnInit {
-  private _defaultClasses = `flex flex-col px-[20px]
-    data-[menu=false]:flex-row data-[menu=false]:items-stretch data-[menu=false]:h-full`;
+  private _defaultClasses = `flex data-[in-menu=false]:flex-row
+    data-[in-menu=true]:flex-col data-[in-menu=false]:h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
 
   constructor(private _host: ElementRef<HTMLElement>, private _renderer: Renderer2, @SkipSelf() @Optional() private _navbarMenu?: NavbarMenuComponent) {}
@@ -27,6 +27,6 @@ export class NavbarNavComponent implements OnInit {
   public ngOnInit() : void {
     const menuFound = !!this._navbarMenu;
     
-    this._renderer.setAttribute(this._host.nativeElement, 'data-menu', menuFound.toString());
+    this._renderer.setAttribute(this._host.nativeElement, 'data-in-menu', menuFound.toString());
   }
 }
