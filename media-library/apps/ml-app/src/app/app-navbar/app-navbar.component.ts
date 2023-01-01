@@ -1,11 +1,9 @@
 import {
-  ChangeDetectorRef,
   Component,
-  NgZone,
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { DeviceService, NavbarMenuService, NavbarService } from '@media-library/ml-ui';
+import { DeviceService, NavbarService } from '@media-library/ml-ui';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,8 +14,7 @@ export class AppNavbarComponent implements OnInit {
   protected isMobile = false;
   protected navHidden$?: Observable<boolean>;
 
-  constructor(private _navbarService: NavbarService, private _deviceService: DeviceService, private _router: Router,
-    private _cd: ChangeDetectorRef, private _navbarMenuService: NavbarMenuService, private _ngZone: NgZone) {
+  constructor(private _navbarService: NavbarService, private _deviceService: DeviceService, private _router: Router) {
     this.isMobile = this._deviceService.isMobile();
   }
 
@@ -32,6 +29,5 @@ export class AppNavbarComponent implements OnInit {
   protected handleNavHidden(isHidden: boolean) : void {
     this._navbarService.getNavbarNavHidden$().next(isHidden);
     this._navbarService.getNavbarMenuOpen$().next(false);
-    this._cd.detectChanges();
   }
 }
