@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MusicConfiguration, Album, Artist, Track, MusicService } from '@media-library/ml-data';
 import { LoadingService, MessageBoxService } from '@media-library/ml-ui';
 import { BehaviorSubject, zip } from 'rxjs';
@@ -7,6 +7,7 @@ import { BehaviorSubject, zip } from 'rxjs';
   selector: 'app-music',
   templateUrl: './app-music.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMusicComponent implements OnInit, OnDestroy {
   private _defaultClasses = 'block w-full h-full p-[20px]';

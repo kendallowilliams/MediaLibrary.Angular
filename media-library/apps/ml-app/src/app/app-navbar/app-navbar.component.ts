@@ -1,6 +1,8 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeviceService, NavbarService } from '@media-library/ml-ui';
@@ -8,7 +10,9 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './app-navbar.component.html'
+  templateUrl: './app-navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class AppNavbarComponent implements OnInit {
   protected isMobile = false;

@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { PlayerConfiguration, PlayerService } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-player',
   templateUrl: './app-player.component.html',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppPlayerComponent implements OnInit {
   private _configuration?: PlayerConfiguration;
