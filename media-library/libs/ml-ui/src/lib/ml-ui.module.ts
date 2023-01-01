@@ -9,27 +9,18 @@ import { NavbarMenuComponent } from './navbar/navbar-menu/navbar-menu.component'
 import { NavItemComponent } from './navbar/navbar-nav/nav-item/nav-item.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SwitchComponent } from './controls/switch/switch.component';
-import { HomeComponent } from './content/home/home.component';
-import { MusicComponent } from './content/music/music.component';
-import { PodcastComponent } from './content/podcast/podcast.component';
-import { TelevisionComponent } from './content/television/television.component';
-import { PlaylistComponent } from './content/playlist/playlist.component';
-import { PlayerComponent } from './content/player/player.component';
-import { SearchResultsComponent } from './content/search-results/search-results.component';
 import { CheckboxDirective } from './controls/checkbox/checkbox.directive';
 import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar-icon.component';
-import { SettingsComponent } from './content/settings/settings.component';
-import { CardModule } from './controls/card/card.module';
 import { LoadingComponent } from './controls/loading/loading.component';
 import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.directive';
-import { ModalModule } from './modal/modal.module';
 import { MessageBoxComponent } from './controls/message-box/message-box.component';
 import { ButtonDirective } from './controls/button/button.directive';
 import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
 import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-links-hidden/hide-if-nav-links-hidden.directive';
+import { ModalModule } from './modal/modal.module';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, CardModule, ModalModule],
+  imports: [CommonModule, FontAwesomeModule, ModalModule],
   declarations: [
     NavbarComponent,
     NavbarBrandComponent,
@@ -39,16 +30,8 @@ import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-l
     NavbarMenuComponent,
     NavItemComponent,
     SwitchComponent,
-    HomeComponent,
-    MusicComponent,
-    PodcastComponent,
-    TelevisionComponent,
-    PlaylistComponent,
-    PlayerComponent,
-    SearchResultsComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    SettingsComponent,
     LoadingComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
@@ -65,16 +48,8 @@ import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-l
     NavbarMenuComponent,
     NavItemComponent,
     SwitchComponent,
-    HomeComponent,
-    MusicComponent,
-    PodcastComponent,
-    TelevisionComponent,
-    PlaylistComponent,
-    PlayerComponent,
-    SearchResultsComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    SettingsComponent,
     LoadingComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
