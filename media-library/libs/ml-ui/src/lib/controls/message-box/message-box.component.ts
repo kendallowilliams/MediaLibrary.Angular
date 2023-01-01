@@ -34,7 +34,7 @@ export class MessageBoxComponent implements AfterViewInit {
   public ngAfterViewInit(): void {
     this._messageBoxService.getModalOpen$().subscribe(open => {
       if (open) {
-        this._modal.show();
+        this._modal.showModal();
       } else {
         this._modal.hide();
       }

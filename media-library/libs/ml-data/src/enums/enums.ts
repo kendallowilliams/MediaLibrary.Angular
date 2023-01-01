@@ -1,67 +1,67 @@
-﻿export const enum SongSort {
+﻿export enum SongSort {
     AtoZ = 0,
     Album,
     Artist,
     DateAdded,
     Genre
 }
-export const enum ArtistSort {
+export enum ArtistSort {
     AtoZ = 0
 }
-export const enum AlbumSort {
+export enum AlbumSort {
     AtoZ = 0
 }
-export const enum SeriesSort {
+export enum SeriesSort {
     AtoZ = 0
 }
-export const enum PodcastSort {
+export enum PodcastSort {
     LastUpdateDate = 0,
     AtoZ,
     DateAdded
 }
-export const enum PodcastFilter {
+export enum PodcastFilter {
     All = 0,
     Downloaded,
     Unplayed
 }
-export const enum PlaylistSort {
+export enum PlaylistSort {
     AtoZ = 0,
     DateAdded
 }
-export const enum MusicTabs {
+export enum MusicTabs {
     Albums = 0,
     Artists,
     Songs
 }
-export const enum MusicPages {
+export enum MusicPages {
     Index = 0,
     Album,
     Artist,
     Search
 }
-export const enum PlayerPages {
+export enum PlayerPages {
     Index = 0,
     Audio,
     Video
 }
-export const enum PlaylistPages {
+export enum PlaylistPages {
     Index = 0,
     Playlist
 }
-export const enum PlaylistTabs {
+export enum PlaylistTabs {
     Music = 0,
     Podcast,
     Television
 }
-export const enum PodcastPages {
+export enum PodcastPages {
     Index = 0,
     Podcast
 }
-export const enum TelevisionPages {
+export enum TelevisionPages {
     Index = 0,
     Series
 }
-export const enum MediaPages {
+export enum MediaPages {
     Home = 0,
     Music,
     Playlist,
@@ -69,23 +69,23 @@ export const enum MediaPages {
     Player,
     Television
 }
-export const enum MediaTypes {
+export enum MediaTypes {
     Song,
     Podcast,
     Television
 }
-export const enum RepeatTypes {
+export enum RepeatTypes {
     None = 0,
     RepeatOne,
     RepeatAll
 }
 
-export const enum AppWidth {
+export enum AppWidth {
     Normal = 0,
     Wide
 }
 
-export const enum MessageBoxConfirmType {
+export enum MessageBoxConfirmType {
     OkCancel = 0,
     YesNo,
     YesNoCancel,

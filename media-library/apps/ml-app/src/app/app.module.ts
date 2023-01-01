@@ -20,6 +20,9 @@ import { AppPodcastComponent } from './app-podcast/app-podcast.component';
 import { AppSearchComponent } from './app-search/app-search.component';
 import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { AppTelevisionComponent } from './app-television/app-television.component';
+import { AppAlbumComponent } from './app-music/app-album/app-album.component';
+import { AppArtistComponent } from './app-music/app-artist/app-artist.component';
+import { AppSongComponent } from './app-music/app-song/app-song.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { AppTelevisionComponent } from './app-television/app-television.componen
     AppSearchComponent,
     AppSettingsComponent,
     AppTelevisionComponent,
+    AppAlbumComponent,
+    AppArtistComponent,
+    AppSongComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +49,7 @@ import { AppTelevisionComponent } from './app-television/app-television.componen
     UpdateIfLargerThanParentDirective,
     AutoHideNavbarLinksDirective,
     CardModule,
-    ModalModule
+    ModalModule,
   ],
   exports: [],
   providers: [],

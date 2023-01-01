@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { MusicConfiguration, Album, Artist, Track, MusicService } from '@media-library/ml-data';
-import { LoadingService, MessageBoxService } from '@media-library/ml-ui';
-import { BehaviorSubject, zip } from 'rxjs';
+import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MusicConfiguration, Album, Artist, Track, MusicService, MusicTabs } from '@media-library/ml-data';
+import { LoadingService, MessageBoxService, ModalComponent } from '@media-library/ml-ui';
+import { BehaviorSubject, Subject, zip } from 'rxjs';
 
 @Component({
   selector: 'app-music',
@@ -9,20 +9,31 @@ import { BehaviorSubject, zip } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppMusicComponent implements OnInit, OnDestroy {
+export class AppMusicComponent implements OnInit, OnDestroy, AfterViewInit {
   private _defaultClasses = 'block w-full h-full p-[20px]';
   @HostBinding('class') private _class = this._defaultClasses;
+  @ViewChild('musicModal') protected musicModal!: ModalComponent;
+
   private _configuration!: MusicConfiguration;
 
+  protected selectedItemType$: Subject<MusicTabs | undefined>;
+  protected selectedItemId$: Subject<number | undefined>;
   protected albums$ = new BehaviorSubject<Album[]>([]);
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
+  protected musicTabsEnum = MusicTabs;
 
   constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService) {
+    this.selectedItemType$ = new Subject<MusicTabs | undefined>();
+    this.selectedItemId$ = new Subject<number | undefined>();
   }
   
   public ngOnInit(): void {
     this._loadData();
+  }
+
+  public ngAfterViewInit(): void {
+    this.musicModal
   }
 
   public ngOnDestroy(): void {
@@ -54,5 +65,17 @@ export class AppMusicComponent implements OnInit, OnDestroy {
     const albums = this.albums$.getValue();
 
     return albums.filter(a => a.artistId === artistId);
+  }
+
+  protected expandAlbum(id: number) : void {
+    this.selectedItemType$.next(MusicTabs.Albums);
+    this.selectedItemId$.next(id);
+    this.musicModal.showModal();
+  }
+
+  protected closeModal() : void {
+    this.selectedItemType$.next(undefined);
+    this.selectedItemId$.next(undefined);
+    this.musicModal.hide();
   }
 }

@@ -2,7 +2,7 @@
 <div class="flex gap-[20px] overflow-auto p-[5px]">
   <ml-card *ngFor="let album of albums$ | async">
     <ml-card-header>
-      <ml-card-title>{{album.title}}</ml-card-title>
+      <ml-card-title>{{album.title}} <button mlButton (click)="expandAlbum(album.id)">Expand</button></ml-card-title>
       <ml-card-subtitle>
         <ng-container *ngIf="artists$ | async as artists">
           {{getArtist(artists, album.artistId)?.name}}
@@ -28,3 +28,23 @@
     <ml-card-footer></ml-card-footer>
   </ml-card>
 </div>
+<ml-modal #musicModal>
+  <ml-modal-header>
+    <ng-container [ngSwitch]="selectedItemType$ | async">
+      <div *ngSwitchCase="musicTabsEnum.Albums">Albums</div>
+      <div *ngSwitchCase="musicTabsEnum.Artists">Artists</div>
+      <div *ngSwitchCase="musicTabsEnum.Songs">Songs</div>
+      <div *ngSwitchDefault>Something went wrong!</div>
+      <button mlButton (click)="closeModal()">Close</button>
+    </ng-container>
+  </ml-modal-header>
+  <ml-modal-body>
+    <ng-container [ngSwitch]="selectedItemType$ | async">
+      <app-album *ngSwitchCase="musicTabsEnum.Albums" [id]="selectedItemId$ | async"></app-album>
+      <app-artist *ngSwitchCase="musicTabsEnum.Artists" [id]="selectedItemId$ | async"></app-artist>
+      <app-song *ngSwitchCase="musicTabsEnum.Songs" [id]="selectedItemId$ | async"></app-song>
+      <div *ngSwitchDefault>Something went wrong!</div>
+    </ng-container>
+  </ml-modal-body>
+  <ml-modal-footer></ml-modal-footer>
+</ml-modal>
