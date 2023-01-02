@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { MusicConfiguration, Album, Artist, Track, MusicService, MusicTabs } from '@media-library/ml-data';
-import { LoadingService, MessageBoxService, ModalComponent } from '@media-library/ml-ui';
-import { BehaviorSubject, zip } from 'rxjs';
+import { FaIconService, LoadingService, MessageBoxService, ModalComponent } from '@media-library/ml-ui';
+import { BehaviorSubject, Observable, zip } from 'rxjs';
 
 @Component({
   selector: 'app-music',
@@ -24,12 +25,17 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
   protected musicTabsEnum = MusicTabs;
+  protected isLoading$: Observable<boolean>;
+  protected expandIcon?: IconDefinition;
 
-  constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService) {
+  constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService,
+    private _faIconService: FaIconService) {
     this.selectedItemType$ = new BehaviorSubject<MusicTabs | undefined>(undefined);
     this.selectedArtist$ = new BehaviorSubject<Artist | undefined>(undefined);
     this.selectedAlbum$ = new BehaviorSubject<Album | undefined>(undefined);
     this.selectedTrack$ = new BehaviorSubject<Track | undefined>(undefined);
+    this.isLoading$ = this._loadingService.getLoading$().asObservable();
+    this.expandIcon = this._faIconService.getIconDefinition('fas', 'expand');
   }
   
   public ngOnInit(): void {
@@ -37,7 +43,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.albums$.unsubscribe();
+    this.artists$.unsubscribe();
     this.artists$.unsubscribe();
     this.tracks$.unsubscribe();
   }
@@ -83,6 +89,29 @@ export class AppMusicComponent implements OnInit, OnDestroy {
           .subscribe(album => {
             if (album) {
               success(album);
+            } else {
+              console.warn(`Album [Id: ${id}] not found.`);
+            }
+          });
+      }
+  }
+
+  protected expandArtist(id: number) : void {
+    const artists = this.artists$.getValue() ?? [],
+      artist = artists.find(a => a.id === id),
+      success = (_artist: Artist) => {
+        this.selectedItemType$.next(MusicTabs.Artists);
+        this.selectedArtist$.next(_artist);
+        this.musicModal.showModal();
+      };
+
+      if (artist) {
+        success(artist);
+      } else {
+        this._musicService.getArtist(id)
+          .subscribe(artist => {
+            if (artist) {
+              success(artist);
             } else {
               console.warn(`Album [Id: ${id}] not found.`);
             }

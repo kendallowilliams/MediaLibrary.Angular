@@ -23,6 +23,7 @@ import { AppTelevisionComponent } from './app-television/app-television.componen
 import { AppAlbumComponent } from './app-music/app-album/app-album.component';
 import { AppArtistComponent } from './app-music/app-artist/app-artist.component';
 import { AppSongComponent } from './app-music/app-song/app-song.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { AppSongComponent } from './app-music/app-song/app-song.component';
     AutoHideNavbarLinksDirective,
     CardModule,
     ModalModule,
+    FontAwesomeModule
   ],
   exports: [],
   providers: [],
