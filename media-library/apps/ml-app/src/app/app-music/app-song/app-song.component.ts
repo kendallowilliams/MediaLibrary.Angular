@@ -4,6 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
+import { Track } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-song',
@@ -12,5 +13,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSongComponent {
-  @Input() public id?: number | null;
+  @Input() public track?: Track | null;
 }

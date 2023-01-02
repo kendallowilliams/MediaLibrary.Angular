@@ -1,7 +1,7 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MusicConfiguration, Album, Artist, Track, MusicService, MusicTabs } from '@media-library/ml-data';
 import { LoadingService, MessageBoxService, ModalComponent } from '@media-library/ml-ui';
-import { BehaviorSubject, Subject, zip } from 'rxjs';
+import { BehaviorSubject, zip } from 'rxjs';
 
 @Component({
   selector: 'app-music',
@@ -9,31 +9,31 @@ import { BehaviorSubject, Subject, zip } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppMusicComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AppMusicComponent implements OnInit, OnDestroy {
   private _defaultClasses = 'block w-full h-full p-[20px]';
   @HostBinding('class') private _class = this._defaultClasses;
   @ViewChild('musicModal') protected musicModal!: ModalComponent;
 
   private _configuration!: MusicConfiguration;
 
-  protected selectedItemType$: Subject<MusicTabs | undefined>;
-  protected selectedItemId$: Subject<number | undefined>;
+  protected selectedItemType$: BehaviorSubject<MusicTabs | undefined>;
+  protected selectedAlbum$: BehaviorSubject<Album | undefined>;
+  protected selectedArtist$: BehaviorSubject<Artist | undefined>;
+  protected selectedTrack$: BehaviorSubject<Track | undefined>;
   protected albums$ = new BehaviorSubject<Album[]>([]);
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
   protected musicTabsEnum = MusicTabs;
 
   constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService) {
-    this.selectedItemType$ = new Subject<MusicTabs | undefined>();
-    this.selectedItemId$ = new Subject<number | undefined>();
+    this.selectedItemType$ = new BehaviorSubject<MusicTabs | undefined>(undefined);
+    this.selectedArtist$ = new BehaviorSubject<Artist | undefined>(undefined);
+    this.selectedAlbum$ = new BehaviorSubject<Album | undefined>(undefined);
+    this.selectedTrack$ = new BehaviorSubject<Track | undefined>(undefined);
   }
   
   public ngOnInit(): void {
     this._loadData();
-  }
-
-  public ngAfterViewInit(): void {
-    this.musicModal
   }
 
   public ngOnDestroy(): void {
@@ -68,14 +68,33 @@ export class AppMusicComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   protected expandAlbum(id: number) : void {
-    this.selectedItemType$.next(MusicTabs.Albums);
-    this.selectedItemId$.next(id);
-    this.musicModal.showModal();
+    const albums = this.albums$.getValue() ?? [],
+      album = albums.find(a => a.id === id),
+      success = (_album: Album) => {
+        this.selectedItemType$.next(MusicTabs.Albums);
+        this.selectedAlbum$.next(_album);
+        this.musicModal.showModal();
+      };
+
+      if (album) {
+        success(album);
+      } else {
+        this._musicService.getAlbum(id)
+          .subscribe(album => {
+            if (album) {
+              success(album);
+            } else {
+              console.warn(`Album [Id: ${id}] not found.`);
+            }
+          });
+      }
   }
 
   protected closeModal() : void {
     this.selectedItemType$.next(undefined);
-    this.selectedItemId$.next(undefined);
+    this.selectedAlbum$.next(undefined);
+    this.selectedArtist$.next(undefined);
+    this.selectedTrack$.next(undefined);
     this.musicModal.hide();
   }
 }

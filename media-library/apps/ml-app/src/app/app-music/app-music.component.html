@@ -40,9 +40,9 @@
   </ml-modal-header>
   <ml-modal-body>
     <ng-container [ngSwitch]="selectedItemType$ | async">
-      <app-album *ngSwitchCase="musicTabsEnum.Albums" [id]="selectedItemId$ | async"></app-album>
-      <app-artist *ngSwitchCase="musicTabsEnum.Artists" [id]="selectedItemId$ | async"></app-artist>
-      <app-song *ngSwitchCase="musicTabsEnum.Songs" [id]="selectedItemId$ | async"></app-song>
+      <app-album *ngSwitchCase="musicTabsEnum.Albums" [album]="selectedAlbum$ | async"></app-album>
+      <app-artist *ngSwitchCase="musicTabsEnum.Artists" [artist]="selectedArtist$ | async"></app-artist>
+      <app-song *ngSwitchCase="musicTabsEnum.Songs" [track]="selectedTrack$ | async"></app-song>
       <div *ngSwitchDefault>Something went wrong!</div>
     </ng-container>
   </ml-modal-body>

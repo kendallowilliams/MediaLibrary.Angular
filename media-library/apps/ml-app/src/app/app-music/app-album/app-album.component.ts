@@ -4,6 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
+import { Album, MusicService } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-album',
@@ -12,5 +13,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppAlbumComponent {
-  @Input() public id?: number | null;
+  @Input() public album?: Album | null;
+
+  constructor(private _musicService: MusicService) {
+  }
 }

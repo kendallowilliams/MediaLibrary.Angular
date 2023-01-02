@@ -26,9 +26,21 @@ namespace MediaLibrary.API.Controllers
         public async Task<IEnumerable<Album>> Albums() => await musicService.GetAlbums();
 
         [HttpGet]
+        [Route("{id:int}")]
+        public async Task<Album> Album(int id) => await musicService.GetAlbum(id);
+
+        [HttpGet]
         public async Task<IEnumerable<Artist>> Artists() => await musicService.GetArtists();
 
         [HttpGet]
+        [Route("{id:int}")]
+        public async Task<Artist> Artist(int id) => await musicService.GetArtist(id);
+
+        [HttpGet]
         public async Task<IEnumerable<Track>> Tracks() => await musicService.GetTracks();
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<Track> Track(int id) => await musicService.GetTrack(id);
     }
 }

@@ -29,11 +29,23 @@ export class MusicService extends BaseService {
     return this.get<Album[]>(this._controller, 'Albums');
   }
 
+  public getAlbum(id: number): Observable<Album> {
+    return this.get<Album>(this._controller, `Album/${id}`);
+  }
+
   public getArtists(): Observable<Artist[]> {
     return this.get<Artist[]>(this._controller, 'Artists');
   }
 
+  public getArtist(id: number): Observable<Artist> {
+    return this.get<Artist>(this._controller, `Artist/${id}`);
+  }
+
   public getTracks(): Observable<Track[]> {
     return this.get<Track[]>(this._controller, 'Tracks');
+  }
+
+  public getTrack(id: number): Observable<Track> {
+    return this.get<Track>(this._controller, `Track/${id}`);
   }
 }

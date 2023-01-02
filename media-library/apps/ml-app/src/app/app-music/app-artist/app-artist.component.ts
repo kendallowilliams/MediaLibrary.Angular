@@ -4,6 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
+import { Artist } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-artist',
@@ -12,5 +13,5 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppArtistComponent {
-  @Input() public id?: number | null;
+  @Input() public artist?: Artist | null;
 }
