@@ -25,6 +25,7 @@ export class MusicService extends BaseService {
     return this.updateBaseConfiguration<MusicConfiguration>(this._controller, configuration);
   }
 
+  /** Album */
   public getAlbums(): Observable<Album[]> {
     return this.get<Album[]>(this._controller, 'Albums');
   }
@@ -33,19 +34,25 @@ export class MusicService extends BaseService {
     return this.get<Album>(this._controller, `Album/${id}`);
   }
 
+
+  /** Artist */
   public getArtists(): Observable<Artist[]> {
     return this.get<Artist[]>(this._controller, 'Artists');
   }
-
   public getArtist(id: number): Observable<Artist> {
     return this.get<Artist>(this._controller, `Artist/${id}`);
   }
 
+  /** Track */
   public getTracks(): Observable<Track[]> {
     return this.get<Track[]>(this._controller, 'Tracks');
   }
 
   public getTrack(id: number): Observable<Track> {
     return this.get<Track>(this._controller, `Track/${id}`);
+  }
+
+  public getAlbumTracks(albumId: number): Observable<Track[]> {
+    return this.get<Track[]>(this._controller, `TracksByAlbumId/${albumId}`);
   }
 }

@@ -8,10 +8,10 @@ import { Track } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-song',
-  templateUrl: './app-song.component.html',
+  templateUrl: './app-track.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppSongComponent {
+export class AppTrackComponent {
   @Input() public track?: Track | null;
 }

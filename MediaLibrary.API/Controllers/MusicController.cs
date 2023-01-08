@@ -22,25 +22,35 @@ namespace MediaLibrary.API.Controllers
         [HttpPost]
         public async Task Configuration(MusicConfiguration configuration) => await musicService.UpdateConfiguration(configuration);
 
+        #region ALBUM
         [HttpGet]
         public async Task<IEnumerable<Album>> Albums() => await musicService.GetAlbums();
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<Album> Album(int id) => await musicService.GetAlbum(id);
+        #endregion
 
+        #region ARTIST
         [HttpGet]
         public async Task<IEnumerable<Artist>> Artists() => await musicService.GetArtists();
 
         [HttpGet]
         [Route("{id:int}")]
         public async Task<Artist> Artist(int id) => await musicService.GetArtist(id);
+        #endregion
 
+        #region TRACK
         [HttpGet]
         public async Task<IEnumerable<Track>> Tracks() => await musicService.GetTracks();
 
         [HttpGet]
+        [Route("{albumId:int}")]
+        public async Task<IEnumerable<Track>> TracksByAlbumId(int albumId) => await musicService.GetTracksByAlbumId(albumId);
+
+        [HttpGet]
         [Route("{id:int}")]
         public async Task<Track> Track(int id) => await musicService.GetTrack(id);
+        #endregion
     }
 }

@@ -19,6 +19,8 @@ namespace MediaLibrary.API.Services.Interfaces
 
         Task<IEnumerable<Track>> GetTracks(bool reload = false);
 
+        Task<IEnumerable<Track>> GetTracksByAlbumId(int albumId);
+
         Task<Track> GetTrack(int id);
     }
 }

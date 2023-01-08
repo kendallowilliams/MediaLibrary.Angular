@@ -79,6 +79,11 @@ namespace MediaLibrary.API.Services
                 await _dataService.GetList<Track>().ContinueWith(task => _memoryCache.Set(TRACKS_KEY, task.Result));
         }
 
+        public async Task<IEnumerable<Track>> GetTracksByAlbumId(int albumId)
+        {
+            return await _dataService.GetList<Track>(track => track.AlbumId == albumId);
+        }
+
         public async Task<Track> GetTrack(int id)
         {
             return _memoryCache.TryGetValue($"{TRACK_KEY}_{id}", out Track? track) ?
