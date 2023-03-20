@@ -18,6 +18,8 @@ import { ButtonDirective } from './controls/button/button.directive';
 import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
 import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-links-hidden/hide-if-nav-links-hidden.directive';
 import { ModalModule } from './modal/modal.module';
+import { SelectComponent } from './controls/select/select.component';
+import { SelectOptionComponent } from './controls/select/select-option/select-option.component';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ModalModule],
@@ -37,7 +39,9 @@ import { ModalModule } from './modal/modal.module';
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
-    HideIfNavLinksHiddenDirective
+    HideIfNavLinksHiddenDirective,
+    SelectComponent,
+    SelectOptionComponent,
   ],
   exports: [
     NavbarComponent,
@@ -55,7 +59,9 @@ import { ModalModule } from './modal/modal.module';
     MessageBoxComponent,
     ButtonDirective,
     AddIsMobileAttributeDirective,
-    HideIfNavLinksHiddenDirective
+    HideIfNavLinksHiddenDirective,
+    SelectComponent,
+    SelectOptionComponent,
   ],
 })
 export class MlUiModule {}

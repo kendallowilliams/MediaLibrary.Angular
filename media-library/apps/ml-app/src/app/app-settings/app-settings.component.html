@@ -1,1 +1,14 @@
-<p>app-settings works!</p>
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="flex flex-col gap-[5px] w-[200px] mt-[10px] ml-[10px]">
+    <label>Option</label>
+    <ml-select [placeholder]="'Select an option...'" formControlName="option" [valueComparer]="valueComparer"
+      (selectionChange)="handleChange($event)">
+      <ml-select-option [value]="'A'">Option A</ml-select-option>
+      <ml-select-option [value]="'B'">Option B</ml-select-option>
+      <ml-select-option [value]="{test: 1}">Option C</ml-select-option>
+    </ml-select>
+  </div>
+  <br />
+  <br />
+  <input type="submit" value="Submit" />
+</form>

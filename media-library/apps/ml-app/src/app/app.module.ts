@@ -24,6 +24,7 @@ import { AppAlbumComponent } from './app-music/app-album/app-album.component';
 import { AppArtistComponent } from './app-music/app-artist/app-artist.component';
 import { AppTrackComponent } from './app-music/app-track/app-track.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AutoHideNavbarLinksDirective,
     CardModule,
     ModalModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [],
   providers: [],
