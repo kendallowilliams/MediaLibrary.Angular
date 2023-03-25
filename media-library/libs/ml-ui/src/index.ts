@@ -57,3 +57,4 @@ export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.di
 /** Select */
 export * from './lib/controls/select/select.component';
 export * from './lib/controls/select/select-option/select-option.component';
+export * from './lib/controls/select/interfaces/SelectOption.interface';

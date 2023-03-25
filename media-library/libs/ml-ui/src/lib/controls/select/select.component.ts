@@ -8,14 +8,15 @@ import {
   QueryList,
   ViewEncapsulation,
   EventEmitter,
-  forwardRef
+  forwardRef,
+  AfterViewInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop, Observable } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { SelectOptionComponent } from './select-option/select-option.component';
 
-export type SelectValueComparer = (obj1: any, obj2: any) => boolean;
+export type SelectValueComparer<T> = (obj1: T, obj2: T) => boolean;
 
 @Component({
   selector: 'ml-select',
@@ -28,41 +29,60 @@ export type SelectValueComparer = (obj1: any, obj2: any) => boolean;
     multi: true
   }]
 })
-export class SelectComponent implements AfterContentInit, ControlValueAccessor {
+export class SelectComponent<T> implements AfterContentInit, ControlValueAccessor, AfterViewInit {
   /** The text that appears when no select options are present. */
   @Input() public placeholder?: string;
   /** A flag that allows multiple options to be selected. */
   /** TODO: @Input() */ public multiple = false;
   /** A list of all the SelectOptionComponent children  */
   @ContentChildren(SelectOptionComponent, {descendants: true}) 
-  private _selectOptionComponents!: QueryList<SelectOptionComponent>;
+  private _selectOptionComponents!: QueryList<SelectOptionComponent<T>>;
   /** An event that is triggered when the select value changes. */
-  @Output() public selectionChange = new EventEmitter<any | any[]>();
+  @Output() public selectedItemChange = new EventEmitter<SelectOption<T> | null>();
 
   /** A list of all the SelectOption children. */
-  private _selectOptions: SelectOption[] = [];
+  private _selectOptions: SelectOption<T>[] = [];
   /** A flag that is set to true in AfterContentInit after the option children are loaded. */
   private _initialized = false;
   /** Used to create an observable to control the dropdown visibility. */
   private _isDropdownOpen$ = new BehaviorSubject<boolean>(false);
   /** The internal value of the select. */
-  private _value: any | any[];
+  private _value: T | null = null;
+  /** The internal values of the select. */
+  private _values: T[] = [];
   /** An observable that is used to control the dropdown visibility. */
   protected isDropdownOpen$!: Observable<boolean>;
   /** An observable that emits the currently selected option. */
-  protected selectedOption$ = new BehaviorSubject<SelectOption | undefined>(undefined);
-  private _onChange: (_: any) => void = noop;
+  protected selectedItem$ = new BehaviorSubject<SelectOption<T> | null>(null);
+  private _onChange: (_: T | T[] | null) => void = noop;
   private _onTouched: () => void = noop;
-  private _valueComparer: SelectValueComparer = (obj1, obj2) => obj1 === obj2;
+  private _valueComparer: SelectValueComparer<T> = (obj1: T, obj2: T) => obj1 === obj2;
 
   /** A public accessor for the internal value of the select. */
-  public get value(): any | any[] {
+  public get value(): T | null {
     return this._value;
   }
 
+  /** A public setter for the internal value of the select. */
+  public set value(obj: T | null) {
+    this._value = obj;
+    this._onChange(obj);
+  }
+
+  /** A public accessor for the internal value of the select. */
+  public get values(): T[] {
+    return this._values;
+  }
+
+  /** A public setter for the internal value of the select. */
+  public set values(obj: T[]) {
+    this._values = obj;
+    this._onChange(obj);
+  }
+
   /** A public accessor for the currently selected option. */
-  public get selectedOption(): SelectOption | undefined {
-    return this.selectedOption$.getValue();
+  public get selectedItem(): SelectOption<T> | null {
+    return this.selectedItem$.getValue();
   }
 
   /** 
@@ -71,8 +91,8 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
    * Default: (obj1, obj2) => obj1 === obj2
    */
   @Input() 
-  public set valueComparer(fn: SelectValueComparer) {
-    if (fn && typeof fn !== 'function') {
+  public set valueComparer(fn: SelectValueComparer<T>) {
+    if (typeof fn !== 'function') {
       throw Error('valueComparer is not a function.');
     }
 
@@ -84,7 +104,7 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
    * 
    * Default: (obj1, obj2) => obj1 === obj2
    */
-  public get valueComparer(): SelectValueComparer {
+  public get valueComparer(): SelectValueComparer<T> {
     return this._valueComparer;
   }
 
@@ -93,47 +113,55 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
   }
   
   public ngAfterContentInit(): void {
-    this._selectOptionComponents
-      .forEach(optionComponent => {
-        const selectOption = optionComponent as SelectOption;
-        // add option to SelectOption array and subscribe to its click event
-        this._selectOptions.push(selectOption);
-        optionComponent.optionClicked.subscribe(clickedOption => {
-          this._select(clickedOption);
-      });
-      // load initial value from the model after options are initialized
-      if (this._valueComparer(selectOption.value, this.value)) {
-        this.writeValue(selectOption.value);
-      }
-    });
     this._initialized = true; // options have been initialized
   }
 
+  public ngAfterViewInit(): void {
+    this._selectOptionComponents.changes.subscribe(changes => {
+      console.log(changes)
+    });
+    this._refreshItems();
+  }
+
+  private _refreshItems() : void {
+    this._selectOptionComponents
+      .forEach(component => {
+        const selectOption = component as SelectOption<T>;
+        // add option to SelectOption array and subscribe to its click event
+        this._selectOptions.push(selectOption);
+        component.optionClicked.subscribe((item: SelectOption<T>) => {
+          this.writeValue(item.value);
+          this._select(item);
+      });
+      // load initial value from the model after options are initialized
+      if (this.value && this._valueComparer(selectOption.value, this.value)) {
+        this._select(selectOption);
+      }
+    });
+  }
+
   /** This method selects a given select option as selected an updates the select's value */
-  private _select(option: SelectOption): void {
-    if (!this.multiple) {
-      this._unselect(this.selectedOption);
-      this.writeValue(option.value);
-      this._onChange(this.value);
-      this._isDropdownOpen$.next(false);
+  private _select(option: SelectOption<T>): void {
+    if (option) {
+      if (!this.multiple) {
+        if (!option.selected) {
+          this._unselect(this.selectedItem);
+          option.selected = true;
+          this.selectedItem$.next(option);
+        }
+        this._isDropdownOpen$.next(false);
+      }
     }
   }
 
   /** This method unselects a given select option as selected an updates the select's value */
-  private _unselect(option: SelectOption | undefined): void {
-    if (!this.multiple) {
-      if (option && option.selected) {
+  private _unselect(option: SelectOption<T> | null): void {
+    if (option && option.selected) {
+      if (!this.multiple) {
         option.selected = false;
-        if (this.value) {
-          this.writeValue(undefined);
-        }
+        this.selectedItem$.next(null);
       }
     }
-  }
-
-  /** This method unselects all select options and updates the select's value */
-  private _clearSelectedOptions(): void {
-    this._selectOptions.forEach(option => this._unselect(option));
   }
 
   /** This method shows/hides the select dropdown */
@@ -141,23 +169,30 @@ export class SelectComponent implements AfterContentInit, ControlValueAccessor {
     this._isDropdownOpen$.next(!this._isDropdownOpen$.value);
   }
 
-  public writeValue(obj: any): void {
-    const option = this._selectOptions?.find((_option) =>
+  public writeValue(obj: T | null): void {
+    const option = this._selectOptions?.find((_option) => obj &&
       this._valueComparer(_option.value, obj));
 
-    this.selectedOption$.next(option);
-    this._value = obj;
+    if (this.multiple) {
+      this.value = obj;
+    } else {
+      //this.values = obj;
+    }
 
     if (this._initialized) { 
-      this.selectionChange.emit(this.value);
+      this.selectedItemChange.emit(option || null);
+    }
+
+    if (option && !option.selected) {
+      this._select(option);
     }
   }
 
-  public registerOnChange(fn: any): void {
+  public registerOnChange(fn: never): void {
     this._onChange = fn;
   }
 
-  public registerOnTouched(fn: any): void {
+  public registerOnTouched(fn: never): void {
     this._onTouched = fn;
   }
 

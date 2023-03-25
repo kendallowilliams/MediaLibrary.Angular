@@ -16,12 +16,13 @@ import { SelectOption } from '../interfaces/SelectOption.interface';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectOptionComponent implements SelectOption {
+export class SelectOptionComponent<T> implements SelectOption<T> {
   @HostBinding('class') private _class = `block`;
-  @Input() public value: any | any[];
+  @Input() public value!: T;
 
-  public optionClicked = new EventEmitter<SelectOption>();
+  public optionClicked = new EventEmitter<SelectOption<T>>();
   public selected = false;
+  
   public get text() {
     return (this._host.nativeElement.innerText || '').trim();
   }

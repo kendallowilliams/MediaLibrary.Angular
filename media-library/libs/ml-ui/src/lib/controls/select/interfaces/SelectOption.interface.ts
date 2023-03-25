@@ -1,5 +1,5 @@
-export interface SelectOption {
+export interface SelectOption<T> {
   text: string;
-  value: any | any[];
+  value: T;
   selected: boolean;
 }

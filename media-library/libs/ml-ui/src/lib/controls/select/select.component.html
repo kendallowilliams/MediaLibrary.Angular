@@ -2,8 +2,12 @@
   <div>
     <button type="button" class="flex items-center border-dark border-[1px] border-solid
       rounded bg-light dark:bg-dark text-dark dark:text-light w-full" (click)="toggleDropdown()">
-      <div class="grow text-left" [ngClass]="{ 'hidden' : selectedOption$ | async }">{{placeholder}}</div>
-      <div class="grow text-left" *ngIf="selectedOption$ | async as option">{{option.text}}</div>
+      <div class="grow text-left">
+        <ng-container *ngIf="selectedItem$ | async as item; else placeholder">{{item.text}}</ng-container>
+        <ng-template #placeholder>
+          {{placeholder}}
+        </ng-template>
+      </div>
       <fa-icon [icon]="'caret-down'" [ngClass]="{ 'hidden': isDropdownOpen$ | async }"></fa-icon>
       <fa-icon [icon]="'caret-up'" *ngIf="isDropdownOpen$ | async"></fa-icon>
     </button>
