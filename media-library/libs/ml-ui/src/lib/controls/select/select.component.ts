@@ -45,8 +45,6 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   private _initialized = false;
   /** Used to create an observable to control the dropdown visibility. */
   private _isDropdownOpen$ = new BehaviorSubject<boolean>(false);
-  /** The internal value of the select. */
-  private _value: T | null = null;
   /** The internal values of the select. */
   private _values: T[] = [];
   /** An observable that is used to control the dropdown visibility. */
@@ -60,12 +58,12 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
 
   /** A public accessor for the internal value of the select. */
   public get value(): T | null {
-    return this._value;
+    return !this.multiple && this.values.length > 0 ? this._values[0] : null;
   }
 
   /** A public setter for the internal value of the select. */
   public set value(obj: T | null) {
-    this._value = obj;
+    this._values = obj !== null ? [obj] : [];
     this._onChange(obj);
   }
 
@@ -76,8 +74,11 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
 
   /** A public setter for the internal value of the select. */
   public set values(obj: T[]) {
-    this._values = obj;
-    this._onChange(obj);
+    if (obj.length !== this.values.length ||
+      !this.values.every(value => obj.find(newValue => this.valueComparer(value, newValue)))) {
+      this._values = obj;
+      this._onChange(obj);
+    }
   }
 
   /** A public accessor for the currently selected option. */
@@ -139,7 +140,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   }
 
   private _handleOptionClick(option: SelectOption<T>) : void {
-    this.writeValue(option.value);
+    this.writeValue([option.value]);
     this._select(option);
   }
 
@@ -172,23 +173,27 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
     this._isDropdownOpen$.next(!this._isDropdownOpen$.value);
   }
 
-  public writeValue(obj: T | null): void {
-    const option = this._selectOptions?.find((_option) => 
-      obj !== null &&
-      this._valueComparerFn(_option.value, obj));
+  public writeValue(obj: T[]): void {
+    const values = obj,
+      //.filter(value => this._selectOptions.find(option => this._valueComparerFn(option.value, value))),
+      options = this._selectOptions.filter(option => values.find(value => this.valueComparer(option.value, value)));
 
     if (!this.multiple) {
-      this.value = obj;
+      this.value = values.length > 0 ? values[0] : null;
     } else {
-      //this.values = obj;
+      this.values = values;
     }
 
     if (this._initialized) { 
-      this.selectedItemChange.emit(option || null);
-    }
+      if (!this.multiple) {
+        this.selectedItemChange.emit(options[0] || null);
+        if (options.length > 0) {
+          this._select(options[0]);
+        }
+      } else {
+        options.filter(option => !option.selected).forEach(option => this._select(option));
+      }
 
-    if (option && !option.selected) {
-      this._select(option);
     }
   }
 
