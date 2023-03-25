@@ -6,7 +6,8 @@ import {
   HostListener,
   Input,
   ViewEncapsulation,
-  EventEmitter
+  EventEmitter,
+  OnDestroy
 } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
 
@@ -16,7 +17,7 @@ import { SelectOption } from '../interfaces/SelectOption.interface';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectOptionComponent<T> implements SelectOption<T> {
+export class SelectOptionComponent<T> implements SelectOption<T>, OnDestroy {
   @HostBinding('class') private _class = `block`;
   @Input() public value!: T;
 
@@ -28,6 +29,10 @@ export class SelectOptionComponent<T> implements SelectOption<T> {
   }
 
   constructor(private _host: ElementRef<HTMLElement>) {}
+  
+  public ngOnDestroy(): void {
+    this.optionClicked.unsubscribe();
+  }
 
   @HostListener('click')
   private _handleClick() : void {

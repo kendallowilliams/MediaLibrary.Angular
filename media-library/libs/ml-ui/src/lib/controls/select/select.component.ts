@@ -8,11 +8,10 @@ import {
   QueryList,
   ViewEncapsulation,
   EventEmitter,
-  forwardRef,
-  AfterViewInit
+  forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, noop, Observable } from 'rxjs';
+import { BehaviorSubject, noop, Observable, Subscription } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { SelectOptionComponent } from './select-option/select-option.component';
 
@@ -29,7 +28,7 @@ export type SelectValueComparer<T> = (obj1: T, obj2: T) => boolean;
     multi: true
   }]
 })
-export class SelectComponent<T> implements AfterContentInit, ControlValueAccessor, AfterViewInit {
+export class SelectComponent<T> implements AfterContentInit, ControlValueAccessor {
   /** The text that appears when no select options are present. */
   @Input() public placeholder?: string;
   /** A flag that allows multiple options to be selected. */
@@ -54,9 +53,10 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   protected isDropdownOpen$!: Observable<boolean>;
   /** An observable that emits the currently selected option. */
   protected selectedItem$ = new BehaviorSubject<SelectOption<T> | null>(null);
+  private _optionSubscriptions: Subscription[] = [];
   private _onChange: (_: T | T[] | null) => void = noop;
   private _onTouched: () => void = noop;
-  private _valueComparer: SelectValueComparer<T> = (obj1: T, obj2: T) => obj1 === obj2;
+  private _valueComparerFn: SelectValueComparer<T> = (obj1: T, obj2: T) => obj1 === obj2;
 
   /** A public accessor for the internal value of the select. */
   public get value(): T | null {
@@ -96,7 +96,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
       throw Error('valueComparer is not a function.');
     }
 
-    this._valueComparer = fn;
+    this._valueComparerFn = fn;
   }
 
   /** 
@@ -105,7 +105,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
    * Default: (obj1, obj2) => obj1 === obj2
    */
   public get valueComparer(): SelectValueComparer<T> {
-    return this._valueComparer;
+    return this._valueComparerFn;
   }
 
   constructor() {
@@ -114,30 +114,33 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   
   public ngAfterContentInit(): void {
     this._initialized = true; // options have been initialized
-  }
-
-  public ngAfterViewInit(): void {
     this._selectOptionComponents.changes.subscribe(changes => {
-      console.log(changes)
+      this._refreshItems(Array.from(changes));
     });
-    this._refreshItems();
+    this._refreshItems(Array.from(this._selectOptionComponents));
   }
 
-  private _refreshItems() : void {
-    this._selectOptionComponents
-      .forEach(component => {
-        const selectOption = component as SelectOption<T>;
-        // add option to SelectOption array and subscribe to its click event
-        this._selectOptions.push(selectOption);
-        component.optionClicked.subscribe((item: SelectOption<T>) => {
-          this.writeValue(item.value);
-          this._select(item);
-      });
+  private _refreshItems(options: SelectOptionComponent<T>[]) : void {
+    this._selectOptions = [];
+    this._optionSubscriptions.forEach(subscription => subscription.unsubscribe());
+    options.forEach(option => {
+      const selectOption = option as SelectOption<T>;
+      // add option to SelectOption array and subscribe to its click event
+      this._selectOptions.push(selectOption);
+      this._optionSubscriptions.push(
+        option.optionClicked.subscribe((item: SelectOption<T>) => this._handleOptionClick(item))
+      );
       // load initial value from the model after options are initialized
-      if (this.value && this._valueComparer(selectOption.value, this.value)) {
+      if (this.value !== null && 
+          this._valueComparerFn(selectOption.value, this.value) && !selectOption.selected) {
         this._select(selectOption);
       }
     });
+  }
+
+  private _handleOptionClick(option: SelectOption<T>) : void {
+    this.writeValue(option.value);
+    this._select(option);
   }
 
   /** This method selects a given select option as selected an updates the select's value */
@@ -170,10 +173,11 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   }
 
   public writeValue(obj: T | null): void {
-    const option = this._selectOptions?.find((_option) => obj &&
-      this._valueComparer(_option.value, obj));
+    const option = this._selectOptions?.find((_option) => 
+      obj !== null &&
+      this._valueComparerFn(_option.value, obj));
 
-    if (this.multiple) {
+    if (!this.multiple) {
       this.value = obj;
     } else {
       //this.values = obj;
