@@ -124,6 +124,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   private _refreshItems(options: SelectOptionComponent<T>[]) : void {
     this._selectOptions = [];
     this._optionSubscriptions.forEach(subscription => subscription.unsubscribe());
+    this._isDropdownOpen$.next(false);
     options.forEach(option => {
       const selectOption = option as SelectOption<T>;
       // add option to SelectOption array and subscribe to its click event
