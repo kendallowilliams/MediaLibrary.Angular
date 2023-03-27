@@ -194,7 +194,6 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
       } else {
         options.filter(option => !option.selected).forEach(option => this._select(option));
       }
-
     }
   }
 

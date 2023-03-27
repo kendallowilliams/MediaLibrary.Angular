@@ -1,11 +1,14 @@
 <form [formGroup]="form" (ngSubmit)="submit()">
   <div class="flex flex-col gap-[5px] w-[200px] mt-[10px] ml-[10px]">
     <label>Option</label>
-    <ml-select [placeholder]="'Select an option...'" formControlName="option" [valueComparer]="valueComparer"
+    <ml-select [placeholder]="'Select an option...'" formControlName="option" [valueComparer]="valueComparerFn"
       (selectedItemChange)="handleChange($event)">
       <ml-select-option [value]="'A'">Option A</ml-select-option>
       <ml-select-option [value]="'B'">Option B</ml-select-option>
       <ml-select-option [value]="'C'">Option C</ml-select-option>
+      <div>
+        <ml-select-option *ngFor="let index of indices$ | async" [value]="index">{{index}}</ml-select-option>
+      </div>
     </ml-select>
   </div>
   <br />
