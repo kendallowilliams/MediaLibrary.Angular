@@ -45,6 +45,9 @@ export * from './lib/modal/modal-header/modal-header.component';
 export * from './lib/modal/modal-title/modal-title.component';
 export * from './lib/modal/modal-body/modal-body.component';
 export * from './lib/modal/modal-footer/modal-footer.component';
+export * from './lib/modal/services/modal.service';
+export * from './lib/modal/models/ModalConfig.model';
+export * from './lib/modal/models/ModalRef.model';
 
 /** Message Box */
 export * from './lib/controls/message-box/message-box.component';
