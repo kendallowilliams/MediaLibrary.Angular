@@ -35,7 +35,7 @@ export class ModalComponent<T> implements AfterViewInit {
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
-  constructor(@Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, @Inject(ModalConfig) @Optional() private _modalConfig?: ModalConfig) {}
+  constructor(@Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
 
   public ngAfterViewInit(): void {
     this._initialize();
@@ -46,7 +46,7 @@ export class ModalComponent<T> implements AfterViewInit {
         providers: [{ 
           provide: ModalRef<T>, useValue: this._modalRef
         }, {
-          provide: ModalConfig, useValue: this._modalConfig
+          provide: ModalConfig<T>, useValue: this._modalConfig
         }]
       });
     
@@ -54,11 +54,14 @@ export class ModalComponent<T> implements AfterViewInit {
       const componentRef = this._modalContent.createComponent<T>(this._modalRef?.componentType, { injector: injector });
       
       this._modalRef.component = componentRef.instance;
+      this._modalConfig?.configureComponentInput?.call(this, this._modalRef.component);
       componentRef.changeDetectorRef.detectChanges();
+      this.show();
     } else if (this._modalRef?.template) {
       const templateView = this._modalContent.createEmbeddedView(this._modalRef.template, this._modalRef?.templateCtx, { injector: injector });
 
       templateView.detectChanges();
+      this.show();
     }
   }
 

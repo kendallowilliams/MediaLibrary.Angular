@@ -8,7 +8,7 @@ import { ModalRef } from '../models/ModalRef.model';
 })
 export class ModalService {
   public showComponent<T>(componentType: Type<T>, vcr: ViewContainerRef, modalConfig: ModalConfig<T>) : ModalRef<T> {
-    const modalRef = new ModalRef(componentType);
+    const modalRef = new ModalRef<T>(componentType);
 
     return this._show(modalRef, modalConfig, vcr);
   }
@@ -31,7 +31,6 @@ export class ModalService {
 
     modalRef.setModalComponentRef(componentRef);  
     componentRef.changeDetectorRef.detectChanges();
-    componentRef.instance.show();
 
     return modalRef;
   }

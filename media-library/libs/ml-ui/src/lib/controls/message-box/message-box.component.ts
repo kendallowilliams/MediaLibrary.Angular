@@ -6,7 +6,8 @@ import {
   Output,
   ViewEncapsulation,
   EventEmitter,
-  Input
+  Input,
+  Optional
 } from '@angular/core';
 import { ModalRef } from '../../modal/models/ModalRef.model';
 
@@ -48,7 +49,7 @@ export class MessageBoxComponent implements OnDestroy {
   @Output() public continueResponse = new EventEmitter();
   @Output() public cancelResponse = new EventEmitter();
 
-  constructor(@Inject(ModalRef<MessageBoxComponent>) private _modalRef?: ModalRef<MessageBoxComponent>) {
+  constructor(@Inject(ModalRef<MessageBoxComponent>) @Optional() private _modalRef?: ModalRef<MessageBoxComponent>) {
   }
 
   public ngOnDestroy(): void {
