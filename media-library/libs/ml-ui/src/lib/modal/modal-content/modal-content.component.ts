@@ -7,10 +7,11 @@ import {
 
 @Component({
   selector: 'ml-modal-content',
-  templateUrl: './modal-content.component.html',
+  template: `<ng-content></ng-content>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalContentComponent {
-  @HostBinding('class') private _class = 'flex flex-col';
+  @HostBinding('class') private _class = `flex flex-col shadow rounded-[5px]
+    bg-light`;
 }

@@ -22,7 +22,8 @@ import { ModalRef } from './models/ModalRef.model';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <dialog #mlDialog (close)="handleClose($event)" (cancel)="handleCancel($event)">
+    <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none"
+      (close)="handleClose($event)" (cancel)="handleCancel($event)">
       <ng-template #modalContent></ng-template>
     </dialog>
     `

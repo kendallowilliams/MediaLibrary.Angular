@@ -6,9 +6,10 @@ import { ModalHeaderComponent } from './modal-header/modal-header.component';
 import { ModalBodyComponent } from './modal-body/modal-body.component';
 import { ModalFooterComponent } from './modal-footer/modal-footer.component';
 import { ModalContentComponent } from './modal-content/modal-content.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, FontAwesomeModule],
   declarations: [
     ModalComponent,
     ModalTitleComponent,

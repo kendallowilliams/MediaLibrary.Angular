@@ -16,7 +16,7 @@ type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
 @Component({
   selector: 'ml-message-box',
   template: `
-  <ml-modal-content>
+  <ml-modal-content class="w-[400px] h-[200px]">
     <ml-modal-header>
       <ml-modal-title>{{title}}</ml-modal-title>
     </ml-modal-header>
@@ -24,12 +24,12 @@ type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
     <ml-modal-footer>
       <div class="flex gap-[10px] items-center justify-end" [ngSwitch]="messageType">
         <ng-container *ngSwitchCase="'confirm'">
-          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
+          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
         </ng-container>
         <ng-container *ngSwitchCase="'yes_no'">
-          <button mlButton [variant]="'success'" (click)="handleOKClick()">Yes</button>
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
+          <button mlButton [variant]="'success'" (click)="handleOKClick()">Yes</button>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
