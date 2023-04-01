@@ -53,17 +53,16 @@ export class ModalComponent<T> implements AfterViewInit {
     if (this._modalRef?.componentType) {
       const componentRef = this._modalContent.createComponent<T>(this._modalRef?.componentType, { injector: injector });
       
+      this._modalRef.component = componentRef.instance;
       componentRef.changeDetectorRef.detectChanges();
     } else if (this._modalRef?.template) {
-      this._modalContent.createEmbeddedView(this._modalRef.template, this._modalRef?.templateCtx, { injector: injector });
+      const templateView = this._modalContent.createEmbeddedView(this._modalRef.template, this._modalRef?.templateCtx, { injector: injector });
+
+      templateView.detectChanges();
     }
   }
 
   public show() : void {
-    this._dialog.nativeElement.show();
-  }
-
-  public showModal() : void {
     this._dialog.nativeElement.showModal();
   }
 

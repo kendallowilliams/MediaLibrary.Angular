@@ -7,6 +7,8 @@ export class ModalRef<T> {
   private _templateCtx?: unknown;
   private _modalComponentRef?: ComponentRef<ModalComponent<T>>;
 
+  public component?: T;
+
   public get componentType() : Type<T> | undefined {
     return this._componentType;
   }

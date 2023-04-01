@@ -1,73 +1,68 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
-  ViewChild,
+  Inject,
+  OnDestroy,
+  Output,
   ViewEncapsulation,
+  EventEmitter,
+  Input
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { ModalComponent } from '../../modal/modal.component';
-import { MessageBoxService } from '../../services/message-box/message-box.service';
+import { ModalRef } from '../../modal/models/ModalRef.model';
 
 type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
 
 @Component({
   selector: 'ml-message-box',
-  templateUrl: './message-box.component.html',
+  template: `
+  <ml-modal-content>
+    <ml-modal-header>
+      <ml-modal-title>{{title}}</ml-modal-title>
+    </ml-modal-header>
+    <ml-modal-body>{{message}}</ml-modal-body>
+    <ml-modal-footer>
+      <div class="flex gap-[10px] items-center justify-end" [ngSwitch]="messageType">
+        <ng-container *ngSwitchCase="'confirm'">
+          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
+          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
+        </ng-container>
+        <ng-container *ngSwitchCase="'yes_no'">
+          <button mlButton [variant]="'success'" (click)="handleOKClick()">Yes</button>
+          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
+        </ng-container>
+      </div>
+    </ml-modal-footer>
+  </ml-modal-content>
+  `,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MessageBoxComponent implements AfterViewInit {
-  @ViewChild(ModalComponent) private _modal!: ModalComponent;
+export class MessageBoxComponent implements OnDestroy {
+  @Input() public title = '';
+  @Input() public message = '';
+  @Input() public messageType?: MessageType;
 
-  protected title$?: Subject<string>;
-  protected message$?: Subject<string>;
-  protected messageType$: Subject<MessageType>;
+  @Output() public continueResponse = new EventEmitter();
+  @Output() public cancelResponse = new EventEmitter();
 
-  constructor(private _messageBoxService: MessageBoxService) {
-    this.title$ = new Subject<string>();
-    this.message$ = new Subject<string>();
-    this.messageType$ = new Subject<MessageType>();
-    this._messageBoxService.setMessageBox(this);
+  constructor(@Inject(ModalRef<MessageBoxComponent>) private _modalRef?: ModalRef<MessageBoxComponent>) {
   }
 
-  public ngAfterViewInit(): void {
-    this._messageBoxService.getModalOpen$().subscribe(open => {
-      if (open) {
-        this._modal.showModal();
-      } else {
-        this._modal.hide();
-      }
-    });
-  }
-
-  public setTitle(title: string) : void {
-    this.title$?.next(title);
-  }
-
-  public setMessage(message: string) : void {
-    this.message$?.next(message);
-  }
-
-  public setMessageType(messageType: MessageType) : void {
-    this.messageType$?.next(messageType);
+  public ngOnDestroy(): void {
+    this.continueResponse.unsubscribe();
+    this.cancelResponse.unsubscribe();
   }
 
   protected handleOKClick() : void {
-    this._reset();
-    this._messageBoxService.getReturnValue$().next(true);
-    this._messageBoxService.getModalOpen$().next(false);
+    this.continueResponse.emit();
+    this._modalRef?.hide();
   }
 
   protected handleCancelClick() : void {
-    this._reset();
-    this._messageBoxService.getReturnValue$().next(false);
-    this._messageBoxService.getModalOpen$().next(false);
-  }
-
-  private _reset() : void {
-    this.title$?.next('');
-    this.message$?.next('');
-    this.messageType$?.next('alert');
+    this.cancelResponse.emit();
+    this._modalRef?.hide();
   }
 }
