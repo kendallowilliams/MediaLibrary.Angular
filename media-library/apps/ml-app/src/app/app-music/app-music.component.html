@@ -1,44 +1,15 @@
-<ng-container *ngIf="(isLoading$ | async) === false">
-  <div class="p-[5px]">Albums</div>
-  <div class="flex gap-[20px] overflow-auto p-[5px]">
-    <ml-card *ngFor="let album of albums$ | async">
-      <ml-card-header>
-        <ml-card-title>{{album.title}} <button mlButton (click)="expandAlbum(album.id)"><fa-icon *ngIf="expandIcon" [icon]="expandIcon"></fa-icon></button></ml-card-title>
-        <ml-card-subtitle>
-          <ng-container *ngIf="artists$ | async as artists">
-            {{getArtist(artists, album.artistId)?.name}}
-          </ng-container>
-        </ml-card-subtitle>
-      </ml-card-header>
-      <ml-card-body></ml-card-body>
-      <ml-card-footer></ml-card-footer>
-    </ml-card>
-  </div>
-  <div class="p-[5px]">Artists</div>
-  <div class="flex gap-[20px] overflow-auto p-[5px]">
-    <ml-card *ngFor="let artist of artists$ | async">
-      <ml-card-header>
-        <ml-card-title>{{artist.name}} <button mlButton (click)="expandArtist(artist.id)"><fa-icon *ngIf="expandIcon" [icon]="expandIcon"></fa-icon></button></ml-card-title>
-        <ml-card-subtitle>
-          <ng-container *ngIf="artists$ | async as artists">
-            <div *ngFor="let album of getAlbumByArtistId(artist.id)">{{album.title}}</div>
-          </ng-container>
-        </ml-card-subtitle>
-      </ml-card-header>
-      <ml-card-body></ml-card-body>
-      <ml-card-footer></ml-card-footer>
-    </ml-card>
-  </div>
-</ng-container>
-<ml-modal #musicModal>
-  <ml-modal-header></ml-modal-header>
-  <ml-modal-body>
-    <ng-container [ngSwitch]="selectedItemType$ | async">
-      <app-album *ngSwitchCase="musicTabsEnum.Albums" [album]="selectedAlbum$ | async"></app-album>
-      <app-artist *ngSwitchCase="musicTabsEnum.Artists" [artist]="selectedArtist$ | async"></app-artist>
-      <app-song *ngSwitchCase="musicTabsEnum.Songs" [track]="selectedTrack$ | async"></app-song>
-      <div *ngSwitchDefault>Something went wrong!</div>
-    </ng-container>
-  </ml-modal-body>
-  <ml-modal-footer></ml-modal-footer>
-</ml-modal>
+<ml-card class="h-[75%] w-[50%]">
+  <ml-card-body>
+    <div class="flex">
+      <div class="basis-[100px]">
+        <fa-icon *ngIf="faMusic" [icon]="faMusic" [classes]="['fa-2xl']"></fa-icon>
+      </div>
+      <div class="grow">
+        <div *ngIf="albums$ | async as albums">{{albums.length}} album{{albums.length === 1 ? '' : 's'}}</div>
+        <div *ngIf="artists$ | async as artists">{{artists.length}} artist{{artists.length === 1 ? '' : 's'}}</div>
+        <div *ngIf="tracks$ | async as tracks">{{tracks.length}} song{{tracks.length === 1 ? '' : 's'}}</div>
+        <div *ngIf="playlists$ | async as playlists">{{playlists.length}} playlist{{playlists.length === 1 ? '' : 's'}}</div>
+      </div>
+    </div>
+  </ml-card-body>
+</ml-card>

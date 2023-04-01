@@ -20,7 +20,6 @@ export * from './lib/controls/search/search.component';
 /** Services */
 export * from './lib/services/fa-icon/fa-icon.service';
 export * from './lib/services/device/device.service';
-export * from './lib/services/loading/loading.service';
 export * from './lib/services/message-box/message-box.service';
 export * from './lib/services/theme/theme.service';
 export * from './lib/navbar/services/navbar.service';

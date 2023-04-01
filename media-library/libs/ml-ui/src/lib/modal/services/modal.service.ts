@@ -2,6 +2,7 @@ import { Injectable, Injector, TemplateRef, Type, ViewContainerRef } from '@angu
 import { ModalComponent } from '../modal.component';
 import { ModalConfig } from '../models/ModalConfig.model';
 import { ModalRef } from '../models/ModalRef.model';
+import { LoadingComponent } from '../../controls/loading/loading.component';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,11 @@ export class ModalService {
     componentRef.changeDetectorRef.detectChanges();
 
     return modalRef;
+  }
+
+  public showLoadingModal(vcr: ViewContainerRef) : ModalRef<LoadingComponent> {
+    const modalRef = new ModalRef(LoadingComponent);
+
+    return this._show(modalRef, new ModalConfig<LoadingComponent>(), vcr);
   }
 }
