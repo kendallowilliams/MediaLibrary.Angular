@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { PlaylistConfiguration } from '../../models/configurations/playlist-configuration.interface';
+import { PlaylistConfiguration } from '../../models/configurations/PlaylistConfiguration.interface';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 import { Playlist } from '../../models/playlist/Playlist.model';

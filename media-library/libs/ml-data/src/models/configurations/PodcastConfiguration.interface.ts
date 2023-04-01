@@ -1,5 +1,5 @@
 ﻿import { PodcastPages, PodcastSort, PodcastFilter } from "../../enums/enums";
-import { Configuration } from "./configuration.interface";
+import { Configuration } from "./Configuration.interface";
 
 export interface PodcastConfiguration extends Configuration {
     SelectedPodcastId: number;

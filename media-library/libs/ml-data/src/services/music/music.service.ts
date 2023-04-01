@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MusicConfiguration } from '../../models/configurations/music-configuration.interface';
-import { Album } from '../../models/music/album.model';
-import { Artist } from '../../models/music/artist.model';
-import { Track } from '../../models/music/track.model';
+import { MusicConfiguration } from '../../models/configurations/MusicConfiguration.interface';
+import { Album } from '../../models/music/Album.model';
+import { Artist } from '../../models/music/Artist.model';
+import { Track } from '../../models/music/Track.model';
 import { BaseService } from '../base.service';
 
 @Injectable({

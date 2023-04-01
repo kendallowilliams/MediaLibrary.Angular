@@ -1,5 +1,5 @@
 ﻿import { PlaylistPages, PlaylistSort, PlaylistTabs } from "../../enums/enums";
-import { Configuration } from "./configuration.interface";
+import { Configuration } from "./Configuration.interface";
 
 export interface PlaylistConfiguration extends Configuration {
     SelectedPlaylistId: number;

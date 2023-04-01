@@ -1,7 +1,7 @@
 ﻿import { MediaTypes, RepeatTypes, PlayerPages } from "../../enums/enums";
-import { KeyValuePair } from "../collections/key-value-pair.interface";
-import { ListItem } from "../collections/list-item.interface";
-import { Configuration } from "./configuration.interface";
+import { KeyValuePair } from "../collections/KeyValuePair.interface";
+import { ListItem } from "../collections/ListItem.interface";
+import { Configuration } from "./Configuration.interface";
 
 export interface PlayerConfiguration extends Configuration {
     SelectedMediaType: MediaTypes;

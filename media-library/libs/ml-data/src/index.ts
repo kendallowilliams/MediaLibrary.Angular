@@ -9,18 +9,18 @@ export * from './services/playlist/playlist.service';
 export * from './services/television/television.service';
 
 /** Configuration */
-export * from './models/configurations/music-configuration.interface';
-export * from './models/configurations/podcast-configuration.interface';
-export * from './models/configurations/playlist-configuration.interface';
-export * from './models/configurations/player-configuration.interface';
-export * from './models/configurations/television-configuration.interface';
-export * from './models/configurations/home-configuration.interface';
-export * from './models/configurations/media-library-configuration.interface';
+export * from './models/configurations/MusicConfiguration.interface';
+export * from './models/configurations/PodcastConfiguration.interface';
+export * from './models/configurations/PlaylistConfiguration.interface';
+export * from './models/configurations/PlayerConfiguration.interface';
+export * from './models/configurations/TelevisionConfiguration.interface';
+export * from './models/configurations/HomeConfiguration.interface';
+export * from './models/configurations/MediaLibraryConfiguration.interface';
 
 /** Models */
-export * from './models/music/track.model';
-export * from './models/music/artist.model';
-export * from './models/music/album.model';
+export * from './models/music/Track.model';
+export * from './models/music/Artist.model';
+export * from './models/music/Album.model';
 export * from './models/playlist/Playlist.model';
 
 /** Enums */

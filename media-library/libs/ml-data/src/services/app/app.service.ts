@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MediaLibraryConfiguration } from '../../models/configurations/media-library-configuration.interface';
+import { MediaLibraryConfiguration } from '../../models/configurations/MediaLibraryConfiguration.interface';
 import { Observable } from 'rxjs';
 import { BaseService } from '../base.service';
 
