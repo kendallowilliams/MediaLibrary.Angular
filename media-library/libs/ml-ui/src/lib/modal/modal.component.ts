@@ -8,11 +8,12 @@ import {
   ViewEncapsulation,
   EventEmitter,
   ViewContainerRef,
-  AfterViewInit,
   Input,
   Optional,
   Injector,
-  Inject
+  Inject,
+  OnInit,
+  Renderer2
 } from '@angular/core';
 import { ModalConfig } from './models/ModalConfig.model';
 import { ModalRef } from './models/ModalRef.model';
@@ -28,7 +29,7 @@ import { ModalRef } from './models/ModalRef.model';
     </dialog>
     `
 })
-export class ModalComponent<T> implements AfterViewInit {
+export class ModalComponent<T> implements OnInit {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
 
@@ -36,13 +37,26 @@ export class ModalComponent<T> implements AfterViewInit {
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
-  constructor(@Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
+  constructor(private _renderer: Renderer2,
+    @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, 
+    @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
 
-  public ngAfterViewInit(): void {
-    this._initialize();
+  public ngOnInit(): void {
+    this._initializeDialog();
+    this._initializeContent();
   }
 
-  private _initialize() : void {
+  private _initializeDialog(): void {
+    const dialog = this._dialog.nativeElement;
+
+    if (this._modalConfig?.backdrop === 'hidden') {
+      this._renderer.addClass(dialog, 'backdrop:hidden');
+    }
+
+    this.static = this._modalConfig?.static || false;
+  }
+
+  private _initializeContent() : void {
     const injector = Injector.create({ 
         providers: [{ 
           provide: ModalRef<T>, useValue: this._modalRef

@@ -37,8 +37,11 @@ export class ModalService {
   }
 
   public showLoadingModal(vcr: ViewContainerRef) : ModalRef<LoadingComponent> {
-    const modalRef = new ModalRef(LoadingComponent);
+    const modalRef = new ModalRef(LoadingComponent),
+      config = new ModalConfig<LoadingComponent>();
 
-    return this._show(modalRef, new ModalConfig<LoadingComponent>(), vcr);
+    config.static = true;
+    
+    return this._show(modalRef, config, vcr);
   }
 }
