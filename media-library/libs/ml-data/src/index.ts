@@ -24,5 +24,7 @@ export * from './models/music/Album.model';
 export * from './models/playlist/Playlist.model';
 
 /** Enums */
-export * from './enums/enums';
-export * from './enums/enum-functions';
+export * from './enums/Enums.enum';
+
+/** Types */
+export * from './types/Music.type';

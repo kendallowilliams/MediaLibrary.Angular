@@ -1,20 +1,113 @@
-<ml-card class="h-[75%]">
-  <ml-card-body>
-    <div class="flex">
-      <div class="basis-[100px]">
-        <fa-icon *ngIf="faMusic" [icon]="faMusic" [classes]="['fa-2xl']"></fa-icon>
+<div class="flex items-stretch gap-[20px]">
+  <ml-card class="shrink-0">
+    <ml-card-body>
+      <div class="flex gap-[30px]">
+        <div class="">
+          <fa-icon *ngIf="faMusic" [icon]="faMusic" [classes]="['fa-2xl']"></fa-icon>
+        </div>
+        <div class="flex flex-col items-start gap-[10px]">
+          <ng-container *ngIf="albums$ | async as albums">
+            <button (click)="updateCategory('Album')">
+              <fa-icon [icon]="faCompactDisc"></fa-icon>
+              <span class="ml-[5px]">Albums</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="artists$ | async as artists">
+            <button (click)="updateCategory('Artist')">
+              <fa-icon [icon]="faUser"></fa-icon>
+              <span class="ml-[5px]">Artists</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="tracks$ | async as tracks">
+            <button (click)="updateCategory('Song')">
+              <fa-icon [icon]="faHeadphones"></fa-icon>
+              <span class="ml-[5px]">Songs</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="playlists$ | async as playlists">
+            <button (click)="updateCategory('Playlist')">
+              <fa-icon [icon]="faList"></fa-icon>
+              <span class="ml-[5px]">Playlists</span>
+            </button>
+          </ng-container>
+        </div>
       </div>
-      <div>
-        <div *ngIf="albums$ | async as albums" (click)="updateMusicTab(0)">{{albums.length}} album{{albums.length === 1 ? '' : 's'}}</div>
-        <div *ngIf="artists$ | async as artists" (click)="updateMusicTab(1)">{{artists.length}} artist{{artists.length === 1 ? '' : 's'}}</div>
-        <div *ngIf="tracks$ | async as tracks" (click)="updateMusicTab(2)">{{tracks.length}} song{{tracks.length === 1 ? '' : 's'}}</div>
-        <div *ngIf="playlists$ | async as playlists">{{playlists.length}} playlist{{playlists.length === 1 ? '' : 's'}}</div>
-      </div>
-      <ng-container [ngSwitch]="selectedTab$ | async">
-        <ng-container *ngSwitchCase="'Albums'">albums</ng-container>
-        <ng-container *ngSwitchCase="'Artists'">artists</ng-container>
-        <ng-container *ngSwitchCase="'Songs'">songs</ng-container>
-      </ng-container>
-    </div>
-  </ml-card-body>
-</ml-card>
+    </ml-card-body>
+  </ml-card>
+
+  <ng-container *ngIf="selectedCategory$ | async as category">
+    <ml-card class="shrink-0">
+      <ml-card-body>
+        <div class="flex gap-[30px]">
+          <div class="flex">
+            <ng-container [ngSwitch]="category">
+              <fa-icon *ngSwitchCase="'Album'" [icon]="faCompactDisc" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Artist'" [icon]="faUser" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Song'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Playlist'" [icon]="faList" [classes]="['fa-2xl']"></fa-icon>
+            </ng-container>
+          </div>
+          <div class="flex flex-col">
+            <ng-container [ngSwitch]="category">
+              <ng-container *ngSwitchCase="'Album'" >
+                <div *ngFor="let album of albums$ | async">
+                  <button (click)="updateSubCategory('Album', album.id)">{{album.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Artist'">
+                <div *ngFor="let artist of artists$ | async">
+                  <button (click)="updateSubCategory('Artist', artist.id)">{{artist.name}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Song'">
+                <div *ngFor="let track of tracks$ | async">
+                  <button>{{track.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Playlist'">
+                <div *ngFor="let playlist of playlists$ | async">
+                  <button (click)="updateSubCategory('Playlist', playlist.id)">{{playlist.name}}</button>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ml-card-body>
+    </ml-card>
+  </ng-container>
+
+  <ng-container *ngIf="selectedSubCategory$ | async as category">
+    <ml-card class="shrink-0" *ngIf="category !== 'Song'">
+      <ml-card-body>
+        <div class="flex gap-[30px]">
+          <div class="">
+            <ng-container [ngSwitch]="category">
+              <fa-icon *ngSwitchCase="'Album'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Artist'" [icon]="faCompactDisc" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Playlist'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
+            </ng-container>
+          </div>
+          <div class="">
+            <ng-container [ngSwitch]="category">
+              <ng-container *ngSwitchCase="'Album'" >
+                <div *ngFor="let track of getTracksByAlbumId(selectedItemId)">
+                  <button>{{track.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Artist'">
+                <div *ngFor="let album of getAlbumsByArtistId(selectedItemId)">
+                  <button>{{album.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Playlist'">
+                <div *ngFor="let track of tracks$ | async">
+                  <button>{{track.title}}</button>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ml-card-body>
+    </ml-card>
+  </ng-container>
+</div>

@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { MusicConfiguration, Album, Artist, Track, MusicService, PlaylistService, MusicTabs } from '@media-library/ml-data';
-import { FaIconService, LoadingComponent, MessageBoxService, ModalRef, ModalService } from '@media-library/ml-ui';
+import { MusicConfiguration, Album, Artist, Track, MusicService, PlaylistService, MusicCategory } from '@media-library/ml-data';
+import { LoadingComponent, MessageBoxService, ModalRef, ModalService } from '@media-library/ml-ui';
 import { Playlist } from '@media-library/ml-data';
 import { BehaviorSubject, Subject, zip } from 'rxjs';
+import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-music',
@@ -12,23 +13,30 @@ import { BehaviorSubject, Subject, zip } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMusicComponent implements OnInit, OnDestroy {
-  private _defaultClasses = 'flex flex-col items-center justify-center w-full h-full';
+  private _defaultClasses = `flex items-center justify-center w-full h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
 
-  private _configuration!: MusicConfiguration;
+  private _configuration?: MusicConfiguration;
   private _loadingModalRef?: ModalRef<LoadingComponent>;
 
-  protected faMusic?: IconDefinition;
+  protected faMusic = faMusic;
+  protected faCompactDisc = faCompactDisc;
+  protected faUser = faUser;
+  protected faHeadphones = faHeadphones;
+  protected faList = faList;
+  protected faXmark = faXmark;
   protected albums$ = new BehaviorSubject<Album[]>([]);
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
   protected playlists$ = new BehaviorSubject<Playlist[]>([]);
 
-  protected selectedTab$ = new Subject<MusicTabs | undefined>();
+  protected selectedCategory$ = new Subject<MusicCategory | null>();
+  protected selectedSubCategory$ = new Subject<MusicCategory | null>();
+  protected selectedCategoryIcon$ = new Subject<IconDefinition>();
+  protected selectedItemId = 0;
 
   constructor(private _musicService: MusicService, private _modalService: ModalService, private _messageBoxService: MessageBoxService,
-    private _vcr: ViewContainerRef, private _faIconService: FaIconService, private _playlistService: PlaylistService) {
-      this.faMusic = this._faIconService.getIconDefinition('fas', 'music');
+    private _vcr: ViewContainerRef, private _playlistService: PlaylistService, private _cd: ChangeDetectorRef) {
   }
   
   public ngOnInit(): void {
@@ -65,13 +73,25 @@ export class AppMusicComponent implements OnInit, OnDestroy {
     return artists.find(a => a.id === id);
   }
 
-  protected getAlbumByArtistId(artistId: number) : Album[] | undefined {
+  protected getAlbumsByArtistId(artistId: number) : Album[] | undefined {
     const albums = this.albums$.getValue();
 
     return albums.filter(a => a.artistId === artistId);
   }
 
-  protected updateMusicTab(tab?: MusicTabs) : void {
-    this.selectedTab$.next(tab);
+  protected getTracksByAlbumId(albumId: number) : Album[] | undefined {
+    const tracks = this.tracks$.getValue();
+
+    return tracks.filter(a => a.albumId === albumId);
+  }
+
+  protected updateCategory(category: MusicCategory) : void {
+    this.selectedCategory$.next(category);
+    this.selectedSubCategory$.next(null);
+  }
+
+  protected updateSubCategory(category: MusicCategory, id: number) : void {
+    this.selectedItemId = id;
+    this.selectedSubCategory$.next(category);
   }
 }
