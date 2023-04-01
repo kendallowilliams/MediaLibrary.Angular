@@ -12,7 +12,7 @@ import {
   Optional,
   Injector,
   Inject,
-  OnInit,
+  AfterViewInit,
   Renderer2
 } from '@angular/core';
 import { ModalConfig } from './models/ModalConfig.model';
@@ -29,7 +29,7 @@ import { ModalRef } from './models/ModalRef.model';
     </dialog>
     `
 })
-export class ModalComponent<T> implements OnInit {
+export class ModalComponent<T> implements AfterViewInit {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
 
@@ -41,7 +41,7 @@ export class ModalComponent<T> implements OnInit {
     @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, 
     @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
 
-  public ngOnInit(): void {
+  public ngAfterViewInit(): void {
     this._initializeDialog();
     this._initializeContent();
   }
