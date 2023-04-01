@@ -21,6 +21,7 @@ export * from './models/configurations/media-library-configuration.interface';
 export * from './models/music/track.model';
 export * from './models/music/artist.model';
 export * from './models/music/album.model';
+export * from './models/playlist/Playlist.model';
 
 /** Enums */
 export * from './enums/enums';

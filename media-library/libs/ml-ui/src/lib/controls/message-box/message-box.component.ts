@@ -10,14 +10,24 @@ import {
   Optional
 } from '@angular/core';
 import { ModalRef } from '../../modal/models/ModalRef.model';
+import { FaIconService } from '../../services/fa-icon/fa-icon.service';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
 
 @Component({
   selector: 'ml-message-box',
   template: `
-  <ml-modal-content class="w-[400px] h-[200px]">
+  <ml-modal-content class="w-[400px]">
     <ml-modal-header>
+      <span class="mr-[5px]">
+        <ng-container [ngSwitch]="messageType"]>
+          <ng-container *ngSwitchCase="'alert'"><fa-icon *ngIf="faExclamationCircle" [icon]="faExclamationCircle" [classes]="['text-info']"></fa-icon></ng-container>
+          <ng-container *ngSwitchCase="'warn'"><fa-icon *ngIf="faWarning" [icon]="faWarning" [classes]="['text-warning']"></fa-icon></ng-container>
+          <ng-container *ngSwitchCase="'error'"><fa-icon *ngIf="faBan" [icon]="faBan" [classes]="['text-danger']"></fa-icon></ng-container>
+          <ng-container *ngSwitchDefault><fa-icon *ngIf="faQuestionCircle" [icon]="faQuestionCircle" [classes]="['text-warning']"></fa-icon></ng-container>
+        </ng-container>
+      </span>
       <ml-modal-title>{{title}}</ml-modal-title>
     </ml-modal-header>
     <ml-modal-body>{{message}}</ml-modal-body>
@@ -49,7 +59,17 @@ export class MessageBoxComponent implements OnDestroy {
   @Output() public continueResponse = new EventEmitter();
   @Output() public cancelResponse = new EventEmitter();
 
-  constructor(@Inject(ModalRef<MessageBoxComponent>) @Optional() private _modalRef?: ModalRef<MessageBoxComponent>) {
+  protected faExclamationCircle?: IconDefinition;
+  protected faQuestionCircle?: IconDefinition;
+  protected faWarning?: IconDefinition;
+  protected faBan?: IconDefinition;
+
+  constructor(private _faIconService: FaIconService,
+    @Inject(ModalRef<MessageBoxComponent>) @Optional() private _modalRef?: ModalRef<MessageBoxComponent>) {
+    this.faExclamationCircle = this._faIconService.getIconDefinition('fas', 'exclamation-circle');
+    this.faQuestionCircle = this._faIconService.getIconDefinition('fas', 'question-circle');
+    this.faWarning = this._faIconService.getIconDefinition('fas', 'warning');
+    this.faBan = this._faIconService.getIconDefinition('fas', 'ban')
   }
 
   public ngOnDestroy(): void {

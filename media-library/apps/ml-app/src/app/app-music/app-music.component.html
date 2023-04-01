@@ -1,15 +1,20 @@
-<ml-card class="h-[75%] w-[50%]">
+<ml-card class="h-[75%]">
   <ml-card-body>
     <div class="flex">
       <div class="basis-[100px]">
         <fa-icon *ngIf="faMusic" [icon]="faMusic" [classes]="['fa-2xl']"></fa-icon>
       </div>
-      <div class="grow">
-        <div *ngIf="albums$ | async as albums">{{albums.length}} album{{albums.length === 1 ? '' : 's'}}</div>
-        <div *ngIf="artists$ | async as artists">{{artists.length}} artist{{artists.length === 1 ? '' : 's'}}</div>
-        <div *ngIf="tracks$ | async as tracks">{{tracks.length}} song{{tracks.length === 1 ? '' : 's'}}</div>
+      <div>
+        <div *ngIf="albums$ | async as albums" (click)="updateMusicTab(0)">{{albums.length}} album{{albums.length === 1 ? '' : 's'}}</div>
+        <div *ngIf="artists$ | async as artists" (click)="updateMusicTab(1)">{{artists.length}} artist{{artists.length === 1 ? '' : 's'}}</div>
+        <div *ngIf="tracks$ | async as tracks" (click)="updateMusicTab(2)">{{tracks.length}} song{{tracks.length === 1 ? '' : 's'}}</div>
         <div *ngIf="playlists$ | async as playlists">{{playlists.length}} playlist{{playlists.length === 1 ? '' : 's'}}</div>
       </div>
+      <ng-container [ngSwitch]="selectedTab$ | async">
+        <ng-container *ngSwitchCase="'Albums'">albums</ng-container>
+        <ng-container *ngSwitchCase="'Artists'">artists</ng-container>
+        <ng-container *ngSwitchCase="'Songs'">songs</ng-container>
+      </ng-container>
     </div>
   </ml-card-body>
 </ml-card>
