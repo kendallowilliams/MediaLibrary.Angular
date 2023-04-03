@@ -34,9 +34,6 @@ export * from './lib/controls/card/card-subtitle/card-subtitle.component';
 export * from './lib/controls/card/card-body/card-body.component';
 export * from './lib/controls/card/card-footer/card-footer.component';
 
-/** Loading */
-export * from './lib/controls/loading/loading.component';
-
 /** Modal */
 export * from './lib/modal/modal.module';
 export * from './lib/modal/modal.component';

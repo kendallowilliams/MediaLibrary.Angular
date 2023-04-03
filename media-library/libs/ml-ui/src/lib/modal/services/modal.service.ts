@@ -2,7 +2,8 @@ import { Injectable, Injector, TemplateRef, Type, ViewContainerRef } from '@angu
 import { ModalComponent } from '../modal.component';
 import { ModalConfig } from '../models/ModalConfig.model';
 import { ModalRef } from '../models/ModalRef.model';
-import { LoadingComponent } from '../../controls/loading/loading.component';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
   providedIn: 'root'
@@ -36,11 +37,16 @@ export class ModalService {
     return modalRef;
   }
 
-  public showLoadingModal(vcr: ViewContainerRef) : ModalRef<LoadingComponent> {
-    const modalRef = new ModalRef(LoadingComponent),
-      config = new ModalConfig<LoadingComponent>();
+  public showLoadingModal(vcr: ViewContainerRef) : ModalRef<FaIconComponent> {
+    const modalRef = new ModalRef(FaIconComponent),
+      config = new ModalConfig<FaIconComponent>();
 
     config.static = true;
+    config.configureComponentInput = (faIcon: FaIconComponent) : void => {
+      faIcon.icon = faSpinner;
+      faIcon.spin = true;
+      faIcon.ngOnChanges({});
+    };
     
     return this._show(modalRef, config, vcr);
   }

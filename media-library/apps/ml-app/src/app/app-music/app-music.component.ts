@@ -1,10 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { MusicConfiguration, Album, Artist, Track, MusicService, PlaylistService, MusicCategory } from '@media-library/ml-data';
-import { LoadingComponent, MessageBoxService, ModalRef, ModalService } from '@media-library/ml-ui';
+import { MessageBoxService, ModalRef, ModalService } from '@media-library/ml-ui';
 import { Playlist } from '@media-library/ml-data';
 import { BehaviorSubject, Subject, zip } from 'rxjs';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+
+type SubCategory = {
+  id: number;
+  type: MusicCategory;
+  icon: IconDefinition;
+}
 
 @Component({
   selector: 'app-music',
@@ -17,7 +24,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   @HostBinding('class') private _class = this._defaultClasses;
 
   private _configuration?: MusicConfiguration;
-  private _loadingModalRef?: ModalRef<LoadingComponent>;
+  private _loadingModalRef?: ModalRef<FaIconComponent>;
 
   protected faMusic = faMusic;
   protected faCompactDisc = faCompactDisc;
@@ -31,12 +38,11 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   protected playlists$ = new BehaviorSubject<Playlist[]>([]);
 
   protected selectedCategory$ = new Subject<MusicCategory | null>();
-  protected selectedSubCategory$ = new Subject<MusicCategory | null>();
   protected selectedCategoryIcon$ = new Subject<IconDefinition>();
-  protected selectedItemId = 0;
+  protected subCategories$ = new Subject<SubCategory[]>();
 
   constructor(private _musicService: MusicService, private _modalService: ModalService, private _messageBoxService: MessageBoxService,
-    private _vcr: ViewContainerRef, private _playlistService: PlaylistService, private _cd: ChangeDetectorRef) {
+    private _vcr: ViewContainerRef, private _playlistService: PlaylistService) {
   }
   
   public ngOnInit(): void {
@@ -87,11 +93,13 @@ export class AppMusicComponent implements OnInit, OnDestroy {
 
   protected updateCategory(category: MusicCategory) : void {
     this.selectedCategory$.next(category);
-    this.selectedSubCategory$.next(null);
   }
 
-  protected updateSubCategory(category: MusicCategory, id: number) : void {
-    this.selectedItemId = id;
-    this.selectedSubCategory$.next(category);
+  protected subCategoryTrackBy(index: number, item: SubCategory) : number {
+    return index;
+  }
+
+  protected addSubCategory(category: MusicCategory, id: number) : void {
+    this.subCategories$.next([{id: id, type: 'Song', icon: faMusic }]);
   }
 }

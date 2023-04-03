@@ -51,12 +51,12 @@
             <ng-container [ngSwitch]="category">
               <ng-container *ngSwitchCase="'Album'" >
                 <div *ngFor="let album of albums$ | async">
-                  <button (click)="updateSubCategory('Album', album.id)">{{album.title}}</button>
+                  <button (click)="addSubCategory('Album', album.id)">{{album.title}}</button>
                 </div>
               </ng-container>
               <ng-container *ngSwitchCase="'Artist'">
                 <div *ngFor="let artist of artists$ | async">
-                  <button (click)="updateSubCategory('Artist', artist.id)">{{artist.name}}</button>
+                  <button (click)="addSubCategory('Artist', artist.id)">{{artist.name}}</button>
                 </div>
               </ng-container>
               <ng-container *ngSwitchCase="'Song'">
@@ -66,7 +66,7 @@
               </ng-container>
               <ng-container *ngSwitchCase="'Playlist'">
                 <div *ngFor="let playlist of playlists$ | async">
-                  <button (click)="updateSubCategory('Playlist', playlist.id)">{{playlist.name}}</button>
+                  <button (click)="addSubCategory('Playlist', playlist.id)">{{playlist.name}}</button>
                 </div>
               </ng-container>
             </ng-container>
@@ -76,38 +76,38 @@
     </ml-card>
   </ng-container>
 
-  <ng-container *ngIf="selectedSubCategory$ | async as category">
-    <ml-card class="shrink-0" *ngIf="category !== 'Song'">
-      <ml-card-body>
-        <div class="flex gap-[30px]">
-          <div class="">
-            <ng-container [ngSwitch]="category">
-              <fa-icon *ngSwitchCase="'Album'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
-              <fa-icon *ngSwitchCase="'Artist'" [icon]="faCompactDisc" [classes]="['fa-2xl']"></fa-icon>
-              <fa-icon *ngSwitchCase="'Playlist'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
-            </ng-container>
-          </div>
-          <div class="">
-            <ng-container [ngSwitch]="category">
-              <ng-container *ngSwitchCase="'Album'" >
-                <div *ngFor="let track of getTracksByAlbumId(selectedItemId)">
-                  <button>{{track.title}}</button>
-                </div>
-              </ng-container>
-              <ng-container *ngSwitchCase="'Artist'">
-                <div *ngFor="let album of getAlbumsByArtistId(selectedItemId)">
-                  <button>{{album.title}}</button>
-                </div>
-              </ng-container>
-              <ng-container *ngSwitchCase="'Playlist'">
-                <div *ngFor="let track of tracks$ | async">
-                  <button>{{track.title}}</button>
-                </div>
-              </ng-container>
-            </ng-container>
-          </div>
-        </div>
-      </ml-card-body>
-    </ml-card>
+  <ng-container *ngFor="let category of subCategories$ | async; trackBy: subCategoryTrackBy"
+    [ngTemplateOutlet]="subCategory" [ngTemplateOutletContext]="{$implicit: category}">
   </ng-container>
 </div>
+
+<ng-template #subCategory let-category>
+  <ml-card class="shrink-0" *ngIf="category.type !== 'Song'">
+    <ml-card-body>
+      <div class="flex gap-[30px]">
+        <div class="">
+          <fa-icon [icon]="category.icon" [classes]="['fa-2xl']"></fa-icon>
+        </div>
+        <div class="">
+          <ng-container [ngSwitch]="category.type">
+            <ng-container *ngSwitchCase="'Album'" >
+              <div *ngFor="let track of getTracksByAlbumId(category.id)">
+                <button>{{track.title}}</button>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Artist'">
+              <div *ngFor="let album of getAlbumsByArtistId(category.id)">
+                <button>{{album.title}}</button>
+              </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'Playlist'">
+              <div *ngFor="let track of tracks$ | async">
+                <button>{{track.title}}</button>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+      </div>
+    </ml-card-body>
+  </ml-card>
+</ng-template>
