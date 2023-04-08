@@ -1,4 +1,4 @@
-﻿import { PlaylistPages, PlaylistSort, PlaylistTabs } from "../../enums/enums";
+﻿import { PlaylistPages, PlaylistSort, PlaylistTabs } from "../../../lib/enums/enums";
 import { Configuration } from "./Configuration.interface";
 
 export interface PlaylistConfiguration extends Configuration {

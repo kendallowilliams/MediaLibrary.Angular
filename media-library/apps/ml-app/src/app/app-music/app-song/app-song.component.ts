@@ -4,14 +4,16 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { Track } from '@media-library/ml-data';
+import { faHeadphones } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-song',
-  templateUrl: './app-track.component.html',
+  templateUrl: './app-song.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppTrackComponent {
-  @Input() public track?: Track | null;
+export class AppSongComponent {
+  @Input() public trackId?: number;
+
+  protected faHeadphones = faHeadphones;
 }

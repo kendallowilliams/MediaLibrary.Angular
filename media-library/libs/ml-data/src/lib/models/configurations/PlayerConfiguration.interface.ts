@@ -1,4 +1,4 @@
-﻿import { MediaTypes, RepeatTypes, PlayerPages } from "../../enums/enums";
+﻿import { MediaTypes, RepeatTypes, PlayerPages } from "../../../lib/enums/enums";
 import { KeyValuePair } from "../collections/KeyValuePair.interface";
 import { ListItem } from "../collections/ListItem.interface";
 import { Configuration } from "./Configuration.interface";

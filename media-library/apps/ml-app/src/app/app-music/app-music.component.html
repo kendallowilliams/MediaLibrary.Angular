@@ -75,39 +75,18 @@
       </ml-card-body>
     </ml-card>
   </ng-container>
-
-  <ng-container *ngFor="let category of subCategories$ | async; trackBy: subCategoryTrackBy"
-    [ngTemplateOutlet]="subCategory" [ngTemplateOutletContext]="{$implicit: category}">
-  </ng-container>
+<!--
+  <ng-container *ngIf="subCategory$ | async as subCategory" [ngSwitch]="subCategory.type">
+    <ng-container *ngSwitchCase="'Album'" >
+      <app-album [albumId]="subCategory.id"></app-album>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Artist'">
+      <app-artist [artistId]="subCategory.id"></app-artist>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Song'">
+      <app-song [trackId]="subCategory.id"></app-song>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Playlist'">
+    </ng-container>
+  </ng-container>-->
 </div>
-
-<ng-template #subCategory let-category>
-  <ml-card class="shrink-0" *ngIf="category.type !== 'Song'">
-    <ml-card-body>
-      <div class="flex gap-[30px]">
-        <div class="">
-          <fa-icon [icon]="category.icon" [classes]="['fa-2xl']"></fa-icon>
-        </div>
-        <div class="">
-          <ng-container [ngSwitch]="category.type">
-            <ng-container *ngSwitchCase="'Album'" >
-              <div *ngFor="let track of getTracksByAlbumId(category.id)">
-                <button>{{track.title}}</button>
-              </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'Artist'">
-              <div *ngFor="let album of getAlbumsByArtistId(category.id)">
-                <button>{{album.title}}</button>
-              </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'Playlist'">
-              <div *ngFor="let track of tracks$ | async">
-                <button>{{track.title}}</button>
-              </div>
-            </ng-container>
-          </ng-container>
-        </div>
-      </div>
-    </ml-card-body>
-  </ml-card>
-</ng-template>

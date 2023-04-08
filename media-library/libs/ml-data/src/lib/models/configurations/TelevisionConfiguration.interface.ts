@@ -1,4 +1,4 @@
-﻿import { TelevisionPages, SeriesSort } from "../../enums/enums";
+﻿import { TelevisionPages, SeriesSort } from "../../../lib/enums/enums";
 import { Configuration } from "./Configuration.interface";
 
 export interface TelevisionConfiguration extends Configuration {

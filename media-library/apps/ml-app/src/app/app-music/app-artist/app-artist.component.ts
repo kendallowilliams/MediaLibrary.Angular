@@ -4,7 +4,7 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { Artist } from '@media-library/ml-data';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-artist',
@@ -13,5 +13,7 @@ import { Artist } from '@media-library/ml-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppArtistComponent {
-  @Input() public artist?: Artist | null;
+  @Input() public artistId?: number;
+
+  protected faUser = faUser;
 }

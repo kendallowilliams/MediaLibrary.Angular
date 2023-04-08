@@ -1,4 +1,4 @@
-﻿import { AppWidth, MediaPages } from "../../enums/enums";
+﻿import { AppWidth, MediaPages } from "../../../lib/enums/enums";
 import { Configuration } from "./Configuration.interface";
 
 export interface MediaLibraryConfiguration extends Configuration {

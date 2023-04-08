@@ -7,12 +7,6 @@ import { BehaviorSubject, Subject, zip } from 'rxjs';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
-type SubCategory = {
-  id: number;
-  type: MusicCategory;
-  icon: IconDefinition;
-}
-
 @Component({
   selector: 'app-music',
   templateUrl: './app-music.component.html',
@@ -39,7 +33,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
 
   protected selectedCategory$ = new Subject<MusicCategory | null>();
   protected selectedCategoryIcon$ = new Subject<IconDefinition>();
-  protected subCategories$ = new Subject<SubCategory[]>();
+  protected subCategory$ = new Subject<{ id: number, type: MusicCategory}>();
 
   constructor(private _musicService: MusicService, private _modalService: ModalService, private _messageBoxService: MessageBoxService,
     private _vcr: ViewContainerRef, private _playlistService: PlaylistService) {
@@ -95,11 +89,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
     this.selectedCategory$.next(category);
   }
 
-  protected subCategoryTrackBy(index: number, item: SubCategory) : number {
-    return index;
-  }
-
   protected addSubCategory(category: MusicCategory, id: number) : void {
-    this.subCategories$.next([{id: id, type: 'Song', icon: faMusic }]);
+    this.subCategory$.next({ id: id, type: category });
   }
 }

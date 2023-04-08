@@ -1,4 +1,4 @@
-﻿import { AlbumSort, ArtistSort, SongSort, MusicTabs, MusicPages } from "../../enums/enums";
+﻿import { AlbumSort, ArtistSort, SongSort, MusicTabs, MusicPages } from "../../../lib/enums/enums";
 import { Configuration } from "./Configuration.interface";
 
 export interface MusicConfiguration extends Configuration {

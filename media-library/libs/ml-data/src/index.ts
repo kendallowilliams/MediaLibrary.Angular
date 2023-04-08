@@ -1,30 +1,30 @@
 export * from './lib/ml-data.module';
 
 /** Services */
-export * from './services/app/app.service';
-export * from './services/music/music.service';
-export * from './services/player/player.service';
-export * from './services/podcast/podcast.service';
-export * from './services/playlist/playlist.service';
-export * from './services/television/television.service';
+export * from './lib/services/app/app.service';
+export * from './lib/services/music/music.service';
+export * from './lib/services/player/player.service';
+export * from './lib/services/podcast/podcast.service';
+export * from './lib/services/playlist/playlist.service';
+export * from './lib/services/television/television.service';
 
 /** Configuration */
-export * from './models/configurations/MusicConfiguration.interface';
-export * from './models/configurations/PodcastConfiguration.interface';
-export * from './models/configurations/PlaylistConfiguration.interface';
-export * from './models/configurations/PlayerConfiguration.interface';
-export * from './models/configurations/TelevisionConfiguration.interface';
-export * from './models/configurations/HomeConfiguration.interface';
-export * from './models/configurations/MediaLibraryConfiguration.interface';
+export * from './lib/models/configurations/MusicConfiguration.interface';
+export * from './lib/models/configurations/PodcastConfiguration.interface';
+export * from './lib/models/configurations/PlaylistConfiguration.interface';
+export * from './lib/models/configurations/PlayerConfiguration.interface';
+export * from './lib/models/configurations/TelevisionConfiguration.interface';
+export * from './lib/models/configurations/HomeConfiguration.interface';
+export * from './lib/models/configurations/MediaLibraryConfiguration.interface';
 
 /** Models */
-export * from './models/music/Track.model';
-export * from './models/music/Artist.model';
-export * from './models/music/Album.model';
-export * from './models/playlist/Playlist.model';
+export * from './lib/models/music/Track.model';
+export * from './lib/models/music/Artist.model';
+export * from './lib/models/music/Album.model';
+export * from './lib/models/playlist/Playlist.model';
 
 /** Enums */
-export * from './enums/Enums.enum';
+export * from './lib/enums/Enums.enum';
 
 /** Types */
-export * from './types/Music.type';
+export * from './lib/types/Music.type';
