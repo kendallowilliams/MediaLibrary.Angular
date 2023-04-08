@@ -3,8 +3,8 @@
     <button type="button" class="flex items-center border-dark border-[1px] border-solid
       rounded bg-light dark:bg-dark text-dark dark:text-light w-full" (click)="toggleDropdown()">
       <div class="grow text-left">
-        <ng-container *ngIf="selectedItem$ | async as item; else placeholder">{{item.text}}</ng-container>
-        <ng-template #placeholder>
+        <ng-container *ngIf="selectedItem; else placeholderTemplate">{{selectedItem.text}}</ng-container>
+        <ng-template #placeholderTemplate>
           {{placeholder}}
         </ng-template>
       </div>

@@ -8,7 +8,8 @@ import {
   QueryList,
   ViewEncapsulation,
   EventEmitter,
-  forwardRef
+  forwardRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop, Observable, Subscription } from 'rxjs';
@@ -50,7 +51,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
   /** An observable that is used to control the dropdown visibility. */
   protected isDropdownOpen$!: Observable<boolean>;
   /** An observable that emits the currently selected option. */
-  protected selectedItem$ = new BehaviorSubject<SelectOption<T> | null>(null);
+  private _selectedItem: SelectOption<T> | null = null;
   private _optionSubscriptions: Subscription[] = [];
   private _onChange: (_: T | T[] | null) => void = noop;
   private _onTouched: () => void = noop;
@@ -83,7 +84,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
 
   /** A public accessor for the currently selected option. */
   public get selectedItem(): SelectOption<T> | null {
-    return this.selectedItem$.getValue();
+    return this._selectedItem;
   }
 
   /** 
@@ -109,7 +110,7 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
     return this._valueComparerFn;
   }
 
-  constructor() {
+  constructor(private _cd: ChangeDetectorRef) {
     this.isDropdownOpen$ = this._isDropdownOpen$.asObservable();
   }
   
@@ -152,7 +153,8 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
         if (!option.selected) {
           this._unselect(this.selectedItem);
           option.selected = true;
-          this.selectedItem$.next(option);
+          this._selectedItem = option;
+          this._cd.detectChanges();
         }
         this._isDropdownOpen$.next(false);
       }
@@ -164,7 +166,8 @@ export class SelectComponent<T> implements AfterContentInit, ControlValueAccesso
     if (option && option.selected) {
       if (!this.multiple) {
         option.selected = false;
-        this.selectedItem$.next(null);
+        this._selectedItem = null;
+        this._cd.detectChanges();
       }
     }
   }
