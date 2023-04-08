@@ -26,13 +26,13 @@ export * from './lib/navbar/services/navbar.service';
 export * from './lib/navbar/services/navbar-menu.service';
 
 /** Card */
-export * from './lib/controls/card/card.module';
-export * from './lib/controls/card/card.component';
-export * from './lib/controls/card/card-header/card-header.component';
-export * from './lib/controls/card/card-title/card-title.component';
-export * from './lib/controls/card/card-subtitle/card-subtitle.component';
-export * from './lib/controls/card/card-body/card-body.component';
-export * from './lib/controls/card/card-footer/card-footer.component';
+export * from './lib/content/card/card.module';
+export * from './lib/content/card/card.component';
+export * from './lib/content/card/card-header/card-header.component';
+export * from './lib/content/card/card-title/card-title.component';
+export * from './lib/content/card/card-subtitle/card-subtitle.component';
+export * from './lib/content/card/card-body/card-body.component';
+export * from './lib/content/card/card-footer/card-footer.component';
 
 /** Modal */
 export * from './lib/modal/modal.module';
