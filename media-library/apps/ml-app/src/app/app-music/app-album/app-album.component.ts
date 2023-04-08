@@ -5,8 +5,8 @@ import {
   OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { Album, MusicService, Track } from '@media-library/ml-data';
-import { Subject } from 'rxjs';
+import { MusicService } from '@media-library/ml-data';
+import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-album',
@@ -14,17 +14,10 @@ import { Subject } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppAlbumComponent implements OnInit {
-  @Input() public album?: Album | null;
+export class AppAlbumComponent {
+  @Input() public albumId?: number;
 
-  protected tracks$: Subject<Track[]>;
+  protected faCompactDisc = faCompactDisc;
 
-  constructor(private _musicService: MusicService) {
-    this.tracks$ = new Subject<Track[]>();
-  }
-
-  public ngOnInit(): void {
-    this._musicService.getAlbumTracks(this.album?.id || 0)
-      .subscribe(tracks => this.tracks$.next(tracks));
-  }
+  constructor(private _musicService: MusicService) {}
 }

@@ -1,68 +1,70 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Injectable, ViewContainerRef } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MessageBoxComponent } from '../../controls/message-box/message-box.component';
+import { ModalService } from '../../modal/services/modal.service';
+import { ModalRef } from '../../modal/models/ModalRef.model';
+import { ModalConfig } from '../../modal/models/ModalConfig.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageBoxService {
-  private _messageBox?: MessageBoxComponent;
+  private _modalRef?: ModalRef<MessageBoxComponent>;
 
-  private _modalOpen$!: BehaviorSubject<boolean>;
+  constructor(private _modalService: ModalService) {}
 
-  private _returnValue$!: Subject<boolean>;
+  public alert(title: string, message: string, vcr: ViewContainerRef) : void {
+    const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-  constructor() {
-    this._modalOpen$ = new BehaviorSubject<boolean>(false);
-    this._returnValue$ = new Subject<boolean>();
+    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+      c.title = title;
+      c.message = message;
+      c.messageType = 'alert';
+    };
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
   }
 
-  public setMessageBox(messageBox: MessageBoxComponent) : void {
-    this._messageBox = messageBox;
+  public error(title: string, message: string, vcr: ViewContainerRef) : void {
+    const modalConfig = new ModalConfig<MessageBoxComponent>();
+
+    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+      c.title = title;
+      c.message = message;
+      c.messageType = 'error';
+    };
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
   }
 
-  public alert(title: string, message: string) : void {
-    this._messageBox?.setTitle(title);
-    this._messageBox?.setMessage(message);
-    this._messageBox?.setMessageType('alert');
-    this._modalOpen$.next(true);
+  public warn(title: string, message: string, vcr: ViewContainerRef) : void {
+    const modalConfig = new ModalConfig<MessageBoxComponent>();
+
+    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+      c.title = title;
+      c.message = message;
+      c.messageType = 'warn';
+    };
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
   }
 
-  public error(title: string, message: string) : void {
-    this._messageBox?.setTitle(title);
-    this._messageBox?.setMessage(message);
-    this._messageBox?.setMessageType('error');
-    this._modalOpen$.next(true);
-  }
+  public confirm(title: string, message: string, vcr: ViewContainerRef, yesNo: boolean = false) : Observable<boolean> {
+    const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-  public warn(title: string, message: string) : void {
-    this._messageBox?.setTitle(title);
-    this._messageBox?.setMessage(message);
-    this._messageBox?.setMessageType('warn');
-    this._modalOpen$.next(true);
-  }
+    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+      c.title = title;
+      c.message = message;
+      c.messageType = yesNo ? 'yes_no' : 'confirm';
+    };
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
 
-  public confirm(title: string, message: string, yesNo: boolean = false) : Observable<boolean> {
-    const observable$ = new Observable<boolean>((subscriber) => {
-      const subscription$ = this._returnValue$.subscribe(returnValue => {
-        subscriber.next(returnValue);
+    return new Observable<boolean>(subscriber => {
+      this._modalRef?.component?.continueResponse.subscribe(() => {
+        subscriber.next(true);
         subscriber.complete();
-        subscription$.unsubscribe();
+      });
+      this._modalRef?.component?.cancelResponse.subscribe(() => {
+        subscriber.next(false);
+        subscriber.complete();
       });
     });
-    this._messageBox?.setTitle(title);
-    this._messageBox?.setMessage(message);
-    this._messageBox?.setMessageType(yesNo ? 'yes_no' : 'confirm');
-    this._modalOpen$.next(true);
-
-    return observable$;
-  }
-
-  public getModalOpen$() : BehaviorSubject<boolean> {
-    return this._modalOpen$;
-  }
-
-  public getReturnValue$() : Subject<boolean> {
-    return this._returnValue$;
   }
 }

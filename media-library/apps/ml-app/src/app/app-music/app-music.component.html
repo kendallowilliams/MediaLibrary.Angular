@@ -1,44 +1,92 @@
-<ng-container *ngIf="(isLoading$ | async) === false">
-  <div class="p-[5px]">Albums</div>
-  <div class="flex gap-[20px] overflow-auto p-[5px]">
-    <ml-card *ngFor="let album of albums$ | async">
-      <ml-card-header>
-        <ml-card-title>{{album.title}} <button mlButton (click)="expandAlbum(album.id)"><fa-icon *ngIf="expandIcon" [icon]="expandIcon"></fa-icon></button></ml-card-title>
-        <ml-card-subtitle>
-          <ng-container *ngIf="artists$ | async as artists">
-            {{getArtist(artists, album.artistId)?.name}}
+<div class="flex items-stretch gap-[20px]">
+  <ml-card class="shrink-0">
+    <ml-card-body>
+      <div class="flex gap-[30px]">
+        <div class="">
+          <fa-icon *ngIf="faMusic" [icon]="faMusic" [classes]="['fa-2xl']"></fa-icon>
+        </div>
+        <div class="flex flex-col items-start gap-[10px]">
+          <ng-container *ngIf="albums$ | async as albums">
+            <button (click)="updateCategory('Album')">
+              <fa-icon [icon]="faCompactDisc"></fa-icon>
+              <span class="ml-[5px]">Albums</span>
+            </button>
           </ng-container>
-        </ml-card-subtitle>
-      </ml-card-header>
-      <ml-card-body></ml-card-body>
-      <ml-card-footer></ml-card-footer>
-    </ml-card>
-  </div>
-  <div class="p-[5px]">Artists</div>
-  <div class="flex gap-[20px] overflow-auto p-[5px]">
-    <ml-card *ngFor="let artist of artists$ | async">
-      <ml-card-header>
-        <ml-card-title>{{artist.name}} <button mlButton (click)="expandArtist(artist.id)"><fa-icon *ngIf="expandIcon" [icon]="expandIcon"></fa-icon></button></ml-card-title>
-        <ml-card-subtitle>
           <ng-container *ngIf="artists$ | async as artists">
-            <div *ngFor="let album of getAlbumByArtistId(artist.id)">{{album.title}}</div>
+            <button (click)="updateCategory('Artist')">
+              <fa-icon [icon]="faUser"></fa-icon>
+              <span class="ml-[5px]">Artists</span>
+            </button>
           </ng-container>
-        </ml-card-subtitle>
-      </ml-card-header>
-      <ml-card-body></ml-card-body>
-      <ml-card-footer></ml-card-footer>
+          <ng-container *ngIf="tracks$ | async as tracks">
+            <button (click)="updateCategory('Song')">
+              <fa-icon [icon]="faHeadphones"></fa-icon>
+              <span class="ml-[5px]">Songs</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="playlists$ | async as playlists">
+            <button (click)="updateCategory('Playlist')">
+              <fa-icon [icon]="faList"></fa-icon>
+              <span class="ml-[5px]">Playlists</span>
+            </button>
+          </ng-container>
+        </div>
+      </div>
+    </ml-card-body>
+  </ml-card>
+
+  <ng-container *ngIf="selectedCategory$ | async as category">
+    <ml-card class="shrink-0">
+      <ml-card-body>
+        <div class="flex gap-[30px]">
+          <div class="flex">
+            <ng-container [ngSwitch]="category">
+              <fa-icon *ngSwitchCase="'Album'" [icon]="faCompactDisc" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Artist'" [icon]="faUser" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Song'" [icon]="faHeadphones" [classes]="['fa-2xl']"></fa-icon>
+              <fa-icon *ngSwitchCase="'Playlist'" [icon]="faList" [classes]="['fa-2xl']"></fa-icon>
+            </ng-container>
+          </div>
+          <div class="flex flex-col">
+            <ng-container [ngSwitch]="category">
+              <ng-container *ngSwitchCase="'Album'" >
+                <div *ngFor="let album of albums$ | async">
+                  <button (click)="addSubCategory('Album', album.id)">{{album.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Artist'">
+                <div *ngFor="let artist of artists$ | async">
+                  <button (click)="addSubCategory('Artist', artist.id)">{{artist.name}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Song'">
+                <div *ngFor="let track of tracks$ | async">
+                  <button>{{track.title}}</button>
+                </div>
+              </ng-container>
+              <ng-container *ngSwitchCase="'Playlist'">
+                <div *ngFor="let playlist of playlists$ | async">
+                  <button (click)="addSubCategory('Playlist', playlist.id)">{{playlist.name}}</button>
+                </div>
+              </ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </ml-card-body>
     </ml-card>
-  </div>
-</ng-container>
-<ml-modal #musicModal>
-  <ml-modal-header></ml-modal-header>
-  <ml-modal-body>
-    <ng-container [ngSwitch]="selectedItemType$ | async">
-      <app-album *ngSwitchCase="musicTabsEnum.Albums" [album]="selectedAlbum$ | async"></app-album>
-      <app-artist *ngSwitchCase="musicTabsEnum.Artists" [artist]="selectedArtist$ | async"></app-artist>
-      <app-song *ngSwitchCase="musicTabsEnum.Songs" [track]="selectedTrack$ | async"></app-song>
-      <div *ngSwitchDefault>Something went wrong!</div>
+  </ng-container>
+<!--
+  <ng-container *ngIf="subCategory$ | async as subCategory" [ngSwitch]="subCategory.type">
+    <ng-container *ngSwitchCase="'Album'" >
+      <app-album [albumId]="subCategory.id"></app-album>
     </ng-container>
-  </ml-modal-body>
-  <ml-modal-footer></ml-modal-footer>
-</ml-modal>
+    <ng-container *ngSwitchCase="'Artist'">
+      <app-artist [artistId]="subCategory.id"></app-artist>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Song'">
+      <app-song [trackId]="subCategory.id"></app-song>
+    </ng-container>
+    <ng-container *ngSwitchCase="'Playlist'">
+    </ng-container>
+  </ng-container>-->
+</div>

@@ -11,7 +11,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SwitchComponent } from './controls/switch/switch.component';
 import { CheckboxDirective } from './controls/checkbox/checkbox.directive';
 import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar-icon.component';
-import { LoadingComponent } from './controls/loading/loading.component';
 import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.directive';
 import { MessageBoxComponent } from './controls/message-box/message-box.component';
 import { ButtonDirective } from './controls/button/button.directive';
@@ -34,7 +33,6 @@ import { SelectOptionComponent } from './controls/select/select-option/select-op
     SwitchComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    LoadingComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
     ButtonDirective,
@@ -54,7 +52,6 @@ import { SelectOptionComponent } from './controls/select/select-option/select-op
     SwitchComponent,
     CheckboxDirective,
     NavbarIconComponent,
-    LoadingComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
     ButtonDirective,

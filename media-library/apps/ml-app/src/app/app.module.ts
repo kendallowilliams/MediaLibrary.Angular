@@ -22,7 +22,7 @@ import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { AppTelevisionComponent } from './app-television/app-television.component';
 import { AppAlbumComponent } from './app-music/app-album/app-album.component';
 import { AppArtistComponent } from './app-music/app-artist/app-artist.component';
-import { AppTrackComponent } from './app-music/app-track/app-track.component';
+import { AppSongComponent } from './app-music/app-song/app-song.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -40,7 +40,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppTelevisionComponent,
     AppAlbumComponent,
     AppArtistComponent,
-    AppTrackComponent,
+    AppSongComponent,
   ],
   imports: [
     BrowserModule,

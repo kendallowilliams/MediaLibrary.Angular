@@ -1,8 +1,11 @@
-import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { MusicConfiguration, Album, Artist, Track, MusicService, MusicTabs } from '@media-library/ml-data';
-import { FaIconService, LoadingService, MessageBoxService, ModalComponent } from '@media-library/ml-ui';
-import { BehaviorSubject, Observable, zip } from 'rxjs';
+import { MusicConfiguration, Album, Artist, Track, MusicService, PlaylistService, MusicCategory } from '@media-library/ml-data';
+import { MessageBoxService, ModalRef, ModalService } from '@media-library/ml-ui';
+import { Playlist } from '@media-library/ml-data';
+import { BehaviorSubject, Subject, zip } from 'rxjs';
+import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-music',
@@ -11,31 +14,29 @@ import { BehaviorSubject, Observable, zip } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMusicComponent implements OnInit, OnDestroy {
-  private _defaultClasses = 'block w-full h-full p-[20px]';
+  private _defaultClasses = `flex items-center justify-center w-full h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
-  @ViewChild('musicModal') protected musicModal!: ModalComponent;
 
-  private _configuration!: MusicConfiguration;
+  private _configuration?: MusicConfiguration;
+  private _loadingModalRef?: ModalRef<FaIconComponent>;
 
-  protected selectedItemType$: BehaviorSubject<MusicTabs | undefined>;
-  protected selectedAlbum$: BehaviorSubject<Album | undefined>;
-  protected selectedArtist$: BehaviorSubject<Artist | undefined>;
-  protected selectedTrack$: BehaviorSubject<Track | undefined>;
+  protected faMusic = faMusic;
+  protected faCompactDisc = faCompactDisc;
+  protected faUser = faUser;
+  protected faHeadphones = faHeadphones;
+  protected faList = faList;
+  protected faXmark = faXmark;
   protected albums$ = new BehaviorSubject<Album[]>([]);
   protected artists$ = new BehaviorSubject<Artist[]>([]);
   protected tracks$ = new BehaviorSubject<Track[]>([]);
-  protected musicTabsEnum = MusicTabs;
-  protected isLoading$: Observable<boolean>;
-  protected expandIcon?: IconDefinition;
+  protected playlists$ = new BehaviorSubject<Playlist[]>([]);
 
-  constructor(private _musicService: MusicService, private _loadingService: LoadingService, private _messageBoxService: MessageBoxService,
-    private _faIconService: FaIconService) {
-    this.selectedItemType$ = new BehaviorSubject<MusicTabs | undefined>(undefined);
-    this.selectedArtist$ = new BehaviorSubject<Artist | undefined>(undefined);
-    this.selectedAlbum$ = new BehaviorSubject<Album | undefined>(undefined);
-    this.selectedTrack$ = new BehaviorSubject<Track | undefined>(undefined);
-    this.isLoading$ = this._loadingService.getLoading$().asObservable();
-    this.expandIcon = this._faIconService.getIconDefinition('fas', 'expand');
+  protected selectedCategory$ = new Subject<MusicCategory | null>();
+  protected selectedCategoryIcon$ = new Subject<IconDefinition>();
+  protected subCategory$ = new Subject<{ id: number, type: MusicCategory}>();
+
+  constructor(private _musicService: MusicService, private _modalService: ModalService, private _messageBoxService: MessageBoxService,
+    private _vcr: ViewContainerRef, private _playlistService: PlaylistService) {
   }
   
   public ngOnInit(): void {
@@ -49,17 +50,22 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   }
 
   private _loadData() : void {
-    this._loadingService.getLoading$().next(true);
+    this._loadingModalRef = this._modalService.showLoadingModal(this._vcr);
     zip(this._musicService.getConfiguration(),
       this._musicService.getAlbums(),
       this._musicService.getArtists(),
-      this._musicService.getTracks()
-    ).subscribe(results => {
-      this._configuration = results[0];
-      this.albums$.next(results[1]);
-      this.artists$.next(results[2]);
-      this.tracks$.next(results[3]);
-      this._loadingService.getLoading$().next(false);
+      this._musicService.getTracks(),
+      this._playlistService.getMusicPlaylists()
+    ).subscribe({
+      next: (results) => {
+        this._configuration = results[0];
+        this.albums$.next(results[1]);
+        this.artists$.next(results[2]);
+        this.tracks$.next(results[3]);
+        this.playlists$.next(results[4]);
+      },
+      error: (error) => this._messageBoxService.error('Error', error.message, this._vcr),
+      complete: () => this._loadingModalRef?.hide()
     });
   }
 
@@ -67,63 +73,23 @@ export class AppMusicComponent implements OnInit, OnDestroy {
     return artists.find(a => a.id === id);
   }
 
-  protected getAlbumByArtistId(artistId: number) : Album[] | undefined {
+  protected getAlbumsByArtistId(artistId: number) : Album[] | undefined {
     const albums = this.albums$.getValue();
 
     return albums.filter(a => a.artistId === artistId);
   }
 
-  protected expandAlbum(id: number) : void {
-    const albums = this.albums$.getValue() ?? [],
-      album = albums.find(a => a.id === id),
-      success = (_album: Album) => {
-        this.selectedItemType$.next(MusicTabs.Albums);
-        this.selectedAlbum$.next(_album);
-        this.musicModal.showModal();
-      };
+  protected getTracksByAlbumId(albumId: number) : Album[] | undefined {
+    const tracks = this.tracks$.getValue();
 
-      if (album) {
-        success(album);
-      } else {
-        this._musicService.getAlbum(id)
-          .subscribe(album => {
-            if (album) {
-              success(album);
-            } else {
-              console.warn(`Album [Id: ${id}] not found.`);
-            }
-          });
-      }
+    return tracks.filter(a => a.albumId === albumId);
   }
 
-  protected expandArtist(id: number) : void {
-    const artists = this.artists$.getValue() ?? [],
-      artist = artists.find(a => a.id === id),
-      success = (_artist: Artist) => {
-        this.selectedItemType$.next(MusicTabs.Artists);
-        this.selectedArtist$.next(_artist);
-        this.musicModal.showModal();
-      };
-
-      if (artist) {
-        success(artist);
-      } else {
-        this._musicService.getArtist(id)
-          .subscribe(artist => {
-            if (artist) {
-              success(artist);
-            } else {
-              console.warn(`Album [Id: ${id}] not found.`);
-            }
-          });
-      }
+  protected updateCategory(category: MusicCategory) : void {
+    this.selectedCategory$.next(category);
   }
 
-  protected closeModal() : void {
-    this.selectedItemType$.next(undefined);
-    this.selectedAlbum$.next(undefined);
-    this.selectedArtist$.next(undefined);
-    this.selectedTrack$.next(undefined);
-    this.musicModal.hide();
+  protected addSubCategory(category: MusicCategory, id: number) : void {
+    this.subCategory$.next({ id: id, type: category });
   }
 }

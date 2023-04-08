@@ -20,7 +20,6 @@ export * from './lib/controls/search/search.component';
 /** Services */
 export * from './lib/services/fa-icon/fa-icon.service';
 export * from './lib/services/device/device.service';
-export * from './lib/services/loading/loading.service';
 export * from './lib/services/message-box/message-box.service';
 export * from './lib/services/theme/theme.service';
 export * from './lib/navbar/services/navbar.service';
@@ -35,9 +34,6 @@ export * from './lib/controls/card/card-subtitle/card-subtitle.component';
 export * from './lib/controls/card/card-body/card-body.component';
 export * from './lib/controls/card/card-footer/card-footer.component';
 
-/** Loading */
-export * from './lib/controls/loading/loading.component';
-
 /** Modal */
 export * from './lib/modal/modal.module';
 export * from './lib/modal/modal.component';
@@ -45,6 +41,10 @@ export * from './lib/modal/modal-header/modal-header.component';
 export * from './lib/modal/modal-title/modal-title.component';
 export * from './lib/modal/modal-body/modal-body.component';
 export * from './lib/modal/modal-footer/modal-footer.component';
+export * from './lib/modal/services/modal.service';
+export * from './lib/modal/models/ModalConfig.model';
+export * from './lib/modal/models/ModalRef.model';
+export * from './lib/modal/modal-content/modal-content.component';
 
 /** Message Box */
 export * from './lib/controls/message-box/message-box.component';
