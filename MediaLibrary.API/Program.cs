@@ -1,5 +1,4 @@
 using MediaLibrary.BLL.Extensions;
-using Microsoft.Extensions.FileProviders;
 using MediaLibrary.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,28 +30,12 @@ app.Use(async (HttpContext context, Func<Task> next) =>
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    var staticFilesPath = Path.Combine(builder.Environment.ContentRootPath, builder.Configuration["StaticFilesPath"]!);
-
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseDefaultFiles(new DefaultFilesOptions
-    {
-        FileProvider = new PhysicalFileProvider(staticFilesPath)
-    });
-    app.UseStaticFiles(new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(staticFilesPath)
-    });
-} else
-{
-    app.UseDefaultFiles();
-    app.UseStaticFiles();
 }
 
+app.UseStaticFiles();
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
