@@ -7,25 +7,25 @@
         </div>
         <div class="flex flex-col items-start gap-[10px]">
           <ng-container *ngIf="albums$ | async as albums">
-            <button (click)="updateCategory('Album')">
+            <button *ngIf="albums.length > 0" (click)="updateCategory('Album')">
               <fa-icon [icon]="faCompactDisc"></fa-icon>
               <span class="ml-[5px]">Albums</span>
             </button>
           </ng-container>
           <ng-container *ngIf="artists$ | async as artists">
-            <button (click)="updateCategory('Artist')">
+            <button *ngIf="artists.length > 0" (click)="updateCategory('Artist')">
               <fa-icon [icon]="faUser"></fa-icon>
               <span class="ml-[5px]">Artists</span>
             </button>
           </ng-container>
           <ng-container *ngIf="tracks$ | async as tracks">
-            <button (click)="updateCategory('Song')">
+            <button *ngIf="tracks.length > 0" (click)="updateCategory('Song')">
               <fa-icon [icon]="faHeadphones"></fa-icon>
               <span class="ml-[5px]">Songs</span>
             </button>
           </ng-container>
           <ng-container *ngIf="playlists$ | async as playlists">
-            <button (click)="updateCategory('Playlist')">
+            <button *ngIf="playlists.length > 0" (click)="updateCategory('Playlist')">
               <fa-icon [icon]="faList"></fa-icon>
               <span class="ml-[5px]">Playlists</span>
             </button>
