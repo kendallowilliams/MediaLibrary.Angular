@@ -12,6 +12,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop, Subject } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { DropdownDirective } from '../dropdown/dropdown.directive';
+import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-select',
@@ -40,6 +41,8 @@ export class SelectComponent<T> implements ControlValueAccessor {
   private _onTouched: () => void = noop;
   public valueChange = new Subject<T | null>();
   public selectLabel = '';
+  public faCaretUp = faCaretUp;
+  public faCaretDown = faCaretDown;
 
   /** A public accessor for the internal value of the select. */
   public get value(): T | null {

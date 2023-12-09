@@ -8,8 +8,8 @@
           {{placeholder}}
         </ng-template>
       </div>
-      <fa-icon [icon]="'caret-down'" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
-      <fa-icon [icon]="'caret-up'" *ngIf="isDropdownOpen"></fa-icon>
+      <fa-icon [icon]="faCaretDown" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
+      <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
     </button>
   </div>
   <ng-template mlDropdown [(isDropdownOpen)]="isDropdownOpen" [hostElement]="host">

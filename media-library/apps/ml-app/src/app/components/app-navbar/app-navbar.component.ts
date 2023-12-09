@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { faGear } from '@fortawesome/free-solid-svg-icons';
 import { DeviceService, NavbarService } from '@media-library/ml-ui';
 import { Observable } from 'rxjs';
 
@@ -17,6 +18,8 @@ import { Observable } from 'rxjs';
 export class AppNavbarComponent implements OnInit {
   protected isMobile = false;
   protected navHidden$?: Observable<boolean>;
+
+  public faGear = faGear
 
   constructor(private _navbarService: NavbarService, private _deviceService: DeviceService, private _router: Router) {
     this.isMobile = this._deviceService.isMobile();

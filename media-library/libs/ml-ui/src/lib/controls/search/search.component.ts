@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { DeviceService } from '../../services/device/device.service';
-import { FaIconService } from '../../services/fa-icon/fa-icon.service';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-search',
@@ -31,13 +31,12 @@ export class SearchComponent {
   private _inputVisible = false;
   private _isMobile = false;
 
-  protected faIcon?: IconDefinition;
+  protected faSearch = faSearch;
 
   @Output() public search = new EventEmitter<string>();
 
-  constructor(private _faIconService: FaIconService, private _cd: ChangeDetectorRef, private _deviceService: DeviceService,
+  constructor(private _cd: ChangeDetectorRef, private _deviceService: DeviceService,
     private _renderer: Renderer2) {
-    this.faIcon = this._faIconService.getIconDefinition('fas', 'search');
     this._isMobile = !this._deviceService.hasMouse();
   }
 

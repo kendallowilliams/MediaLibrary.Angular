@@ -6,9 +6,8 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
-import { FaIconService } from '../../services/fa-icon/fa-icon.service';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { ModalRef } from '../models/ModalRef.model';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-modal-header',
@@ -24,11 +23,10 @@ import { ModalRef } from '../models/ModalRef.model';
 export class ModalHeaderComponent {
   @HostBinding('class') private _class = 'h-[50px] px-[30px] shadow';
 
-  protected faXmark?: IconDefinition;
+  protected faXmark = faXmark;
 
-  constructor(private _faIconService: FaIconService,
+  constructor(
     @Inject(ModalRef<ModalHeaderComponent>) @Optional() private _modalRef?: ModalRef<ModalHeaderComponent>) {
-    this.faXmark = this._faIconService.getIconDefinition('fas', 'xmark');
   }
 
   protected handleClose() : void {

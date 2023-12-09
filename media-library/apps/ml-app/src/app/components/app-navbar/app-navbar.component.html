@@ -1,0 +1,31 @@
+<ml-navbar>
+  <nav class="flex items-stretch px-[20px] gap-[20px] h-full bg-inherit text-inherit">
+    <ml-navbar-brand [routerLink]="''" class="cursor-pointer whitespace-nowrap">My Brand</ml-navbar-brand>
+    <div class="grow overflow-hidden">
+      <ml-navbar-nav *ngIf="!isMobile" mlAutoHideNavbarLinks [ngClass]="{ 'hidden': navHidden$ | async }">
+        <ml-nav-item [routerLink]="'/music'">Music</ml-nav-item>
+        <ml-nav-item [routerLink]="'/podcast'">Podcasts</ml-nav-item>
+        <ml-nav-item [routerLink]="'/television'">Television</ml-nav-item>
+        <ml-nav-item [routerLink]="'/playlist'">Playlists</ml-nav-item>
+        <ml-nav-item [routerLink]="'/player'">Player</ml-nav-item>
+      </ml-navbar-nav>
+    </div>
+    <ml-navbar-controls>
+      <ml-search (search)="handleSearch($event)"></ml-search>
+      <ml-navbar-icon [routerLink]="'/settings'">
+        <fa-icon [icon]="faGear"></fa-icon>
+      </ml-navbar-icon>
+    </ml-navbar-controls>
+    <ml-switch mlThemeToggle></ml-switch>
+    <ml-navbar-toggler *ngIf="isMobile || (navHidden$ | async)"></ml-navbar-toggler>
+  </nav>
+  <ml-navbar-menu>
+    <ml-navbar-nav>
+      <ml-nav-item [routerLink]="'music'">Music</ml-nav-item>
+      <ml-nav-item [routerLink]="'podcast'">Podcasts</ml-nav-item>
+      <ml-nav-item [routerLink]="'television'">Television</ml-nav-item>
+      <ml-nav-item [routerLink]="'playlist'">Playlists</ml-nav-item>
+      <ml-nav-item [routerLink]="'player'">Player</ml-nav-item>
+    </ml-navbar-nav>
+  </ml-navbar-menu>
+</ml-navbar>

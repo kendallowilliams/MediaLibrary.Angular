@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@angular/core';
-import { FaIconService } from '../../services/fa-icon/fa-icon.service';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Directive({
   selector: 'input[mlCheckbox]'
@@ -14,7 +14,9 @@ export class CheckboxDirective implements OnInit {
 
   @Input() public labelText = 'Checkbox Label';
 
-  constructor(private _host: ElementRef, private _faIconService: FaIconService, private _renderer: Renderer2) { }
+  public faCheck = faCheck;
+
+  constructor(private _host: ElementRef, private _renderer: Renderer2) { }
 
   public ngOnInit(): void {
     const input = this._host.nativeElement as HTMLInputElement;
@@ -26,11 +28,10 @@ export class CheckboxDirective implements OnInit {
   private _initializeCheckbox(input: HTMLInputElement) : void {
     const label = this._renderer.createElement('label') as HTMLLabelElement,
       divLabel = this._renderer.createElement('div') as HTMLSpanElement,
-      faIcon = this._faIconService.getIcon('fas', 'check', { classes: 'h-full w-full' }),
       divIcon = this._renderer.createElement('div') as HTMLSpanElement;
 
     divLabel.textContent = this.labelText;
-    this._renderer.appendChild(divIcon, faIcon?.node[0])
+    this._renderer.appendChild(divIcon, faCheck.icon);
     this._labelClasses.forEach(labelClass => this._renderer.addClass(label, labelClass));
     this._iconClasses.forEach(iconClass => this._renderer.addClass(divIcon, iconClass));
     this._renderer.insertBefore(this._renderer.parentNode(input), label, input);

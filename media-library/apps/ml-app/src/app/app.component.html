@@ -1,6 +1,6 @@
 <div class="flex flex-col h-screen w-screen">
   <header>
-    <app-navbar></app-navbar>
+    <router-outlet [name]="'header'"></router-outlet>
   </header>
   <main class="grow"><router-outlet></router-outlet></main>
   <footer class="flex items-center justify-center h-footer bg-light text-dark dark:bg-dark dark:text-light">&copy; {{year}} Kendall O. Williams</footer>
