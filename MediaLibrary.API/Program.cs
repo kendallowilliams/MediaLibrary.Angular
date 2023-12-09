@@ -1,6 +1,7 @@
 using MediaLibrary.BLL.Extensions;
 using MediaLibrary.API.Extensions;
 
+string localhostPolicy = "localhost:4200";
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,7 +18,7 @@ if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddCors(options =>
     {
-        options.AddPolicy("localhost:4200",
+        options.AddPolicy(localhostPolicy,
         builder =>
         {
             builder.WithOrigins("http://localhost:4200");
@@ -44,7 +45,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseCors("localhost:4200");
+    app.UseCors(localhostPolicy);
 }
 
 app.UseStaticFiles();
