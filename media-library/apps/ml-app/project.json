@@ -15,9 +15,7 @@
         "polyfills": "apps/ml-app/src/polyfills.ts",
         "tsConfig": "apps/ml-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": [
-          "apps/ml-app/src/favicon.ico", 
-          "apps/ml-app/src/assets"],
+        "assets": ["apps/ml-app/src/favicon.ico", "apps/ml-app/src/assets"],
         "styles": ["apps/ml-app/src/styles.scss"],
         "scripts": []
       },
@@ -58,10 +56,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "ml-app:build:production"
+          "buildTarget": "ml-app:build:production"
         },
         "development": {
-          "browserTarget": "ml-app:build:development"
+          "buildTarget": "ml-app:build:development"
         }
       },
       "defaultConfiguration": "development",
@@ -72,21 +70,17 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "browserTarget": "ml-app:build"
+        "buildTarget": "ml-app:build"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "options": {
-        "lintFilePatterns": ["apps/ml-app/**/*.ts", "apps/ml-app/**/*.html"]
-      }
+      "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/ml-app/jest.config.ts",
-        "passWithNoTests": true
+        "jestConfig": "apps/ml-app/jest.config.ts"
       }
     }
   },
