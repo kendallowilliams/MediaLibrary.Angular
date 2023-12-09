@@ -51,6 +51,8 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
     if (this._modalConfig?.backdrop === 'hidden') {
       this._renderer.addClass(dialog, 'backdrop:hidden');
+    } else if (this._modalConfig?.backdrop === 'transparent') {
+      this._renderer.addClass(dialog, 'backdrop:bg-transparent');
     }
 
     this.static = this._modalConfig?.static || false;

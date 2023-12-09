@@ -54,6 +54,7 @@ export class DropdownDirective implements OnChanges {
     const modalConfig = new ModalConfig<unknown>();
 
     modalConfig.static = false;
+    modalConfig.backdrop = 'transparent';
     this._dropDownRef = this._modalService.showTemplate<unknown>(this._template, null, this._vcr, modalConfig);
     this._dropDownRef.modal?.modalClose.subscribe(() => this._closeDropdown());
     this._updateDropdownStyles();
