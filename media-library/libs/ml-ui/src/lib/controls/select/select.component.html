@@ -1,21 +1,23 @@
-<div class="relative">
-  <div>
+<div class="relative" #host>
+  <div class="h-[25px]">
     <button type="button" class="flex items-center border-dark border-[1px] border-solid
       rounded bg-light dark:bg-dark text-dark dark:text-light w-full" (click)="toggleDropdown()">
       <div class="grow text-left">
-        <ng-container *ngIf="selectedItem; else placeholderTemplate">{{selectedItem.text}}</ng-container>
+        <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
         <ng-template #placeholderTemplate>
           {{placeholder}}
         </ng-template>
       </div>
-      <fa-icon [icon]="'caret-down'" [ngClass]="{ 'hidden': isDropdownOpen$ | async }"></fa-icon>
-      <fa-icon [icon]="'caret-up'" *ngIf="isDropdownOpen$ | async"></fa-icon>
+      <fa-icon [icon]="'caret-down'" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
+      <fa-icon [icon]="'caret-up'" *ngIf="isDropdownOpen"></fa-icon>
     </button>
   </div>
-  <div class="absolute mt-[5px] min-w-full" *ngIf="isDropdownOpen$ | async">
-    <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
-    dark:bg-dark text-dark dark:text-light p-[1px]">
-      <ng-content></ng-content>
+  <ng-template mlDropdown [(isDropdownOpen)]="isDropdownOpen" [hostElement]="host">
+    <div class="mt-[5px] fixed w-[var(--dropdown-width)] top-[var(--dropdown-top)] left-[var(--dropdown-left)]">
+      <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
+      dark:bg-dark text-dark dark:text-light p-[1px]">
+        <ng-content></ng-content>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>

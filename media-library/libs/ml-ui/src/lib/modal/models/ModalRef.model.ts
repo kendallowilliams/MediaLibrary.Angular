@@ -1,13 +1,17 @@
 import { ComponentRef, TemplateRef, Type } from "@angular/core";
-import { ModalComponent } from "../modal.component";
+import { Modal } from "./Modal.interface";
 
 export class ModalRef<T> {
   private _componentType?: Type<T>;
   private _template?: TemplateRef<T>;
   private _templateCtx?: unknown;
-  private _modalComponentRef?: ComponentRef<ModalComponent<T>>;
+  private _modalComponentRef?: ComponentRef<Modal>;
 
   public component?: T;
+  
+  public get modal() : Modal | undefined {
+    return this._modalComponentRef?.instance;
+  }
 
   public get componentType() : Type<T> | undefined {
     return this._componentType;
@@ -27,7 +31,7 @@ export class ModalRef<T> {
     this._templateCtx = templateCtx;
   }
 
-  public setModalComponentRef(modalComponentRef: ComponentRef<ModalComponent<T>>) : void {
+  public setModalComponentRef(modalComponentRef: ComponentRef<Modal>) : void {
     this._modalComponentRef = modalComponentRef;
   }
 

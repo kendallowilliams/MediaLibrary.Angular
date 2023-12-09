@@ -19,6 +19,7 @@ import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-l
 import { ModalModule } from './modal/modal.module';
 import { SelectComponent } from './controls/select/select.component';
 import { SelectOptionComponent } from './controls/select/select-option/select-option.component';
+import { DropdownDirective } from './controls/dropdown/dropdown.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ModalModule],
@@ -40,6 +41,7 @@ import { SelectOptionComponent } from './controls/select/select-option/select-op
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
+    DropdownDirective
   ],
   exports: [
     NavbarComponent,
@@ -59,6 +61,7 @@ import { SelectOptionComponent } from './controls/select/select-option/select-op
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
+    DropdownDirective
   ],
 })
 export class MlUiModule {}

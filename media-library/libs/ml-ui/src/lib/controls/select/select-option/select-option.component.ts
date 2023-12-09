@@ -7,9 +7,12 @@ import {
   Input,
   ViewEncapsulation,
   EventEmitter,
-  OnDestroy
+  OnInit,
+  DestroyRef
 } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
+import { SelectComponent } from '../select.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ml-select-option',
@@ -17,7 +20,7 @@ import { SelectOption } from '../interfaces/SelectOption.interface';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectOptionComponent<T> implements SelectOption<T>, OnDestroy {
+export class SelectOptionComponent<T> implements SelectOption<T>, OnInit {
   @HostBinding('class') private _class = `block`;
   @Input() public value!: T;
 
@@ -28,14 +31,32 @@ export class SelectOptionComponent<T> implements SelectOption<T>, OnDestroy {
     return (this._host.nativeElement.innerText || '').trim();
   }
 
-  constructor(private _host: ElementRef<HTMLElement>) {}
+  constructor(private _host: ElementRef<HTMLElement>, private _select: SelectComponent<T>, private _destroyRef: DestroyRef) {}
   
-  public ngOnDestroy(): void {
-    this.optionClicked.unsubscribe();
+  public ngOnInit(): void {
+    this._select.valueChange
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe({
+        next: value => {
+          if (!value || this.value !== value) {
+            this.selected = false;
+          } else if (!this.selected && this.value === value) {
+            this.selected = true;
+          }
+        }
+      });
   }
 
   @HostListener('click')
   private _handleClick() : void {
+    if (!this.selected) {
+      this.selected = true;
+      this._select.select(this);
+      this._select.writeValue(this.value);
+    } else {
+      this._select.closeDropdown();
+    }
+
     this.optionClicked.next(this);
   }
 }

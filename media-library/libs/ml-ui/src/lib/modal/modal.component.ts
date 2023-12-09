@@ -17,22 +17,22 @@ import {
 } from '@angular/core';
 import { ModalConfig } from './models/ModalConfig.model';
 import { ModalRef } from './models/ModalRef.model';
+import { Modal } from './models/Modal.interface';
 
 @Component({
   // selector: 'ml-modal',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none"
+    <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none p-0 m-0 max-w-full"
       (close)="handleClose($event)" (cancel)="handleCancel($event)">
       <ng-template #modalContent></ng-template>
     </dialog>
     `
 })
-export class ModalComponent<T> implements AfterViewInit {
+export class ModalComponent<T> implements AfterViewInit, Modal {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
-
   @Input() public static = false;
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
@@ -89,7 +89,7 @@ export class ModalComponent<T> implements AfterViewInit {
   }
 
   @HostListener('click', ['$event'])
-  protected handleClick(event: Event) : void {
+  public handleClick(event: Event) : void {
     const dialog = this._dialog.nativeElement;
 
     if (Object.is(event.target, dialog) && !this.static) {
@@ -97,11 +97,11 @@ export class ModalComponent<T> implements AfterViewInit {
     }
   }
 
-  protected handleCancel(event: Event) : void {
+  public handleCancel(event: Event) : void {
     this.modalCancel.emit(event);
   }
 
-  protected handleClose(event: Event) : void {
+  public handleClose(event: Event) : void {
     this.modalClose.emit(event);
   }
 }
