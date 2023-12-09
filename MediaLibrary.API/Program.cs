@@ -13,6 +13,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureServices(builder.Configuration);
 builder.Services.ConfigureAPIServices();
 
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("localhost:4200",
+        builder =>
+        {
+            builder.WithOrigins("http://localhost:4200");
+        });
+    });
+}
+
 var app = builder.Build();
 
 //add this at the start of Configure
@@ -32,6 +44,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseCors("localhost:4200");
 }
 
 app.UseStaticFiles();

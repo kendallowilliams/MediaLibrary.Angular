@@ -28,3 +28,6 @@ export * from './lib/enums/Enums.enum';
 
 /** Types */
 export * from './lib/types/Music.type';
+
+/** Tokens */
+export * from './lib/tokens/api-base-url.token';

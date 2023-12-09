@@ -1,8 +1,11 @@
 import { HttpClient, HttpContext, HttpHeaders, HttpParams } from "@angular/common/http";
+import { inject } from "@angular/core";
 import { Observable } from "rxjs";
+import { API_BASE_URL } from "../tokens/api-base-url.token";
 
 export abstract class BaseService {
   protected abstract _http: HttpClient;
+  private _baseUrl = inject(API_BASE_URL);
   
   protected getBaseConfiguration<T>(controller: string) : Observable<T> {
     return this.get<T>(controller, 'Configuration');
@@ -25,7 +28,7 @@ export abstract class BaseService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    return this._http.get<T>(`/api/${controller}/${action}`, options);
+    return this._http.get<T>(`${this._baseUrl}/api/${controller}/${action}`, options);
   }
 
   protected post<T>(controller: string, action: string, body: unknown | null, options?: {
@@ -41,6 +44,6 @@ export abstract class BaseService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    return this._http.post<T>(`/api/${controller}/${action}`, body, options);
+    return this._http.post<T>(`${this._baseUrl}/api/${controller}/${action}`, body, options);
   }
 }

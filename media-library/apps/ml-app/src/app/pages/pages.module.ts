@@ -14,7 +14,8 @@ import { AppTelevisionComponent } from './app-television/app-television.componen
 import { RouterModule, Routes } from '@angular/router';
 import { CardModule, MlUiModule } from '@media-library/ml-ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MlDataModule } from '@media-library/ml-data';
+import { MlDataModule, API_BASE_URL } from '@media-library/ml-data';
+import { environment } from '../../environments/environment';
 
 export const routes: Routes = [
   { 
@@ -56,6 +57,7 @@ export const routes: Routes = [
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  providers: [{ provide: API_BASE_URL, useValue: environment.apiBaseUrl }]
 })
 export class PagesModule { }
