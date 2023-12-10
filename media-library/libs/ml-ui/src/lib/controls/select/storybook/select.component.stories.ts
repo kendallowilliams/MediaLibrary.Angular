@@ -5,6 +5,7 @@ import { MlUiModule } from '../../../ml-ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const meta: Meta<SelectComponent<number>> = {
+  title: 'Components/Select',
   component: SelectComponent,
   decorators: [
     moduleMetadata({

@@ -52,6 +52,8 @@ export * from './lib/services/message-box/message-box.service';
 /** Directives */
 export * from './lib/directives/update-if-larger-than-parent/update-if-larger-than-parent.directive';
 export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.directive';
+export * from './lib/controls/select/directives/select-filter.directive';
+export * from './lib/controls/select/directives/select-multiselect.directive';
 
 /** Select */
 export * from './lib/controls/select/select.component';

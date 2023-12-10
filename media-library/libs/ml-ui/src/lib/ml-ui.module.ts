@@ -20,6 +20,8 @@ import { ModalModule } from './modal/modal.module';
 import { SelectComponent } from './controls/select/select.component';
 import { SelectOptionComponent } from './controls/select/select-option/select-option.component';
 import { DropdownDirective } from './controls/dropdown/dropdown.directive';
+import { SelectMultiSelectDirective } from './controls/select/directives/select-multiselect.directive';
+import { SelectFilterDirective } from './controls/select/directives/select-filter.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ModalModule],
@@ -41,7 +43,9 @@ import { DropdownDirective } from './controls/dropdown/dropdown.directive';
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
-    DropdownDirective
+    DropdownDirective,
+    SelectMultiSelectDirective,
+    SelectFilterDirective
   ],
   exports: [
     NavbarComponent,
@@ -61,7 +65,9 @@ import { DropdownDirective } from './controls/dropdown/dropdown.directive';
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
-    DropdownDirective
+    DropdownDirective,
+    SelectMultiSelectDirective,
+    SelectFilterDirective
   ],
 })
 export class MlUiModule {}
