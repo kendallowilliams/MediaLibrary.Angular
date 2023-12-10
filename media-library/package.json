@@ -48,6 +48,7 @@
     "@schematics/angular": "17.0.6",
     "@storybook/addon-essentials": "7.6.4",
     "@storybook/addon-interactions": "^7.5.3",
+    "@storybook/addon-styling-webpack": "^0.0.5",
     "@storybook/angular": "7.6.4",
     "@storybook/core-server": "7.6.4",
     "@storybook/jest": "^0.2.3",
@@ -85,4 +86,3 @@
     "webpack": "^5.64.0"
   }
 }
-
