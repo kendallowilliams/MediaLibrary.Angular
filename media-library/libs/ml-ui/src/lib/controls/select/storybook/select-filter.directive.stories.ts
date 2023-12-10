@@ -19,7 +19,7 @@ type Story = StoryObj<SelectFilterDirective>;
 
 export const Default: Story = {
   args: {
-    query: 'Option 2'
+    query: ''
   },
   render: (args: SelectFilterDirective) => ({
     props: {
