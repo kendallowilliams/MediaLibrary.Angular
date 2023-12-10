@@ -1,5 +1,8 @@
-<div class="bg-light dark:bg-dark text-dark dark:text-light 
-hover:bg-dark hover:text-light hover:dark:bg-light hover:dark:text-dark
-  px-[5px] cursor-pointer">
-  <ng-container *ngIf="option.text; else option.template">{{option.text}}</ng-container>
-</div>
+<ng-container *ngIf="!!option.text; else template">
+  <div class="bg-light dark:bg-dark text-dark dark:text-light 
+  hover:bg-dark hover:text-light hover:dark:bg-light hover:dark:text-dark
+    px-[5px] cursor-pointer">
+    {{option.text}}
+  </div>
+</ng-container>
+<ng-template [ngTemplateOutlet]="template" #template></ng-template>

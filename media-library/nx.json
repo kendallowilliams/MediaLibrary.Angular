@@ -79,5 +79,6 @@
         "cacheableOperations": ["build-storybook"]
       }
     }
-  }
+  },
+  "neverConnectToCloud": true
 }

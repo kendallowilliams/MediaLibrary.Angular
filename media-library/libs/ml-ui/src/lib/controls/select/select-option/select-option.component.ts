@@ -7,7 +7,8 @@ import {
   ViewEncapsulation,
   EventEmitter,
   OnInit,
-  DestroyRef
+  DestroyRef,
+  TemplateRef
 } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
 import { SelectComponent } from '../select.component';
@@ -24,10 +25,12 @@ export class SelectOptionComponent<T> implements OnInit {
   @Input({ required: true }) public option!: SelectOption<T>;
 
   public optionClicked = new EventEmitter<SelectOption<T>>();
+  public template: TemplateRef<unknown> | null = null;
 
   constructor(private _select: SelectComponent<T>, private _destroyRef: DestroyRef) {}
   
   public ngOnInit(): void {
+    this.template = this.option.template || null;
     this._handleValueChange(this._select.value);
     this._select.valueChange
       .pipe(takeUntilDestroyed(this._destroyRef))
