@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ElementRef,
   HostBinding,
   HostListener,
   Input,
@@ -20,43 +19,41 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SelectOptionComponent<T> implements SelectOption<T>, OnInit {
+export class SelectOptionComponent<T> implements OnInit {
   @HostBinding('class') private _class = `block`;
-  @Input() public value!: T;
+  @Input({ required: true }) public option!: SelectOption<T>;
 
   public optionClicked = new EventEmitter<SelectOption<T>>();
-  public selected = false;
-  
-  public get text() {
-    return (this._host.nativeElement.innerText || '').trim();
-  }
 
-  constructor(private _host: ElementRef<HTMLElement>, private _select: SelectComponent<T>, private _destroyRef: DestroyRef) {}
+  constructor(private _select: SelectComponent<T>, private _destroyRef: DestroyRef) {}
   
   public ngOnInit(): void {
+    this._handleValueChange(this._select.value);
     this._select.valueChange
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe({
         next: value => {
-          if (!value || this.value !== value) {
-            this.selected = false;
-          } else if (!this.selected && this.value === value) {
-            this.selected = true;
-          }
+          this._handleValueChange(value);
         }
       });
   }
 
+  private _handleValueChange(value: T | null): void {
+    if (!value || this.option.value !== value) {
+      this.option.selected = false;
+    } else if (!this.option.selected && this.option.value === value) {
+      this.option.selected = true;
+    }
+  }
+
   @HostListener('click')
   private _handleClick() : void {
-    if (!this.selected) {
-      this.selected = true;
-      this._select.select(this);
-      this._select.writeValue(this.value);
-    } else {
-      this._select.closeDropdown();
+    if (!this.option.selected) {
+      this.option.selected = true;
+      this._select.writeValue(this.option.value);
     }
 
-    this.optionClicked.next(this);
+    this._select.closeDropdown();
+    this.optionClicked.next(this.option);
   }
 }

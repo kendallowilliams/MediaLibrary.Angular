@@ -4,14 +4,13 @@ import {
   Input,
   ViewEncapsulation,
   forwardRef,
-  ViewChild,
-  TemplateRef,
   HostBinding,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop, Subject } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
-import { DropdownDirective } from '../dropdown/dropdown.directive';
 import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -25,18 +24,16 @@ import { faCaretDown, faCaretUp } from '@fortawesome/free-solid-svg-icons';
     multi: true
   }]
 })
-export class SelectComponent<T> implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'h-fit w-full';
+export class SelectComponent<T> implements ControlValueAccessor, OnChanges {
+  @HostBinding('class') private _class = 'relative h-fit w-full';
   /** The text that appears when no select options are present. */
-  @Input() public placeholder?: string;
+  @Input() public placeholder = '';
+  @Input() public options: SelectOption<T>[] | null = null;
 
-  @ViewChild(DropdownDirective, { read: TemplateRef<unknown> }) private _dropDownTemplate!: TemplateRef<unknown>;
   /** The internal values of the select. */
   private _value: T | null = null;
   /** An observable that is used to control the dropdown visibility. */
   public isDropdownOpen = false;
-  /** An observable that emits the currently selected option. */
-  private _selectedItem: SelectOption<T> | null = null;
   private _onChange: (_: T | T[] | null) => void = noop;
   private _onTouched: () => void = noop;
   public valueChange = new Subject<T | null>();
@@ -55,12 +52,10 @@ export class SelectComponent<T> implements ControlValueAccessor {
     this._onChange(obj);
   }
 
-  /** This method selects a given select option as selected */
-  public select(option: SelectOption<T>): void {
-    this.selectLabel = option.text;
-    this._selectedItem = option;
-
-    this.isDropdownOpen = false;;
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('options' in changes) {
+      // TODO: fix
+    }
   }
 
   public toggleDropdown(): void {
@@ -71,16 +66,25 @@ export class SelectComponent<T> implements ControlValueAccessor {
     this.isDropdownOpen = false;
   }
 
-  public writeValue(obj: T | null): void {
-    if (obj) {
-      if (this._value !== obj) {
-        this.value = obj;
-        this.valueChange.next(obj);
+  public writeValue(value: T | null): void {
+    if (value) {
+      if (this._value !== value) {
+        this.value = value;
+        this.valueChange.next(value);
       }
     } else {
       this.value = null;
-      this._selectedItem = null;
       this.valueChange.next(null);
+    }
+
+    this._setSelectLabel();
+  }
+
+  private _setSelectLabel() : void {
+    if (this.value) {
+      this.selectLabel = this.options?.find(option => option.value === this.value)?.text || '';
+    } else {
+      this.selectLabel = '';
     }
   }
 
