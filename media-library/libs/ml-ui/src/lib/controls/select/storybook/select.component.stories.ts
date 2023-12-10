@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MlUiModule } from '../../../ml-ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const meta: Meta<SelectComponent<number>> = {
+const meta: Meta<SelectComponent> = {
   title: 'Components/Select',
   component: SelectComponent,
   decorators: [
@@ -15,7 +15,7 @@ const meta: Meta<SelectComponent<number>> = {
 };
 
 export default meta;
-type Story = StoryObj<SelectComponent<number>>;
+type Story = StoryObj<SelectComponent>;
 
 export const Default: Story = {
   args: {

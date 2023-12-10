@@ -1,8 +1,8 @@
 import { TemplateRef } from "@angular/core";
 
-export interface SelectOption<T> {
+export interface SelectOption {
   text: string;
-  value: T;
+  value: unknown;
   template?: TemplateRef<unknown>;
   selected: boolean;
 }

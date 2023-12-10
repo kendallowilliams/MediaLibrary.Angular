@@ -1,13 +1,15 @@
 <div class="relative" #host>
   <div class="h-[25px]">
     <button type="button" class="flex items-center border-dark border-[1px] border-solid
-      rounded bg-light dark:bg-dark text-dark dark:text-light w-full" (click)="toggleDropdown()">
+      rounded bg-light dark:bg-dark text-dark dark:text-light w-full px-[5px] gap-[5px]"
+      (click)="toggleDropdown()">
       <div class="grow text-left">
         <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
         <ng-template #placeholderTemplate>
           {{placeholder}}
         </ng-template>
       </div>
+      <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)"></fa-icon>
       <fa-icon [icon]="faCaretDown" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
       <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
     </button>
