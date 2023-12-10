@@ -5,4 +5,5 @@ export interface SelectOption {
   value: unknown;
   template?: TemplateRef<unknown>;
   selected: boolean;
+  hidden?: boolean;
 }

@@ -4,7 +4,9 @@ import {
   Input,
   ViewEncapsulation,
   forwardRef,
-  HostBinding
+  HostBinding,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -29,7 +31,7 @@ export class SelectComponent implements ControlValueAccessor {
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
-
+  
   /** The internal values of the select. */
   private _value: SelectValueType | null = null;
   /** An observable that is used to control the dropdown visibility. */

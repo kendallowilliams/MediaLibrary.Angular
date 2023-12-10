@@ -18,7 +18,9 @@
     <div class="mt-[5px] fixed w-[var(--dropdown-width)] top-[var(--dropdown-top)] left-[var(--dropdown-left)]">
       <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
       dark:bg-dark text-dark dark:text-light p-[1px]">
-        <ml-select-option *ngFor="let option of options" [option]="option"></ml-select-option>
+        <ng-container *ngFor="let option of options">
+          <ml-select-option [option]="option" *ngIf="!option.hidden"></ml-select-option>
+        </ng-container>
       </div>
     </div>
   </ng-template>
