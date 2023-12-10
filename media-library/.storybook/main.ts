@@ -16,4 +16,4 @@ export const framework = {
 export const docs = {
   autodocs: true
 };
-export const addons = ['@storybook/addon-styling-webpack'];
+export const addons = ['@storybook/addon-styling-webpack', '@storybook/auto-config'];
