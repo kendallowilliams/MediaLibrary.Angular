@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MlUiModule } from '../../../ml-ui.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-const meta: Meta<SelectComponent<string>> = {
+const meta: Meta<SelectComponent<number>> = {
   component: SelectComponent,
   decorators: [
     moduleMetadata({
@@ -14,21 +14,16 @@ const meta: Meta<SelectComponent<string>> = {
 };
 
 export default meta;
-type Story = StoryObj<SelectComponent<string>>;
+type Story = StoryObj<SelectComponent<number>>;
 
 export const Default: Story = {
-  render: () => ({
-    props: {
-      options: [1,2,3,4,5,6,7,8,9].map(item => ({
+  args: {
+    options: [1,2,3,4,5,6,7,8,9]
+      .map(item => ({
         text: `Option ${item}`,
-        value: item
-      })),
-      defaultValue: 1
-    },
-    template: `
-      <div class="w-full">
-        <ml-select [options]="options" [placeholder]="'Select an option'" [(ngModel)]="defaultValue"></ml-select>
-      </div>
-    `
-  }),
+        value: item,
+        selected: false
+    })),
+    placeholder: 'Select an option'
+  }
 };

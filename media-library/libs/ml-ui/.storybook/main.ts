@@ -28,6 +28,10 @@ const config: StorybookConfig = {
         ]
       }
     }],
+  docs: {
+    autodocs: true,
+    defaultName: 'Doc',
+  },
   framework: {
     name: '@storybook/angular',
     options: {},
