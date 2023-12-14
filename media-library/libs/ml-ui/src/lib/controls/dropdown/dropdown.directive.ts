@@ -14,7 +14,6 @@ export class DropdownDirective implements OnChanges {
   private _resizeTimeout?: number;
   private _scrollTimeout?: number;
   private _timeoutDelay = 100;
-  public dropdownStyles?: { [klass: string]: unknown };
   private _dropDownRef?: ModalRef<unknown>;
 
   constructor(
