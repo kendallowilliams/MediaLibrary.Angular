@@ -1,19 +1,6 @@
 <ng-container *ngIf="!isDropdownOpen" [ngTemplateOutlet]="select"></ng-container>
-<ng-template mlDropdown [(isDropdownOpen)]="isDropdownOpen" [hostElement]="host.nativeElement">
-  <div class="fixed w-[var(--dropdown-width)] top-[var(--dropdown-top)] left-[var(--dropdown-left)]">
-    <ng-container [ngTemplateOutlet]="select"></ng-container>
-    <div class="mt-[5px]">
-      <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
-      dark:bg-dark text-dark dark:text-light p-[1px]">
-        <ng-container *ngFor="let option of options">
-          <ml-select-option [option]="option" *ngIf="!option.hidden"></ml-select-option>
-        </ng-container>
-      </div>
-    </div>
-  </div>
-</ng-template>
 <ng-template #select>
-  <div class="h-[25px]" [ngClass]="{
+  <div class="h-full" [ngClass]="{
     'w-full': !isDropdownOpen,
     'w-[var(--dropdown-width)]': isDropdownOpen
   }">
@@ -30,6 +17,19 @@
         <fa-icon [icon]="faCaretDown" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
         <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
       </button>
+    </div>
+  </div>
+</ng-template>
+<ng-template mlModal [(isOpen)]="isDropdownOpen">
+  <div class="fixed w-[var(--select-width)] top-[var(--select-top)] left-[var(--select-left)]">
+    <ng-container [ngTemplateOutlet]="select"></ng-container>
+    <div class="mt-[5px]">
+      <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
+      dark:bg-dark text-dark dark:text-light p-[1px]">
+        <ng-container *ngFor="let option of options">
+          <ml-select-option [option]="option" *ngIf="!option.hidden"></ml-select-option>
+        </ng-container>
+      </div>
     </div>
   </div>
 </ng-template>

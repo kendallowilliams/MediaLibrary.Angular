@@ -6,6 +6,9 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
+  Renderer2,
+  RendererStyleFlags2,
+  HostListener,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -26,7 +29,7 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'flex relative';
+  @HostBinding('class') private _class = 'flex relative h-[25px]';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
@@ -42,8 +45,10 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretUp = faCaretUp;
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
+  private _scrollTimeout?: number;
+  private _timeoutDelay = 10;
 
-  constructor(public host: ElementRef<HTMLElement>) {}
+  constructor(public host: ElementRef<HTMLElement>, private _renderer: Renderer2) {}
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
@@ -59,6 +64,10 @@ export class SelectComponent implements ControlValueAccessor {
 
   public toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
+
+    if (this.isDropdownOpen) {
+      this._updateStyles();
+    }
   }
 
   public closeDropdown(): void {
@@ -147,4 +156,27 @@ export class SelectComponent implements ControlValueAccessor {
   /** public setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   } */
+
+  private _updateStyles() : void {
+    const host = this.host.nativeElement,
+      clientRect = host.getBoundingClientRect();
+
+    this._renderer.setStyle(host, '--select-width', `${host.clientWidth}px`, RendererStyleFlags2.DashCase);
+    this._renderer.setStyle(host, '--select-top', `${clientRect.top}px`, RendererStyleFlags2.DashCase);
+    this._renderer.setStyle(host, '--select-left', `${clientRect.left}px`, RendererStyleFlags2.DashCase);
+  }
+
+  @HostListener('document:scroll')
+  private _handleScroll(): void {
+    if (this.isDropdownOpen) {
+      if (this._scrollTimeout) {
+        window.clearTimeout(this._scrollTimeout);
+      }
+
+      this._scrollTimeout = window.setTimeout(() => {
+        this._updateStyles();
+        this._scrollTimeout = undefined;
+      }, this._timeoutDelay);
+    }
+  }
 }

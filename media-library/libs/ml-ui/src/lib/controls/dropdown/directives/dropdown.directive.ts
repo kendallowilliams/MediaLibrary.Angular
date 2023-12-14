@@ -1,7 +1,7 @@
 import { Directive, EventEmitter, HostListener, Input, OnChanges, Output, Renderer2, RendererStyleFlags2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ModalRef } from '../../modal/models/ModalRef.model';
-import { ModalConfig } from '../../modal/models/ModalConfig.model';
-import { ModalService } from '../../modal/services/modal.service';
+import { ModalRef } from '../../../modal/models/ModalRef.model';
+import { ModalConfig } from '../../../modal/models/ModalConfig.model';
+import { ModalService } from '../../../modal/services/modal.service';
 
 @Directive({
   selector: '[mlDropdown]'
