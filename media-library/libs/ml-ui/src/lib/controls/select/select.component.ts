@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
   forwardRef,
   HostBinding,
+  ElementRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -25,7 +26,7 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'h-fit w-full';
+  @HostBinding('class') private _class = 'flex relative';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
@@ -41,6 +42,8 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretUp = faCaretUp;
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
+
+  constructor(public host: ElementRef<HTMLElement>) {}
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
