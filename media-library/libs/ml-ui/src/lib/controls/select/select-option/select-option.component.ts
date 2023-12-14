@@ -14,6 +14,7 @@ import { SelectOption } from '../interfaces/SelectOption.interface';
 import { SelectComponent } from '../select.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SelectMultiSelectDirective } from '../directives/select-multiselect.directive';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-select-option',
@@ -27,6 +28,7 @@ export class SelectOptionComponent implements OnInit {
 
   public template: TemplateRef<unknown> | null = null;
   public multiSelectable = false;
+  public faCheck = faCheck;
 
   constructor(
     private _select: SelectComponent, 
