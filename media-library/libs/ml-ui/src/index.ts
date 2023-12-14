@@ -44,7 +44,7 @@ export * from './lib/modal/services/modal.service';
 export * from './lib/modal/models/ModalConfig.model';
 export * from './lib/modal/models/ModalRef.model';
 export * from './lib/modal/modal-content/modal-content.component';
-export * from './lib/modal/directives/modal.directive';
+export * from './lib/modal/directives/dismissable-modal.directive';
 
 /** Message Box */
 export * from './lib/controls/message-box/message-box.component';
@@ -63,3 +63,7 @@ export * from './lib/controls/select/interfaces/SelectOption.interface';
 
 /** Dropdown */
 export * from './lib/controls/dropdown/directives/dropdown.directive';
+
+/** Button */
+export * from './lib/controls/button/button.directive';
+export * from './lib/controls/button/button.module';

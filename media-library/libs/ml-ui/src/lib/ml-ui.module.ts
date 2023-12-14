@@ -13,7 +13,6 @@ import { CheckboxDirective } from './controls/checkbox/checkbox.directive';
 import { NavbarIconComponent } from './navbar/navbar-controls/navbar-icon/navbar-icon.component';
 import { ThemeToggleDirective } from './controls/theme-toggle/theme-toggle.directive';
 import { MessageBoxComponent } from './controls/message-box/message-box.component';
-import { ButtonDirective } from './controls/button/button.directive';
 import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
 import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-links-hidden/hide-if-nav-links-hidden.directive';
 import { ModalModule } from './modal/modal.module';
@@ -22,7 +21,6 @@ import { SelectOptionComponent } from './controls/select/select-option/select-op
 import { DropdownDirective } from './controls/dropdown/directives/dropdown.directive';
 import { SelectMultiSelectDirective } from './controls/select/directives/select-multiselect.directive';
 import { SelectFilterDirective } from './controls/select/directives/select-filter.directive';
-import { ModalDirective } from './modal/directives/modal.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ModalModule],
@@ -39,15 +37,13 @@ import { ModalDirective } from './modal/directives/modal.directive';
     NavbarIconComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
-    ButtonDirective,
     AddIsMobileAttributeDirective,
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
     DropdownDirective,
     SelectMultiSelectDirective,
-    SelectFilterDirective,
-    ModalDirective
+    SelectFilterDirective
   ],
   exports: [
     NavbarComponent,
@@ -62,15 +58,13 @@ import { ModalDirective } from './modal/directives/modal.directive';
     NavbarIconComponent,
     ThemeToggleDirective,
     MessageBoxComponent,
-    ButtonDirective,
     AddIsMobileAttributeDirective,
     HideIfNavLinksHiddenDirective,
     SelectComponent,
     SelectOptionComponent,
     DropdownDirective,
     SelectMultiSelectDirective,
-    SelectFilterDirective,
-    ModalDirective
+    SelectFilterDirective
   ],
 })
 export class MlUiModule {}

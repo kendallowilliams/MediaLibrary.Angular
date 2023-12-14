@@ -24,7 +24,7 @@ import { Modal } from './models/Modal.interface';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none p-0 m-0 max-w-full"
+    <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none max-w-full max-h-full"
       (close)="handleClose($event)" (cancel)="handleCancel($event)">
       <ng-template #modalContent></ng-template>
     </dialog>

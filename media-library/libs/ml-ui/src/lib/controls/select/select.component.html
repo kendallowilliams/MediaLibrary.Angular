@@ -20,7 +20,7 @@
     </div>
   </div>
 </ng-template>
-<ng-template mlModal [(isOpen)]="isDropdownOpen">
+<ng-template mlDismissableModal [(isOpen)]="isDropdownOpen">
   <div class="fixed w-[var(--select-width)] top-[var(--select-top)] left-[var(--select-left)]">
     <ng-container [ngTemplateOutlet]="select"></ng-container>
     <div class="mt-[5px]">
