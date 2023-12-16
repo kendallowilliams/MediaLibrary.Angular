@@ -73,13 +73,13 @@ export class SelectOptionDirective implements OnInit {
       const values = value as SelectOption['value'][] || null;
       if (!values || !values.includes(this.option.value)) {
         this._setSelected(false);
-      } else if (!this.option.selected && values.includes(this.option.value)) {
+      } else if (values.includes(this.option.value)) {
         this._setSelected(true);
       }
     } else {
       if (!value || this.option.value !== value) {
         this._setSelected(false);
-      } else if (!this.option.selected && this.option.value === value) {
+      } else if (this.option.value === value) {
         this._setSelected(true);
       }
     }
