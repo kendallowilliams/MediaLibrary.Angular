@@ -1,29 +1,25 @@
 <ng-container *ngIf="!isDropdownOpen" [ngTemplateOutlet]="select"></ng-container>
 <ng-template #select>
-  <div [ngClass]="{
-    'w-full h-full': !isDropdownOpen,
-    'w-[var(--dropdown-width)] h-[var(--select-height)]': isDropdownOpen
-  }">
-    <div class="flex items-center border-dark border-[1px] border-solid cursor-pointer
-      rounded bg-light dark:bg-dark text-dark dark:text-light w-full px-[5px] gap-[5px] h-full" (click)="toggleDropdown()">
-      <div class="grow text-left">
-        <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
-        <ng-template #placeholderTemplate>
-          {{placeholder}}
-        </ng-template>
-      </div>
-      <button type="button" (click)="clearSelection($event)"><fa-icon [icon]="faTimesCircle" *ngIf="selectLabel"></fa-icon></button>
-      <button type="button">
-        <fa-icon [icon]="faCaretDown" [ngClass]="{ 'hidden': isDropdownOpen }"></fa-icon>
-        <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
-      </button>
+  <div class="flex items-center border-dark border-[1px] border-solid cursor-pointer
+    rounded bg-light dark:bg-dark text-dark dark:text-light w-full px-[5px] gap-[5px] h-[var(--select-height)]
+    select-none" (click)="toggleDropdown()">
+    <div class="grow text-left">
+      <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
+      <ng-template #placeholderTemplate>
+        {{placeholder}}
+      </ng-template>
     </div>
+    <button type="button" (click)="clearSelection($event)"><fa-icon [icon]="faTimesCircle" *ngIf="selectLabel"></fa-icon></button>
+    <button type="button">
+      <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
+      <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
+    </button>
   </div>
 </ng-template>
-<ng-template mlDismissableModal [(isOpen)]="isDropdownOpen">
+<ng-template mlDismissableModal [(isOpen)]="isDropdownOpen" (isOpenChange)="handleDropdownClose($event)">
   <div class="fixed w-[var(--select-width)] top-[var(--select-top)] left-[var(--select-left)]">
     <ng-container [ngTemplateOutlet]="select"></ng-container>
-    <div class="mt-[5px]">
+    <div class="mt-[5px] select-none">
       <div class="border-dark dark:border-light border-[1px] border-solid rounded bg-light 
       dark:bg-dark text-dark dark:text-light p-[1px]">
         <ng-container *ngFor="let option of options">

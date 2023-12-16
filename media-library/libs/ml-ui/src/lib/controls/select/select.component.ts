@@ -67,11 +67,18 @@ export class SelectComponent implements ControlValueAccessor {
 
     if (this.isDropdownOpen) {
       this._updateStyles();
+    } else {
+      this._clearStyles();
     }
   }
 
   public closeDropdown(): void {
     this.isDropdownOpen = false;
+    this._clearStyles();
+  }
+
+  public handleDropdownClose(isOpen: boolean) : void {
+    !isOpen && this._clearStyles();
   }
 
   public writeValue(value: SelectValueType | null): void {
@@ -165,6 +172,15 @@ export class SelectComponent implements ControlValueAccessor {
     this._renderer.setStyle(host, '--select-height', `${host.clientHeight}px`, RendererStyleFlags2.DashCase);
     this._renderer.setStyle(host, '--select-top', `${clientRect.top}px`, RendererStyleFlags2.DashCase);
     this._renderer.setStyle(host, '--select-left', `${clientRect.left}px`, RendererStyleFlags2.DashCase);
+  }
+
+  private _clearStyles() : void {
+    const host = this.host.nativeElement;
+
+    this._renderer.removeStyle(host, '--select-width', RendererStyleFlags2.DashCase);
+    this._renderer.removeStyle(host, '--select-height', RendererStyleFlags2.DashCase);
+    this._renderer.removeStyle(host, '--select-top', RendererStyleFlags2.DashCase);
+    this._renderer.removeStyle(host, '--select-left', RendererStyleFlags2.DashCase);
   }
 
   @HostListener('document:scroll')
