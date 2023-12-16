@@ -29,15 +29,19 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'flex relative h-[30px]';
+  @HostBinding('class') private _class = 'flex relative h-[30px] cursor-pointer';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
 
+  public isDropdownOpen = false;
+
+  @HostBinding('attr.role') private _role = 'combobox';
+  @HostBinding('attr.aria-expanded') private _ariaExpanded = 'false';
+  @HostBinding('attr.title') private _title = 'Select';
+
   /** The internal values of the select. */
   private _value: SelectValueType | null = null;
-  /** An observable that is used to control the dropdown visibility. */
-  public isDropdownOpen = false;
   private _onChange: (_: SelectOption['value'] | null) => void = noop;
   private _onTouched: () => void = noop;
   public valueChange = new BehaviorSubject<SelectValueType | null>(null);
@@ -70,15 +74,19 @@ export class SelectComponent implements ControlValueAccessor {
     } else {
       this._clearStyles();
     }
+
+    this._ariaExpanded = this.isDropdownOpen ? 'true' : 'false';
   }
 
   public closeDropdown(): void {
     this.isDropdownOpen = false;
     this._clearStyles();
+    this._ariaExpanded = 'false';
   }
 
   public handleDropdownClose(isOpen: boolean) : void {
     !isOpen && this._clearStyles();
+    this._ariaExpanded = 'false';
   }
 
   public writeValue(value: SelectValueType | null): void {

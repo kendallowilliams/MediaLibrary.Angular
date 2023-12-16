@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { DismissableModalDirective } from '../directives/dismissable-modal.directive';
 import { ModalModule } from '../modal.module';
 import { ButtonModule } from '../../controls/button/button.module';
@@ -10,7 +10,7 @@ const meta: Meta<DismissableModalDirective> = {
   component: DismissableModalDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, FormsModule, ReactiveFormsModule, ModalModule, ButtonModule],
+      imports: [CommonModule, FormsModule, ModalModule, ButtonModule],
     })
   ]
 };
@@ -19,6 +19,10 @@ export default meta;
 type Story = StoryObj<DismissableModalDirective>;
 
 export const Default: Story = {
+  args: {
+    isOpen: false,
+    backdrop: 'transparent'
+  },
   render: (args) => ({
     props: {
       ...args

@@ -5,6 +5,7 @@ const config: StorybookConfig = {
   addons: [
     '@storybook/addon-essentials', 
     '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
     {
       name: '@storybook/addon-styling-webpack',
       options: {

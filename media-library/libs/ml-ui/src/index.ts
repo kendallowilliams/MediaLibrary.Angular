@@ -53,13 +53,9 @@ export * from './lib/services/message-box/message-box.service';
 /** Directives */
 export * from './lib/directives/update-if-larger-than-parent/update-if-larger-than-parent.directive';
 export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.directive';
-export * from './lib/controls/select/directives/select-filter.directive';
-export * from './lib/controls/select/directives/select-multiselect.directive';
 
 /** Select */
-export * from './lib/controls/select/select.component';
-export * from './lib/controls/select/select-option/select-option.component';
-export * from './lib/controls/select/interfaces/SelectOption.interface';
+export * from './lib/controls/select/index';
 
 /** Dropdown */
 export * from './lib/controls/dropdown/directives/dropdown.directive';

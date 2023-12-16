@@ -1,9 +1,0 @@
-<ng-container *ngIf="!!option.text; else template">
-  <div class="grid grid-cols-[25px_1fr] bg-light dark:bg-dark text-dark dark:text-light 
-  hover:bg-dark hover:text-light hover:dark:bg-light hover:dark:text-dark
-    px-[5px] cursor-pointer" [ngClass]="{ 'font-bold': option.selected }">
-    <span><fa-icon [icon]="faCheck" *ngIf="option.selected"></fa-icon></span>
-    {{option.text}}
-  </div>
-</ng-container>
-<ng-template [ngTemplateOutlet]="template" #template></ng-template>

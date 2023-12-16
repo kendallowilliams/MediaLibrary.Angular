@@ -1,15 +1,15 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { MlUiModule } from '../../../ml-ui.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { SelectFilterDirective } from '../directives/select-filter.directive';
+import { SelectModule } from '../select.module';
 
 const meta: Meta<SelectFilterDirective> = {
   title: 'Components/Select/Filter',
   component: SelectFilterDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MlUiModule, FormsModule, ReactiveFormsModule],
+      imports: [CommonModule, SelectModule, FormsModule],
     })
   ]
 };
@@ -19,7 +19,9 @@ type Story = StoryObj<SelectFilterDirective>;
 
 export const Default: Story = {
   args: {
-    query: ''
+    query: '',
+    caseInsensitive: true,
+    partial: true
   },
   render: (args: SelectFilterDirective) => ({
     props: {
@@ -31,11 +33,12 @@ export const Default: Story = {
         })),
       placeholder: 'Select an option',
       defaultValue: 1,
-      query: args.query
+      ...args
     },
     template: `
       <div>
-        <ml-select mlSelectFilter [query]="query" [options]="options" [placeholder]="placeholder"
+        <ml-select mlSelectFilter [(query)]="query" [caseInsensitive]="caseInsensitive" [partial]="partial"
+          [options]="options" [placeholder]="placeholder"
           [(ngModel)]="defaultValue"></ml-select>
       </div>
     `

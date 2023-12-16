@@ -1,15 +1,15 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { MlUiModule } from '../../../ml-ui.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { SelectMultiSelectDirective } from '../directives/select-multiselect.directive';
+import { SelectModule } from '../select.module';
 
 const meta: Meta<SelectMultiSelectDirective> = {
   title: 'Components/Select/MultiSelect',
   component: SelectMultiSelectDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MlUiModule, FormsModule, ReactiveFormsModule],
+      imports: [CommonModule, SelectModule, FormsModule],
     })
   ]
 };

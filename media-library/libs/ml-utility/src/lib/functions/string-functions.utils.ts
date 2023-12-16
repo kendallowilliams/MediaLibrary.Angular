@@ -1,4 +1,4 @@
-export function strMatch(str: string, strMatch: string, partial: boolean, caseInsensitive: boolean) {
+export function strMatch(str: string, strMatch: string, caseInsensitive: boolean, partial: boolean) {
   str = caseInsensitive ? str?.toLowerCase() : str;
   strMatch = caseInsensitive ? strMatch?.toLowerCase() : strMatch;
 

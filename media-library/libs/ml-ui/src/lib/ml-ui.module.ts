@@ -16,11 +16,7 @@ import { MessageBoxComponent } from './controls/message-box/message-box.componen
 import { AddIsMobileAttributeDirective } from './directives/add-is-mobile-attribute/add-is-mobile-attribute.directive';
 import { HideIfNavLinksHiddenDirective } from './navbar/directives/hide-if-nav-links-hidden/hide-if-nav-links-hidden.directive';
 import { ModalModule } from './modal/modal.module';
-import { SelectComponent } from './controls/select/select.component';
-import { SelectOptionComponent } from './controls/select/select-option/select-option.component';
 import { DropdownDirective } from './controls/dropdown/directives/dropdown.directive';
-import { SelectMultiSelectDirective } from './controls/select/directives/select-multiselect.directive';
-import { SelectFilterDirective } from './controls/select/directives/select-filter.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule, ModalModule],
@@ -39,11 +35,7 @@ import { SelectFilterDirective } from './controls/select/directives/select-filte
     MessageBoxComponent,
     AddIsMobileAttributeDirective,
     HideIfNavLinksHiddenDirective,
-    SelectComponent,
-    SelectOptionComponent,
-    DropdownDirective,
-    SelectMultiSelectDirective,
-    SelectFilterDirective
+    DropdownDirective
   ],
   exports: [
     NavbarComponent,
@@ -60,11 +52,7 @@ import { SelectFilterDirective } from './controls/select/directives/select-filte
     MessageBoxComponent,
     AddIsMobileAttributeDirective,
     HideIfNavLinksHiddenDirective,
-    SelectComponent,
-    SelectOptionComponent,
-    DropdownDirective,
-    SelectMultiSelectDirective,
-    SelectFilterDirective
+    DropdownDirective
   ],
 })
 export class MlUiModule {}

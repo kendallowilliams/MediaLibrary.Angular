@@ -1,15 +1,15 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { SelectComponent } from '../select.component';
 import { CommonModule } from '@angular/common';
-import { MlUiModule } from '../../../ml-ui.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { SelectModule } from '../select.module';
 
 const meta: Meta<SelectComponent> = {
   title: 'Components/Select',
   component: SelectComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MlUiModule, FormsModule, ReactiveFormsModule],
+      imports: [CommonModule, SelectModule, FormsModule],
     })
   ]
 };
@@ -26,5 +26,10 @@ export const Default: Story = {
         selected: false
     })),
     placeholder: 'Select an option'
-  }
+  },
+  render: (args) => ({
+    props: {
+      ...args
+    }
+  })
 };
