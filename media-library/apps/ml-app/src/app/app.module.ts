@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import {
   AutoHideNavbarLinksDirective,
   MlUiModule,
+  NavbarModule,
   SearchModule
 } from '@media-library/ml-ui';
 import { AppComponent } from './app.component';
@@ -27,7 +28,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SearchModule,
     AutoHideNavbarLinksDirective,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NavbarModule
   ],
   exports: [RouterModule],
   providers: [],

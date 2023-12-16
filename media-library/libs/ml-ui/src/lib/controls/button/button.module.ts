@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonDirective } from './button.directive';
+import { ButtonDirective } from './directives/button.directive';
 
 @NgModule({
   imports: [CommonModule],

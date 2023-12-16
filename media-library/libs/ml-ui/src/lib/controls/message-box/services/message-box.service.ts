@@ -1,9 +1,9 @@
 import { Injectable, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MessageBoxComponent } from '../../controls/message-box/message-box.component';
-import { ModalService } from '../../modal/services/modal.service';
-import { ModalRef } from '../../modal/models/ModalRef.model';
-import { ModalConfig } from '../../modal/models/ModalConfig.model';
+import { MessageBoxComponent } from '../message-box.component';
+import { ModalService } from '../../../modal/services/modal.service';
+import { ModalRef } from '../../../modal/models/ModalRef.model';
+import { ModalConfig } from '../../../modal/models/ModalConfig.model';
 
 @Injectable({
   providedIn: 'root'
