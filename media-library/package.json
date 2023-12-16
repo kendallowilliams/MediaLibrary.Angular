@@ -46,6 +46,7 @@
     "@nx/storybook": "17.2.0",
     "@nx/workspace": "17.2.0",
     "@schematics/angular": "17.0.6",
+    "@storybook/addon-a11y": "^7.6.5",
     "@storybook/addon-essentials": "7.6.4",
     "@storybook/addon-interactions": "^7.5.3",
     "@storybook/addon-styling-webpack": "^0.0.5",
