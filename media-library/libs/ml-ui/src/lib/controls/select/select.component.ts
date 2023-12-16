@@ -29,7 +29,7 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'flex relative h-[25px]';
+  @HostBinding('class') private _class = 'flex relative h-[30px]';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
@@ -162,6 +162,7 @@ export class SelectComponent implements ControlValueAccessor {
       clientRect = host.getBoundingClientRect();
 
     this._renderer.setStyle(host, '--select-width', `${host.clientWidth}px`, RendererStyleFlags2.DashCase);
+    this._renderer.setStyle(host, '--select-height', `${host.clientHeight}px`, RendererStyleFlags2.DashCase);
     this._renderer.setStyle(host, '--select-top', `${clientRect.top}px`, RendererStyleFlags2.DashCase);
     this._renderer.setStyle(host, '--select-left', `${clientRect.left}px`, RendererStyleFlags2.DashCase);
   }

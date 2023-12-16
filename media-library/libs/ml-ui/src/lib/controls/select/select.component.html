@@ -1,11 +1,11 @@
 <ng-container *ngIf="!isDropdownOpen" [ngTemplateOutlet]="select"></ng-container>
 <ng-template #select>
-  <div class="h-full" [ngClass]="{
-    'w-full': !isDropdownOpen,
-    'w-[var(--dropdown-width)]': isDropdownOpen
+  <div [ngClass]="{
+    'w-full h-full': !isDropdownOpen,
+    'w-[var(--dropdown-width)] h-[var(--select-height)]': isDropdownOpen
   }">
     <div class="flex items-center border-dark border-[1px] border-solid cursor-pointer
-      rounded bg-light dark:bg-dark text-dark dark:text-light w-full px-[5px] gap-[5px]" (click)="toggleDropdown()">
+      rounded bg-light dark:bg-dark text-dark dark:text-light w-full px-[5px] gap-[5px] h-full" (click)="toggleDropdown()">
       <div class="grow text-left">
         <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
         <ng-template #placeholderTemplate>
