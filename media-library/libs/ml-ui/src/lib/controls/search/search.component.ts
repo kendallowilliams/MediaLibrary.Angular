@@ -11,8 +11,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { DeviceService } from '../../services/device/device.service';
+import { DeviceService } from '@media-library/ml-utility';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

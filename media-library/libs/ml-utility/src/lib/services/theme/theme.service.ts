@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DestroyRef, Injectable } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { BehaviorSubject } from 'rxjs';
 
 export type Theme = 'light' | 'dark' | undefined;
@@ -9,14 +10,16 @@ export type Theme = 'light' | 'dark' | undefined;
 export class ThemeService {
   private _darkEnabled$: BehaviorSubject<boolean>;
 
-  constructor() {
+  constructor(private _destroyRef: DestroyRef) {
     this._darkEnabled$ = new BehaviorSubject<boolean>(this._isDark());
-    this._darkEnabled$.subscribe(enabled => {
-      if (enabled) {
-        this._setDarkTheme();
-      } else {
-        this._setLightTheme();
-      }
+    this._darkEnabled$
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(enabled => {
+        if (enabled) {
+          this._setDarkTheme();
+        } else {
+          this._setLightTheme();
+        }
     });
     this._updateDocumentClass();
   }

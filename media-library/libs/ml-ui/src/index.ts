@@ -9,10 +9,6 @@ export * from './lib/navbar/index';
 export * from './lib/controls/search/search.module';
 export * from './lib/controls/search/search.component';
 
-/** Services */
-export * from './lib/services/device/device.service';
-export * from './lib/services/theme/theme.service';
-
 /** Card */
 export * from './lib/content/card/card.module';
 export * from './lib/content/card/card.component';

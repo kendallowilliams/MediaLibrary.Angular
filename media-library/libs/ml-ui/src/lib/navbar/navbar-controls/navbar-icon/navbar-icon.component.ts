@@ -7,7 +7,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { DeviceService } from '../../../services/device/device.service';
+import { DeviceService } from '@media-library/ml-utility';
 
 @Component({
   selector: 'ml-navbar-icon',

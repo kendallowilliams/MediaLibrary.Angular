@@ -1,5 +1,5 @@
 import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
-import { DeviceService } from '../../services/device/device.service';
+import { DeviceService } from '@media-library/ml-utility';
 
 @Directive({
   selector: '[mlAddIsMobileAttribute]'

@@ -1,5 +1,5 @@
 import { Directive, HostBinding, OnInit } from '@angular/core';
-import { ThemeService } from '../../services/theme/theme.service';
+import { ThemeService } from '@media-library/ml-utility';
 import { SwitchComponent } from '../switch/switch.component';
 
 @Directive({
