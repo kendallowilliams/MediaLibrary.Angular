@@ -3,5 +3,5 @@ export class ModalConfig<T = void> {
   public backdrop: 'visible' | 'hidden' | 'transparent' = 'visible';
   public parameters?: { [key: string]: unknown };
 
-  public configureComponentInput?: (component: T) => void;
+  public configureComponentInputs?: (component: T) => void;
 }

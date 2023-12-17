@@ -1,0 +1,22 @@
+<ml-card class="w-[400px]">
+  <ml-card-header>
+    <ml-card-title class="flex w-full">
+      <div class="grow">Music Settings</div>
+      <fa-icon [icon]="faPenToSquare" class="text-primary cursor-pointer" (click)="showMusicConfigurationEditor()"></fa-icon>
+    </ml-card-title>
+  </ml-card-header>
+  <ml-card-body class="flex flex-col gap-[30px]">
+    <div class="grid grid-cols-[100px_1fr] items-center">
+      <label>Album Sort</label>
+      <span>{{albumSort}}</span>
+    </div>
+    <div class="grid grid-cols-[100px_1fr] items-center">
+      <label>Artist Sort</label>
+      <span>{{artistSort}}</span>
+    </div>
+    <div class="grid grid-cols-[100px_1fr] items-center">
+      <label>Song Sort</label>
+      <span>{{songSort}}</span>
+    </div>
+  </ml-card-body>
+</ml-card>

@@ -1,1 +1,5 @@
-<div>app-settings works!</div>
+<div class="flex items-center h-full">
+  <ng-container *ngIf="configuration$ | async as configuration">
+    <ml-music-configuration [configuration]="configuration"></ml-music-configuration>
+  </ng-container>
+</div>

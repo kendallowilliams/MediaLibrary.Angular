@@ -71,7 +71,7 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
       const componentRef = this._modalContent.createComponent<T>(this._modalRef?.componentType, { injector: injector });
       
       this._modalRef.component = componentRef.instance;
-      this._modalConfig?.configureComponentInput?.call(this, this._modalRef.component);
+      this._modalConfig?.configureComponentInputs?.call(this, this._modalRef.component);
       componentRef.changeDetectorRef.detectChanges();
       this.show();
     } else if (this._modalRef?.template) {
@@ -105,5 +105,6 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
   public handleClose(event: Event) : void {
     this.modalClose.emit(event);
+    this._modalRef?.hide();
   }
 }

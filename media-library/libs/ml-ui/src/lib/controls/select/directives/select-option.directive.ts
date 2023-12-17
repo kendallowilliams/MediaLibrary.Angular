@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, Input, OnChanges, OnInit, Optional, Renderer2, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
 import { SelectComponent } from '../select.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

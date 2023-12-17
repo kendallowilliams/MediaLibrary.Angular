@@ -8,7 +8,7 @@ import {
   ElementRef,
   Renderer2,
   RendererStyleFlags2,
-  HostListener,
+  HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -29,7 +29,7 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'flex relative h-[30px] cursor-pointer';
+  @HostBinding('class') private _class = 'inline-flex relative h-[30px] cursor-pointer w-full';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
@@ -38,7 +38,6 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostBinding('attr.role') private _role = 'combobox';
   @HostBinding('attr.aria-expanded') private _ariaExpanded = 'false';
-  @HostBinding('attr.title') private _title = 'Select';
 
   /** The internal values of the select. */
   private _value: SelectValueType | null = null;

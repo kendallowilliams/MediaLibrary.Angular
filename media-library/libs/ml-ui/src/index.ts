@@ -36,3 +36,6 @@ export * from './lib/controls/dropdown/directives/dropdown.directive';
 
 /** Button */
 export * from './lib/controls/button/index';
+
+/** Configuration */
+export * from './lib/content/configuration/index';

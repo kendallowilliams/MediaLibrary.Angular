@@ -9,6 +9,7 @@ import { ModalService } from '../services/modal.service';
 export class DismissableModalDirective implements OnChanges {
   @Input() public backdrop: ModalConfig['backdrop'] = 'transparent';
   @Input() public isOpen = false;
+  @Input() public useAppRootVcr = true;
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
   private _resizeTimeout?: number;
@@ -18,7 +19,8 @@ export class DismissableModalDirective implements OnChanges {
   constructor(
     private _template: TemplateRef<unknown>, 
     private _modalService: ModalService,
-    private _vcr: ViewContainerRef) { }
+    private _vcr: ViewContainerRef
+  ) { }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('isOpen' in changes) {
@@ -43,7 +45,11 @@ export class DismissableModalDirective implements OnChanges {
 
     modalConfig.static = false;
     modalConfig.backdrop = this.backdrop;
-    this._dropDownRef = this._modalService.showTemplate<unknown>(this._template, null, this._vcr, modalConfig);
+    this._dropDownRef = this._modalService.showTemplate<unknown>(
+      this._template, 
+      null, 
+      modalConfig, 
+      !this.useAppRootVcr ? this._vcr : undefined);
     this._dropDownRef.modal?.modalClose.subscribe(() => this._close());
   }
 

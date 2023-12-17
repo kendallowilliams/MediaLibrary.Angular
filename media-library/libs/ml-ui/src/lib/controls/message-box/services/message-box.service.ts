@@ -13,48 +13,48 @@ export class MessageBoxService {
 
   constructor(private _modalService: ModalService) {}
 
-  public alert(title: string, message: string, vcr: ViewContainerRef) : void {
+  public alert(title: string, message: string) : void {
     const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
       c.title = title;
       c.message = message;
       c.messageType = 'alert';
     };
-    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
-  public error(title: string, message: string, vcr: ViewContainerRef) : void {
+  public error(title: string, message: string) : void {
     const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
       c.title = title;
       c.message = message;
       c.messageType = 'error';
     };
-    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
-  public warn(title: string, message: string, vcr: ViewContainerRef) : void {
+  public warn(title: string, message: string) : void {
     const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
       c.title = title;
       c.message = message;
       c.messageType = 'warn';
     };
-    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
   public confirm(title: string, message: string, vcr: ViewContainerRef, yesNo: boolean = false) : Observable<boolean> {
     const modalConfig = new ModalConfig<MessageBoxComponent>();
 
-    modalConfig.configureComponentInput = (c: MessageBoxComponent) => {
+    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
       c.title = title;
       c.message = message;
       c.messageType = yesNo ? 'yes_no' : 'confirm';
     };
-    this._modalRef = this._modalService.showComponent(MessageBoxComponent, vcr, modalConfig);
+    this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
 
     return new Observable<boolean>(subscriber => {
       this._modalRef?.component?.continueResponse.subscribe(() => {

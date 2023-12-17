@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { MlUtilityModule } from '@media-library/ml-utility';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AutoHideNavbarLinksDirective,
     AppRoutingModule,
     FontAwesomeModule,
-    NavbarModule
+    NavbarModule,
+    MlUtilityModule
   ],
   exports: [RouterModule],
   providers: [],

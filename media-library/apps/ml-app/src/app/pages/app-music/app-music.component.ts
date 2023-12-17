@@ -50,7 +50,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   }
 
   private _loadData() : void {
-    this._loadingModalRef = this._modalService.showLoadingModal(this._vcr);
+    this._loadingModalRef = this._modalService.showLoadingModal();
     zip(this._musicService.getConfiguration(),
       this._musicService.getAlbums(),
       this._musicService.getArtists(),
@@ -64,7 +64,7 @@ export class AppMusicComponent implements OnInit, OnDestroy {
         this.tracks$.next(results[3]);
         this.playlists$.next(results[4]);
       },
-      error: (error) => this._messageBoxService.error('Error', error.message, this._vcr),
+      error: (error) => this._messageBoxService.error('Error', error.message),
       complete: () => this._loadingModalRef?.hide()
     });
   }

@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MusicConfiguration, MusicService } from '@media-library/ml-data';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-settings',
@@ -6,5 +8,12 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppSettingsComponent {
+export class AppSettingsComponent implements OnInit {
+  public configuration$?: Observable<MusicConfiguration>;
+
+  constructor(private _musicService: MusicService) {}
+
+  public ngOnInit(): void {
+    this.configuration$ = this._musicService.getConfiguration();
+  }
 }

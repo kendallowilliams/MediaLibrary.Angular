@@ -82,6 +82,19 @@ export function getAlbumSortEnum(sort: string): AlbumSort {
     return albumSort;
 };
 
+export function getAlbumSortEnumString(sort: AlbumSort): string {
+    let albumSort: string;
+
+    switch (sort) {
+        case AlbumSort.AtoZ:
+        default:
+            albumSort = 'A to Z';
+            break;
+    }
+
+    return albumSort;
+};
+
 export function getArtistSortEnum(sort: string): ArtistSort {
     let artistSort: ArtistSort;
 
@@ -89,6 +102,19 @@ export function getArtistSortEnum(sort: string): ArtistSort {
         case 'AtoZ':
         default:
             artistSort = ArtistSort.AtoZ;
+            break;
+    }
+
+    return artistSort;
+};
+
+export function getArtistSortEnumString(sort: ArtistSort): string {
+    let artistSort: string;
+
+    switch (sort) {
+        case ArtistSort.AtoZ:
+        default:
+            artistSort = 'A to Z';
             break;
     }
 
@@ -152,6 +178,31 @@ export function getSongSortEnum(sort: string): SongSort {
         case 'AtoZ':
         default:
             songSort = SongSort.AtoZ;
+            break;
+    }
+
+    return songSort;
+};
+
+export function getSongSortEnumString(sort: SongSort): string {
+    let songSort: string;
+
+    switch (sort) {
+        case SongSort.Album:
+            songSort = 'Album';
+            break;
+        case SongSort.Artist:
+            songSort = 'Artist';
+            break;
+        case SongSort.DateAdded:
+            songSort = 'Date Added';
+            break;
+        case SongSort.Genre:
+            songSort = 'Genre';
+            break;
+        case SongSort.AtoZ:
+        default:
+            songSort = 'A to Z';
             break;
     }
 
