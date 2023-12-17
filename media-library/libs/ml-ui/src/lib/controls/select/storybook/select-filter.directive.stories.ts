@@ -25,7 +25,7 @@ export const Default: Story = {
   },
   render: (args: SelectFilterDirective) => ({
     props: {
-      options: [1,2,3,4,5,6,7,8,9]
+      options: [0,1,2,3,4,5,6,7,8,9]
         .map(item => ({
           text: `Option ${item}`,
           value: item,

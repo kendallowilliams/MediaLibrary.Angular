@@ -41,7 +41,7 @@ export class SelectComponent implements ControlValueAccessor {
 
   /** The internal values of the select. */
   private _value: SelectValueType | null = null;
-  private _onChange: (_: SelectOption['value'] | null) => void = noop;
+  private _onChange: (_: SelectValueType | null) => void = noop;
   private _onTouched: () => void = noop;
   public valueChange = new BehaviorSubject<SelectValueType | null>(null);
   public selectLabel?: string;
@@ -89,7 +89,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   public writeValue(value: SelectValueType | null): void {
-    if (value) {
+    if (value !== null && value !== undefined) {
       if (this._value !== value) {
         this.value = value;
         this.valueChange.next(value);
@@ -102,7 +102,7 @@ export class SelectComponent implements ControlValueAccessor {
   public addValue(value: SelectOption['value'] | null): void {
     let values = this._value as SelectOption['value'][] || [];
 
-    if (value) {
+    if (value !== null && value !== undefined) {
       if (!values?.includes(value)) {
         values = values.concat(value);
         this.writeValue(values);
@@ -117,7 +117,7 @@ export class SelectComponent implements ControlValueAccessor {
   public removeValue(value: SelectOption['value'] | null): void {
     let values = this._value as SelectOption['value'][] || [];
 
-    if (value) {
+    if (value !== null && value !== undefined) {
       if (values?.includes(value)) {
         values = values.filter(v => value !== v);
         this.writeValue(values);
@@ -130,7 +130,7 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   public updateSelectLabel() : void {
-    if (this.value) {
+    if (this.value !== null && this.value !== undefined) {
       if (Array.isArray(this.value)) {
         const values = this.value as SelectOption['value'][];
 

@@ -77,7 +77,7 @@ export class SelectOptionDirective implements OnInit {
         this._setSelected(true);
       }
     } else {
-      if (!value || this.option.value !== value) {
+      if ((value !== null && value !== undefined) || this.option.value !== value) {
         this._setSelected(false);
       } else if (this.option.value === value) {
         this._setSelected(true);
