@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { ButtonDirective } from '../directives/button.directive';
+import { BUTTON_VARIANTS, ButtonDirective } from '../directives/button.directive';
 import { ButtonModule } from '../button.module';
 
 const meta: Meta<ButtonDirective> = {
@@ -8,9 +8,15 @@ const meta: Meta<ButtonDirective> = {
   component: ButtonDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, ButtonModule],
+      imports: [CommonModule, ButtonModule]
     })
-  ]
+  ],
+  argTypes: {
+    variant: {
+      control: { type: 'select' },
+      options: [...BUTTON_VARIANTS]
+    }
+  }
 };
 
 export default meta;
