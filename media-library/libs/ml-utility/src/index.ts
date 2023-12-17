@@ -4,5 +4,8 @@ export * from './lib/ml-utility.module';
 export * from './lib/functions/string-functions.utils';
 
 /** Services */
-export * from './lib/services/theme/theme.service';
-export * from './lib/services/device/device.service';
+export * from './lib/services/theme.service';
+export * from './lib/services/device.service';
+
+/** Directive */
+export * from './lib/directives/theme.directive';
