@@ -6,7 +6,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { faGear } from '@fortawesome/free-solid-svg-icons';
-import { DeviceService, NavbarService } from '@media-library/ml-ui';
+import { NavbarService } from '@media-library/ml-ui';
+import { DeviceService } from '@media-library/ml-utility';
 import { Observable } from 'rxjs';
 
 @Component({
