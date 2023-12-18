@@ -17,4 +17,8 @@ export class AppService extends BaseService {
   public getConfiguration(): Observable<MediaLibraryConfiguration> {
     return this.getBaseConfiguration<MediaLibraryConfiguration>(this._controller);
   }
+
+  public updateConfiguration(configuration: MediaLibraryConfiguration): Observable<MediaLibraryConfiguration> {
+    return this.updateBaseConfiguration<MediaLibraryConfiguration>(this._controller, configuration);
+  }
 }

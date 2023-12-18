@@ -17,4 +17,8 @@ export class PodcastService extends BaseService {
   public getConfiguration(): Observable<PodcastConfiguration> {
     return this.getBaseConfiguration<PodcastConfiguration>(this._controller);
   }
+
+  public updateConfiguration(configuration: PodcastConfiguration): Observable<PodcastConfiguration> {
+    return this.updateBaseConfiguration<PodcastConfiguration>(this._controller, configuration);
+  }
 }

@@ -17,4 +17,8 @@ export class PlayerService extends BaseService {
   public getConfiguration(): Observable<PlayerConfiguration> {
     return this.getBaseConfiguration<PlayerConfiguration>(this._controller);
   }
+
+  public updateConfiguration(configuration: PlayerConfiguration): Observable<PlayerConfiguration> {
+    return this.updateBaseConfiguration<PlayerConfiguration>(this._controller, configuration);
+  }
 }

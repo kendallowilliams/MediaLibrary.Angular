@@ -19,6 +19,10 @@ export class PlaylistService extends BaseService {
     return this.getBaseConfiguration<PlaylistConfiguration>(this._controller);
   }
 
+  public updateConfiguration(configuration: PlaylistConfiguration): Observable<PlaylistConfiguration> {
+    return this.updateBaseConfiguration<PlaylistConfiguration>(this._controller, configuration);
+  }
+
   public getMusicPlaylists() : Observable<Playlist[]> {
     return this.get<Playlist[]>(this._controller, 'GetByType?playlistType=0');
   }

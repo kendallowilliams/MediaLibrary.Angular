@@ -17,4 +17,8 @@ export class TelevisionService extends BaseService {
   public getConfiguration(): Observable<TelevisionConfiguration> {
     return this.getBaseConfiguration<TelevisionConfiguration>(this._controller);
   }
+
+  public updateConfiguration(configuration: TelevisionConfiguration): Observable<TelevisionConfiguration> {
+    return this.updateBaseConfiguration<TelevisionConfiguration>(this._controller, configuration);
+  }
 }
