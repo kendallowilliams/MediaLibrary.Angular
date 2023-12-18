@@ -1,13 +1,9 @@
 export * from './lib/ml-ui.module';
 
-/** Navbar */
-export * from './lib/controls/switch/switch.component';
-export * from './lib/content/page-not-found/page-not-found.component';
-export * from './lib/navbar/index';
+export * from './lib/controls/index';
 
-/** Search */
-export * from './lib/controls/search/search.module';
-export * from './lib/controls/search/search.component';
+/** Navbar */
+export * from './lib/navbar/index';
 
 /** Card */
 export * from './lib/content/card/card.module';
@@ -22,20 +18,15 @@ export * from './lib/content/card/card-footer/card-footer.component';
 export * from './lib/modal/index';
 
 /** Message Box */
-export * from './lib/controls/message-box/index';
+export * from './lib/message-box/index';
 
 /** Directives */
 export * from './lib/directives/update-if-larger-than-parent/update-if-larger-than-parent.directive';
 export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.directive';
 
-/** Select */
-export * from './lib/controls/select/index';
-
-/** Dropdown */
-export * from './lib/controls/dropdown/directives/dropdown.directive';
-
-/** Button */
-export * from './lib/controls/button/index';
 
 /** Configuration */
 export * from './lib/content/configuration/index';
+
+/** Error Pages */
+export * from './lib/content/page-not-found/page-not-found.component';

@@ -9,7 +9,7 @@ import {
   Input,
   Optional
 } from '@angular/core';
-import { ModalRef } from '../../modal/models/ModalRef.model';
+import { ModalRef } from '../modal/models/ModalRef.model';
 import { faBan, faExclamationCircle, faQuestionCircle, faWarning } from '@fortawesome/free-solid-svg-icons';
 
 type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';

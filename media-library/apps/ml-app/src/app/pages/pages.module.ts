@@ -12,7 +12,7 @@ import { AppSearchComponent } from './app-search/app-search.component';
 import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { AppTelevisionComponent } from './app-television/app-television.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ConfigurationModule, MlUiModule } from '@media-library/ml-ui';
+import { ConfigurationModule, ControlsModule } from '@media-library/ml-ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MlDataModule, API_BASE_URL } from '@media-library/ml-data';
 import { environment } from '../../environments/environment';
@@ -50,10 +50,10 @@ export const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    MlUiModule,
     FontAwesomeModule,
     MlDataModule,
-    ConfigurationModule
+    ConfigurationModule,
+    ControlsModule
   ],
   exports: [
     RouterModule
