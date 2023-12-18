@@ -20,7 +20,7 @@
     </div>
     <div class="grid grid-cols-[100px_1fr] items-center">
       <label mlLabel>Paths</label>
-      <span>{{configuration.musicPaths.join('\n')}}</span>
+      <span [innerHTML]="configuration.musicPaths.join('\<br/>')"></span>
     </div>
   </ml-card-body>
 </ml-card>

@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ComponentsModule } from './components/components.module';
+import { AppRootVcrDirective } from '@media-library/ml-utility';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
-    ComponentsModule
+    ComponentsModule,
+    AppRootVcrDirective
   ],
   exports: [RouterModule],
   providers: [],
