@@ -2,13 +2,13 @@
 import { Configuration } from "./Configuration.interface";
 
 export interface MusicConfiguration extends Configuration {
-    SelectedAlbumId: number;
-    SelectedArtistId: number;
-    SelectedAlbumSort: AlbumSort;
-    SelectedArtistSort: ArtistSort;
-    SelectedSongSort: SongSort;
-    SelectedMusicTab: MusicTabs;
-    SelectedMusicPage: MusicPages;
-    PreviousSearchQuery: string;
-    MusicPaths: string[];
+    selectedAlbumId: number;
+    selectedArtistId: number;
+    selectedAlbumSort: AlbumSort;
+    selectedArtistSort: ArtistSort;
+    selectedSongSort: SongSort;
+    selectedMusicTab: MusicTabs;
+    selectedMusicPage: MusicPages;
+    previousSearchQuery: string;
+    musicPaths: string[];
 }

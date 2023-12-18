@@ -27,9 +27,9 @@ export class MusicConfigurationComponent implements OnInit {
   constructor(private _modalService: ModalService) {}
 
   public ngOnInit(): void {
-    this.albumSort = getAlbumSortEnumString(this.configuration.SelectedAlbumSort);
-    this.songSort = getSongSortEnumString(this.configuration.SelectedSongSort);
-    this.artistSort = getArtistSortEnumString(this.configuration.SelectedArtistSort);
+    this.albumSort = getAlbumSortEnumString(this.configuration.selectedAlbumSort);
+    this.songSort = getSongSortEnumString(this.configuration.selectedSongSort);
+    this.artistSort = getArtistSortEnumString(this.configuration.selectedArtistSort);
   }
 
   public showMusicConfigurationEditor(): void {
