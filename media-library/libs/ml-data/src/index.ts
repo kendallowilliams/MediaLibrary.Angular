@@ -1,6 +1,7 @@
 export * from './lib//stores/configurations/configurations.selectors';
 export * from './lib//stores/configurations/configurations.reducer';
 export * from './lib//stores/configurations/configurations.actions';
+export * from './lib/interfaces/ml-data-state.inteface';
 export * from './lib/ml-data.module';
 
 /** Services */

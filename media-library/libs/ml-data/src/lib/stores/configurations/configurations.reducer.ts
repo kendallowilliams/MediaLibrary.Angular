@@ -8,13 +8,12 @@ export const CONFIGURATIONS_FEATURE_KEY = 'configurations';
 export interface ConfigurationsState {
   musicConfiguration?: MusicConfiguration; // which Configurations record has been selected
   error?: string | null; // last known error (if any)
+  useTestData: boolean;
 }
 
-export interface ConfigurationsPartialState {
-  readonly [CONFIGURATIONS_FEATURE_KEY]: ConfigurationsState;
-}
-
-export const initialConfigurationsState: ConfigurationsState = {};
+export const initialConfigurationsState: ConfigurationsState = {
+  useTestData: true
+};
 
 const reducer = createReducer(
   initialConfigurationsState,
@@ -27,8 +26,8 @@ const reducer = createReducer(
     error,
   })),
   on(
-    ConfigurationsActions.updateMusicConfigurationSuccess,
-    (state, { configuration }) => ({ ...state, musicConfiguration: configuration })
+    ConfigurationsActions.updateMusicConfigurationSuccess, (state, { configuration }) =>
+      ({ ...state, musicConfiguration: configuration })
   ),
   on(ConfigurationsActions.updateMusicConfigurationFailure, (state, { error }) => ({
     ...state,

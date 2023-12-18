@@ -9,7 +9,6 @@ import {
   AlbumSort, 
   ArtistSort, 
   ConfigurationsActions, 
-  ConfigurationsState, 
   MusicConfiguration, 
   SongSort, 
   getAlbumSortEnumString, 
@@ -19,6 +18,7 @@ import {
 import { SelectOption } from '../../../controls/select';
 import { ModalRef } from '../../../modal';
 import { Store } from '@ngrx/store';
+import { MlDataFeatureState } from '@media-library/ml-data';
 
 @Component({
   selector: 'ml-music-configuration-editor',
@@ -54,13 +54,13 @@ export class MusicConfigurationEditorComponent implements OnInit {
     value: SongSort.Genre
   }];
 
-  public albumSort?: AlbumSort;
-  public artistSort?: ArtistSort;
-  public songSort?: SongSort;
+  public albumSort: AlbumSort = AlbumSort.AtoZ;
+  public artistSort: ArtistSort = ArtistSort.AtoZ;
+  public songSort: SongSort = SongSort.AtoZ;
   
   constructor(
     private _modalRef: ModalRef<MusicConfigurationEditorComponent>,
-    private _store: Store<ConfigurationsState>
+    private _store: Store<MlDataFeatureState>
   ) { }
   
   public ngOnInit(): void {
@@ -72,9 +72,9 @@ export class MusicConfigurationEditorComponent implements OnInit {
   public handleSave(): void {
     const configuration = structuredClone(this.configuration, {});
 
-    configuration.selectedAlbumSort = this.albumSort || this.configuration.selectedAlbumSort;
-    configuration.selectedArtistSort = this.artistSort || this.configuration.selectedArtistSort;
-    configuration.selectedSongSort = this.songSort || this.configuration.selectedSongSort;
+    configuration.selectedAlbumSort = this.albumSort;
+    configuration.selectedArtistSort = this.artistSort;
+    configuration.selectedSongSort = this.songSort;
     this._store.dispatch(ConfigurationsActions.updateMusicConfiguration({ configuration }));
     this._modalRef?.hide();
   }

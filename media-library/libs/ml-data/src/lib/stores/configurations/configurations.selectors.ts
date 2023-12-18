@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
-  CONFIGURATIONS_FEATURE_KEY,
-  ConfigurationsState,
+  CONFIGURATIONS_FEATURE_KEY, ConfigurationsState,
 } from './configurations.reducer';
 
 // Lookup the 'Configurations' feature state managed by NgRx

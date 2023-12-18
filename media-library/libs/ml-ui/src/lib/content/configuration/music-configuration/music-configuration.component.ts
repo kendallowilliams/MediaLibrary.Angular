@@ -2,7 +2,9 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 import { ModalConfig, ModalRef, ModalService } from '../../../modal';
@@ -16,7 +18,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MusicConfigurationComponent implements OnInit {
+export class MusicConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: MusicConfiguration;
   public albumSort = '';
   public artistSort = '';
@@ -27,9 +29,21 @@ export class MusicConfigurationComponent implements OnInit {
   constructor(private _modalService: ModalService) {}
 
   public ngOnInit(): void {
-    this.albumSort = getAlbumSortEnumString(this.configuration.selectedAlbumSort);
-    this.songSort = getSongSortEnumString(this.configuration.selectedSongSort);
-    this.artistSort = getArtistSortEnumString(this.configuration.selectedArtistSort);
+    this._setData(this.configuration);
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('configuration' in changes) {
+      const config = changes['configuration'].currentValue;
+
+      this._setData(config);
+    }
+  }
+
+  private _setData(configuration: MusicConfiguration): void {
+    this.albumSort = getAlbumSortEnumString(configuration.selectedAlbumSort);
+    this.songSort = getSongSortEnumString(configuration.selectedSongSort);
+    this.artistSort = getArtistSortEnumString(configuration.selectedArtistSort);
   }
 
   public showMusicConfigurationEditor(): void {
