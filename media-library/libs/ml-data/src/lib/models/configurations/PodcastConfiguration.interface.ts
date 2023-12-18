@@ -6,5 +6,5 @@ export interface PodcastConfiguration extends Configuration {
     SelectedPodcastPage: PodcastPages;
     SelectedPodcastSort: PodcastSort;
     SelectedPodcastFilter: PodcastFilter;
-    LastAutoDownloadDate: Date;
+    LastAutoDownloadDate?: Date;
 }
