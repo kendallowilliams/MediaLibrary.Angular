@@ -1,4 +1,3 @@
-export * from './lib//stores/configurations/configurations.models';
 export * from './lib//stores/configurations/configurations.selectors';
 export * from './lib//stores/configurations/configurations.reducer';
 export * from './lib//stores/configurations/configurations.actions';
