@@ -5,15 +5,15 @@
   <ml-card-body class="flex flex-col gap-[30px]">
     <div class="flex items-center gap-[10px]">
       <label class="shrink-0">Album Sort</label>
-      <ml-select [options]="albumSortOptions" [(ngModel)]="configuration.selectedAlbumSort"></ml-select>
+      <ml-select [options]="albumSortOptions" [(ngModel)]="albumSort"></ml-select>
     </div>
     <div class="flex items-center gap-[10px]">
       <label class="shrink-0">Artist Sort</label>
-      <ml-select [options]="artistSortOptions" [(ngModel)]="configuration.selectedArtistSort"></ml-select>
+      <ml-select [options]="artistSortOptions" [(ngModel)]="artistSort"></ml-select>
     </div>
     <div class="flex items-center gap-[10px]">
       <label class="shrink-0">Song Sort</label>
-      <ml-select [options]="songSortOptions" [(ngModel)]="configuration.selectedSongSort"></ml-select>
+      <ml-select [options]="songSortOptions" [(ngModel)]="songSort"></ml-select>
     </div>
   </ml-card-body>
   <ml-card-footer class="flex justify-end">

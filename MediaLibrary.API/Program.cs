@@ -22,6 +22,7 @@ if (builder.Environment.IsDevelopment())
         builder =>
         {
             builder.WithOrigins("http://localhost:4200");
+            builder.AllowAnyHeader();
         });
     });
 }

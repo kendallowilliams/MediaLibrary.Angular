@@ -14,6 +14,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MlUtilityModule } from '@media-library/ml-utility';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { MlUtilityModule } from '@media-library/ml-utility';
     AppRoutingModule,
     FontAwesomeModule,
     NavbarModule,
-    MlUtilityModule
+    MlUtilityModule,
+    StoreModule.forRoot(),
+    EffectsModule.forRoot()
   ],
   exports: [RouterModule],
   providers: [],

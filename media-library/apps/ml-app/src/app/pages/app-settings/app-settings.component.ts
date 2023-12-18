@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MusicConfiguration, MusicService } from '@media-library/ml-data';
+import { ConfigurationsActions, ConfigurationsState, MusicConfiguration, selectMusicConfiguration } from '@media-library/ml-data';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -9,11 +10,12 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppSettingsComponent implements OnInit {
-  public configuration$?: Observable<MusicConfiguration>;
+  public configuration$?: Observable<MusicConfiguration | undefined>;
 
-  constructor(private _musicService: MusicService) {}
+  constructor(private _store: Store<ConfigurationsState>) {}
 
   public ngOnInit(): void {
-    this.configuration$ = this._musicService.getConfiguration();
+    this._store.dispatch(ConfigurationsActions.loadMusicConfiguration());
+    this.configuration$ = this._store.select(selectMusicConfiguration);
   }
 }
