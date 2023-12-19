@@ -7,13 +7,13 @@
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
     <div class="grid grid-cols-[100px_1fr] items-center">
-      <label mlLabel></label>
-      <span></span>
+      <label mlLabel>Series Sort</label>
+      <span>{{seriesSort}}</span>
     </div>
   </ml-card-body>
   <ml-card-footer>
     <div class="flex gap-[10px] items-center h-full w-full justify-end">
-      <button mlButton></button>
+      <button mlButton (click)="handleRefresh()">Refresh Music</button>
     </div>
   </ml-card-footer>
 </ml-card>

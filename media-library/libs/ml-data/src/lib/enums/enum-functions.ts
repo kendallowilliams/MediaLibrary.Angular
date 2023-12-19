@@ -69,6 +69,19 @@ export function getSeriesSortEnum(sort: string): SeriesSort {
     return seriesSort;
 };
 
+export function getSeriesSortEnumString(sort: SeriesSort): string {
+    let seriesSort: string;
+
+    switch (sort) {
+        case SeriesSort.AtoZ:
+        default:
+            seriesSort = 'AtoZ';
+            break;
+    }
+
+    return seriesSort;
+};
+
 export function getAlbumSortEnum(sort: string): AlbumSort {
     let albumSort: AlbumSort;
 
@@ -308,11 +321,11 @@ export function getPlaylistSortEnumString(sort: PlaylistSort): string {
 
     switch (sort) {
         case PlaylistSort.DateAdded:
-            playlistSort = 'DateAdded';
+            playlistSort = 'Date Added';
             break;
         case PlaylistSort.AtoZ:
         default:
-            playlistSort = 'AtoZ';
+            playlistSort = 'A to Z';
             break;
     }
 

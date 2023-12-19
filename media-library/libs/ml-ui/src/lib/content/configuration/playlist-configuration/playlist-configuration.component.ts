@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ModalConfig, ModalRef, ModalService } from '../../../modal';
-import { PlaylistConfiguration } from '@media-library/ml-data';
+import { PlaylistConfiguration, getPlaylistSortEnumString, getPodcastFilterEnumString, getPodcastSortEnumString } from '@media-library/ml-data';
 import { PlaylistConfigurationEditorComponent } from '../playlist-configuration-editor/playlist-configuration-editor.component';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,6 +22,10 @@ export class PlaylistConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: PlaylistConfiguration;
   public faPenToSquare = faPenToSquare;
   private _editorRef?: ModalRef<PlaylistConfigurationEditorComponent>;
+
+  public podcastSort = '';
+  public televisionSort = '';
+  public musicSort = '';
 
   constructor(private _modalService: ModalService) {}
 
@@ -38,6 +42,9 @@ export class PlaylistConfigurationComponent implements OnInit, OnChanges {
   }
 
   private _setData(configuration: PlaylistConfiguration): void {
+    this.podcastSort = getPlaylistSortEnumString(configuration.selectedPodcastPlaylistSort);
+    this.televisionSort = getPlaylistSortEnumString(configuration.selectedTelevisionPlaylistSort);
+    this.musicSort = getPlaylistSortEnumString(configuration.selectedMusicPlaylistSort);
   }
 
   public showPlaylistConfigurationEditor(): void {

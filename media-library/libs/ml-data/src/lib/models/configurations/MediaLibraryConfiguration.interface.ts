@@ -2,13 +2,13 @@
 import { Configuration } from "./Configuration.interface";
 
 export interface MediaLibraryConfiguration extends Configuration {
-    SelectedMediaPage: MediaPages;
-    AppWidth: AppWidth;
-    NavBarDelay: number;
-    TooltipsEnabled: boolean;
-    SettingsDelay: number;
-    KeysEnabled: boolean;
-    ConsoleAppRunInterval: number;
-    ConsoleAppLastRunTimeStamp: string;
-    DarkMode: boolean;
+    selectedMediaPage: MediaPages;
+    appWidth: AppWidth;
+    navBarDelay: number;
+    tooltipsEnabled: boolean;
+    settingsDelay: number;
+    keysEnabled: boolean;
+    consoleAppRunInterval: number;
+    consoleAppLastRunTimeStamp: string;
+    darkMode: boolean;
 }

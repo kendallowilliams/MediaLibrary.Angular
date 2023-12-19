@@ -2,9 +2,9 @@
 import { Configuration } from "./Configuration.interface";
 
 export interface PodcastConfiguration extends Configuration {
-    SelectedPodcastId: number;
-    SelectedPodcastPage: PodcastPages;
-    SelectedPodcastSort: PodcastSort;
-    SelectedPodcastFilter: PodcastFilter;
-    LastAutoDownloadDate?: Date;
+    selectedPodcastId: number;
+    selectedPodcastPage: PodcastPages;
+    selectedPodcastSort: PodcastSort;
+    selectedPodcastFilter: PodcastFilter;
+    lastAutoDownloadDate?: Date;
 }

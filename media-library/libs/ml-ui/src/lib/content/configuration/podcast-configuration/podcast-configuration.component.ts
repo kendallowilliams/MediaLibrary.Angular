@@ -41,8 +41,8 @@ export class PodcastConfigurationComponent implements OnInit, OnChanges {
   }
 
   private _setData(configuration: PodcastConfiguration): void {
-    this.podcastSort = getPodcastSortEnumString(configuration.SelectedPodcastSort);
-    this.episodeFilter = getPodcastFilterEnumString(configuration.SelectedPodcastFilter)
+    this.podcastSort = getPodcastSortEnumString(configuration.selectedPodcastSort);
+    this.episodeFilter = getPodcastFilterEnumString(configuration.selectedPodcastFilter)
   }
 
   public showPodcastConfigurationEditor(): void {

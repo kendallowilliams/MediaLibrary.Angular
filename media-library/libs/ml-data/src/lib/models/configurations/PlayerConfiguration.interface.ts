@@ -4,19 +4,19 @@ import { ListItem } from "../collections/ListItem.interface";
 import { Configuration } from "./Configuration.interface";
 
 export interface PlayerConfiguration extends Configuration {
-    SelectedMediaType: MediaTypes;
-    CurrentItemIndex: number;
-    AutoPlay: boolean;
-    Repeat: RepeatTypes;
-    Shuffle: boolean;
-    SelectedPlayerPage: PlayerPages;
-    Volume: number;
-    Muted: boolean;
-    AudioVisualizerEnabled: boolean;
-    SkipForwardSeconds: number;
-    SkipBackwardSeconds: number;
-    NowPlayingList: ListItem<number, number>[];
-    ProgressUpdateInterval: number;
-    AudioVisualizerBarCount: number;
-    NowPlayingLists: Array<KeyValuePair<MediaTypes, ListItem<number, number>[]>>;
+    selectedMediaType: MediaTypes;
+    currentItemIndex: number;
+    autoPlay: boolean;
+    repeat: RepeatTypes;
+    shuffle: boolean;
+    selectedPlayerPage: PlayerPages;
+    volume: number;
+    muted: boolean;
+    audioVisualizerEnabled: boolean;
+    skipForwardSeconds: number;
+    skipBackwardSeconds: number;
+    nowPlayingList: ListItem<number, number>[];
+    progressUpdateInterval: number;
+    audioVisualizerBarCount: number;
+    nowPlayingLists: Array<KeyValuePair<MediaTypes, ListItem<number, number>[]>>;
 }

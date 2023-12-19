@@ -16,67 +16,67 @@ export const musicConfiguration: MusicConfiguration = {
   selectedMusicPage: MusicPages.Index,
   previousSearchQuery: "",
   musicPaths: ['A:/albums', 'B:/artists', 'D:/songs'],
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  scrollTop: 0,
+  promptBeforeUnload: false
 };
 export const mediaLibraryConfiguration: MediaLibraryConfiguration = {
-  SelectedMediaPage: MediaPages.Home,
-  AppWidth: AppWidth.Normal,
-  NavBarDelay: 0,
-  TooltipsEnabled: false,
-  SettingsDelay: 0,
-  KeysEnabled: false,
-  ConsoleAppRunInterval: 0,
-  ConsoleAppLastRunTimeStamp: "",
-  DarkMode: false,
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  selectedMediaPage: MediaPages.Home,
+  appWidth: AppWidth.Normal,
+  navBarDelay: 0,
+  tooltipsEnabled: false,
+  settingsDelay: 0,
+  keysEnabled: false,
+  consoleAppRunInterval: 0,
+  consoleAppLastRunTimeStamp: "",
+  darkMode: false,
+  scrollTop: 0,
+  promptBeforeUnload: false
 };
 export const televisionConfiguration: TelevisionConfiguration = {
-  SelectedSeriesId: 0,
-  SelectedSeason: 0,
-  SelectedTelevisionPage: TelevisionPages.Index,
-  SelectedSeriesSort: SeriesSort.AtoZ,
-  FilePath: "",
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  selectedSeriesId: 0,
+  selectedSeason: 0,
+  selectedTelevisionPage: TelevisionPages.Index,
+  selectedSeriesSort: SeriesSort.AtoZ,
+  filePath: "",
+  scrollTop: 0,
+  promptBeforeUnload: false
 };
 export const podcastConfiguration: PodcastConfiguration = {
-  SelectedPodcastId: 0,
-  SelectedPodcastPage: PodcastPages.Index,
-  SelectedPodcastSort: PodcastSort.LastUpdateDate,
-  SelectedPodcastFilter: PodcastFilter.All,
-  LastAutoDownloadDate: undefined,
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  selectedPodcastId: 0,
+  selectedPodcastPage: PodcastPages.Index,
+  selectedPodcastSort: PodcastSort.LastUpdateDate,
+  selectedPodcastFilter: PodcastFilter.All,
+  lastAutoDownloadDate: undefined,
+  scrollTop: 0,
+  promptBeforeUnload: false
 };
 export const playerConfiguration: PlayerConfiguration = {
-  SelectedMediaType: MediaTypes.Song,
-  CurrentItemIndex: 0,
-  AutoPlay: false,
-  Repeat: RepeatTypes.None,
-  Shuffle: false,
-  SelectedPlayerPage: PlayerPages.Index,
-  Volume: 0,
-  Muted: false,
-  AudioVisualizerEnabled: false,
-  SkipForwardSeconds: 0,
-  SkipBackwardSeconds: 0,
-  NowPlayingList: [],
-  ProgressUpdateInterval: 0,
-  AudioVisualizerBarCount: 0,
-  NowPlayingLists: [],
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  selectedMediaType: MediaTypes.Song,
+  currentItemIndex: 0,
+  autoPlay: false,
+  repeat: RepeatTypes.None,
+  shuffle: false,
+  selectedPlayerPage: PlayerPages.Index,
+  volume: 0,
+  muted: false,
+  audioVisualizerEnabled: false,
+  skipForwardSeconds: 0,
+  skipBackwardSeconds: 0,
+  nowPlayingList: [],
+  progressUpdateInterval: 0,
+  audioVisualizerBarCount: 0,
+  nowPlayingLists: [],
+  scrollTop: 0,
+  promptBeforeUnload: false
 };
 export const playlistConfiguration: PlaylistConfiguration = {
-  SelectedPlaylistId: 0,
-  SelectedPlaylistPage: PlaylistPages.Index,
-  SelectedMusicPlaylistSort: PlaylistSort.AtoZ,
-  SelectedPodcastPlaylistSort: PlaylistSort.AtoZ,
-  SelectedTelevisionPlaylistSort: PlaylistSort.AtoZ,
-  SelectedPlaylistTab: PlaylistTabs.Music,
-  MaxSystemPlaylistItems: 0,
-  ScrollTop: 0,
-  PromptBeforeUnload: false
+  selectedPlaylistId: 0,
+  selectedPlaylistPage: PlaylistPages.Index,
+  selectedMusicPlaylistSort: PlaylistSort.AtoZ,
+  selectedPodcastPlaylistSort: PlaylistSort.AtoZ,
+  selectedTelevisionPlaylistSort: PlaylistSort.AtoZ,
+  selectedPlaylistTab: PlaylistTabs.Music,
+  maxSystemPlaylistItems: 0,
+  scrollTop: 0,
+  promptBeforeUnload: false
 };

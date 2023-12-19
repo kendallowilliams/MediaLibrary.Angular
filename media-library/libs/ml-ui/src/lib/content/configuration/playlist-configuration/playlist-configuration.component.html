@@ -6,14 +6,26 @@
     </ml-card-title>
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
-    <div class="grid grid-cols-[100px_1fr] items-center">
-      <label mlLabel></label>
-      <span></span>
+    <div class="grid grid-cols-[125px_1fr] items-center">
+      <label mlLabel>Max Playlist Items</label>
+      <span>{{configuration.maxSystemPlaylistItems}}</span>
     </div>
-  </ml-card-body>
+    <div class="grid grid-cols-[125px_1fr] items-center">
+      <label mlLabel>Music Sort</label>
+      <span>{{musicSort}}</span>
+    </div>
+    <div class="grid grid-cols-[125px_1fr] items-center">
+      <label mlLabel>Podcast Sort</label>
+      <span>{{podcastSort}}</span>
+    </div>
+    <div class="grid grid-cols-[125px_1fr] items-center">
+      <label mlLabel>Television Sort</label>
+      <span>{{televisionSort}}</span>
+    </div>
+  </ml-card-body><!--
   <ml-card-footer>
     <div class="flex gap-[10px] items-center h-full w-full justify-end">
       <button mlButton></button>
     </div>
-  </ml-card-footer>
+  </ml-card-footer>-->
 </ml-card>

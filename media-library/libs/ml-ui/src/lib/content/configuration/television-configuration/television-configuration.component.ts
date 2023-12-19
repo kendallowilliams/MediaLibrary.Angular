@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ModalConfig, ModalRef, ModalService } from '../../../modal';
-import { TelevisionConfiguration } from '@media-library/ml-data';
+import { TelevisionConfiguration, getSeriesSortEnumString } from '@media-library/ml-data';
 import { TelevisionConfigurationEditorComponent } from '../television-configuration-editor/television-configuration-editor.component';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,6 +22,8 @@ export class TelevisionConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: TelevisionConfiguration;
   public faPenToSquare = faPenToSquare;
   private _editorRef?: ModalRef<TelevisionConfigurationEditorComponent>;
+
+  public seriesSort = '';
 
   constructor(private _modalService: ModalService) {}
 
@@ -38,6 +40,7 @@ export class TelevisionConfigurationComponent implements OnInit, OnChanges {
   }
 
   private _setData(configuration: TelevisionConfiguration): void {
+    this.seriesSort = getSeriesSortEnumString(configuration.selectedSeriesSort);
   }
 
   public showTelevisionConfigurationEditor(): void {
@@ -47,5 +50,9 @@ export class TelevisionConfigurationComponent implements OnInit, OnChanges {
       component.configuration = this.configuration;
     };
     this._editorRef = this._modalService.showComponent(TelevisionConfigurationEditorComponent, modalConfig);
+  }
+
+  public handleRefresh(): void {
+
   }
 }

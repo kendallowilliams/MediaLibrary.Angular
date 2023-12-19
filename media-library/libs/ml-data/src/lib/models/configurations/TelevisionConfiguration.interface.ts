@@ -2,9 +2,9 @@
 import { Configuration } from "./Configuration.interface";
 
 export interface TelevisionConfiguration extends Configuration {
-    SelectedSeriesId: number;
-    SelectedSeason: number;
-    SelectedTelevisionPage: TelevisionPages;
-    SelectedSeriesSort: SeriesSort;
-    FilePath: string;
+    selectedSeriesId: number;
+    selectedSeason: number;
+    selectedTelevisionPage: TelevisionPages;
+    selectedSeriesSort: SeriesSort;
+    filePath: string;
 }

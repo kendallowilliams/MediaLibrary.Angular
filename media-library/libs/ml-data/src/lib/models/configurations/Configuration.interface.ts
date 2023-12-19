@@ -1,4 +1,4 @@
 ﻿export interface Configuration {
-    ScrollTop: number;
-    PromptBeforeUnload: boolean;
+    scrollTop: number;
+    promptBeforeUnload: boolean;
 }
