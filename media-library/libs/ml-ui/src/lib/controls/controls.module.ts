@@ -8,15 +8,18 @@ import { SearchModule } from './search/search.module';
 import { SelectModule } from './select';
 import { SwitchComponent } from './switch/switch.component';
 import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
+import { ListBoxComponent } from './list-box/list-box.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  imports: [CommonModule, ButtonModule, SearchModule, SelectModule],
+  imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],
   declarations: [
     CheckboxDirective,
     DropdownDirective,
     LabelDirective,
     SwitchComponent,
-    ThemeToggleDirective
+    ThemeToggleDirective,
+    ListBoxComponent,
   ],
   exports: [
     CheckboxDirective,
@@ -26,7 +29,8 @@ import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
     ThemeToggleDirective,
     ButtonModule,
     SearchModule,
-    SelectModule
+    SelectModule,
+    ListBoxComponent,
   ],
 })
 export class ControlsModule {}

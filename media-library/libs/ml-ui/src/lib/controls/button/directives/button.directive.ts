@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, HostBinding, Input, OnInit } from '@angular/core';
 
 export const BUTTON_VARIANTS = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'] as const;
 export type ButtonVariant = typeof BUTTON_VARIANTS[number];
@@ -9,17 +9,22 @@ export type ButtonVariant = typeof BUTTON_VARIANTS[number];
 export class ButtonDirective implements OnInit {
   @HostBinding('class') private _class = '';
   @Input() public variant: ButtonVariant = 'primary';
+  @Input() public disabled = false;
+  @HostBinding('attr.tabindex') private _tabIndex = 0;
 
   private _baseClasses = [
+    'inline-flex',
+    'items-center',
     'px-[10px]', 
-    'h-[30px]', 
+    'h-control', 
     'm-0', 
     'outline-none', 
     'focus:ring',
-    'rounded-[5px]'
+    'rounded-[5px]',
+    'disabled:pointer-events-none',
+    'cursor-pointer',
+    'select-none'
   ];
-
-  constructor(private _host: ElementRef<HTMLButtonElement>, private _renderer: Renderer2) { }
 
   public ngOnInit(): void {
     this._class = this.getVariantClasses().join(' ');
@@ -35,8 +40,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-primary',
         'dark:bg-primary-dark',
-        'hover:bg-primary-hover',
-        'active:bg-primary-active',
+        'hover:[:not(:disabled)]:bg-primary-hover',
+        'active:[:not(:disabled)]:bg-primary-active',
         /** Ring */
         'focus:ring-primary-focus'
       ];
@@ -47,8 +52,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-secondary',
         'dark:bg-secondary-dark',
-        'hover:bg-secondary-hover',
-        'active:bg-secondary-active',
+        'hover:[:not(:disabled)]:bg-secondary-hover',
+        'active:[:not(:disabled)]:bg-secondary-active',
         /** Ring */
         'focus:ring-secondary-focus'
       ];
@@ -59,8 +64,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-success',
         'dark:bg-success-dark',
-        'hover:bg-success-hover',
-        'active:bg-success-active',
+        'hover:[:not(:disabled)]:bg-success-hover',
+        'active:[:not(:disabled)]:bg-success-active',
         /** Ring */
         'focus:ring-success-focus'
       ];
@@ -71,8 +76,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-danger',
         'dark:bg-danger-dark',
-        'hover:bg-danger-hover',
-        'active:bg-danger-active',
+        'hover:[:not(:disabled)]:bg-danger-hover',
+        'active:[:not(:disabled)]:bg-danger-active',
         /** Ring */
         'focus:ring-danger-focus'
       ];
@@ -83,8 +88,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-warning',
         'dark:bg-warning-dark',
-        'hover:bg-warning-hover',
-        'active:bg-warning-active',
+        'hover:[:not(:disabled)]:bg-warning-hover',
+        'active:[:not(:disabled)]:bg-warning-active',
         /** Ring */
         'focus:ring-warning-focus'
       ];
@@ -95,8 +100,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-info',
         'dark:bg-info-dark',
-        'hover:bg-info-hover',
-        'active:bg-info-active',
+        'hover:[:not(:disabled)]:bg-info-hover',
+        'active:[:not(:disabled)]:bg-info-active',
         /** Ring */
         'focus:ring-info-focus'
       ];
@@ -107,8 +112,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-light',
         'dark:bg-light-dark',
-        'hover:bg-light-hover',
-        'active:bg-light-active',
+        'hover:[:not(:disabled)]:bg-light-hover',
+        'active:[:not(:disabled)]:bg-light-active',
         /** Ring */
         'focus:ring-light-focus'
       ];
@@ -119,8 +124,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-dark',
         'dark:bg-dark-dark',
-        'hover:bg-dark-hover',
-        'active:bg-dark-active',
+        'hover:[:not(:disabled)]:bg-dark-hover',
+        'active:[:not(:disabled)]:bg-dark-active',
         /** Ring */
         'focus:ring-dark-focus'
       ];

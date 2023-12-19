@@ -29,10 +29,11 @@ type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'inline-flex relative h-[30px] cursor-pointer w-full';
+  @HostBinding('class') private _class = 'inline-flex relative h-control cursor-pointer w-full';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
+  @HostBinding('attr.tabindex') private _tabIndex = 0;
 
   public isDropdownOpen = false;
 

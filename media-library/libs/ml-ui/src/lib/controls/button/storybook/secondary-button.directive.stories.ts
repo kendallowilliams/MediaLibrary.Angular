@@ -1,13 +1,14 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { BUTTON_VARIANTS, ButtonDirective } from '../directives/button.directive';
+import { SecondaryButtonDirective } from '../directives/secondary-button.directive';
 import { ButtonModule } from '../button.module';
+import { BUTTON_VARIANTS } from '../directives/button.directive';
 
-const variants = [...BUTTON_VARIANTS];
+const variants = [...BUTTON_VARIANTS].filter(variant => variant !== 'light');
 
-const meta: Meta<ButtonDirective> = {
-  title: 'Components/Button',
-  component: ButtonDirective,
+const meta: Meta<SecondaryButtonDirective> = {
+  title: 'Components/Button/Secondary',
+  component: SecondaryButtonDirective,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, ButtonModule]
@@ -22,7 +23,7 @@ const meta: Meta<ButtonDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<ButtonDirective>;
+type Story = StoryObj<SecondaryButtonDirective>;
 
 export const Default: Story = {
   args: {
@@ -33,9 +34,7 @@ export const Default: Story = {
       ...args
     },
     template: `
-      <div>
-        <button mlButton [variant]="variant">Click Me!</button>
-      </div>
+      <button mlSecondaryButton [variant]="variant">Click Me!</button>
     `
   })
 };
@@ -48,7 +47,7 @@ export const Disabled: Story = {
     },
     template: `
       <div class="flex flex-wrap gap-[10px]">
-        <button mlButton *ngFor="let variant of variants" [variant]="variant" disabled>Disabled</button>
+        <button mlSecondaryButton *ngFor="let variant of variants" [variant]="variant" disabled>Disabled</button>
       </div>
     `
   })

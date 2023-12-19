@@ -12,6 +12,7 @@ module.exports = {
     extend: {
       height: {
         navbar: '50px',
+        control: '30px'
       },
     },
   },
