@@ -10,6 +10,7 @@ import { SwitchComponent } from './switch/switch.component';
 import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
 import { ListBoxComponent } from './list-box/list-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TextBoxDirective } from './textbox/directives/text-box.directive';
 
 @NgModule({
   imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],
@@ -20,6 +21,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SwitchComponent,
     ThemeToggleDirective,
     ListBoxComponent,
+    TextBoxDirective
   ],
   exports: [
     CheckboxDirective,
@@ -31,6 +33,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     SearchModule,
     SelectModule,
     ListBoxComponent,
+    TextBoxDirective
   ],
 })
 export class ControlsModule {}
