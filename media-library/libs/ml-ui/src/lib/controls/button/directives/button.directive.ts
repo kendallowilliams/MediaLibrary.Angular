@@ -40,8 +40,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-primary',
         'dark:bg-primary-dark',
-        'hover:[:not(:disabled)]:bg-primary-hover',
-        'active:[:not(:disabled)]:bg-primary-active',
+        'hover:[&:not(:disabled)]:bg-primary-hover',
+        'active:[&:not(:disabled)]:bg-primary-active',
         'disabled:bg-primary-disabled',
         /** Ring */
         'focus:ring-primary-focus'
@@ -53,8 +53,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-secondary',
         'dark:bg-secondary-dark',
-        'hover:[:not(:disabled)]:bg-secondary-hover',
-        'active:[:not(:disabled)]:bg-secondary-active',
+        'hover:[&:not(:disabled)]:bg-secondary-hover',
+        'active:[&:not(:disabled)]:bg-secondary-active',
         'disabled:bg-secondary-disabled',
         /** Ring */
         'focus:ring-secondary-focus'
@@ -66,8 +66,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-success',
         'dark:bg-success-dark',
-        'hover:[:not(:disabled)]:bg-success-hover',
-        'active:[:not(:disabled)]:bg-success-active',
+        'hover:[&:not(:disabled)]:bg-success-hover',
+        'active:[&:not(:disabled)]:bg-success-active',
         'disabled:bg-success-disabled',
         /** Ring */
         'focus:ring-success-focus'
@@ -79,8 +79,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-danger',
         'dark:bg-danger-dark',
-        'hover:[:not(:disabled)]:bg-danger-hover',
-        'active:[:not(:disabled)]:bg-danger-active',
+        'hover:[&:not(:disabled)]:bg-danger-hover',
+        'active:[&:not(:disabled)]:bg-danger-active',
         'disabled:bg-danger-disabled',
         /** Ring */
         'focus:ring-danger-focus'
@@ -92,8 +92,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-warning',
         'dark:bg-warning-dark',
-        'hover:[:not(:disabled)]:bg-warning-hover',
-        'active:[:not(:disabled)]:bg-warning-active',
+        'hover:[&:not(:disabled)]:bg-warning-hover',
+        'active:[&:not(:disabled)]:bg-warning-active',
         'disabled:bg-warning-disabled',
         /** Ring */
         'focus:ring-warning-focus'
@@ -105,8 +105,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-info',
         'dark:bg-info-dark',
-        'hover:[:not(:disabled)]:bg-info-hover',
-        'active:[:not(:disabled)]:bg-info-active',
+        'hover:[&:not(:disabled)]:bg-info-hover',
+        'active:[&:not(:disabled)]:bg-info-active',
         'disabled:bg-info-disabled',
         /** Ring */
         'focus:ring-info-focus'
@@ -118,8 +118,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-light',
         'dark:bg-light-dark',
-        'hover:[:not(:disabled)]:bg-light-hover',
-        'active:[:not(:disabled)]:bg-light-active',
+        'hover:[&:not(:disabled)]:bg-light-hover',
+        'active:[&:not(:disabled)]:bg-light-active',
         'disabled:bg-dark-disabled',
         /** Ring */
         'focus:ring-light-focus'
@@ -131,8 +131,8 @@ export class ButtonDirective implements OnInit {
         /** Background */
         'bg-dark',
         'dark:bg-dark-dark',
-        'hover:[:not(:disabled)]:bg-dark-hover',
-        'active:[:not(:disabled)]:bg-dark-active',
+        'hover:[&:not(:disabled)]:bg-dark-hover',
+        'active:[&:not(:disabled)]:bg-dark-active',
         'disabled:bg-dark-disabled',
         /** Ring */
         'focus:ring-dark-focus'

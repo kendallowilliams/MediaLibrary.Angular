@@ -39,10 +39,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-primary',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-primary-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-primary',
+        'hover:[&:not(:disabled)]:bg-primary',
         /** Ring */
         'focus:ring-primary-focus',
         /** Border */
@@ -53,10 +53,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-secondary',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-secondary-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-secondary',
+        'hover:[&:not(:disabled)]:bg-secondary',
         /** Ring */
         'focus:ring-secondary-focus',
         /** Border */
@@ -67,10 +67,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-success',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-success-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-success',
+        'hover:[&:not(:disabled)]:bg-success',
         /** Ring */
         'focus:ring-success-focus',
         /** Border */
@@ -81,10 +81,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-danger',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-danger-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-danger',
+        'hover:[&:not(:disabled)]:bg-danger',
         /** Ring */
         'focus:ring-danger-focus',
         /** Border */
@@ -95,10 +95,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-warning',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-warning-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-warning',
+        'hover:[&:not(:disabled)]:bg-warning',
         /** Ring */
         'focus:ring-warning-focus',
         /** Border */
@@ -109,10 +109,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-info',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-info-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-info',
+        'hover:[&:not(:disabled)]:bg-info',
         /** Ring */
         'focus:ring-info-focus',
         /** Border */
@@ -123,10 +123,10 @@ export class SecondaryButtonDirective implements OnInit {
       classes = [
         /** Text */
         'text-dark',
-        'hover:[:not(:disabled)]:text-light',
+        'hover:[&:not(:disabled)]:text-light',
         'disabled:text-dark-disabled',
         /** Background */
-        'hover:[:not(:disabled)]:bg-dark',
+        'hover:[&:not(:disabled)]:bg-dark',
         /** Ring */
         'focus:ring-dark-focus',
         /** Border */

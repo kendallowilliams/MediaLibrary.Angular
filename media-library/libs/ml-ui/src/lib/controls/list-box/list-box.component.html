@@ -4,7 +4,7 @@
       'border-r-0 rounded-r-none': !readonly,
       'text-secondary border-secondary': disabled
     }">{{item}}</span>
-  <button mlButton *ngIf="!readonly" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item)" [disabled]="disabled">
+  <button mlSecondaryButton *ngIf="!readonly" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item)" [disabled]="disabled">
     <fa-icon [icon]="faTrashCan"></fa-icon>
     <span class="sr-only">delete list item</span>
   </button>
