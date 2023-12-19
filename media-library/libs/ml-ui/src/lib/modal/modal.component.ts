@@ -13,11 +13,14 @@ import {
   Injector,
   Inject,
   AfterViewInit,
-  Renderer2
+  Renderer2,
+  DestroyRef
 } from '@angular/core';
 import { ModalConfig } from './models/ModalConfig.model';
 import { ModalRef } from './models/ModalRef.model';
 import { Modal } from './models/Modal.interface';
+import { fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   // selector: 'ml-modal',
@@ -37,7 +40,9 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
-  constructor(private _renderer: Renderer2,
+  constructor(
+    private _renderer: Renderer2,
+    private _destroyRef: DestroyRef,
     @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, 
     @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
 
@@ -84,6 +89,9 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
   public show() : void {
     this._dialog.nativeElement.showModal();
+    fromEvent<HTMLDialogElement>(this._dialog.nativeElement, 'close')
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(() => this._modalRef?.modalComponentRef?.destroy());
   }
 
   public hide() : void {

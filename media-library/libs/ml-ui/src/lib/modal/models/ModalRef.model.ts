@@ -1,5 +1,6 @@
 import { ComponentRef, TemplateRef, Type } from "@angular/core";
 import { Modal } from "./Modal.interface";
+import { fromEvent } from "rxjs";
 
 export class ModalRef<T> {
   private _componentType?: Type<T>;
@@ -31,12 +32,15 @@ export class ModalRef<T> {
     this._templateCtx = templateCtx;
   }
 
-  public setModalComponentRef(modalComponentRef: ComponentRef<Modal>) : void {
+  public set modalComponentRef(modalComponentRef: ComponentRef<Modal>) {
     this._modalComponentRef = modalComponentRef;
+  }
+
+  public get modalComponentRef() : ComponentRef<Modal> | undefined {
+    return this._modalComponentRef;
   }
 
   public hide() : void {
     this._modalComponentRef?.instance.hide();
-    this._modalComponentRef?.destroy();
   }
 }

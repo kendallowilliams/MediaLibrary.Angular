@@ -54,10 +54,10 @@ export class DismissableModalDirective implements OnChanges {
   }
 
   private _close() : void {
-    this._dropDownRef?.hide();
-    this._dropDownRef = undefined;
     this.isOpen = false;
     this.isOpenChange.emit(this.isOpen);
+    this._dropDownRef?.hide();
+    this._dropDownRef = undefined;
   }
 
   @HostListener('window:resize')

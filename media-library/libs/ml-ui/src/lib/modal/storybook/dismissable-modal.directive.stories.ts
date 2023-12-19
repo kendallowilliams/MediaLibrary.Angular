@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { DismissableModalDirective } from '../directives/dismissable-modal.directive';
 import { ModalModule } from '../modal.module';
 import { ButtonModule } from '../../controls/button/button.module';
+import { AppRootVcrDirective } from '@media-library/ml-utility';
+import { MessageBoxModule } from '../../message-box';
 
 const meta: Meta<DismissableModalDirective> = {
   title: 'Components/Modal/Dismissable Modal',
   component: DismissableModalDirective,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, FormsModule, ModalModule, ButtonModule],
+      imports: [CommonModule, FormsModule, ModalModule, ButtonModule, AppRootVcrDirective, MessageBoxModule],
     })
   ]
 };
@@ -28,12 +30,12 @@ export const Default: Story = {
       ...args
     },
     template: `
-      <button type="button" mlButton (click)="isOpen=!isOpen">Toggle</button>
-      <ng-template mlDismissableModal [(isOpen)]="isOpen" [backdrop]="backdrop">
-        <div class="flex h-[250px] w-[250px] items-center justify-center">
-          <div class="h-full w-full bg-dark dark:bg-light dark:text-dark text-light">Hello, world!</div>
-        </div>
+    <div class="flex justify-center">
+      <ng-template mlDismissableModal [(isOpen)]="isOpen" [useAppRootVcr]="false">
+        <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
       </ng-template>
+    </div>
+    <ng-container mlAppRootVcr></ng-container>
     `
   })
 };

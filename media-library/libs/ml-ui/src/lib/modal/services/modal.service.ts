@@ -37,7 +37,7 @@ export class ModalService {
       }),
       componentRef = vcrToUse.createComponent(ModalComponent<T>, { injector: injector });
 
-      modalRef.setModalComponentRef(componentRef);  
+      modalRef.modalComponentRef = componentRef;
       componentRef.changeDetectorRef.detectChanges();
     } else {
       console.error('No valid ViewContainerRef provided. Apply AppRootVcrDirective or pass in a valid ViewContainerRef to ModalService.')

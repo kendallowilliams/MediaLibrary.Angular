@@ -2,13 +2,15 @@ import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { MESSAGE_BOX_TYPES, MessageBoxComponent } from '../message-box.component';
 import { MessageBoxModule } from '../message-box.module';
+import { ButtonModule } from '../../controls';
+import { ModalModule } from '../../modal';
 
 const meta: Meta<MessageBoxComponent> = {
   title: 'Components/Message Box',
   component: MessageBoxComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, MessageBoxModule],
+      imports: [CommonModule, MessageBoxModule, ButtonModule, ModalModule],
     })
   ],
   argTypes: {
@@ -30,11 +32,15 @@ export const Default: Story = {
   },
   render: (args: MessageBoxComponent) => ({
     props: {
-      ...args
+      ...args,
+      isOpen: false
     },
     template: `
       <div class="flex justify-center">
-        <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
+        <button mlButton [variant]="'primary'" (click)="isOpen=true">Show Alert</button>
+        <ng-template mlDismissableModal [(isOpen)]="isOpen" [useAppRootVcr]="false">
+          <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
+        </ng-template>
       </div>
     `
   })
