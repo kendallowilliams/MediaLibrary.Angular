@@ -22,13 +22,13 @@ export const routes: Routes = [
     path: '',
     children: [
       { path: '', component: AppHomeComponent },
-      { path: 'music', component: AppMusicComponent },
-      { path: 'podcast', component: AppPodcastComponent },
-      { path: 'television', component: AppTelevisionComponent },
-      { path: 'playlist', component: AppPlaylistComponent },
-      { path: 'player', component: AppPlayerComponent },
-      { path: 'search', component: AppSearchComponent },
-      { path: 'settings', component: AppSettingsComponent }
+      { path: 'music', title:'Music', component: AppMusicComponent },
+      { path: 'podcast', title:'Podcast', component: AppPodcastComponent },
+      { path: 'television', title:'Television', component: AppTelevisionComponent },
+      { path: 'playlist', title:'Playlist', component: AppPlaylistComponent },
+      { path: 'player', title:'Player', component: AppPlayerComponent },
+      { path: 'search', title:'Search', component: AppSearchComponent },
+      { path: 'settings', title:'Settings', component: AppSettingsComponent }
     ]
    }
 ];
