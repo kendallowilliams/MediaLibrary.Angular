@@ -11,48 +11,48 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class MusicService extends BaseService {
-  protected _controller = 'music';
+  public controller = 'music';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public http: HttpClient) {
     super();
   }
 
   public getConfiguration(): Observable<MusicConfiguration> {
-    return this.getBaseConfiguration<MusicConfiguration>(this._controller);
+    return this.getBaseConfiguration<MusicConfiguration>(this.controller);
   }
 
   public updateConfiguration(configuration: MusicConfiguration): Observable<MusicConfiguration> {
-    return this.updateBaseConfiguration<MusicConfiguration>(this._controller, configuration);
+    return this.updateBaseConfiguration<MusicConfiguration>(this.controller, configuration);
   }
 
   /** Album */
   public getAlbums(): Observable<Album[]> {
-    return this.get<Album[]>(this._controller, 'Albums');
+    return this.get<Album[]>(this.controller, 'Albums');
   }
 
   public getAlbum(id: number): Observable<Album> {
-    return this.get<Album>(this._controller, `Album/${id}`);
+    return this.get<Album>(this.controller, `Album/${id}`);
   }
 
 
   /** Artist */
   public getArtists(): Observable<Artist[]> {
-    return this.get<Artist[]>(this._controller, 'Artists');
+    return this.get<Artist[]>(this.controller, 'Artists');
   }
   public getArtist(id: number): Observable<Artist> {
-    return this.get<Artist>(this._controller, `Artist/${id}`);
+    return this.get<Artist>(this.controller, `Artist/${id}`);
   }
 
   /** Track */
   public getTracks(): Observable<Track[]> {
-    return this.get<Track[]>(this._controller, 'Tracks');
+    return this.get<Track[]>(this.controller, 'Tracks');
   }
 
   public getTrack(id: number): Observable<Track> {
-    return this.get<Track>(this._controller, `Track/${id}`);
+    return this.get<Track>(this.controller, `Track/${id}`);
   }
 
   public getAlbumTracks(albumId: number): Observable<Track[]> {
-    return this.get<Track[]>(this._controller, `TracksByAlbumId/${albumId}`);
+    return this.get<Track[]>(this.controller, `TracksByAlbumId/${albumId}`);
   }
 }

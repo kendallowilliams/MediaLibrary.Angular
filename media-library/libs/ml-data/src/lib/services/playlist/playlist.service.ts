@@ -9,21 +9,21 @@ import { Playlist } from '../../models/playlist/Playlist.model';
   providedIn: 'root'
 })
 export class PlaylistService extends BaseService {
-  protected _controller = 'playlist';
+  public controller = 'playlist';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public http: HttpClient) {
     super();
   }
 
   public getConfiguration(): Observable<PlaylistConfiguration> {
-    return this.getBaseConfiguration<PlaylistConfiguration>(this._controller);
+    return this.getBaseConfiguration<PlaylistConfiguration>(this.controller);
   }
 
   public updateConfiguration(configuration: PlaylistConfiguration): Observable<PlaylistConfiguration> {
-    return this.updateBaseConfiguration<PlaylistConfiguration>(this._controller, configuration);
+    return this.updateBaseConfiguration<PlaylistConfiguration>(this.controller, configuration);
   }
 
   public getMusicPlaylists() : Observable<Playlist[]> {
-    return this.get<Playlist[]>(this._controller, 'GetByType?playlistType=0');
+    return this.get<Playlist[]>(this.controller, 'GetByType?playlistType=0');
   }
 }

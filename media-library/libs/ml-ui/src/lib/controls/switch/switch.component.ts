@@ -21,7 +21,7 @@ export class SwitchComponent {
   @HostBinding('class') private _class = 'flex items-center justify-center';
   @ViewChild('switch') private _input!: ElementRef;
 
-  protected id = `ml-switch-${Math.random().toString(36).substring(2)}`;
+  public id = `ml-switch-${Math.random().toString(36).substring(2)}`;
 
   @Input() public checked = false;
   @Output() public checkedChange = new EventEmitter<boolean>();

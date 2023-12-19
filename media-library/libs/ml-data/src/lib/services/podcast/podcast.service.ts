@@ -8,17 +8,17 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class PodcastService extends BaseService {
-  protected _controller = 'podcast';
+  public controller = 'podcast';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public http: HttpClient) {
     super();
   }
 
   public getConfiguration(): Observable<PodcastConfiguration> {
-    return this.getBaseConfiguration<PodcastConfiguration>(this._controller);
+    return this.getBaseConfiguration<PodcastConfiguration>(this.controller);
   }
 
   public updateConfiguration(configuration: PodcastConfiguration): Observable<PodcastConfiguration> {
-    return this.updateBaseConfiguration<PodcastConfiguration>(this._controller, configuration);
+    return this.updateBaseConfiguration<PodcastConfiguration>(this.controller, configuration);
   }
 }

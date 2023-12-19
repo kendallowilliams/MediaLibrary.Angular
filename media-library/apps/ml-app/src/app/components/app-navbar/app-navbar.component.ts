@@ -17,8 +17,8 @@ import { Observable } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 export class AppNavbarComponent implements OnInit {
-  protected isMobile = false;
-  protected navHidden$?: Observable<boolean>;
+  public isMobile = false;
+  public navHidden$?: Observable<boolean>;
 
   public faGear = faGear
 
@@ -30,11 +30,11 @@ export class AppNavbarComponent implements OnInit {
     this.navHidden$ = this._navbarService.getNavbarNavHidden$().asObservable();
   }
 
-  protected handleSearch(query: string) : void {
+  public handleSearch(query: string) : void {
     this._router.navigate(['search', { query: query }]);
   }
 
-  protected handleNavHidden(isHidden: boolean) : void {
+  public handleNavHidden(isHidden: boolean) : void {
     this._navbarService.getNavbarNavHidden$().next(isHidden);
     this._navbarService.getNavbarMenuOpen$().next(false);
   }

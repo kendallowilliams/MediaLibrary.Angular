@@ -8,17 +8,17 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class AppService extends BaseService {
-  protected _controller = 'medialibrary';
+  public readonly controller = 'medialibrary';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public readonly http: HttpClient) {
     super();
   }
 
   public getConfiguration(): Observable<MediaLibraryConfiguration> {
-    return this.getBaseConfiguration<MediaLibraryConfiguration>(this._controller);
+    return this.getBaseConfiguration<MediaLibraryConfiguration>(this.controller);
   }
 
   public updateConfiguration(configuration: MediaLibraryConfiguration): Observable<MediaLibraryConfiguration> {
-    return this.updateBaseConfiguration<MediaLibraryConfiguration>(this._controller, configuration);
+    return this.updateBaseConfiguration<MediaLibraryConfiguration>(this.controller, configuration);
   }
 }

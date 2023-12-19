@@ -17,7 +17,7 @@ import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 export class AppAlbumComponent {
   @Input() public albumId?: number;
 
-  protected faCompactDisc = faCompactDisc;
+  public faCompactDisc = faCompactDisc;
 
   constructor(private _musicService: MusicService) {}
 }

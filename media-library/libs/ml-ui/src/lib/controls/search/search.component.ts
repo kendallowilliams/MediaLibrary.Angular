@@ -30,7 +30,7 @@ export class SearchComponent {
   private _inputVisible = false;
   private _isMobile = false;
 
-  protected faSearch = faSearch;
+  public faSearch = faSearch;
 
   @Output() public search = new EventEmitter<string>();
 
@@ -73,7 +73,7 @@ export class SearchComponent {
     }
   }
 
-  protected handleSearch(event: MouseEvent) : void {
+  public handleSearch(event: MouseEvent) : void {
     if (this._getInputElement().value) {
       event.stopPropagation();
     }
@@ -95,7 +95,7 @@ export class SearchComponent {
     }
   }
 
-  protected handleFocusOut(event: FocusEvent) : void {
+  public handleFocusOut(event: FocusEvent) : void {
     if (!this._getInputElement().value && !Object.is(event.relatedTarget, this._getButtonElement())) {
       this._toggleInputVisibility(false);
       
@@ -105,7 +105,7 @@ export class SearchComponent {
     }
   }
 
-  protected handleKeyPress(event: KeyboardEvent) : void {
+  public handleKeyPress(event: KeyboardEvent) : void {
     if (event.key === 'Enter') {
       this._search();
     }

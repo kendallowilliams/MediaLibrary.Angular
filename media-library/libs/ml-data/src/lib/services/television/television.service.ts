@@ -8,9 +8,9 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class TelevisionService extends BaseService {
-  protected _controller = 'television';
+  public _controller = 'television';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public http: HttpClient) {
     super();
   }
 

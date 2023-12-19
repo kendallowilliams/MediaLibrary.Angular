@@ -10,9 +10,10 @@ import {
   Optional
 } from '@angular/core';
 import { ModalRef } from '../modal/models/ModalRef.model';
-import { faBan, faExclamationCircle, faQuestionCircle, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { faBan, faCheckCircle, faExclamationCircle, faQuestionCircle, faWarning } from '@fortawesome/free-solid-svg-icons';
 
-type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
+export const MESSAGE_BOX_TYPES = ['alert', 'confirm', 'yes_no', 'error', 'warn'] as const;
+type MessageType = typeof MESSAGE_BOX_TYPES[number];
 
 @Component({
   selector: 'ml-message-box',
@@ -24,6 +25,7 @@ type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
           <ng-container *ngSwitchCase="'alert'"><fa-icon [icon]="faExclamationCircle" [classes]="['text-info']"></fa-icon></ng-container>
           <ng-container *ngSwitchCase="'warn'"><fa-icon [icon]="faWarning" [classes]="['text-warning']"></fa-icon></ng-container>
           <ng-container *ngSwitchCase="'error'"><fa-icon [icon]="faBan" [classes]="['text-danger']"></fa-icon></ng-container>
+          <ng-container *ngSwitchCase="'confirm'"><fa-icon [icon]="faCheckCircle" [classes]="['text-success']"></fa-icon></ng-container>
           <ng-container *ngSwitchDefault><fa-icon [icon]="faQuestionCircle" [classes]="['text-warning']"></fa-icon></ng-container>
         </ng-container>
       </span>
@@ -31,7 +33,7 @@ type MessageType = 'alert' | 'confirm' | 'yes_no' | 'error' | 'warn';
     </ml-modal-header>
     <ml-modal-body>{{message}}</ml-modal-body>
     <ml-modal-footer>
-      <div class="flex gap-[10px] items-center justify-end" [ngSwitch]="messageType">
+      <div class="flex gap-[10px] items-center justify-end w-full h-full" [ngSwitch]="messageType">
         <ng-container *ngSwitchCase="'confirm'">
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
           <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
@@ -58,10 +60,11 @@ export class MessageBoxComponent implements OnDestroy {
   @Output() public continueResponse = new EventEmitter();
   @Output() public cancelResponse = new EventEmitter();
 
-  protected faExclamationCircle = faExclamationCircle;
-  protected faQuestionCircle = faQuestionCircle;
-  protected faWarning = faWarning;
-  protected faBan = faBan;
+  public faExclamationCircle = faExclamationCircle;
+  public faQuestionCircle = faQuestionCircle;
+  public faWarning = faWarning;
+  public faBan = faBan;
+  public faCheckCircle = faCheckCircle;
 
   constructor(
     @Inject(ModalRef<MessageBoxComponent>) @Optional() private _modalRef?: ModalRef<MessageBoxComponent>) {
@@ -72,12 +75,12 @@ export class MessageBoxComponent implements OnDestroy {
     this.cancelResponse.unsubscribe();
   }
 
-  protected handleOKClick() : void {
+  public handleOKClick() : void {
     this.continueResponse.emit();
     this._modalRef?.hide();
   }
 
-  protected handleCancelClick() : void {
+  public handleCancelClick() : void {
     this.cancelResponse.emit();
     this._modalRef?.hide();
   }

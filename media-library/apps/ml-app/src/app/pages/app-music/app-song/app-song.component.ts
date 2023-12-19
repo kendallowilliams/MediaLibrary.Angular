@@ -15,5 +15,5 @@ import { faHeadphones } from '@fortawesome/free-solid-svg-icons';
 export class AppSongComponent {
   @Input() public trackId?: number;
 
-  protected faHeadphones = faHeadphones;
+  public faHeadphones = faHeadphones;
 }

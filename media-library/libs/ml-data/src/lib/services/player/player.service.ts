@@ -8,17 +8,17 @@ import { BaseService } from '../base.service';
   providedIn: 'root'
 })
 export class PlayerService extends BaseService {
-  protected _controller = 'player';
+  public controller = 'player';
 
-  constructor(protected _http: HttpClient) {
+  constructor(public http: HttpClient) {
     super();
   }
 
   public getConfiguration(): Observable<PlayerConfiguration> {
-    return this.getBaseConfiguration<PlayerConfiguration>(this._controller);
+    return this.getBaseConfiguration<PlayerConfiguration>(this.controller);
   }
 
   public updateConfiguration(configuration: PlayerConfiguration): Observable<PlayerConfiguration> {
-    return this.updateBaseConfiguration<PlayerConfiguration>(this._controller, configuration);
+    return this.updateBaseConfiguration<PlayerConfiguration>(this.controller, configuration);
   }
 }

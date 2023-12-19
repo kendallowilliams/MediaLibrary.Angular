@@ -15,5 +15,5 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 export class AppArtistComponent {
   @Input() public artistId?: number;
 
-  protected faUser = faUser;
+  public faUser = faUser;
 }

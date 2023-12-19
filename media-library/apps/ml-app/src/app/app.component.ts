@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  protected year: number = new Date().getFullYear();
+  public year: number = new Date().getFullYear();
 }

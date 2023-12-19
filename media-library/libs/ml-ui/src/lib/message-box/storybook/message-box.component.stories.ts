@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { MessageBoxComponent } from '../message-box.component';
+import { MESSAGE_BOX_TYPES, MessageBoxComponent } from '../message-box.component';
 import { MessageBoxModule } from '../message-box.module';
 
 const meta: Meta<MessageBoxComponent> = {
@@ -10,7 +10,13 @@ const meta: Meta<MessageBoxComponent> = {
     moduleMetadata({
       imports: [CommonModule, MessageBoxModule],
     })
-  ]
+  ],
+  argTypes: {
+    messageType: {
+      options: MESSAGE_BOX_TYPES,
+      control: { type: 'select' }
+    }
+  }
 };
 
 export default meta;

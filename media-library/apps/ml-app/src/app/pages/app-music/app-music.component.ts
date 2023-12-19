@@ -20,20 +20,20 @@ export class AppMusicComponent implements OnInit, OnDestroy {
   private _configuration?: MusicConfiguration;
   private _loadingModalRef?: ModalRef<FaIconComponent>;
 
-  protected faMusic = faMusic;
-  protected faCompactDisc = faCompactDisc;
-  protected faUser = faUser;
-  protected faHeadphones = faHeadphones;
-  protected faList = faList;
-  protected faXmark = faXmark;
-  protected albums$ = new BehaviorSubject<Album[]>([]);
-  protected artists$ = new BehaviorSubject<Artist[]>([]);
-  protected tracks$ = new BehaviorSubject<Track[]>([]);
-  protected playlists$ = new BehaviorSubject<Playlist[]>([]);
+  public faMusic = faMusic;
+  public faCompactDisc = faCompactDisc;
+  public faUser = faUser;
+  public faHeadphones = faHeadphones;
+  public faList = faList;
+  public faXmark = faXmark;
+  public albums$ = new BehaviorSubject<Album[]>([]);
+  public artists$ = new BehaviorSubject<Artist[]>([]);
+  public tracks$ = new BehaviorSubject<Track[]>([]);
+  public playlists$ = new BehaviorSubject<Playlist[]>([]);
 
-  protected selectedCategory$ = new Subject<MusicCategory | null>();
-  protected selectedCategoryIcon$ = new Subject<IconDefinition>();
-  protected subCategory$ = new Subject<{ id: number, type: MusicCategory}>();
+  public selectedCategory$ = new Subject<MusicCategory | null>();
+  public selectedCategoryIcon$ = new Subject<IconDefinition>();
+  public subCategory$ = new Subject<{ id: number, type: MusicCategory}>();
 
   constructor(private _musicService: MusicService, private _modalService: ModalService, private _messageBoxService: MessageBoxService,
     private _vcr: ViewContainerRef, private _playlistService: PlaylistService) {
@@ -69,27 +69,27 @@ export class AppMusicComponent implements OnInit, OnDestroy {
     });
   }
 
-  protected getArtist(artists: Artist[], id: number) : Artist | undefined {
+  public getArtist(artists: Artist[], id: number) : Artist | undefined {
     return artists.find(a => a.id === id);
   }
 
-  protected getAlbumsByArtistId(artistId: number) : Album[] | undefined {
+  public getAlbumsByArtistId(artistId: number) : Album[] | undefined {
     const albums = this.albums$.getValue();
 
     return albums.filter(a => a.artistId === artistId);
   }
 
-  protected getTracksByAlbumId(albumId: number) : Album[] | undefined {
+  public getTracksByAlbumId(albumId: number) : Album[] | undefined {
     const tracks = this.tracks$.getValue();
 
     return tracks.filter(a => a.albumId === albumId);
   }
 
-  protected updateCategory(category: MusicCategory) : void {
+  public updateCategory(category: MusicCategory) : void {
     this.selectedCategory$.next(category);
   }
 
-  protected addSubCategory(category: MusicCategory, id: number) : void {
+  public addSubCategory(category: MusicCategory, id: number) : void {
     this.subCategory$.next({ id: id, type: category });
   }
 }

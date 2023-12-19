@@ -23,13 +23,13 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 export class ModalHeaderComponent {
   @HostBinding('class') private _class = 'h-[50px] px-[30px] shadow';
 
-  protected faXmark = faXmark;
+  public faXmark = faXmark;
 
   constructor(
     @Inject(ModalRef<ModalHeaderComponent>) @Optional() private _modalRef?: ModalRef<ModalHeaderComponent>) {
   }
 
-  protected handleClose() : void {
+  public handleClose() : void {
     this._modalRef?.hide();
   }
 }
