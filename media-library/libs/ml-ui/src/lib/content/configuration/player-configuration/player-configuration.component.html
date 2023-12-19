@@ -6,9 +6,21 @@
     </ml-card-title>
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
-    <div class="grid grid-cols-[100px_1fr] items-center">
-      <label mlLabel></label>
-      <span></span>
+    <div class="grid grid-cols-[250px_1fr] items-center">
+      <label mlLabel>A/V Bar Count</label>
+      <span>{{configuration.audioVisualizerBarCount}}</span>
+    </div>
+    <div class="grid grid-cols-[250px_1fr] items-center">
+      <label mlLabel>Skip Back (sec)</label>
+      <span>{{configuration.skipBackwardSeconds}}</span>
+    </div>
+    <div class="grid grid-cols-[250px_1fr] items-center">
+      <label mlLabel>Skip Ahead (sec)</label>
+      <span>{{configuration.skipForwardSeconds}}</span>
+    </div>
+    <div class="grid grid-cols-[250px_1fr] items-center">
+      <label mlLabel>Progress Update Interval (sec)</label>
+      <span>{{configuration.progressUpdateInterval}}</span>
     </div>
   </ml-card-body>
   <ml-card-footer>
