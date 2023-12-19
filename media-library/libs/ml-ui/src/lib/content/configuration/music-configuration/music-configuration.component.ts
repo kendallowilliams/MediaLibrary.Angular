@@ -54,4 +54,10 @@ export class MusicConfigurationComponent implements OnInit, OnChanges {
     };
     this._editorRef = this._modalService.showComponent(MusicConfigurationEditorComponent, modalConfig);
   }
+
+  public handleRefresh() {
+  }
+
+  public handleUpload() {
+  }
 }

@@ -5,7 +5,7 @@
       <fa-icon [icon]="faPenToSquare" class="text-primary cursor-pointer" (click)="showMusicConfigurationEditor()"></fa-icon>
     </ml-card-title>
   </ml-card-header>
-  <ml-card-body class="flex flex-col gap-[30px]">
+  <ml-card-body class="flex flex-col gap-[10px]">
     <div class="grid grid-cols-[100px_1fr] items-center">
       <label mlLabel>Album Sort</label>
       <span>{{albumSort}}</span>
@@ -18,9 +18,16 @@
       <label mlLabel>Song Sort</label>
       <span>{{songSort}}</span>
     </div>
-    <div class="grid grid-cols-[100px_1fr] items-center">
+    <div class="grid grid-cols-[100px_1fr] items-start">
       <label mlLabel>Paths</label>
       <ml-list-box [readonly]="true" [ngModel]="configuration.musicPaths"></ml-list-box>
+    </div>
+    <div class="grid grid-cols-[100px_1fr] items-start">
+      <label mlLabel>Actions</label>
+      <div class="flex flex-wrap gap-[10px]">
+        <button mlButton (click)="handleUpload()">Upload File</button>
+        <button mlButton (click)="handleRefresh()">Refresh Music</button>
+      </div>
     </div>
   </ml-card-body>
 </ml-card>
