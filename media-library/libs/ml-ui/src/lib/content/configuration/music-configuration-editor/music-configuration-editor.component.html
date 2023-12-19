@@ -1,10 +1,10 @@
 
 <form [formGroup]="configForm">
-  <ml-card class="w-[500px]">
-    <ml-card-header>
-      <ml-card-title>Music Settings</ml-card-title>
-    </ml-card-header>
-    <ml-card-body class="flex flex-col gap-[10px]">
+  <ml-modal-content class="w-[500px]">
+    <ml-modal-header>
+      <ml-modal-title>Edit Music Settings</ml-modal-title>
+    </ml-modal-header>
+    <ml-modal-body class="flex flex-col gap-[10px]">
       <div class="grid grid-cols-[100px_1fr]">
         <label mlLabel class="shrink-0">Album Sort</label>
         <ml-select [options]="albumSortOptions" formControlName="selectedAlbumSort"></ml-select>
@@ -21,9 +21,9 @@
         <label mlLabel class="shrink-0">Paths</label>
         <ml-list-box formControlName="musicPaths"></ml-list-box>
       </div>
-    </ml-card-body>
-    <ml-card-footer class="flex items-center justify-end">
+    </ml-modal-body>
+    <ml-modal-footer class="flex items-center justify-end">
       <button mlButton [variant]="'primary'" (click)="handleSave()" [attr.disabled]="!configForm.dirty || null">Save</button>
-    </ml-card-footer>
-  </ml-card>
+    </ml-modal-footer>
+  </ml-modal-content>
 </form>

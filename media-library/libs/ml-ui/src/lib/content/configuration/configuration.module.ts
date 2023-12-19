@@ -6,6 +6,7 @@ import { MusicConfigurationEditorComponent } from './music-configuration-editor/
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlsModule } from '../../controls';
+import { ModalModule } from '../../modal';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ControlsModule } from '../../controls';
     FontAwesomeModule,
     FormsModule,
     ControlsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ModalModule
   ],
   exports: [
     MusicConfigurationComponent,

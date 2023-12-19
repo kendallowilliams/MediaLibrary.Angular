@@ -12,6 +12,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardTitleComponent {
-  private _defaultClasses = '';
+  private _defaultClasses = 'font-bold';
   @HostBinding('class') private _class = this._defaultClasses;
 }
