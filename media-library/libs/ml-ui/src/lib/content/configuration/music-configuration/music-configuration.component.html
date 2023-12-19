@@ -22,12 +22,11 @@
       <label mlLabel>Paths</label>
       <ml-list-box [readonly]="true" [ngModel]="configuration.musicPaths"></ml-list-box>
     </div>
-    <div class="grid grid-cols-[100px_1fr] items-start">
-      <label mlLabel>Actions</label>
-      <div class="flex flex-wrap gap-[10px]">
-        <button mlButton (click)="handleUpload()">Upload File</button>
-        <button mlButton (click)="handleRefresh()">Refresh Music</button>
-      </div>
-    </div>
   </ml-card-body>
+  <ml-card-footer>
+    <div class="flex gap-[10px] items-center h-full w-full justify-end">
+      <button mlButton (click)="handleUpload()">Upload File</button>
+      <button mlButton (click)="handleRefresh()">Refresh Music</button>
+    </div>
+  </ml-card-footer>
 </ml-card>

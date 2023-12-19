@@ -22,7 +22,7 @@
         <ml-list-box formControlName="musicPaths"></ml-list-box>
       </div>
     </ml-card-body>
-    <ml-card-footer class="flex justify-end">
+    <ml-card-footer class="flex items-center justify-end">
       <button mlButton [variant]="'primary'" (click)="handleSave()" [attr.disabled]="!configForm.dirty || null">Save</button>
     </ml-card-footer>
   </ml-card>

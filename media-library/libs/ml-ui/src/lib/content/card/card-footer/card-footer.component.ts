@@ -12,6 +12,6 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardFooterComponent {
-  @HostBinding('class') private _class = `flex items-center h-[50px] 
+  @HostBinding('class') private _class = `h-[50px] 
     border-secondary border-solid border-t-[1px] px-[30px]`;
 }
