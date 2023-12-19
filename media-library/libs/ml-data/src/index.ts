@@ -1,7 +1,6 @@
 export * from './lib//stores/configurations/configurations.selectors';
 export * from './lib//stores/configurations/configurations.reducer';
 export * from './lib//stores/configurations/configurations.actions';
-export * from './lib/interfaces/ml-data-state.inteface';
 export * from './lib/ml-data.module';
 
 /** Services */
@@ -37,3 +36,7 @@ export * from './lib/types/Music.type';
 
 /** Tokens */
 export * from './lib/tokens/api-base-url.token';
+
+/** Interfaces */
+export * from './lib/interfaces/ml-data-state.inteface';
+export * from './lib/interfaces/environment.interface';

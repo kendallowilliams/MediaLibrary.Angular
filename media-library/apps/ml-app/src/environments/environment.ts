@@ -2,9 +2,12 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { Environment } from '@media-library/ml-data';
+
+export const environment: Environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:7182'
+  apiBaseUrl: 'https://localhost:7182',
+  useSampleConfigurations: true
 };
 
 /*
