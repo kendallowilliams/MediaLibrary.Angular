@@ -338,6 +338,25 @@ export function getPodcastSortEnum(sort: string): PodcastSort {
     return podcastSort;
 };
 
+export function getPodcastSortEnumString(sort: PodcastSort): string {
+    let podcastSort: string;
+
+    switch (sort) {
+        case PodcastSort.LastUpdateDate:
+            podcastSort = 'Last Update Date';
+            break;
+        case PodcastSort.DateAdded:
+            podcastSort = 'Date Added';
+            break;
+        case PodcastSort.AtoZ:
+        default:
+            podcastSort = 'A to Z';
+            break;
+    }
+
+    return podcastSort;
+};
+
 export function getPodcastFilterEnum(filter: string): PodcastFilter {
     let podcastFilter: PodcastFilter;
 
@@ -351,6 +370,25 @@ export function getPodcastFilterEnum(filter: string): PodcastFilter {
         case 'All':
         default:
             podcastFilter = PodcastFilter.All;
+            break;
+    }
+
+    return podcastFilter;
+};
+
+export function getPodcastFilterEnumString(filter: PodcastFilter): string {
+    let podcastFilter: string;
+
+    switch (filter) {
+        case PodcastFilter.Downloaded:
+            podcastFilter = 'Downloaded';
+            break;
+        case PodcastFilter.Unplayed:
+            podcastFilter = 'Unplayed';
+            break;
+        case PodcastFilter.All:
+        default:
+            podcastFilter = 'All';
             break;
     }
 

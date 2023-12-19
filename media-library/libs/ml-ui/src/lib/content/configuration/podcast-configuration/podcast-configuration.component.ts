@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ModalConfig, ModalRef, ModalService } from '../../../modal';
-import { PodcastConfiguration } from '@media-library/ml-data';
+import { PodcastConfiguration, getPodcastFilterEnumString, getPodcastSortEnumString } from '@media-library/ml-data';
 import { PodcastConfigurationEditorComponent } from '../podcast-configuration-editor/podcast-configuration-editor.component';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
@@ -22,6 +22,9 @@ export class PodcastConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: PodcastConfiguration;
   public faPenToSquare = faPenToSquare;
   private _editorRef?: ModalRef<PodcastConfigurationEditorComponent>;
+
+  public podcastSort = '';
+  public episodeFilter = '';
 
   constructor(private _modalService: ModalService) {}
 
@@ -38,6 +41,8 @@ export class PodcastConfigurationComponent implements OnInit, OnChanges {
   }
 
   private _setData(configuration: PodcastConfiguration): void {
+    this.podcastSort = getPodcastSortEnumString(configuration.SelectedPodcastSort);
+    this.episodeFilter = getPodcastFilterEnumString(configuration.SelectedPodcastFilter)
   }
 
   public showPodcastConfigurationEditor(): void {
@@ -47,5 +52,11 @@ export class PodcastConfigurationComponent implements OnInit, OnChanges {
       component.configuration = this.configuration;
     };
     this._editorRef = this._modalService.showComponent(PodcastConfigurationEditorComponent, modalConfig);
+  }
+
+  public handleAdd() : void {
+  }
+
+  public handleRefresh(): void {
   }
 }
