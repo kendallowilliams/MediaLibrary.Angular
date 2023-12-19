@@ -86,4 +86,8 @@ export class MusicConfigurationEditorComponent implements OnInit {
     this._store.dispatch(ConfigurationsActions.updateMusicConfiguration({ configuration }));
     this._modalRef?.hide();
   }
+
+  public handleCancel(): void {
+    this._modalRef?.hide();
+  }
 }

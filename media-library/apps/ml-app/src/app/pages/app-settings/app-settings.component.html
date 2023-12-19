@@ -1,5 +1,10 @@
-<div class="flex items-center h-full p-[30px]">
-  <ng-container *ngIf="configuration$ | async as configuration">
-    <ml-music-configuration [configuration]="configuration"></ml-music-configuration>
+<div class="flex flex-wrap items-stretch h-full p-[30px] gap-[20px]">
+  <ng-container *ngIf="configurations$ | async as configurations">
+    <ml-music-configuration *ngIf="configurations.musicConfiguration" [configuration]="configurations.musicConfiguration"></ml-music-configuration>
+    <ml-podcast-configuration *ngIf="configurations.podcastConfiguration" [configuration]="configurations.podcastConfiguration"></ml-podcast-configuration>
+    <ml-player-configuration *ngIf="configurations.playerConfiguration" [configuration]="configurations.playerConfiguration"></ml-player-configuration>
+    <ml-playlist-configuration *ngIf="configurations.playlistConfiguration" [configuration]="configurations.playlistConfiguration"></ml-playlist-configuration>
+    <ml-media-library-configuration *ngIf="configurations.mediaLibraryConfiguration" [configuration]="configurations.mediaLibraryConfiguration"></ml-media-library-configuration>
+    <ml-television-configuration *ngIf="configurations.televisionConfiguration" [configuration]="configurations.televisionConfiguration"></ml-television-configuration>
   </ng-container>
 </div>

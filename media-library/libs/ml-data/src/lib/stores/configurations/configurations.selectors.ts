@@ -7,6 +7,11 @@ import {
 export const selectConfigurationsState =
   createFeatureSelector<ConfigurationsState>(CONFIGURATIONS_FEATURE_KEY);
 
+export const selectAllConfigurations = createSelector(
+  selectConfigurationsState,
+  (state: ConfigurationsState) => state
+);
+
 export const selectMusicConfiguration = createSelector(
   selectConfigurationsState,
   (state: ConfigurationsState) => state.musicConfiguration

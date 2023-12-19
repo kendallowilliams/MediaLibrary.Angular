@@ -7,11 +7,31 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlsModule } from '../../controls';
 import { ModalModule } from '../../modal';
+import { MediaLibraryConfigurationComponent } from './media-library-configuration/media-library-configuration.component';
+import { PlayerConfigurationComponent } from './player-configuration/player-configuration.component';
+import { PlaylistConfigurationComponent } from './playlist-configuration/playlist-configuration.component';
+import { TelevisionConfigurationComponent } from './television-configuration/television-configuration.component';
+import { PodcastConfigurationComponent } from './podcast-configuration/podcast-configuration.component';
+import { MediaLibraryConfigurationEditorComponent } from './media-library-configuration-editor/media-library-configuration-editor.component';
+import { PlayerConfigurationEditorComponent } from './player-configuration-editor/player-configuration-editor.component';
+import { PlaylistConfigurationEditorComponent } from './playlist-configuration-editor/playlist-configuration-editor.component';
+import { TelevisionConfigurationEditorComponent } from './television-configuration-editor/television-configuration-editor.component';
+import { PodcastConfigurationEditorComponent } from './podcast-configuration-editor/podcast-configuration-editor.component';
 
 @NgModule({
   declarations: [
     MusicConfigurationComponent,
-    MusicConfigurationEditorComponent
+    MusicConfigurationEditorComponent,
+    MediaLibraryConfigurationComponent,
+    PlayerConfigurationComponent,
+    PlaylistConfigurationComponent,
+    TelevisionConfigurationComponent,
+    PodcastConfigurationComponent,
+    MediaLibraryConfigurationEditorComponent,
+    PlayerConfigurationEditorComponent,
+    PlaylistConfigurationEditorComponent,
+    TelevisionConfigurationEditorComponent,
+    PodcastConfigurationEditorComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +44,17 @@ import { ModalModule } from '../../modal';
   ],
   exports: [
     MusicConfigurationComponent,
-    MusicConfigurationEditorComponent
+    MusicConfigurationEditorComponent,
+    MediaLibraryConfigurationComponent,
+    PlayerConfigurationComponent,
+    PlaylistConfigurationComponent,
+    TelevisionConfigurationComponent,
+    PodcastConfigurationComponent,
+    MediaLibraryConfigurationEditorComponent,
+    PlayerConfigurationEditorComponent,
+    PlaylistConfigurationEditorComponent,
+    TelevisionConfigurationEditorComponent,
+    PodcastConfigurationEditorComponent,
   ]
 })
 export class ConfigurationModule { }

@@ -1,0 +1,17 @@
+
+<form [formGroup]="configForm">
+  <ml-modal-content class="w-[500px]">
+    <ml-modal-header>
+      <ml-modal-title>Edit Player Settings</ml-modal-title>
+    </ml-modal-header>
+    <ml-modal-body class="flex flex-col gap-[10px]">
+      <div class="grid grid-cols-[100px_1fr]">
+        <label mlLabel class="shrink-0"></label>
+      </div>
+    </ml-modal-body>
+    <ml-modal-footer class="flex items-center justify-end gap-[10px]">
+      <button mlButton [variant]="'secondary'" (click)="handleCancel()">Cancel</button>
+      <button mlButton [variant]="'primary'" (click)="handleSave()" [attr.disabled]="!configForm.dirty || null">Save</button>
+    </ml-modal-footer>
+  </ml-modal-content>
+</form>

@@ -1,0 +1,19 @@
+<ml-card class="w-[500px] h-full">
+  <ml-card-header>
+    <ml-card-title class="flex w-full">
+      <div class="grow">Media Library Settings</div>
+      <fa-icon [icon]="faPenToSquare" class="text-primary cursor-pointer" (click)="showMediaLibraryConfigurationEditor()"></fa-icon>
+    </ml-card-title>
+  </ml-card-header>
+  <ml-card-body class="flex flex-col gap-[10px]">
+    <div class="grid grid-cols-[100px_1fr] items-center">
+      <label mlLabel></label>
+      <span></span>
+    </div>
+  </ml-card-body>
+  <ml-card-footer>
+    <div class="flex gap-[10px] items-center h-full w-full justify-end">
+      <button mlButton></button>
+    </div>
+  </ml-card-footer>
+</ml-card>

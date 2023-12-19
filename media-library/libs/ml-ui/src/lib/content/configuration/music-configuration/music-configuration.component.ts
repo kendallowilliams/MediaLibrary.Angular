@@ -10,7 +10,7 @@ import {
 import { ModalConfig, ModalRef, ModalService } from '../../../modal';
 import { MusicConfiguration, getAlbumSortEnumString, getArtistSortEnumString, getSongSortEnumString } from '@media-library/ml-data';
 import { MusicConfigurationEditorComponent } from '../music-configuration-editor/music-configuration-editor.component';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-music-configuration',
@@ -24,6 +24,7 @@ export class MusicConfigurationComponent implements OnInit, OnChanges {
   public artistSort = '';
   public songSort = '';
   public faPenToSquare = faPenToSquare;
+  public faSpinner = faSpinner;
   private _editorRef?: ModalRef<MusicConfigurationEditorComponent>;
 
   constructor(private _modalService: ModalService) {}

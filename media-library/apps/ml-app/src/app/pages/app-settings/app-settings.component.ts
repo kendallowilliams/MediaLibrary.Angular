@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { ConfigurationsActions, MlDataFeatureState, MusicConfiguration, selectMusicConfiguration } from '@media-library/ml-data';
+import { ConfigurationsActions, ConfigurationsState, MlDataFeatureState, selectAllConfigurations } from '@media-library/ml-data';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -10,12 +10,17 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class AppSettingsComponent implements OnInit {
-  public configuration$?: Observable<MusicConfiguration | undefined>;
+  public configurations$?: Observable<ConfigurationsState | undefined>;
 
   constructor(private _store: Store<MlDataFeatureState>) {}
 
   public ngOnInit(): void {
     this._store.dispatch(ConfigurationsActions.loadMusicConfiguration());
-    this.configuration$ = this._store.select(selectMusicConfiguration);
+    this._store.dispatch(ConfigurationsActions.loadMediaLibraryConfiguration());
+    this._store.dispatch(ConfigurationsActions.loadPodcastConfiguration());
+    this._store.dispatch(ConfigurationsActions.loadPlayerConfiguration());
+    this._store.dispatch(ConfigurationsActions.loadPlaylistConfiguration());
+    this._store.dispatch(ConfigurationsActions.loadTelevisionConfiguration());
+    this.configurations$ = this._store.select(selectAllConfigurations);
   }
 }
