@@ -19,6 +19,7 @@ import { SelectOption } from '../../../controls/select';
 import { ModalRef } from '../../../modal';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '@media-library/ml-data';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'ml-music-configuration-editor',
@@ -54,27 +55,34 @@ export class MusicConfigurationEditorComponent implements OnInit {
     value: SongSort.Genre
   }];
 
-  public albumSort: AlbumSort = AlbumSort.AtoZ;
-  public artistSort: ArtistSort = ArtistSort.AtoZ;
-  public songSort: SongSort = SongSort.AtoZ;
+  public configForm!: FormGroup;
   
   constructor(
     private _modalRef: ModalRef<MusicConfigurationEditorComponent>,
-    private _store: Store<MlDataFeatureState>
+    private _store: Store<MlDataFeatureState>,
+    private _fb: FormBuilder
   ) { }
   
   public ngOnInit(): void {
-    this.albumSort = this.configuration.selectedAlbumSort;
-    this.artistSort = this.configuration.selectedArtistSort;
-    this.songSort = this.configuration.selectedSongSort;
+    this.configForm = this._createConfigForm();
+  }
+
+  private _createConfigForm(): FormGroup {
+    return this._fb.group({
+      selectedAlbumSort: this._fb.control(this.configuration.selectedAlbumSort),
+      selectedArtistSort: this._fb.control(this.configuration.selectedArtistSort),
+      selectedSongSort: this._fb.control(this.configuration.selectedSongSort),
+      musicPaths: this._fb.control(this.configuration.musicPaths)
+    });
   }
 
   public handleSave(): void {
     const configuration = structuredClone(this.configuration, {});
 
-    configuration.selectedAlbumSort = this.albumSort;
-    configuration.selectedArtistSort = this.artistSort;
-    configuration.selectedSongSort = this.songSort;
+    configuration.selectedAlbumSort = this.configForm.controls['selectedAlbumSort'].value;
+    configuration.selectedArtistSort = this.configForm.controls['selectedArtistSort'].value;
+    configuration.selectedSongSort = this.configForm.controls['selectedSongSort'].value;
+    configuration.musicPaths = this.configForm.controls['musicPaths'].value;
     this._store.dispatch(ConfigurationsActions.updateMusicConfiguration({ configuration }));
     this._modalRef?.hide();
   }

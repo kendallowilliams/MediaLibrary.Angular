@@ -1,4 +1,4 @@
-<ml-card class="w-[400px]">
+<ml-card>
   <ml-card-header>
     <ml-card-title class="flex w-full">
       <div class="grow">Music Settings</div>
@@ -20,7 +20,7 @@
     </div>
     <div class="grid grid-cols-[100px_1fr] items-center">
       <label mlLabel>Paths</label>
-      <span [innerHTML]="configuration.musicPaths.join('\<br/>')"></span>
+      <ml-list-box [readonly]="true" [ngModel]="configuration.musicPaths"></ml-list-box>
     </div>
   </ml-card-body>
 </ml-card>

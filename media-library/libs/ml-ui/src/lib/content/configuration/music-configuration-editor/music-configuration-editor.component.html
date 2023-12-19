@@ -1,22 +1,29 @@
-<ml-card class="w-[400px]">
-  <ml-card-header>
-    <ml-card-title>Music Settings</ml-card-title>
-  </ml-card-header>
-  <ml-card-body class="flex flex-col gap-[30px]">
-    <div class="flex items-center gap-[10px]">
-      <label mlLabel class="shrink-0">Album Sort</label>
-      <ml-select [options]="albumSortOptions" [(ngModel)]="albumSort"></ml-select>
-    </div>
-    <div class="flex items-center gap-[10px]">
-      <label mlLabel class="shrink-0">Artist Sort</label>
-      <ml-select [options]="artistSortOptions" [(ngModel)]="artistSort"></ml-select>
-    </div>
-    <div class="flex items-center gap-[10px]">
-      <label mlLabel class="shrink-0">Song Sort</label>
-      <ml-select [options]="songSortOptions" [(ngModel)]="songSort"></ml-select>
-    </div>
-  </ml-card-body>
-  <ml-card-footer class="flex justify-end">
-    <button mlButton [variant]="'primary'" (click)="handleSave()">Save</button>
-  </ml-card-footer>
-</ml-card>
+
+<form [formGroup]="configForm">
+  <ml-card class="w-screen ">
+    <ml-card-header>
+      <ml-card-title>Music Settings</ml-card-title>
+    </ml-card-header>
+    <ml-card-body class="flex flex-col gap-[30px]">
+      <div class="grid grid-cols-[100px_1fr]">
+        <label mlLabel class="shrink-0">Album Sort</label>
+        <ml-select [options]="albumSortOptions" formControlName="selectedAlbumSort"></ml-select>
+      </div>
+      <div class="grid grid-cols-[100px_1fr]">
+        <label mlLabel class="shrink-0">Artist Sort</label>
+        <ml-select [options]="artistSortOptions" formControlName="selectedArtistSort"></ml-select>
+      </div>
+      <div class="grid grid-cols-[100px_1fr]">
+        <label mlLabel class="shrink-0">Song Sort</label>
+        <ml-select [options]="songSortOptions" formControlName="selectedSongSort"></ml-select>
+      </div>
+      <div class="grid grid-cols-[100px_1fr]">
+        <label mlLabel class="shrink-0">Paths</label>
+        <ml-list-box formControlName="musicPaths"></ml-list-box>
+      </div>
+    </ml-card-body>
+    <ml-card-footer class="flex justify-end">
+      <button mlButton [variant]="'primary'" (click)="handleSave()" [attr.disabled]="!configForm.dirty || null">Save</button>
+    </ml-card-footer>
+  </ml-card>
+</form>

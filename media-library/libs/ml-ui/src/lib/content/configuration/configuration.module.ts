@@ -4,7 +4,7 @@ import { MusicConfigurationComponent } from './music-configuration/music-configu
 import { CardModule } from '../card/card.module';
 import { MusicConfigurationEditorComponent } from './music-configuration-editor/music-configuration-editor.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControlsModule } from '../../controls';
 
 @NgModule({
@@ -17,7 +17,8 @@ import { ControlsModule } from '../../controls';
     CardModule,
     FontAwesomeModule,
     FormsModule,
-    ControlsModule
+    ControlsModule,
+    ReactiveFormsModule
   ],
   exports: [
     MusicConfigurationComponent,

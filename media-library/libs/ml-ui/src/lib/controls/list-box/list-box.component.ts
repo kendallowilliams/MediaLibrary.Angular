@@ -23,7 +23,7 @@ import { noop } from 'rxjs';
 })
 export class ListBoxComponent implements ControlValueAccessor {
   @Input() public readonly = false;
-  @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] p-[15px] rounded-[5px] select-none`;
+  @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none`;
   @HostBinding('attr.role') private _role = 'listbox';
   @HostBinding('attr.tabindex') private _tabIndex = 0;
 

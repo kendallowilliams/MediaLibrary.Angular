@@ -15,7 +15,7 @@ export const musicConfiguration: MusicConfiguration = {
   selectedMusicTab: MusicTabs.Albums,
   selectedMusicPage: MusicPages.Index,
   previousSearchQuery: "",
-  musicPaths: [],
+  musicPaths: ['A:/albums', 'B:/artists', 'D:/songs'],
   ScrollTop: 0,
   PromptBeforeUnload: false
 };
