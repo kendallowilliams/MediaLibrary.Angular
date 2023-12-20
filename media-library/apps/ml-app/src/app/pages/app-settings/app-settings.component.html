@@ -1,4 +1,4 @@
-<div class="flex flex-wrap items-stretch h-full p-[30px] gap-[20px]">
+<div class="flex flex-wrap items-stretch h-full p-[30px] gap-[20px] justify-center">
   <ng-container *ngIf="configurations$ | async as configurations">
     <ml-media-library-configuration *ngIf="configurations.mediaLibraryConfiguration" [configuration]="configurations.mediaLibraryConfiguration"></ml-media-library-configuration>
     <ml-music-configuration *ngIf="configurations.musicConfiguration" [configuration]="configurations.musicConfiguration"></ml-music-configuration>

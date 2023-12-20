@@ -5,19 +5,19 @@
       <ml-modal-title>Edit Music Settings</ml-modal-title>
     </ml-modal-header>
     <ml-modal-body class="flex flex-col gap-[10px]">
-      <div class="grid grid-cols-[100px_1fr]">
+      <div class="grid grid-cols-[250px_1fr]">
         <label mlLabel class="shrink-0">Album Sort</label>
         <ml-select [options]="albumSortOptions" formControlName="selectedAlbumSort"></ml-select>
       </div>
-      <div class="grid grid-cols-[100px_1fr]">
+      <div class="grid grid-cols-[250px_1fr]">
         <label mlLabel class="shrink-0">Artist Sort</label>
         <ml-select [options]="artistSortOptions" formControlName="selectedArtistSort"></ml-select>
       </div>
-      <div class="grid grid-cols-[100px_1fr]">
+      <div class="grid grid-cols-[250px_1fr]">
         <label mlLabel class="shrink-0">Song Sort</label>
         <ml-select [options]="songSortOptions" formControlName="selectedSongSort"></ml-select>
       </div>
-      <div class="grid grid-cols-[100px_1fr]">
+      <div class="grid grid-cols-[250px_1fr]">
         <label mlLabel class="shrink-0">Paths</label>
         <ml-list-box formControlName="musicPaths"></ml-list-box>
       </div>
