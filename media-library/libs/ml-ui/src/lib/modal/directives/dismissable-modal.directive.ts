@@ -51,6 +51,8 @@ export class DismissableModalDirective implements OnChanges {
       modalConfig, 
       !this.useAppRootVcr ? this._vcr : undefined);
     this._dropDownRef.modal?.modalClose.subscribe(() => this._close());
+    this.isOpen = true;
+    this.isOpenChange.emit(this.isOpen);
   }
 
   private _close() : void {
