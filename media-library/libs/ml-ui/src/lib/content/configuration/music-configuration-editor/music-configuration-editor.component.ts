@@ -19,7 +19,7 @@ import { SelectOption } from '../../../controls/select';
 import { ModalRef } from '../../../modal';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '@media-library/ml-data';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'ml-music-configuration-editor',
@@ -69,9 +69,9 @@ export class MusicConfigurationEditorComponent implements OnInit {
 
   private _createConfigForm(): FormGroup {
     return this._fb.group({
-      selectedAlbumSort: this._fb.control(this.configuration.selectedAlbumSort),
-      selectedArtistSort: this._fb.control(this.configuration.selectedArtistSort),
-      selectedSongSort: this._fb.control(this.configuration.selectedSongSort),
+      selectedAlbumSort: this._fb.control(this.configuration.selectedAlbumSort, Validators.required),
+      selectedArtistSort: this._fb.control(this.configuration.selectedArtistSort, Validators.required),
+      selectedSongSort: this._fb.control(this.configuration.selectedSongSort, Validators.required),
       musicPaths: this._fb.control(this.configuration.musicPaths)
     });
   }
