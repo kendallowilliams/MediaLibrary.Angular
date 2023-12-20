@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { ConfigurationsActions, ConfigurationsState, MlDataFeatureState, selectAllConfigurations } from '@media-library/ml-data';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class AppSettingsComponent implements OnInit {
+  @HostBinding('class') private _class = 'flex flex-wrap items-stretch p-[30px] gap-[20px] justify-center';
   public configurations$?: Observable<ConfigurationsState | undefined>;
 
   constructor(private _store: Store<MlDataFeatureState>) {}
