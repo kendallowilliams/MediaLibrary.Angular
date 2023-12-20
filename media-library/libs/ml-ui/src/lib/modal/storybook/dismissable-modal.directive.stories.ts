@@ -32,7 +32,10 @@ export const Default: Story = {
       props: {
         ...args,
         isOpen,
-        isOpenChange: () => updateArgs({ ...args, isOpen: !isOpen })
+        isOpenChange: () => updateArgs({ ...args, isOpen: !isOpen }),
+        title: 'Hello, World!',
+        message: 'Hello, world!',
+        messageType: 'alert'
       },
       template: `
       <div class="flex justify-center">

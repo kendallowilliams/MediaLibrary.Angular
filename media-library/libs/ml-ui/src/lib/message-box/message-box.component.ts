@@ -22,7 +22,7 @@ type MessageType = typeof MESSAGE_BOX_TYPES[number];
     <ml-modal-header>
       <span class="mr-[5px]">
         <ng-container [ngSwitch]="messageType"]>
-          <ng-container *ngSwitchCase="'alert'"><fa-icon [icon]="faExclamationCircle" [classes]="['text-info']"></fa-icon></ng-container>
+          <ng-container *ngSwitchCase="'alert'"><fa-icon [icon]="faExclamationCircle" [classes]="['text-dark']"></fa-icon></ng-container>
           <ng-container *ngSwitchCase="'warn'"><fa-icon [icon]="faWarning" [classes]="['text-warning']"></fa-icon></ng-container>
           <ng-container *ngSwitchCase="'error'"><fa-icon [icon]="faBan" [classes]="['text-danger']"></fa-icon></ng-container>
           <ng-container *ngSwitchCase="'confirm'"><fa-icon [icon]="faCheckCircle" [classes]="['text-success']"></fa-icon></ng-container>
@@ -36,14 +36,14 @@ type MessageType = typeof MESSAGE_BOX_TYPES[number];
       <div class="flex gap-[10px] items-center justify-end w-full h-full" [ngSwitch]="messageType">
         <ng-container *ngSwitchCase="'confirm'">
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
-          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
+          <button mlButton [variant]="'primary'" (click)="handleOKClick()">OK</button>
         </ng-container>
         <ng-container *ngSwitchCase="'yes_no'">
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
-          <button mlButton [variant]="'success'" (click)="handleOKClick()">Yes</button>
+          <button mlButton [variant]="'primary'" (click)="handleOKClick()">Yes</button>
         </ng-container>
         <ng-container *ngSwitchDefault>
-          <button mlButton [variant]="'success'" (click)="handleOKClick()">OK</button>
+          <button mlButton [variant]="'primary'" (click)="handleOKClick()">OK</button>
         </ng-container>
       </div>
     </ml-modal-footer>
