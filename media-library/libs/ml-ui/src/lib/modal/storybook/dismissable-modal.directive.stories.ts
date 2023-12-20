@@ -6,6 +6,7 @@ import { ModalModule } from '../modal.module';
 import { ButtonModule } from '../../controls/button/button.module';
 import { AppRootVcrDirective } from '@media-library/ml-utility';
 import { MessageBoxModule } from '../../message-box';
+import { useArgs } from '@storybook/preview-api';
 
 const meta: Meta<DismissableModalDirective> = {
   title: 'Components/Modal/Dismissable Modal',
@@ -25,17 +26,21 @@ export const Default: Story = {
     isOpen: false,
     backdrop: 'transparent'
   },
-  render: (args) => ({
-    props: {
-      ...args
-    },
-    template: `
-    <div class="flex justify-center">
-      <ng-template mlDismissableModal [(isOpen)]="isOpen" [useAppRootVcr]="false">
-        <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
-      </ng-template>
-    </div>
-    <ng-container mlAppRootVcr></ng-container>
-    `
-  })
+  render: (args) => {
+    const [, updateArgs] = useArgs();
+    return {
+      props: {
+        ...args,
+        isOpenChange: (isOpen: boolean) => updateArgs({ ...args, isOpen })
+      },
+      template: `
+      <div class="flex justify-center">
+        <ng-template mlDismissableModal [(isOpen)]="isOpen" (isOpenChange)="isOpenChange($event)" [useAppRootVcr]="false">
+          <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
+        </ng-template>
+      </div>
+      <ng-container mlAppRootVcr></ng-container>
+      `
+    }
+  }
 };

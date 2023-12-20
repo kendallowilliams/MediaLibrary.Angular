@@ -27,14 +27,14 @@ export class DismissableModalDirective implements OnChanges {
       if (changes['isOpen'].currentValue) {
         this._showModal();
       } else {
-        this._close();
+        this._hide();
       }
     }
   }
 
   public toggle(): void {
     if (this.isOpen) {
-      this._close();
+      this._hide();
     } else {
       this._showModal();
     }
@@ -51,15 +51,16 @@ export class DismissableModalDirective implements OnChanges {
       modalConfig, 
       !this.useAppRootVcr ? this._vcr : undefined);
     this._dropDownRef.modal?.modalClose.subscribe(() => this._close());
-    this.isOpen = true;
-    this.isOpenChange.emit(this.isOpen);
+  }
+
+  private _hide() : void {
+    this._dropDownRef?.hide();
+    this._dropDownRef = undefined;
   }
 
   private _close() : void {
     this.isOpen = false;
     this.isOpenChange.emit(this.isOpen);
-    this._dropDownRef?.hide();
-    this._dropDownRef = undefined;
   }
 
   @HostListener('window:resize')
@@ -70,7 +71,7 @@ export class DismissableModalDirective implements OnChanges {
 
     this._resizeTimeout = window.setTimeout(() => {
       if (this.isOpen) {
-        this._close();
+        this._hide();
         this._resizeTimeout = undefined;
       }
     }, this._timeoutDelay);
