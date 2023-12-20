@@ -6,19 +6,19 @@
     </ml-card-title>
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
-    <div class="grid grid-cols-[250px_1fr] items-center">
+    <div class="grid grid-cols-[150px_1fr] items-center">
       <label mlLabel>Album Sort</label>
       <span>{{albumSort}}</span>
     </div>
-    <div class="grid grid-cols-[250px_1fr] items-center">
+    <div class="grid grid-cols-[150px_1fr] items-center">
       <label mlLabel>Artist Sort</label>
       <span>{{artistSort}}</span>
     </div>
-    <div class="grid grid-cols-[250px_1fr] items-center">
+    <div class="grid grid-cols-[150px_1fr] items-center">
       <label mlLabel>Song Sort</label>
       <span>{{songSort}}</span>
     </div>
-    <div class="grid grid-cols-[250px_1fr] items-start">
+    <div class="grid grid-cols-[150px_1fr] items-start">
       <label mlLabel>Paths</label>
       <ml-list-box [readonly]="true" [ngModel]="configuration.musicPaths"></ml-list-box>
     </div>
