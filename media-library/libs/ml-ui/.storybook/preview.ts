@@ -1,4 +1,4 @@
-import "../src/styles/index.css";
+import "../src/assets/styles/index.css";
 
 export const parameters = {
   darkMode: {
