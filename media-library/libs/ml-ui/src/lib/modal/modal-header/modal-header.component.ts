@@ -14,8 +14,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
   template: `
     <div class="flex items-center w-full h-full">
       <div class="grow"><ng-content></ng-content></div>
-      <fa-icon *ngIf="faXmark" [icon]="faXmark" (click)="handleClose()"
-        [classes]="['cursor-pointer', 'text-dark', 'fa-lg']"></fa-icon>
+      <fa-icon [icon]="faXmark" (click)="handleClose()"
+        [classes]="['cursor-pointer', 'text-primary', 'fa-lg']"></fa-icon>
     </div>`,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
