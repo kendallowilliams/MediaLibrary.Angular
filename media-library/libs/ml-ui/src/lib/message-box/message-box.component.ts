@@ -12,7 +12,7 @@ import {
 import { ModalRef } from '../modal/models/ModalRef.model';
 import { faBan, faCheckCircle, faExclamationCircle, faQuestionCircle, faWarning } from '@fortawesome/free-solid-svg-icons';
 
-export const MESSAGE_BOX_TYPES = ['alert', 'confirm', 'yes_no', 'error', 'warn'] as const;
+export const MESSAGE_BOX_TYPES = ['alert', 'confirm', 'yesNo', 'error', 'warn'] as const;
 type MessageType = typeof MESSAGE_BOX_TYPES[number];
 
 @Component({
@@ -38,7 +38,7 @@ type MessageType = typeof MESSAGE_BOX_TYPES[number];
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
           <button mlButton [variant]="'primary'" (click)="handleOKClick()">OK</button>
         </ng-container>
-        <ng-container *ngSwitchCase="'yes_no'">
+        <ng-container *ngSwitchCase="'yesNo'">
           <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
           <button mlButton [variant]="'primary'" (click)="handleOKClick()">Yes</button>
         </ng-container>

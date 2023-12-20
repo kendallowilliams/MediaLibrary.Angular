@@ -52,7 +52,7 @@ export class MessageBoxService {
     modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
       c.title = title;
       c.message = message;
-      c.messageType = yesNo ? 'yes_no' : 'confirm';
+      c.messageType = yesNo ? 'yesNo' : 'confirm';
     };
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
 
