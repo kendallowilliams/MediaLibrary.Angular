@@ -29,4 +29,4 @@ export * from './lib/directives/auto-hide-navbar-links/auto-hide-navbar-links.di
 export * from './lib/content/configuration/index';
 
 /** Error Pages */
-export * from './lib/content/page-not-found/page-not-found.component';
+export * from './lib/error-pages/index';

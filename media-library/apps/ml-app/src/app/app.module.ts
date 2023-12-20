@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ComponentsModule } from './components/components.module';
 import { AppRootVcrDirective } from '@media-library/ml-utility';
+import { ErrorPagesModule } from '@media-library/ml-ui';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppRootVcrDirective } from '@media-library/ml-utility';
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
     ComponentsModule,
-    AppRootVcrDirective
+    AppRootVcrDirective,
+    ErrorPagesModule
   ],
   exports: [RouterModule],
   providers: [],

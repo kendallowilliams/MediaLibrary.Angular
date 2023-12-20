@@ -5,10 +5,10 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-page-not-found',
-  templateUrl: './page-not-found.component.html',
+  selector: 'ml-not-found-page',
+  templateUrl: './not-found-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PageNotFoundComponent{
+export class NotFoundPageComponent{
 }
