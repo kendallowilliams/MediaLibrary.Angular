@@ -27,15 +27,17 @@ export const Default: Story = {
     backdrop: 'transparent'
   },
   render: (args) => {
-    const [, updateArgs] = useArgs();
+    const [{ isOpen }, updateArgs] = useArgs();
     return {
       props: {
         ...args,
-        isOpenChange: (isOpen: boolean) => updateArgs({ ...args, isOpen })
+        isOpen,
+        isOpenChange: () => updateArgs({ ...args, isOpen: !isOpen })
       },
       template: `
       <div class="flex justify-center">
-        <ng-template mlDismissableModal [(isOpen)]="isOpen" (isOpenChange)="isOpenChange($event)" [useAppRootVcr]="false">
+        <button mlButton (click)="isOpenChange()">Show</button>
+        <ng-template mlDismissableModal [(isOpen)]="isOpen" (isOpenChange)="isOpenChange()" [useAppRootVcr]="false">
           <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
         </ng-template>
       </div>
