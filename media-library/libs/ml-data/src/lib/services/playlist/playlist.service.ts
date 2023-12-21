@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlaylistConfiguration } from '../../models/configurations/PlaylistConfiguration.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BaseService } from '../base.service';
 import { Playlist } from '../../models/playlist/Playlist.model';
 
@@ -21,6 +21,10 @@ export class PlaylistService extends BaseService {
 
   public updateConfiguration(configuration: PlaylistConfiguration): Observable<PlaylistConfiguration> {
     return this.updateBaseConfiguration<PlaylistConfiguration>(this.controller, configuration);
+  }
+
+  public getPlaylists() : Observable<Playlist[]> {
+    return of([]);
   }
 
   public getMusicPlaylists() : Observable<Playlist[]> {

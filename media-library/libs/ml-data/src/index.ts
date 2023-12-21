@@ -1,6 +1,15 @@
 export * from './lib//stores/configurations/configurations.selectors';
 export * from './lib//stores/configurations/configurations.reducer';
 export * from './lib//stores/configurations/configurations.actions';
+export * from './lib//stores/music/music.selectors';
+export * from './lib//stores/music/music.reducer';
+export * from './lib//stores/music/music.actions';
+export * from './lib//stores/playlists/playlists.selectors';
+export * from './lib//stores/playlists/playlists.reducer';
+export * from './lib//stores/playlists/playlists.actions';
+export * from './lib//stores/podcasts/podcasts.selectors';
+export * from './lib//stores/podcasts/podcasts.reducer';
+export * from './lib//stores/podcasts/podcasts.actions';
 export * from './lib/ml-data.module';
 
 /** Services */

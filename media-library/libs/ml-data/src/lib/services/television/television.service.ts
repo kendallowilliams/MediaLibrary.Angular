@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TelevisionConfiguration } from '../../models/configurations/TelevisionConfiguration.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BaseService } from '../base.service';
+import { Series } from '../../models/television/Series.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class TelevisionService extends BaseService {
 
   public updateConfiguration(configuration: TelevisionConfiguration): Observable<TelevisionConfiguration> {
     return this.updateBaseConfiguration<TelevisionConfiguration>(this._controller, configuration);
+  }
+
+  public getSeries(): Observable<Series[]> {
+    return of([]);
   }
 }

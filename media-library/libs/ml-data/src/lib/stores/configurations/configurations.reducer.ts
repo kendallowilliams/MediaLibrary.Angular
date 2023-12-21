@@ -1,5 +1,4 @@
 import { createReducer, on, Action } from '@ngrx/store';
-
 import { ConfigurationsActions } from './configurations.actions';
 import { MusicConfiguration } from '../../models/configurations/MusicConfiguration.interface';
 import { MediaLibraryConfiguration } from '../../models/configurations/MediaLibraryConfiguration.interface';

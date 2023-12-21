@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PodcastConfiguration } from '../../models/configurations/PodcastConfiguration.interface';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { BaseService } from '../base.service';
+import { Podcast } from '../../models/podcast/Podcast.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,9 @@ export class PodcastService extends BaseService {
 
   public updateConfiguration(configuration: PodcastConfiguration): Observable<PodcastConfiguration> {
     return this.updateBaseConfiguration<PodcastConfiguration>(this.controller, configuration);
+  }
+
+  public getPodcasts(): Observable<Podcast[]> {
+    return of([]);
   }
 }
