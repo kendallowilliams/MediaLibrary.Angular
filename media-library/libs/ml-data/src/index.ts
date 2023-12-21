@@ -45,6 +45,7 @@ export * from './lib/types/Music.type';
 
 /** Tokens */
 export * from './lib/tokens/api-base-url.token';
+export * from './lib/tokens/app-environment.token';
 
 /** Interfaces */
 export * from './lib/interfaces/ml-data-state.inteface';

@@ -14,7 +14,7 @@ export class MusicEffects {
   constructor(
     private _musicService: MusicService, 
     private _store: Store<MlDataFeatureState>
-    ) {}
+  ) {}
 
   loadAlbums$ = createEffect(() =>
     this.actions$.pipe(
