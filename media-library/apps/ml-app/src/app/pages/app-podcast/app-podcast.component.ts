@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { PodcastConfiguration, PodcastService } from '@media-library/ml-data';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { PodcastConfiguration } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-podcast',
@@ -7,13 +7,6 @@ import { PodcastConfiguration, PodcastService } from '@media-library/ml-data';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppPodcastComponent implements OnInit {
+export class AppPodcastComponent {
   private _configuration?: PodcastConfiguration;
-
-  constructor(private _podcastService: PodcastService) {}
-  
-  public ngOnInit(): void {
-    this._podcastService.getConfiguration()
-      .subscribe(config => this._configuration = config);
-  }
 }

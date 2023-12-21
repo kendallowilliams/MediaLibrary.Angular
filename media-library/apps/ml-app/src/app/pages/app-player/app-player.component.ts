@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
-import { PlayerConfiguration, PlayerService } from '@media-library/ml-data';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { PlayerConfiguration } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-player',
@@ -7,13 +7,6 @@ import { PlayerConfiguration, PlayerService } from '@media-library/ml-data';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppPlayerComponent implements OnInit {
+export class AppPlayerComponent {
   private _configuration?: PlayerConfiguration;
-
-  constructor(private _playerService: PlayerService) {}
-  
-  public ngOnInit(): void {
-    this._playerService.getConfiguration()
-      .subscribe(config => this._configuration = config);
-  }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, HostBinding, ViewEncapsulation } from '@angular/core';
 import { MusicConfiguration, Album, Artist, Track, Playlist } from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 
@@ -8,7 +8,7 @@ import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppMusicComponent implements OnInit {
+export class AppMusicComponent {
   private _defaultClasses = `flex items-center justify-center w-full h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
 
@@ -26,8 +26,5 @@ export class AppMusicComponent implements OnInit {
   public playlists: Playlist[] = [];
 
   constructor(private _destroyRef: DestroyRef) {
-  }
-  
-  public ngOnInit(): void {
   }
 }

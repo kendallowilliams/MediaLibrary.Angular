@@ -1,10 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
   ViewEncapsulation,
 } from '@angular/core';
-import { faHeadphones } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-song',
@@ -13,7 +11,4 @@ import { faHeadphones } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppSongComponent {
-  @Input() public trackId?: number;
-
-  public faHeadphones = faHeadphones;
 }

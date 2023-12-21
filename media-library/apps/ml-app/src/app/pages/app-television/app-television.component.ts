@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { TelevisionConfiguration, TelevisionService } from '@media-library/ml-data';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { TelevisionConfiguration } from '@media-library/ml-data';
 
 @Component({
   selector: 'app-television',
@@ -7,13 +7,6 @@ import { TelevisionConfiguration, TelevisionService } from '@media-library/ml-da
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppTelevisionComponent implements OnInit {
+export class AppTelevisionComponent {
   private _configuration?: TelevisionConfiguration;
-
-  constructor(private _televisionService: TelevisionService) {}
-  
-  public ngOnInit(): void {
-    this._televisionService.getConfiguration()
-      .subscribe(config => this._configuration = config);
-  }
 }

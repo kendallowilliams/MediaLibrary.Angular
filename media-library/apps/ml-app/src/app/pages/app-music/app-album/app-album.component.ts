@@ -1,12 +1,8 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
-  OnInit,
   ViewEncapsulation,
 } from '@angular/core';
-import { MusicService } from '@media-library/ml-data';
-import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-album',
@@ -15,9 +11,4 @@ import { faCompactDisc } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppAlbumComponent {
-  @Input() public albumId?: number;
-
-  public faCompactDisc = faCompactDisc;
-
-  constructor(private _musicService: MusicService) {}
 }
