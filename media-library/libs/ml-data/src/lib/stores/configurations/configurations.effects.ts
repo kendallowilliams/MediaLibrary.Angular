@@ -24,7 +24,8 @@ export class ConfigurationsEffects {
     private _playerService: PlayerService,
     private _playlistService: PlaylistService,
     private _podcastService: PodcastService
-    ) {}
+    ) {
+    }
 
   loadMusicConfiguration$ = createEffect(() =>
     this.actions$.pipe(

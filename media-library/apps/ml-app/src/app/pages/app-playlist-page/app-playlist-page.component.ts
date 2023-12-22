@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { PlaylistConfiguration } from '@media-library/ml-data';
 
 @Component({
-  selector: 'app-playlist',
-  templateUrl: './app-playlist.component.html',
+  selector: 'app-playlist-page',
+  templateUrl: './app-playlist-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppPlaylistComponent {
+export class AppPlaylistPageComponent {
   private _configuration?: PlaylistConfiguration;
 }

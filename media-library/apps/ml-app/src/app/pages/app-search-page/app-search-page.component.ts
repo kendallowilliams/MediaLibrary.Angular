@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './app-search.component.html',
+  selector: 'app-search-page',
+  templateUrl: './app-search-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppSearchComponent {
+export class AppSearchPageComponent {
   private _query?: string;
 
   constructor(private _route: ActivatedRoute) {}

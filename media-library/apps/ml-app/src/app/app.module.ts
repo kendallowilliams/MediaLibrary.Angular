@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { ComponentsModule } from './components/components.module';
+import { AppComponentsModule } from './components/app-components.module';
 import { AppRootVcrDirective } from '@media-library/ml-utility';
 import { ErrorPagesModule, HttpErrorIntercepter } from '@media-library/ml-ui';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,7 +26,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     StoreModule.forRoot(),
     EffectsModule.forRoot(),
-    ComponentsModule,
+    AppComponentsModule,
     AppRootVcrDirective,
     ErrorPagesModule
   ],

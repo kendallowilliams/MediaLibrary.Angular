@@ -1,51 +1,46 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppSongComponent } from './app-music/app-song/app-song.component';
-import { AppHomeComponent } from './app-home/app-home.component';
-import { AppAlbumComponent } from './app-music/app-album/app-album.component';
-import { AppArtistComponent } from './app-music/app-artist/app-artist.component';
-import { AppMusicComponent } from './app-music/app-music.component';
-import { AppPlayerComponent } from './app-player/app-player.component';
-import { AppPlaylistComponent } from './app-playlist/app-playlist.component';
-import { AppPodcastComponent } from './app-podcast/app-podcast.component';
-import { AppSearchComponent } from './app-search/app-search.component';
-import { AppSettingsComponent } from './app-settings/app-settings.component';
-import { AppTelevisionComponent } from './app-television/app-television.component';
+import { AppHomePageComponent } from './app-home-page/app-home-page.component';
+import { AppMusicPageComponent } from './app-music-page/app-music-page.component';
+import { AppPlayerPageComponent } from './app-player-page/app-player-page.component';
+import { AppPlaylistPageComponent } from './app-playlist-page/app-playlist-page.component';
+import { AppPodcastPageComponent } from './app-podcast-page/app-podcast-page.component';
+import { AppSearchPageComponent } from './app-search-page/app-search-page.component';
+import { AppSettingsPageComponent } from './app-settings-page/app-settings-page.component';
+import { AppTelevisionPageComponent } from './app-television-page/app-television-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfigurationModule, ControlsModule } from '@media-library/ml-ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MlDataModule, API_BASE_URL } from '@media-library/ml-data';
 import { environment } from '../../environments/environment';
+import { AppComponentsModule } from '../components/app-components.module';
 
 export const routes: Routes = [
   { 
     path: '',
     children: [
-      { path: '', component: AppHomeComponent },
-      { path: 'music', title:'Music', component: AppMusicComponent },
-      { path: 'podcast', title:'Podcast', component: AppPodcastComponent },
-      { path: 'television', title:'Television', component: AppTelevisionComponent },
-      { path: 'playlist', title:'Playlist', component: AppPlaylistComponent },
-      { path: 'player', title:'Player', component: AppPlayerComponent },
-      { path: 'search', title:'Search', component: AppSearchComponent },
-      { path: 'settings', title:'Settings', component: AppSettingsComponent }
+      { path: '', component: AppHomePageComponent },
+      { path: 'music', title:'Music', component: AppMusicPageComponent },
+      { path: 'podcast', title:'Podcast', component: AppPodcastPageComponent },
+      { path: 'television', title:'Television', component: AppTelevisionPageComponent },
+      { path: 'playlist', title:'Playlist', component: AppPlaylistPageComponent },
+      { path: 'player', title:'Player', component: AppPlayerPageComponent },
+      { path: 'search', title:'Search', component: AppSearchPageComponent },
+      { path: 'settings', title:'Settings', component: AppSettingsPageComponent }
     ]
    }
 ];
 
 @NgModule({
   declarations: [
-    AppHomeComponent,
-    AppMusicComponent,
-    AppPlaylistComponent,
-    AppPlayerComponent,
-    AppPodcastComponent,
-    AppSearchComponent,
-    AppSettingsComponent,
-    AppTelevisionComponent,
-    AppAlbumComponent,
-    AppArtistComponent,
-    AppSongComponent
+    AppHomePageComponent,
+    AppMusicPageComponent,
+    AppPlaylistPageComponent,
+    AppPlayerPageComponent,
+    AppSearchPageComponent,
+    AppSettingsPageComponent,
+    AppTelevisionPageComponent,
+    AppPodcastPageComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +48,8 @@ export const routes: Routes = [
     FontAwesomeModule,
     MlDataModule,
     ConfigurationModule,
-    ControlsModule
+    ControlsModule,
+    AppComponentsModule
   ],
   exports: [
     RouterModule

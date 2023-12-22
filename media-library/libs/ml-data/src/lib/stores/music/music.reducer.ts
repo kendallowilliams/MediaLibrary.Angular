@@ -15,7 +15,7 @@ export interface MusicState {
 }
 
 export const initialMusicState: MusicState = {
-  useTestData: true,
+  useTestData: false,
   tracks: [],
   albums: [],
   artists: []

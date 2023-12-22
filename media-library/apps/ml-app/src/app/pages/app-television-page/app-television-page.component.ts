@@ -2,11 +2,11 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { TelevisionConfiguration } from '@media-library/ml-data';
 
 @Component({
-  selector: 'app-television',
-  templateUrl: './app-television.component.html',
+  selector: 'app-television-page',
+  templateUrl: './app-television-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppTelevisionComponent {
+export class AppTelevisionPageComponent {
   private _configuration?: TelevisionConfiguration;
 }

@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { MusicConfiguration, Album, Artist, Track, Playlist, MlDataFeatureState, MusicActions } from '@media-library/ml-data';
+import { MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, selectAllAlbums, selectAllArtists } from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 
 @Component({
-  selector: 'app-music',
-  templateUrl: './app-music.component.html',
+  selector: 'app-music-page',
+  templateUrl: './app-music-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppMusicComponent implements OnInit {
+export class AppMusicPageComponent implements OnInit {
   private _defaultClasses = `flex items-center justify-center w-full h-full`;
   @HostBinding('class') private _class = this._defaultClasses;
 
@@ -21,9 +21,8 @@ export class AppMusicComponent implements OnInit {
   public faHeadphones = faHeadphones;
   public faList = faList;
   public faXmark = faXmark;
-  public albums: Album[] = [];
-  public artists: Artist[] = [];
-  public tracks: Track[] = [];
+  public albums$ = this._store.select(selectAllAlbums);
+  public artists$ = this._store.select(selectAllArtists);
   public playlists: Playlist[] = [];
 
   constructor(private _store: Store<MlDataFeatureState>, private _destroyRef: DestroyRef) {

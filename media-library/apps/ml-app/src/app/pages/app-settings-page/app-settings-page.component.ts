@@ -4,12 +4,12 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './app-settings.component.html',
+  selector: 'app-settings-page',
+  templateUrl: './app-settings-page.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class AppSettingsComponent implements OnInit {
+export class AppSettingsPageComponent implements OnInit {
   @HostBinding('class') private _class = 'flex flex-wrap items-stretch p-[30px] gap-[20px] justify-center';
   public configurations$?: Observable<ConfigurationsState | undefined>;
 
