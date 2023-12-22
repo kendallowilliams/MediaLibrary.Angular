@@ -47,7 +47,7 @@ export const Disabled: Story = {
     },
     template: `
       <div class="flex flex-wrap gap-[10px]">
-        <button mlSecondaryButton *ngFor="let variant of variants" [variant]="variant" disabled>Disabled</button>
+        <button mlSecondaryButton *ngFor="let variant of variants" [variant]="variant" disabled><span class="capitalize">{{variant}}</span></button>
       </div>
     `
   })
