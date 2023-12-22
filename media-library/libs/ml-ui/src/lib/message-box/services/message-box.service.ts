@@ -1,4 +1,4 @@
-import { Injectable, ViewContainerRef } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MessageBoxComponent } from '../message-box.component';
 import { ModalService } from '../../modal/services/modal.service';
@@ -46,7 +46,7 @@ export class MessageBoxService {
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
-  public confirm(title: string, message: string, vcr: ViewContainerRef, yesNo: boolean = false) : Observable<boolean> {
+  public confirm(title: string, message: string, yesNo: boolean = false) : Observable<boolean> {
     const modalConfig = new ModalConfig<MessageBoxComponent>();
 
     modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
