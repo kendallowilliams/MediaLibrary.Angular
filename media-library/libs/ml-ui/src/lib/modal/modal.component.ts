@@ -13,7 +13,6 @@ import {
   Injector,
   Inject,
   AfterViewInit,
-  Renderer2,
   DestroyRef
 } from '@angular/core';
 import { ModalConfig } from './models/ModalConfig.model';
@@ -28,7 +27,11 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none max-w-full max-h-full"
-      (close)="handleClose($event)" (cancel)="handleCancel($event)">
+      [ngClass]="{
+        'backdrop:hidden': backdrop === 'hidden',
+        'backdrop:bg-dark backdrop:opacity-50': backdrop === 'visible',
+        'backdrop:bg-transparent': backdrop === 'transparent'
+      }" (close)="handleClose($event)" (cancel)="handleCancel($event)">
       <ng-template #modalContent></ng-template>
     </dialog>
     `
@@ -40,27 +43,18 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
+  public backdrop: ModalConfig['backdrop'] | null = null;
+
   constructor(
-    private _renderer: Renderer2,
     private _destroyRef: DestroyRef,
     @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, 
-    @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {}
-
-  public ngAfterViewInit(): void {
-    this._initializeDialog();
-    this._initializeContent();
-  }
-
-  private _initializeDialog(): void {
-    const dialog = this._dialog.nativeElement;
-
-    if (this._modalConfig?.backdrop === 'hidden') {
-      this._renderer.addClass(dialog, 'backdrop:hidden');
-    } else if (this._modalConfig?.backdrop === 'transparent') {
-      this._renderer.addClass(dialog, 'backdrop:bg-transparent');
+    @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {
+      this.backdrop = this._modalConfig?.backdrop || null;
+      this.static = this._modalConfig?.static || false;
     }
 
-    this.static = this._modalConfig?.static || false;
+  public ngAfterViewInit(): void {
+    this._initializeContent();
   }
 
   private _initializeContent() : void {

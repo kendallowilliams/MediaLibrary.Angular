@@ -7,6 +7,7 @@ import { ButtonModule } from '../../controls/button/button.module';
 import { AppRootVcrDirective } from '@media-library/ml-utility';
 import { MessageBoxModule } from '../../message-box';
 import { useArgs } from '@storybook/preview-api';
+import { MODAL_BACKDROPS } from '../models/ModalConfig.model';
 
 const meta: Meta<DismissableModalDirective> = {
   title: 'Components/Modal/Dismissable Modal',
@@ -15,7 +16,13 @@ const meta: Meta<DismissableModalDirective> = {
     moduleMetadata({
       imports: [CommonModule, FormsModule, ModalModule, ButtonModule, AppRootVcrDirective, MessageBoxModule],
     })
-  ]
+  ],
+  argTypes: {
+    backdrop: {
+      options: MODAL_BACKDROPS,
+      control: { type: 'select' }
+    }
+  }
 };
 
 export default meta;
