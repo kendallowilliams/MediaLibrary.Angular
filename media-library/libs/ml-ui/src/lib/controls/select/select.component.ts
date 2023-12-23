@@ -50,7 +50,7 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
   private _scrollTimeout?: number;
-  private _timeoutDelay = 10;
+  private _timeoutDelay = 0;
 
   constructor(public host: ElementRef<HTMLElement>, private _renderer: Renderer2) {}
 
@@ -199,7 +199,7 @@ export class SelectComponent implements ControlValueAccessor {
       }
 
       this._scrollTimeout = window.setTimeout(() => {
-        this._updateStyles();
+        this.closeDropdown();
         this._scrollTimeout = undefined;
       }, this._timeoutDelay);
     }
