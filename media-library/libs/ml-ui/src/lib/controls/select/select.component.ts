@@ -15,7 +15,7 @@ import { BehaviorSubject, noop } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { faCaretDown, faCaretUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
-type SelectValueType = SelectOption['value'] | SelectOption['value'][];
+export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
 
 @Component({
   selector: 'ml-select',

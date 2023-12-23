@@ -1,6 +1,6 @@
 import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
-import { SelectComponent } from '../select.component';
+import { SelectComponent, SelectValueType } from '../select.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { SelectMultiSelectDirective } from './select-multiselect.directive';
 import { MultiSelectOptionComponent } from '../multi-select-option/multi-select-option.component';
@@ -68,7 +68,7 @@ export class SelectOptionDirective implements OnInit {
     this._renderer.appendChild(this._host.nativeElement, componentRef.location.nativeElement);
   }
 
-  private _handleValueChange(value: SelectOption['value'] | SelectOption['value'][] | null): void {
+  private _handleValueChange(value: SelectValueType | null): void {
     if (this.multiSelectable) {
       const values = value as SelectOption['value'][] || null;
       if (!values || !values.includes(this.option.value)) {
