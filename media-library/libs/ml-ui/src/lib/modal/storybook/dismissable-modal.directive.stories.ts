@@ -31,7 +31,8 @@ type Story = StoryObj<DismissableModalDirective>;
 export const Default: Story = {
   args: {
     isOpen: false,
-    backdrop: 'transparent'
+    backdrop: 'transparent',
+    useAppRootVcr: true
   },
   render: (args) => {
     const [{ isOpen }, updateArgs] = useArgs();
@@ -47,7 +48,8 @@ export const Default: Story = {
       template: `
       <div class="flex justify-center">
         <button mlButton (click)="isOpenChange()">Show</button>
-        <ng-template mlDismissableModal [(isOpen)]="isOpen" (isOpenChange)="isOpenChange()" [useAppRootVcr]="false">
+        <ng-template mlDismissableModal [(isOpen)]="isOpen" (isOpenChange)="isOpenChange()" [useAppRootVcr]="useAppRootVcr" 
+          [backdrop]="backdrop">
           <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
         </ng-template>
       </div>
