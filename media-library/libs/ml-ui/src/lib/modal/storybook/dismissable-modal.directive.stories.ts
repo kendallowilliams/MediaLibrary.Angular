@@ -10,7 +10,7 @@ import { useArgs } from '@storybook/preview-api';
 import { MODAL_BACKDROPS } from '../models/ModalConfig.model';
 
 const meta: Meta<DismissableModalDirective> = {
-  title: 'Components/Modal/Dismissable Modal',
+  title: 'Components/Modal/Dismissable',
   component: DismissableModalDirective,
   decorators: [
     moduleMetadata({
