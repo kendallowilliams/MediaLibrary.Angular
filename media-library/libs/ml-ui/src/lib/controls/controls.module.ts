@@ -10,7 +10,7 @@ import { SwitchComponent } from './switch/switch.component';
 import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
 import { ListBoxComponent } from './list-box/list-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { TextBoxDirective } from './textbox/directives/text-box.directive';
+import { TextBoxDirective } from './text-box/directives/text-box.directive';
 
 @NgModule({
   imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],

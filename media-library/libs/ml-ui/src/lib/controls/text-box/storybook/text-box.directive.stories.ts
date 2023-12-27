@@ -27,7 +27,7 @@ export const Default: Story = {
     },
     template: `
       <div>
-        <input mlTextBox />
+        <input mlTextBox placeholder="Enter name..." />
       </div>
     `
   })
@@ -40,7 +40,7 @@ export const Disabled: Story = {
     },
     template: `
     <div>
-      <input mlTextBox disabled />
+      <input mlTextBox disabled placeholder="Enter name..." />
     </div>
     `
   })
