@@ -1,4 +1,4 @@
-export const MODAL_BACKDROPS = ['visible', 'hidden', 'transparent'] as const;
+export const MODAL_BACKDROPS = ['visible', 'transparent'] as const;
 export type ModalBackdrop = typeof MODAL_BACKDROPS[number];
 
 export class ModalConfig<T = void> {

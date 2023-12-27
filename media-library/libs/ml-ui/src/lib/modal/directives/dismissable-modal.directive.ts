@@ -1,13 +1,13 @@
 import { Directive, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ModalRef } from '../models/ModalRef.model';
-import { ModalConfig } from '../models/ModalConfig.model';
+import { ModalBackdrop, ModalConfig } from '../models/ModalConfig.model';
 import { ModalService } from '../services/modal.service';
 
 @Directive({
   selector: '[mlDismissableModal]'
 })
 export class DismissableModalDirective implements OnChanges {
-  @Input() public backdrop: ModalConfig['backdrop'] = 'transparent';
+  @Input() public backdrop: ModalBackdrop = 'transparent';
   @Input() public isOpen = false;
   @Input() public useAppRootVcr = true;
   @Output() public isOpenChange = new EventEmitter<boolean>();
