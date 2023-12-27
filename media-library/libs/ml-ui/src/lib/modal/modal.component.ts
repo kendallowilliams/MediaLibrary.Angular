@@ -28,7 +28,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   template: `
     <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none max-w-full max-h-full"
       [ngClass]="{
-        'backdrop:hidden': backdrop === 'hidden',
         'backdrop:bg-dark backdrop:opacity-50': backdrop === 'visible',
         'backdrop:bg-transparent': backdrop === 'transparent'
       }" (close)="handleClose($event)" (cancel)="handleCancel($event)">
