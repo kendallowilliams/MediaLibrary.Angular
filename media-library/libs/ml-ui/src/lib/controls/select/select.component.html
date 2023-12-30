@@ -9,7 +9,7 @@
       </ng-template>
     </span>
     <span class="inline-flex gap-[5px] shrink-0">
-      <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class=""></fa-icon>
+      <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class="text-primary"></fa-icon>
       <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
       <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
     </span>
