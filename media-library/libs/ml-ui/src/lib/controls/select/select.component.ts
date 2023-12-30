@@ -6,14 +6,15 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
-  Renderer2,
-  RendererStyleFlags2,
-  HostListener
+  OnInit,
+  DestroyRef,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, noop } from 'rxjs';
+import { BehaviorSubject, noop, fromEvent } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { faCaretDown, faCaretUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
 
@@ -28,8 +29,8 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
     multi: true
   }]
 })
-export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'inline-flex relative h-control cursor-pointer w-full';
+export class SelectComponent implements ControlValueAccessor, OnInit {
+  @HostBinding('class') private _class = 'inline-flex cursor-pointer group/select w-full outline-none rounded-[5px]';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
@@ -38,7 +39,7 @@ export class SelectComponent implements ControlValueAccessor {
   public isDropdownOpen = false;
 
   @HostBinding('attr.role') private _role = 'combobox';
-  @HostBinding('attr.aria-expanded') private _ariaExpanded = 'false';
+  @HostBinding('attr.aria-expanded') private _ariaExpanded = false;
 
   /** The internal values of the select. */
   private _value: SelectValueType | null = null;
@@ -49,10 +50,14 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretUp = faCaretUp;
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
-  private _scrollTimeout?: number;
-  private _timeoutDelay = 0;
 
-  constructor(public host: ElementRef<HTMLElement>, private _renderer: Renderer2) {}
+  constructor(private _host: ElementRef<HTMLElement>, private _destroyRef: DestroyRef, private _cd: ChangeDetectorRef) {}
+
+  public ngOnInit(): void {
+    fromEvent(this._host.nativeElement, 'blur')
+      .pipe(takeUntilDestroyed(this._destroyRef))
+      .subscribe(() => this.closeDropdown());
+  }
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
@@ -67,26 +72,18 @@ export class SelectComponent implements ControlValueAccessor {
   }
 
   public toggleDropdown(): void {
-    this.isDropdownOpen = !this.isDropdownOpen;
-
     if (this.isDropdownOpen) {
-      this._updateStyles();
+      this._host.nativeElement.blur();
     } else {
-      this._clearStyles();
+      this.isDropdownOpen = true;
+      this._ariaExpanded = true;
     }
-
-    this._ariaExpanded = this.isDropdownOpen ? 'true' : 'false';
   }
 
   public closeDropdown(): void {
     this.isDropdownOpen = false;
-    this._clearStyles();
-    this._ariaExpanded = 'false';
-  }
-
-  public handleDropdownClose(isOpen: boolean) : void {
-    !isOpen && this._clearStyles();
-    this._ariaExpanded = 'false';
+    this._ariaExpanded = false;
+    this._cd.detectChanges();
   }
 
   public writeValue(value: SelectValueType | null): void {
@@ -171,37 +168,4 @@ export class SelectComponent implements ControlValueAccessor {
   /** public setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   } */
-
-  private _updateStyles() : void {
-    const host = this.host.nativeElement,
-      clientRect = host.getBoundingClientRect();
-
-    this._renderer.setStyle(host, '--select-width', `${host.clientWidth}px`, RendererStyleFlags2.DashCase);
-    this._renderer.setStyle(host, '--select-height', `${host.clientHeight}px`, RendererStyleFlags2.DashCase);
-    this._renderer.setStyle(host, '--select-top', `${clientRect.top}px`, RendererStyleFlags2.DashCase);
-    this._renderer.setStyle(host, '--select-left', `${clientRect.left}px`, RendererStyleFlags2.DashCase);
-  }
-
-  private _clearStyles() : void {
-    const host = this.host.nativeElement;
-
-    this._renderer.removeStyle(host, '--select-width', RendererStyleFlags2.DashCase);
-    this._renderer.removeStyle(host, '--select-height', RendererStyleFlags2.DashCase);
-    this._renderer.removeStyle(host, '--select-top', RendererStyleFlags2.DashCase);
-    this._renderer.removeStyle(host, '--select-left', RendererStyleFlags2.DashCase);
-  }
-
-  @HostListener('document:scroll')
-  private _handleScroll(): void {
-    if (this.isDropdownOpen) {
-      if (this._scrollTimeout) {
-        window.clearTimeout(this._scrollTimeout);
-      }
-
-      this._scrollTimeout = window.setTimeout(() => {
-        this.closeDropdown();
-        this._scrollTimeout = undefined;
-      }, this._timeoutDelay);
-    }
-  }
 }

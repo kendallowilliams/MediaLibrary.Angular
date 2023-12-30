@@ -7,15 +7,15 @@
     <ml-modal-body class="flex flex-col gap-[10px]">
       <div class="grid grid-cols-[150px_1fr]">
         <label mlLabel class="required">Album Sort</label>
-        <ml-select [options]="albumSortOptions" formControlName="selectedAlbumSort"></ml-select>
+        <ml-select [options]="albumSortOptions" formControlName="selectedAlbumSort" [placeholder]="'Select album sort...'"></ml-select>
       </div>
       <div class="grid grid-cols-[150px_1fr]">
         <label mlLabel class="required">Artist Sort</label>
-        <ml-select [options]="artistSortOptions" formControlName="selectedArtistSort"></ml-select>
+        <ml-select [options]="artistSortOptions" formControlName="selectedArtistSort" [placeholder]="'Select artist sort...'"></ml-select>
       </div>
       <div class="grid grid-cols-[150px_1fr]">
         <label mlLabel class="required">Song Sort</label>
-        <ml-select [options]="songSortOptions" formControlName="selectedSongSort"></ml-select>
+        <ml-select [options]="songSortOptions" formControlName="selectedSongSort" [placeholder]="'Select song sort...'"></ml-select>
       </div>
       <div class="grid grid-cols-[150px_1fr]">
         <label mlLabel>Paths</label>
