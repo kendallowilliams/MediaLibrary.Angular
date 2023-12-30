@@ -1,17 +1,18 @@
 <div class="relative w-full">
   <div class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
-    w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light" (click)="toggleDropdown()">
-    <span class="grow text-left">
+    w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
+    gap-[5px]" (click)="toggleDropdown()">
+    <span class="grow text-left truncate">
       <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
       <ng-template #placeholderTemplate>
         {{placeholder}}
       </ng-template>
     </span>
-    <div class="inline-flex gap-[5px]">
+    <span class="inline-flex gap-[5px] shrink-0">
       <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class=""></fa-icon>
       <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
       <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
-    </div>
+    </span>
   </div>
   <div class="mt-[5px] select-none w-full z-[1000] absolute" *ngIf="isDropdownOpen">
     <ul role="group" class="border-dark dark:border-light border-[1px] border-solid rounded-[5px]
