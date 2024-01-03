@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ButtonModule } from './button';
 import { CheckboxDirective } from './checkbox/checkbox.directive';
-import { DropdownDirective } from './dropdown/directives/dropdown.directive';
 import { LabelDirective } from './label/directives/label.directive';
 import { SearchModule } from './search/search.module';
 import { SelectModule } from './select';
@@ -16,7 +15,6 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
   imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],
   declarations: [
     CheckboxDirective,
-    DropdownDirective,
     LabelDirective,
     SwitchComponent,
     ThemeToggleDirective,
@@ -25,7 +23,6 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
   ],
   exports: [
     CheckboxDirective,
-    DropdownDirective,
     LabelDirective,
     SwitchComponent,
     ThemeToggleDirective,

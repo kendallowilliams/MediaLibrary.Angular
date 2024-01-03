@@ -3,9 +3,6 @@ export * from './controls.module';
 /** Select */
 export * from './select/index';
 
-/** Dropdown */
-export * from './dropdown/directives/dropdown.directive';
-
 /** Button */
 export * from './button/index';
 
