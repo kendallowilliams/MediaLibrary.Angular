@@ -1,14 +1,12 @@
-import { DestroyRef, Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ModalRef } from '../models/ModalRef.model';
 import { ModalBackdrop, ModalConfig } from '../models/ModalConfig.model';
 import { ModalService } from '../services/modal.service';
-import { debounceTime, fromEvent } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[mlDismissableModal]'
 })
-export class DismissableModalDirective implements OnChanges, OnInit {
+export class DismissableModalDirective implements OnChanges {
   @Input() public backdrop: ModalBackdrop = 'transparent';
   @Input() public isOpen = false;
   @Input() public useAppRootVcr = true;
@@ -20,15 +18,8 @@ export class DismissableModalDirective implements OnChanges, OnInit {
   constructor(
     private _template: TemplateRef<unknown>, 
     private _modalService: ModalService,
-    private _vcr: ViewContainerRef,
-    private _destroyRef: DestroyRef
+    private _vcr: ViewContainerRef
   ) { }
-
-  public ngOnInit(): void {
-    fromEvent(window, 'resize')
-      .pipe(takeUntilDestroyed(this._destroyRef), debounceTime(this._timeoutDelay))
-      .subscribe(() => this._hide());
-  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('isOpen' in changes) {
