@@ -6,15 +6,12 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
-  OnInit,
-  DestroyRef,
-  ChangeDetectorRef
+  HostListener
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, noop, fromEvent } from 'rxjs';
+import { BehaviorSubject, noop } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
 import { faCaretDown, faCaretUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
 
@@ -29,7 +26,7 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
     multi: true
   }]
 })
-export class SelectComponent implements ControlValueAccessor, OnInit {
+export class SelectComponent implements ControlValueAccessor {
   @HostBinding('class') private _class = 'inline-flex cursor-pointer group/select w-full outline-none rounded-[5px]';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
@@ -51,13 +48,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
 
-  constructor(private _host: ElementRef<HTMLElement>, private _destroyRef: DestroyRef, private _cd: ChangeDetectorRef) {}
-
-  public ngOnInit(): void {
-    fromEvent(this._host.nativeElement, 'blur')
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(() => this.closeDropdown());
-  }
+  constructor(private _host: ElementRef<HTMLElement>) {}
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
@@ -83,7 +74,6 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   public closeDropdown(): void {
     this.isDropdownOpen = false;
     this._ariaExpanded = false;
-    this._cd.detectChanges();
   }
 
   public writeValue(value: SelectValueType | null): void {
@@ -168,4 +158,9 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   /** public setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
   } */
+
+  @HostListener('blur')
+  private _handleBlur() : void {
+    this.closeDropdown();
+  }
 }
