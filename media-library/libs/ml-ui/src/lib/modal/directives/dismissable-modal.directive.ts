@@ -1,26 +1,34 @@
-import { Directive, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { DestroyRef, Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ModalRef } from '../models/ModalRef.model';
 import { ModalBackdrop, ModalConfig } from '../models/ModalConfig.model';
 import { ModalService } from '../services/modal.service';
+import { debounceTime, fromEvent } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[mlDismissableModal]'
 })
-export class DismissableModalDirective implements OnChanges {
+export class DismissableModalDirective implements OnChanges, OnInit {
   @Input() public backdrop: ModalBackdrop = 'transparent';
   @Input() public isOpen = false;
   @Input() public useAppRootVcr = true;
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
-  private _resizeTimeout?: number;
   private _timeoutDelay = 100;
   private _dropDownRef?: ModalRef<unknown>;
 
   constructor(
     private _template: TemplateRef<unknown>, 
     private _modalService: ModalService,
-    private _vcr: ViewContainerRef
+    private _vcr: ViewContainerRef,
+    private _destroyRef: DestroyRef
   ) { }
+
+  public ngOnInit(): void {
+    fromEvent(window, 'resize')
+      .pipe(takeUntilDestroyed(this._destroyRef), debounceTime(this._timeoutDelay))
+      .subscribe(() => this._hide());
+  }
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('isOpen' in changes) {
@@ -61,19 +69,5 @@ export class DismissableModalDirective implements OnChanges {
   private _close() : void {
     this.isOpen = false;
     this.isOpenChange.emit(this.isOpen);
-  }
-
-  @HostListener('window:resize')
-  private _handleResize(): void {
-    if (this._resizeTimeout) {
-      window.clearTimeout(this._resizeTimeout);
-    }
-
-    this._resizeTimeout = window.setTimeout(() => {
-      if (this.isOpen) {
-        this._hide();
-        this._resizeTimeout = undefined;
-      }
-    }, this._timeoutDelay);
   }
 }
