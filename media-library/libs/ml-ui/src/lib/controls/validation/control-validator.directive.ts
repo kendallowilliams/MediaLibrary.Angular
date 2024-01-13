@@ -6,7 +6,7 @@ import { NgControl } from "@angular/forms";
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `
     ml-select[formControlName],
-    ml-select[ngModal]
+    ml-select[ngModel]
   `
 })
 export class ControlValidatorDirective implements OnInit {
