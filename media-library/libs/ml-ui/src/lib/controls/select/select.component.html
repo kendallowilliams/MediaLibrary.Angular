@@ -1,7 +1,7 @@
 <div class="relative w-full">
   <div class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
     w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
-    gap-[5px]" (click)="toggleDropdown()">
+    gap-[5px] group-[.ml-invalid]/select:border-danger" (click)="toggleDropdown()">
     <span class="grow text-left truncate">
       <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
       <ng-template #placeholderTemplate>

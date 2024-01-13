@@ -15,3 +15,6 @@ export * from './switch/switch.component';
 
 /** Theme Toggle */
 export * from './theme-toggle/theme-toggle.directive';
+
+/** Validation */
+export * from './validation/control-validator.directive';

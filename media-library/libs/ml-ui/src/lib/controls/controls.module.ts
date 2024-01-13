@@ -10,6 +10,7 @@ import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
 import { ListBoxComponent } from './list-box/list-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
+import { ControlValidatorDirective } from './validation/control-validator.directive';
 
 @NgModule({
   imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],
@@ -19,7 +20,8 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
     SwitchComponent,
     ThemeToggleDirective,
     ListBoxComponent,
-    TextBoxDirective
+    TextBoxDirective,
+    ControlValidatorDirective
   ],
   exports: [
     CheckboxDirective,
@@ -30,7 +32,8 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
     SearchModule,
     SelectModule,
     ListBoxComponent,
-    TextBoxDirective
+    TextBoxDirective,
+    ControlValidatorDirective
   ],
 })
 export class ControlsModule {}
