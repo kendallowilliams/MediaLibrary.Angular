@@ -11,7 +11,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
 import { SelectOption } from './interfaces/SelectOption.interface';
-import { faCaretDown, faCaretUp, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCaretDown, faCaretUp, faCircleExclamation, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
 
@@ -47,6 +47,7 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretUp = faCaretUp;
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
+  public faCircleExclamation = faCircleExclamation;
 
   constructor(private _host: ElementRef<HTMLElement>) {}
 
