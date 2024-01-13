@@ -1,4 +1,4 @@
-<div class="relative w-full">
+<div class="relative w-full cursor-pointer">
   <div class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
     w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
     gap-[5px] group-[.ml-invalid]/select:border-danger group-[.ml-invalid]/select:dark:border-danger-dark" (click)="toggleDropdown()">
@@ -10,7 +10,7 @@
     </span>
     <span class="inline-flex gap-[5px] shrink-0">
       <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class="text-primary"></fa-icon>
-      <fa-icon [icon]="faCircleExclamation" (click)="clearSelection($event)" class="text-danger dark:text-danger-dark hidden group-[.ml-invalid]/select:block"></fa-icon>
+      <fa-icon [icon]="faCircleExclamation" class="text-danger dark:text-danger-dark hidden group-[.ml-invalid]/select:block"></fa-icon>
       <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
       <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
     </span>
