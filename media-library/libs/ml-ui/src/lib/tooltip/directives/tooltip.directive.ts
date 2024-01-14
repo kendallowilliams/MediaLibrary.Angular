@@ -1,4 +1,4 @@
-import { DestroyRef, Directive, ElementRef, Input, OnDestroy, OnInit, Renderer2, TemplateRef, ViewContainerRef } from "@angular/core";
+import { ComponentRef, DestroyRef, Directive, ElementRef, EmbeddedViewRef, Input, OnDestroy, OnInit, Renderer2, TemplateRef, ViewContainerRef, ViewRef } from "@angular/core";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { BasePlacement, Instance } from "@popperjs/core";
 import { createPopper } from "@popperjs/core/lib/createPopper";
@@ -14,6 +14,7 @@ export class TooltipDirective implements OnDestroy, OnInit {
   @Input() public ttTrigger: 'hover' | 'focus' | 'manual' | null = null;
 
   public popper?: Instance;
+  public viewRef?: ComponentRef<unknown> | EmbeddedViewRef<unknown>;
 
   constructor(
     private _host: ElementRef<HTMLElement>, 
@@ -28,15 +29,19 @@ export class TooltipDirective implements OnDestroy, OnInit {
         fromEvent(this._host.nativeElement, 'focus')
           .pipe(takeUntilDestroyed(this._destroyRef))
           .subscribe(() => this.show());
+
+          fromEvent(this._host.nativeElement, 'blur')
+            .pipe(takeUntilDestroyed(this._destroyRef))
+            .subscribe(() => this.hide());
       } else {
         fromEvent(this._host.nativeElement, 'mouseover')
         .pipe(takeUntilDestroyed(this._destroyRef))
         .subscribe(() => this.show());
-      }
 
-      fromEvent(this._host.nativeElement, 'blur')
-        .pipe(takeUntilDestroyed(this._destroyRef))
-        .subscribe(() => this.hide());
+        fromEvent(this._host.nativeElement, 'mouseleave')
+          .pipe(takeUntilDestroyed(this._destroyRef))
+          .subscribe(() => this.hide());
+      }
     }
   }
   
@@ -49,16 +54,26 @@ export class TooltipDirective implements OnDestroy, OnInit {
   }
 
   private _createPopperInstance(): void {
-    const componentRef = this._vcr.createComponent(TooltipComponent);
+    if (this.ttContent) {
+      this.viewRef = typeof this.ttContent === 'string' ?
+        this._vcr.createComponent(TooltipComponent) :
+        this._vcr.createEmbeddedView(this.ttContent);
 
-    this.popper = createPopper(
-      this._host.nativeElement, 
-      componentRef.location.nativeElement, {
-        placement: this.ttPlacement
-    });
+      if (typeof this.ttContent === 'string') {
+        const componentRef = this._vcr.createComponent(TooltipComponent);
+        this.popper = createPopper(
+          this._host.nativeElement, 
+          componentRef.location.nativeElement, {
+            placement: this.ttPlacement
+        });
+      } else {
+        const viewRef = this._vcr.createEmbeddedView(this.ttContent);
+      }
+    }
   }
 
   public hide() : void {
     this.popper?.destroy();
+    this._vcr.clear();
   }
 }
