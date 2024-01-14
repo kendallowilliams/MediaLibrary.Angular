@@ -10,6 +10,9 @@ import { NgControl } from "@angular/forms";
   `
 })
 export class ControlValidatorDirective implements OnInit {
+  private validClass = 'ml-valid';
+  private invalidClass = 'ml-invalid';
+
   constructor(
     private _control: NgControl, 
     private _destroyRef: DestroyRef, 
@@ -31,12 +34,12 @@ export class ControlValidatorDirective implements OnInit {
   }
 
   private _setValid() : void {
-    this._renderer.addClass(this._host.nativeElement, 'ml-valid');
-    this._renderer.removeClass(this._host.nativeElement, 'ml-invalid');
+    this._renderer.addClass(this._host.nativeElement, this.validClass);
+    this._renderer.removeClass(this._host.nativeElement, this.invalidClass);
   }
 
   private _setInvalid() : void {
-    this._renderer.addClass(this._host.nativeElement, 'ml-invalid');
-    this._renderer.removeClass(this._host.nativeElement, 'ml-valid');
+    this._renderer.addClass(this._host.nativeElement, this.invalidClass);
+    this._renderer.removeClass(this._host.nativeElement, this.validClass);
   }
 }
