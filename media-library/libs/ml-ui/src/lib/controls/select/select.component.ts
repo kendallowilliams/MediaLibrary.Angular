@@ -84,37 +84,7 @@ export class SelectComponent implements ControlValueAccessor {
         this.valueChange.next(value);
       }
     } else {
-      this._clearSelectedValue();
-    }
-  }
-
-  public addValue(value: SelectOption['value'] | null): void {
-    let values = this._value as SelectOption['value'][] || [];
-
-    if (value !== null && value !== undefined) {
-      if (!values?.includes(value)) {
-        values = values.concat(value);
-        this.writeValue(values);
-      }
-
-      if (!values || values.length === 0) {
-        this._clearSelectedValue();
-      }
-    }
-  }
-
-  public removeValue(value: SelectOption['value'] | null): void {
-    let values = this._value as SelectOption['value'][] || [];
-
-    if (value !== null && value !== undefined) {
-      if (values?.includes(value)) {
-        values = values.filter(v => value !== v);
-        this.writeValue(values);
-      }
-
-      if (!values || values.length === 0) {
-        this._clearSelectedValue();
-      }
+      this.clearSelectedValue();
     }
   }
 
@@ -138,10 +108,10 @@ export class SelectComponent implements ControlValueAccessor {
 
   public clearSelection(evt: Event) : void {
     evt.stopPropagation();
-    this._clearSelectedValue();
+    this.clearSelectedValue();
   }
 
-  private _clearSelectedValue() : void {
+  public clearSelectedValue() : void {
     this.selectLabel = undefined;
     this.value = null;
     this.valueChange.next(null);

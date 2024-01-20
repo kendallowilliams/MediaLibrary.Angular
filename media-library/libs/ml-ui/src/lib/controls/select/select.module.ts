@@ -6,7 +6,7 @@ import { SelectMultiSelectDirective } from './directives/select-multiselect.dire
 import { SelectFilterDirective } from './directives/select-filter.directive';
 import { SelectOptionDirective } from './directives/select-option.directive';
 import { ModalModule } from '../../modal/modal.module';
-import { MultiSelectOptionComponent } from './multi-select-option/multi-select-option.component';
+import { SelectOptionComponent } from './select-option/select-option.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
@@ -16,14 +16,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SelectMultiSelectDirective,
     SelectFilterDirective,
     SelectOptionDirective,
-    MultiSelectOptionComponent
+    SelectOptionComponent
   ],
   exports: [
     SelectComponent,
     SelectMultiSelectDirective,
     SelectFilterDirective,
     SelectOptionDirective,
-    MultiSelectOptionComponent
+    SelectOptionComponent
   ],
 })
 export class SelectModule {}

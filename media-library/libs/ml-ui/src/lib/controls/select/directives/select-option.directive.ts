@@ -1,9 +1,9 @@
-import { DestroyRef, Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
+import { Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
 import { SelectOption } from '../interfaces/SelectOption.interface';
-import { SelectComponent, SelectValueType } from '../select.component';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SelectComponent } from '../select.component';
 import { SelectMultiSelectDirective } from './select-multiselect.directive';
-import { MultiSelectOptionComponent } from '../multi-select-option/multi-select-option.component';
+import { SelectOptionComponent } from '../select-option/select-option.component';
+import { take } from 'rxjs';
 
 @Directive({
   selector: '[mlSelectOption]'
@@ -24,65 +24,31 @@ export class SelectOptionDirective implements OnInit {
     private _renderer: Renderer2, 
     private _vcr: ViewContainerRef,
     private _select: SelectComponent,
-    private _destroyRef: DestroyRef,
     @Optional() private _multiSelect: SelectMultiSelectDirective) {
     this.multiSelectable = !!this._multiSelect;
   }
   
   public ngOnInit(): void {
-    if (this.option.template) {
-      this._createTemplate();
-    } else if (this.multiSelectable) {
-      this._createMultiSelectOption();
-    } else {
-      const text = this._renderer.createText(this.option.text);
-
-      this._renderer.appendChild(this._host.nativeElement, text);
-    }
     this._select.valueChange
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe({
-        next: value => {
-          this._handleValueChange(value);
+      .pipe(take(1))
+      .subscribe(value => {
+        if (this.multiSelectable) {
+          const values = this._select.value as SelectOption['value'][] || [];
+          this._setSelected(values.includes(this.option.value));
+        } else {
+          this._setSelected(this.option.value === value);
         }
       });
+    this._createSelectOption();
   }
 
-  private _createTemplate() : void {
-    const ctx = {
-      $implicit: this.option
-    };
-
-    if (this.option.template) {
-      this._vcr.clear();
-      this._vcr.createEmbeddedView(this.option.template, ctx);
-    }
-  }
-
-  private _createMultiSelectOption() : void {
+  private _createSelectOption() : void {
     let componentRef = undefined;
 
     this._vcr.clear();
-    componentRef = this._vcr.createComponent(MultiSelectOptionComponent);
+    componentRef = this._vcr.createComponent(SelectOptionComponent);
     componentRef.setInput('option', this.option);
     this._renderer.appendChild(this._host.nativeElement, componentRef.location.nativeElement);
-  }
-
-  private _handleValueChange(value: SelectValueType | null): void {
-    if (this.multiSelectable) {
-      const values = value as SelectOption['value'][] || null;
-      if (!values || !values.includes(this.option.value)) {
-        this._setSelected(false);
-      } else if (values.includes(this.option.value)) {
-        this._setSelected(true);
-      }
-    } else {
-      if ((value !== null && value !== undefined) || this.option.value !== value) {
-        this._setSelected(false);
-      } else if (this.option.value === value) {
-        this._setSelected(true);
-      }
-    }
   }
 
   private _setSelected(selected: boolean) : void {
@@ -90,20 +56,49 @@ export class SelectOptionDirective implements OnInit {
     this._ariaSelected = selected;
   }
 
+  public addValue(value: SelectOption['value'] | null): void {
+    let values = this._select.value as SelectOption['value'][] || [];
+
+    if (value !== null && value !== undefined) {
+      if (!values?.includes(value)) {
+        values = values.concat(value);
+        this._select.writeValue(values);
+      }
+
+      if (!values || values.length === 0) {
+        this._select.clearSelectedValue();
+      }
+    }
+  }
+
+  public removeValue(value: SelectOption['value'] | null): void {
+    let values = this._select.value as SelectOption['value'][] || [];
+
+    if (value !== null && value !== undefined) {
+      if (values?.includes(value)) {
+        values = values.filter(v => value !== v);
+        this._select.writeValue(values);
+      }
+
+      if (!values || values.length === 0) {
+        this._select.clearSelectedValue();
+      }
+    }
+  }
+
   @HostListener('click')
   private _handleClick() : void {
     if (this.multiSelectable) {
       this._setSelected(!this.option.selected);
       if (this.option.selected) {
-        this._select.addValue(this.option.value);
+        this.addValue(this.option.value);
       } else {
-        this._select.removeValue(this.option.value);
+        this.removeValue(this.option.value);
       }
     } else {
-      if (!this.option.selected) {
-        this._setSelected(true);
-        this._select.writeValue(this.option.value);
-      }
+      this._select.options?.forEach(option => option.selected = false);
+      this._setSelected(true);
+      this._select.writeValue(this.option.value);
       this._select.closeDropdown();
     }
   }

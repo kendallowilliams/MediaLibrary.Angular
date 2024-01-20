@@ -28,8 +28,7 @@ export const Default: Story = {
       options: [0,1,2,3,4,5,6,7,8,9]
         .map(item => ({
           text: `Option ${item}`,
-          value: item,
-          selected: false
+          value: item
         })),
       placeholder: 'Select an option',
       defaultValue: 1,

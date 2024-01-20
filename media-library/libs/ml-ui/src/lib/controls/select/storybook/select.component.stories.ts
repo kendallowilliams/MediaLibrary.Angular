@@ -22,15 +22,18 @@ export const Default: Story = {
     options: [1,2,3,4,5,6,7,8,9]
       .map(item => ({
         text: `Option ${item}`,
-        value: item,
-        selected: false
+        value: item
     })),
     placeholder: 'Select an option'
   },
   render: (args) => ({
     props: {
-      ...args
-    }
+      ...args,
+      selectedValue: 5
+    },
+    template: `
+      <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"></ml-select>
+    `
   })
 };
 
@@ -39,8 +42,7 @@ export const Required: Story = {
     options: [1,2,3,4,5,6,7,8,9]
       .map(item => ({
         text: `Option ${item}`,
-        value: item,
-        selected: false
+        value: item
     })),
     placeholder: 'Select an option'
   },

@@ -1,0 +1,6 @@
+<ng-container *ngIf="isMultiSelectable; else optionLabel">
+  <label class="w-full"><input type="checkbox" [(ngModel)]="option.selected" />&nbsp;{{option.text}}</label>
+</ng-container>
+<ng-template #optionLabel>
+  <span>{{option.text}}</span>
+</ng-template>
