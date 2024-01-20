@@ -38,7 +38,7 @@ export const Default: Story = {
     template: `
       <div class="flex justify-center">
         <button mlButton [variant]="'primary'" (click)="isOpen=true">Show&nbsp;<span class="capitalize">{{messageType}}</span></button>
-        <ng-template mlDismissableModal [(isOpen)]="isOpen" [useAppRootVcr]="false">
+        <ng-template mlModal [(isOpen)]="isOpen" [useAppRootVcr]="false">
           <ml-message-box [title]="title" [message]="message" [messageType]="messageType"></ml-message-box>
         </ng-template>
       </div>
