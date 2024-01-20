@@ -7,8 +7,7 @@ import {
   HostBinding,
   ElementRef,
   HostListener,
-  Renderer2,
-  RendererStyleFlags2
+  Renderer2
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -140,6 +139,6 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('blur')
   private _handleBlur() : void {
-    // this.closeDropdown();
+    this.closeDropdown();
   }
 }

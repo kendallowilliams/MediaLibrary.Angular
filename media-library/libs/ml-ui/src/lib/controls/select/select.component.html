@@ -17,7 +17,7 @@
   </div>
 </div>
 <ng-template #dropdown>
-  <div class="mt-[5px] select-none w-[var(--dropdown-width)]" [ngStyle]="getDropdownVariables()">
+  <div class="mt-[5px] select-none w-[var(--dropdown-width)]" [ngStyle]="getDropdownVariables()" tabindex="0">
     <ul role="group" class="border-dark dark:border-light border-[1px] border-solid rounded-[5px]
       p-[1px] bg-light dark:bg-dark text-dark dark:text-light">
       <ng-container *ngFor="let option of options">
