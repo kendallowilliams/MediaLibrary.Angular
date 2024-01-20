@@ -1,4 +1,4 @@
-<div class="relative w-full cursor-pointer">
+<div class="w-full cursor-pointer" mlPopover [hidden]="!isDropdownOpen" [content]="dropdown" [placement]="'bottom-start'">
   <div class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
     w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
     gap-[5px] group-[.ml-invalid]/select:border-danger group-[.ml-invalid]/select:dark:border-danger-dark" (click)="toggleDropdown()">
@@ -15,7 +15,9 @@
       <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
     </span>
   </div>
-  <div class="mt-[5px] select-none w-full z-[1000] absolute" *ngIf="isDropdownOpen">
+</div>
+<ng-template #dropdown>
+  <div class="mt-[5px] select-none w-[var(--dropdown-width)]" [ngStyle]="getDropdownVariables()">
     <ul role="group" class="border-dark dark:border-light border-[1px] border-solid rounded-[5px]
       p-[1px] bg-light dark:bg-dark text-dark dark:text-light">
       <ng-container *ngFor="let option of options">
@@ -23,4 +25,4 @@
       </ng-container>
     </ul>
   </div>
-</div>
+</ng-template>

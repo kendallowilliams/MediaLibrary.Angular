@@ -8,9 +8,10 @@ import { SelectOptionDirective } from './directives/select-option.directive';
 import { ModalModule } from '../../modal/modal.module';
 import { SelectOptionComponent } from './select-option/select-option.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PopoverModule } from '../../popover';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, ModalModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FontAwesomeModule, ModalModule, FormsModule, ReactiveFormsModule, PopoverModule],
   declarations: [
     SelectComponent,
     SelectMultiSelectDirective,

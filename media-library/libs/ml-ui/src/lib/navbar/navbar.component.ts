@@ -6,7 +6,7 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
-import { NavbarService } from '@media-library/ml-ui';
+import { NavbarService } from '../navbar/services/navbar.service';
 
 @Component({
   selector: 'ml-navbar',

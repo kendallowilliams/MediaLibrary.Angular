@@ -6,7 +6,9 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
-  HostListener
+  HostListener,
+  Renderer2,
+  RendererStyleFlags2
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
@@ -49,7 +51,7 @@ export class SelectComponent implements ControlValueAccessor {
   public faTimesCircle = faTimesCircle;
   public faCircleExclamation = faCircleExclamation;
 
-  constructor(private _host: ElementRef<HTMLElement>) {}
+  constructor(private _host: ElementRef<HTMLElement>, private _renderer: Renderer2) {}
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
@@ -125,6 +127,12 @@ export class SelectComponent implements ControlValueAccessor {
     this._onTouched = fn;
   }
 
+  public getDropdownVariables() : { [key: string]: string } {
+    const host = this._host.nativeElement;
+
+    return { '--dropdown-width': `${host.clientWidth}px` };
+  }
+
   /** TODO: implement, if needed. */
   /** public setDisabledState?(isDisabled: boolean): void {
     throw new Error('Method not implemented.');
@@ -132,6 +140,6 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('blur')
   private _handleBlur() : void {
-    this.closeDropdown();
+    // this.closeDropdown();
   }
 }

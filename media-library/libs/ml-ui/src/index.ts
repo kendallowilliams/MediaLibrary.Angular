@@ -30,3 +30,6 @@ export * from './lib/content/configuration/index';
 
 /** Error Pages */
 export * from './lib/error-pages/index';
+
+/** Popover */
+export * from './lib/popover/index';
