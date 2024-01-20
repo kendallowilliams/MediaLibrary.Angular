@@ -27,7 +27,7 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor {
-  @HostBinding('class') private _class = 'inline-flex group/select w-full outline-none rounded-[5px] min-w-max';
+  @HostBinding('class') private _class = 'flex group/select outline-none rounded-[5px] min-w-max';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
