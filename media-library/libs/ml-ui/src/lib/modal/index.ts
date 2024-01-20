@@ -8,4 +8,4 @@ export * from './services/modal.service';
 export * from './models/ModalConfig.model';
 export * from './models/ModalRef.model';
 export * from './modal-content/modal-content.component';
-export * from './directives/dismissable-modal.directive';
+export * from './directives/modal.directive';

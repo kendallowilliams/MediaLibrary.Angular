@@ -1,18 +1,17 @@
 import { Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { ModalRef } from '../models/ModalRef.model';
-import { ModalBackdrop, ModalConfig } from '../models/ModalConfig.model';
+import { ModalConfig } from '../models/ModalConfig.model';
 import { ModalService } from '../services/modal.service';
 
 @Directive({
-  selector: '[mlDismissableModal]'
+  selector: '[mlModal]'
 })
-export class DismissableModalDirective implements OnChanges {
-  @Input() public backdrop: ModalBackdrop = 'transparent';
-  @Input() public isOpen = false;
+export class ModalDirective implements OnChanges {
+  @Input() public config: ModalConfig<unknown> = new ModalConfig<unknown>();
   @Input() public useAppRootVcr = true;
+  @Input() public isOpen = false;
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
-  private _timeoutDelay = 100;
   private _dropDownRef?: ModalRef<unknown>;
 
   constructor(
@@ -40,14 +39,10 @@ export class DismissableModalDirective implements OnChanges {
   }
 
   private _showModal() : void {
-    const modalConfig = new ModalConfig<unknown>();
-
-    modalConfig.static = false;
-    modalConfig.backdrop = this.backdrop;
     this._dropDownRef = this._modalService.showTemplate<unknown>(
       this._template, 
       null, 
-      modalConfig, 
+      this.config, 
       !this.useAppRootVcr ? this._vcr : undefined);
     this._dropDownRef.modal?.modalClose.subscribe(() => this._close());
   }

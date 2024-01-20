@@ -7,7 +7,7 @@ import { ModalBodyComponent } from './modal-body/modal-body.component';
 import { ModalFooterComponent } from './modal-footer/modal-footer.component';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { DismissableModalDirective } from './directives/dismissable-modal.directive';
+import { ModalDirective } from './directives/modal.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -18,7 +18,7 @@ import { DismissableModalDirective } from './directives/dismissable-modal.direct
     ModalBodyComponent,
     ModalFooterComponent,
     ModalContentComponent,
-    DismissableModalDirective
+    ModalDirective
   ],
   exports: [
     ModalTitleComponent,
@@ -26,7 +26,7 @@ import { DismissableModalDirective } from './directives/dismissable-modal.direct
     ModalBodyComponent,
     ModalFooterComponent,
     ModalContentComponent,
-    DismissableModalDirective
+    ModalDirective
   ],
 })
 export class ModalModule {}
