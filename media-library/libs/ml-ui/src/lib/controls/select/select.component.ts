@@ -153,10 +153,13 @@ export class SelectComponent implements ControlValueAccessor {
     this._dropdownHover = false;
   }
 
-  public handleDropdownBlur(evt: FocusEvent) : void {
-    const host = this._host.nativeElement;
+  public handleFocusOut(evt: FocusEvent) : void {
+    const host = this._host.nativeElement,
+      currentTarget = evt.currentTarget as HTMLElement,
+      relatedTarget = evt.relatedTarget as HTMLElement,
+      target = evt.target as HTMLElement;
 
-    if (!host.contains(evt.relatedTarget as HTMLElement)) {
+    if (!relatedTarget || (!host.contains(relatedTarget) && !currentTarget.contains(target))) {
       this.closeDropdown();
     }
   }
