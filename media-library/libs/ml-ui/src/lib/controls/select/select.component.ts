@@ -49,6 +49,7 @@ export class SelectComponent implements ControlValueAccessor {
   public faCaretDown = faCaretDown;
   public faTimesCircle = faTimesCircle;
   public faCircleExclamation = faCircleExclamation;
+  private _dropdownHover = false;
 
   constructor(private _host: ElementRef<HTMLElement>, private _renderer: Renderer2) {}
 
@@ -139,6 +140,24 @@ export class SelectComponent implements ControlValueAccessor {
 
   @HostListener('blur')
   private _handleBlur() : void {
-    this.closeDropdown();
+    if (!this._dropdownHover) {
+      this.closeDropdown();
+    }
+  }
+
+  public handleMouseEnter() : void {
+    this._dropdownHover = true;
+  }
+
+  public handleMouseLeave() : void {
+    this._dropdownHover = false;
+  }
+
+  public handleDropdownBlur(evt: FocusEvent) : void {
+    const host = this._host.nativeElement;
+
+    if (!host.contains(evt.relatedTarget as HTMLElement)) {
+      this.closeDropdown();
+    }
   }
 }
