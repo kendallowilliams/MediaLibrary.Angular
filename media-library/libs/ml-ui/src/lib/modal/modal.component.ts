@@ -81,7 +81,11 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   }
 
   public show() : void {
-    this._dialog.nativeElement.showModal();
+    if (this._modalConfig?.modeless) {
+      this._dialog.nativeElement.show();
+    } else {
+      this._dialog.nativeElement.showModal();
+    }
     fromEvent<HTMLDialogElement>(this._dialog.nativeElement, 'close')
       .pipe(takeUntilDestroyed(this._destroyRef))
       .subscribe(() => this._modalRef?.modalComponentRef?.destroy());
