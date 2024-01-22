@@ -29,7 +29,7 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit {
-  @HostBinding('class') private _class = 'flex group/select outline-none min-w-max';
+  @HostBinding('class') private _class = 'flex group/select outline-none';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;

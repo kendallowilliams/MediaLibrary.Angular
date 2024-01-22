@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from '../select.module';
 import { SelectSearchDirective } from '../directives/select-search.directive';
+import { categories, groups, options } from './select.data';
 
 const meta: Meta<SelectSearchDirective> = {
   title: 'Components/Select/Search',
@@ -26,25 +27,23 @@ export const Default: Story = {
   render: (args: SelectSearchDirective) => ({
     props: {
       ...args,
-      options: [1,2,3,4,5,6,7,8,9]
-        .map(item => ({
-          text: `Option ${item}`,
-          value: item
-        })),
+      options: options,
+      groups: groups,
+      categories: categories,
       placeholder: 'Select an option',
-      defaultValue: [1,9]
+      defaultValue: [0]
     },
     template: `
       <div class="flex flex-col gap-[20px]">
         <ml-select mlSelectSearch [options]="options" [placeholder]="placeholder"
           [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive"></ml-select>
-        <ml-select mlSelectMultiSelect mlSelectSearch [options]="options" [placeholder]="placeholder"
+          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
+        <ml-select mlSelectMultiSelect mlSelectSearch [options]="groups" [placeholder]="placeholder"
           [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive">></ml-select>
-        <ml-select mlSelectMultiSelect mlSelectSearch [options]="options" [placeholder]="placeholder"
+          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
+        <ml-select mlSelectMultiSelect mlSelectSearch [options]="categories" [placeholder]="placeholder"
           [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive">></ml-select>
+          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
       </div>
     `
   })

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectFilterDirective } from '../directives/select-filter.directive';
 import { SelectModule } from '../select.module';
+import { options } from './select.data';
 
 const meta: Meta<SelectFilterDirective> = {
   title: 'Components/Select/Filter',
@@ -25,11 +26,7 @@ export const Default: Story = {
   },
   render: (args: SelectFilterDirective) => ({
     props: {
-      options: [0,1,2,3,4,5,6,7,8,9]
-        .map(item => ({
-          text: `Option ${item}`,
-          value: item
-        })),
+      options: options,
       placeholder: 'Select an option',
       defaultValue: 1,
       ...args
@@ -38,7 +35,7 @@ export const Default: Story = {
       <div>
         <ml-select mlSelectFilter [(query)]="query" [caseInsensitive]="caseInsensitive" [partial]="partial"
           [options]="options" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue"></ml-select>
+          [(ngModel)]="defaultValue" class="[--dropdown-options-height:100px]"></ml-select>
       </div>
     `
   })

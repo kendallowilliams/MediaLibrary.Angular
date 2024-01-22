@@ -3,6 +3,7 @@ import { SelectComponent } from '../select.component';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ControlsModule } from '../../controls.module';
+import { options } from './select.data';
 
 const meta: Meta<SelectComponent> = {
   title: 'Components/Select',
@@ -19,11 +20,7 @@ type Story = StoryObj<SelectComponent>;
 
 export const Default: Story = {
   args: {
-    options: [1,2,3,4,5,6,7,8,9]
-      .map(item => ({
-        text: `Option ${item}`,
-        value: item
-    })),
+    options: options,
     placeholder: 'Select an option'
   },
   render: (args) => ({
@@ -40,11 +37,7 @@ export const Default: Story = {
 
 export const Required: Story = {
   args: {
-    options: [1,2,3,4,5,6,7,8,9]
-      .map(item => ({
-        text: `Option ${item}`,
-        value: item
-    })),
+    options: options,
     placeholder: 'Select an option'
   },
   render: (args) => ({
@@ -54,7 +47,8 @@ export const Required: Story = {
     },
     template: `
       <div [formGroup]="formGroup">
-        <ml-select [options]="options" [placeholder]="placeholder" formControlName="select"></ml-select>
+        <ml-select [options]="options" [placeholder]="placeholder" formControlName="select"
+          class="[--dropdown-options-height:100px]"></ml-select>
       </div>
     `
   })
