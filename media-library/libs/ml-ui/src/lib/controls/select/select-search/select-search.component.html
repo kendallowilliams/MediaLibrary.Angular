@@ -1,3 +1,8 @@
-<input [ngModel]="query" (ngModelChange)="handleQueryChange($event)" #input class="outline-none grow" 
-    [placeholder]="placeholder"/>
-<fa-icon [icon]="input.value ? faTimes : faSearch"></fa-icon>
+<input [(ngModel)]="query" (ngModelChange)="handleQueryChange($event)" #input class="outline-none grow" 
+  [placeholder]="placeholder" />
+<ng-container *ngIf="!input.value; else clearButton">
+  <fa-icon [icon]="faSearch"></fa-icon>
+</ng-container>
+<ng-template #clearButton>
+  <fa-icon [icon]="faTimes" (click)="handleClear()" class="cursor-pointer"></fa-icon>
+</ng-template>
