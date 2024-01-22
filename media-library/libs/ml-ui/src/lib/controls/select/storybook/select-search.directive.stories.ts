@@ -30,19 +30,18 @@ export const Default: Story = {
       options: options,
       groups: groups,
       categories: categories,
-      placeholder: 'Select an option',
-      defaultValue: [0]
+      placeholder: 'Select items...'
     },
     template: `
       <div class="flex flex-col gap-[20px]">
         <ml-select mlSelectSearch [options]="options" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
+          [searchPlaceholder]="searchPlaceholder" [partial]="partial"
           [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
         <ml-select mlSelectMultiSelect mlSelectSearch [options]="groups" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
+          [searchPlaceholder]="searchPlaceholder" [partial]="partial"
           [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
         <ml-select mlSelectMultiSelect mlSelectSearch [options]="categories" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue" [searchPlaceholder]="searchPlaceholder" [partial]="partial"
+          [searchPlaceholder]="searchPlaceholder" [partial]="partial"
           [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
       </div>
     `
