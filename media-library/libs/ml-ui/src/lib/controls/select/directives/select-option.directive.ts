@@ -13,7 +13,7 @@ export class SelectOptionDirective implements OnInit {
 
   @HostBinding('class') private _class = `bg-light dark:bg-dark text-dark dark:text-light 
     hover:bg-dark hover:text-light hover:dark:bg-light hover:dark:text-dark
-    px-[5px] cursor-pointer`;
+    px-[5px] cursor-pointer h-[25px]`;
   @HostBinding('attr.role') private _role = 'option';
   @HostBinding('attr.aria-selected') private _ariaSelected = false;
 
