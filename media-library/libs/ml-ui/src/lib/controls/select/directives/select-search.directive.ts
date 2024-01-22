@@ -16,6 +16,7 @@ export class SelectSearchDirective {
   constructor(private _select: SelectComponent) {}
 
   public setSearch(search: SelectSearchComponent) : void {
+    this._showAll();
     this._search = search;
     this._search.queryChange
       .subscribe(query => {
@@ -27,5 +28,9 @@ export class SelectSearchDirective {
     this._select.options?.forEach(o => {
       o.hidden = !!query && !strMatch(o.text, query, this.caseInsensitive, this.partial);
     });
+  }
+
+  private _showAll() : void {
+    this._select.options?.forEach(o => o.hidden = false);
   }
 }
