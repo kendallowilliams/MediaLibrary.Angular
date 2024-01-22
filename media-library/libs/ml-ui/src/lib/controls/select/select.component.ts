@@ -170,10 +170,9 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   public handleFocusOut(evt: FocusEvent) : void {
     const host = this._host.nativeElement,
       currentTarget = evt.currentTarget as HTMLElement,
-      relatedTarget = evt.relatedTarget as HTMLElement,
-      target = evt.target as HTMLElement;
+      relatedTarget = evt.relatedTarget as HTMLElement;
 
-    if (!relatedTarget || (!host.contains(relatedTarget) && !currentTarget.contains(target))) {
+    if (!relatedTarget || (!host.contains(relatedTarget) && !currentTarget.contains(relatedTarget))) {
       this.closeDropdown();
     }
   }
