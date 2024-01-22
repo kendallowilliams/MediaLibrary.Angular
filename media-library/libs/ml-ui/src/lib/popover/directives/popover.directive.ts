@@ -41,7 +41,11 @@ export class PopoverDirective implements OnChanges, OnDestroy {
       this._instance = createPopper(
         this._host.nativeElement,
         this._popover.location.nativeElement, {
-          placement: this.placement
+          placement: this.placement,
+          modifiers: [{
+            name: 'flip',
+            enabled: false,
+          }]
         }
       );
     }
