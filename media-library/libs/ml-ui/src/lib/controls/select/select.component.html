@@ -17,10 +17,11 @@
   </div>
 </div>
 <ng-template #dropdown>
-  <div class="mt-[5px] select-none w-[var(--dropdown-width)]" [ngStyle]="getDropdownVariables()" tabindex="0" 
+  <div class="mt-[5px] select-none w-[var(--dropdown-width)] border-dark dark:border-light border-[1px] border-solid rounded-[5px]
+    p-[1px] bg-light dark:bg-dark text-dark dark:text-light" [ngStyle]="getDropdownVariables()" tabindex="0" 
     (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)">
-    <ul role="group" class="border-dark dark:border-light border-[1px] border-solid rounded-[5px]
-      p-[1px] bg-light dark:bg-dark text-dark dark:text-light">
+    <ng-template mlSelectSearchTemplate></ng-template>
+    <ul role="group" class="">
       <ng-container *ngFor="let option of options">
         <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
       </ng-container>

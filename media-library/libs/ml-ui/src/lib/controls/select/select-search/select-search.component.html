@@ -1,0 +1,3 @@
+<input [ngModel]="query" (ngModelChange)="handleQueryChange($event)" #input class="outline-none grow" 
+    [placeholder]="placeholder"/>
+<fa-icon [icon]="input.value ? faTimes : faSearch"></fa-icon>

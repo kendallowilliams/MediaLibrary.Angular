@@ -9,22 +9,30 @@ import { ModalModule } from '../../modal/modal.module';
 import { SelectOptionComponent } from './select-option/select-option.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PopoverModule } from '../../popover';
+import { SelectSearchDirective } from './directives/select-search.directive';
+import { SelectSearchTemplateDirective } from './directives/select-search-template.directive';
+import { TextBoxDirective } from '../text-box/directives/text-box.directive';
+import { SelectSearchComponent } from './select-search/select-search.component';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, ModalModule, FormsModule, ReactiveFormsModule, PopoverModule],
+  imports: [CommonModule, FontAwesomeModule, ModalModule, FormsModule, ReactiveFormsModule, PopoverModule, TextBoxDirective],
   declarations: [
     SelectComponent,
     SelectMultiSelectDirective,
     SelectFilterDirective,
     SelectOptionDirective,
-    SelectOptionComponent
+    SelectOptionComponent,
+    SelectSearchDirective,
+    SelectSearchTemplateDirective,
+    SelectSearchComponent
   ],
   exports: [
     SelectComponent,
     SelectMultiSelectDirective,
     SelectFilterDirective,
     SelectOptionDirective,
-    SelectOptionComponent
+    SelectOptionComponent,
+    SelectSearchDirective
   ],
 })
 export class SelectModule {}

@@ -13,14 +13,13 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
 
 @NgModule({
-  imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule],
+  imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule, TextBoxDirective],
   declarations: [
     CheckboxDirective,
     LabelDirective,
     SwitchComponent,
     ThemeToggleDirective,
     ListBoxComponent,
-    TextBoxDirective,
     ControlValidatorDirective
   ],
   exports: [
@@ -32,7 +31,6 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
     SearchModule,
     SelectModule,
     ListBoxComponent,
-    TextBoxDirective,
     ControlValidatorDirective
   ],
 })

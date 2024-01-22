@@ -1,7 +1,8 @@
 import { Directive, HostBinding } from "@angular/core";
 
 @Directive({
-  selector: '[mlTextBox]'
+  selector: '[mlTextBox]',
+  standalone: true
 })
 export class TextBoxDirective {
   @HostBinding('class') private _class = `h-control text-dark border-dark

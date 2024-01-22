@@ -4,3 +4,6 @@ export * from './interfaces/SelectOption.interface';
 export * from './directives/select-filter.directive';
 export * from './directives/select-multiselect.directive';
 export * from './directives/select-option.directive';
+export * from './directives/select-search-template.directive';
+export * from './directives/select-search.directive';
+export * from './select-search/select-search.component';
