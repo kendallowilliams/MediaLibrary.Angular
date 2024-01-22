@@ -21,10 +21,12 @@
     p-[1px] bg-light dark:bg-dark text-dark dark:text-light" [ngStyle]="getDropdownVariables()" tabindex="0" 
     (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)">
     <ng-template mlSelectSearchTemplate></ng-template>
-    <ul role="group" class="">
-      <ng-container *ngFor="let option of options">
-        <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
-      </ng-container>
-    </ul>
+    <div class="h-[var(--dropdown-options-height)] overflow-auto {{dropdownOptionsHeightVarClass}}">
+      <ul role="group" class="">
+        <ng-container *ngFor="let option of options">
+          <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
+        </ng-container>
+      </ul>
+    </div>
   </div>
 </ng-template>

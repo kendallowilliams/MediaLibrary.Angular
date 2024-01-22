@@ -32,7 +32,8 @@ export const Default: Story = {
       selectedValue: 5
     },
     template: `
-      <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"></ml-select>
+      <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"
+        class="[--dropdown-options-height:100px]"></ml-select>
     `
   })
 };
