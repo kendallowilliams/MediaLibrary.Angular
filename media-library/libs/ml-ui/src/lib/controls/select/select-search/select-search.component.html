@@ -1,8 +1,12 @@
-<input [(ngModel)]="query" (ngModelChange)="handleQueryChange($event)" #input class="outline-none grow" 
-  [placeholder]="placeholder" />
-<ng-container *ngIf="!input.value; else clearButton">
-  <fa-icon [icon]="faSearch"></fa-icon>
-</ng-container>
+<label class="focus-within:ring flex h-control text-dark border-dark px-[5px] m-[5px]
+  border-[1px] border-solid rounded-[5px] outline-none bg-white
+  items-center w-full">
+  <input [(ngModel)]="query" (ngModelChange)="handleQueryChange($event)" #input class="outline-none grow" 
+    [placeholder]="placeholder" />
+  <ng-container *ngIf="!input.value; else clearButton">
+    <fa-icon [icon]="faSearch"></fa-icon>
+  </ng-container>
+</label>
 <ng-template #clearButton>
   <fa-icon [icon]="faTimes" (click)="handleClear()" class="cursor-pointer"></fa-icon>
 </ng-template>

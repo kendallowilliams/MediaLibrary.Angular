@@ -1,21 +1,21 @@
-<div class="w-full cursor-pointer" mlPopover [hidden]="!isDropdownOpen" [content]="dropdown" [placement]="'bottom-start'">
-  <div class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
-    w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
-    gap-[5px] group-[.ml-invalid]/select:border-danger group-[.ml-invalid]/select:dark:border-danger-dark" (click)="toggleDropdown()">
-    <span class="grow text-left truncate">
-      <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
-      <ng-template #placeholderTemplate>
-        {{placeholder}}
-      </ng-template>
-    </span>
-    <span class="inline-flex gap-[5px] shrink-0">
-      <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class="text-primary"></fa-icon>
-      <fa-icon [icon]="faCircleExclamation" class="text-danger dark:text-danger-dark hidden group-[.ml-invalid]/select:block"></fa-icon>
-      <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
-      <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
-    </span>
-  </div>
-</div>
+<button type="button" class="flex items-center border-dark border-[1px] border-solid rounded-[5px]
+  w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
+  gap-[5px] group-[.ml-invalid]/select:border-danger group-[.ml-invalid]/select:dark:border-danger-dark focus:ring"
+  (click)="toggleDropdown()" mlPopover [hidden]="!isDropdownOpen" [content]="dropdown" [placement]="'bottom-start'"
+  (blur)="handleBlur()">
+  <span class="grow text-left truncate">
+    <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
+    <ng-template #placeholderTemplate>
+      {{placeholder}}
+    </ng-template>
+  </span>
+  <span class="inline-flex gap-[5px] shrink-0">
+    <fa-icon [icon]="faTimesCircle" *ngIf="selectLabel" (click)="clearSelection($event)" class="text-primary"></fa-icon>
+    <fa-icon [icon]="faCircleExclamation" class="text-danger dark:text-danger-dark hidden group-[.ml-invalid]/select:block"></fa-icon>
+    <fa-icon [icon]="faCaretDown" *ngIf="!isDropdownOpen"></fa-icon>
+    <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
+  </span>
+</button>
 <ng-template #dropdown>
   <div class="mt-[5px] select-none w-[var(--dropdown-width)] border-dark dark:border-light border-[1px] border-solid rounded-[5px]
     p-[1px] bg-light dark:bg-dark text-dark dark:text-light" [ngStyle]="getDropdownVariables()" tabindex="0" 

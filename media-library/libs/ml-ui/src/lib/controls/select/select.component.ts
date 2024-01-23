@@ -6,7 +6,6 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
-  HostListener,
   OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -28,11 +27,10 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit {
-  @HostBinding('class') private _class = 'flex group/select outline-none';
+  @HostBinding('class') private _class = 'flex group/select';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
-  @HostBinding('attr.tabindex') private _tabIndex = 0;
 
   public isDropdownOpen = false;
 
@@ -80,7 +78,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
 
   public toggleDropdown(): void {
     if (this.isDropdownOpen) {
-      this._host.nativeElement.blur();
+      this.closeDropdown();
     } else {
       this.isDropdownOpen = true;
       this._ariaExpanded = true;
@@ -152,8 +150,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     throw new Error('Method not implemented.');
   } */
 
-  @HostListener('blur')
-  private _handleBlur() : void {
+  public handleBlur() : void {
     if (!this._dropdownHover) {
       this.closeDropdown();
     }
