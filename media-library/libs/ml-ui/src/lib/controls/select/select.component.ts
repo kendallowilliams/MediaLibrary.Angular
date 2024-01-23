@@ -7,7 +7,6 @@ import {
   HostBinding,
   ElementRef,
   HostListener,
-  Renderer2,
   OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -128,6 +127,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   }
 
   public clearSelectedValue() : void {
+    this.options?.forEach(option => option.selected = false);
     this.selectLabel = undefined;
     this.value = null;
     this.valueChange.next(null);

@@ -29,16 +29,12 @@ export class SelectOptionDirective implements OnInit {
   }
   
   public ngOnInit(): void {
-    this._select.valueChange
-      .pipe(take(1))
-      .subscribe(value => {
-        if (this.multiSelectable) {
-          const values = this._select.value as SelectOption['value'][] || [];
-          this._setSelected(values.includes(this.option.value));
-        } else {
-          this._setSelected(this.option.value === value);
-        }
-      });
+    if (this.multiSelectable) {
+      const values = this._select.value as SelectOption['value'][] || [];
+      this._setSelected(values.includes(this.option.value));
+    } else {
+      this._setSelected(this.option.value === this._select.value);
+    }
     this._createSelectOption();
   }
 
