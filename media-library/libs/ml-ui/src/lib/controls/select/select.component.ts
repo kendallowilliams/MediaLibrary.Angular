@@ -6,8 +6,6 @@ import {
   forwardRef,
   HostBinding,
   ElementRef,
-  HostListener,
-  Renderer2,
   OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -81,7 +79,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
 
   public toggleDropdown(): void {
     if (this.isDropdownOpen) {
-      this._host.nativeElement.blur();
+      this.closeDropdown();
     } else {
       this.isDropdownOpen = true;
       this._ariaExpanded = true;
@@ -152,8 +150,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     throw new Error('Method not implemented.');
   } */
 
-  @HostListener('blur')
-  private _handleBlur() : void {
+  public handleBlur() : void {
     if (!this._dropdownHover) {
       this.closeDropdown();
     }
