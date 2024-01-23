@@ -27,11 +27,10 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
   }]
 })
 export class SelectComponent implements ControlValueAccessor, OnInit {
-  @HostBinding('class') private _class = 'flex group/select outline-none';
+  @HostBinding('class') private _class = 'flex group/select';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
   @Input() public options: SelectOption[] | null = null;
-  @HostBinding('attr.tabindex') private _tabIndex = 0;
 
   public isDropdownOpen = false;
 
