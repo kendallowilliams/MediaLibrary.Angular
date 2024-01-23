@@ -49,5 +49,6 @@ export class SelectSearchComponent {
 
   public handleClear() : void {
     this.query = '';
+    this.queryChange.emit('');
   }
 }
