@@ -25,12 +25,14 @@ export class SelectSearchDirective {
   }
 
   private _applyFilter(query: string | null) : void {
-    this._select.options?.forEach(o => {
+    this._select.getOptions().forEach(o => {
       o.hidden = !!query && !strMatch(o.text, query, this.caseInsensitive, this.partial);
     });
+    this._select.internalGroups?.forEach(group => group.hidden = !group.options.some(option => !option.hidden));
   }
 
   private _showAll() : void {
-    this._select.options?.forEach(o => o.hidden = false);
+    this._select.getOptions().forEach(option => option.hidden = false);
+    this._select.internalGroups?.forEach(group => group.hidden = false);
   }
 }

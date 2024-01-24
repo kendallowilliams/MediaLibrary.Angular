@@ -5,12 +5,11 @@ import {
   ViewEncapsulation,
   forwardRef,
   HostBinding,
-  ElementRef,
-  OnInit
+  ElementRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
-import { SelectOption } from './interfaces/SelectOption.interface';
+import { SelectOption, SelectOptionGroup } from './interfaces/select-option.interface';
 import { faCaretDown, faCaretUp, faCircleExclamation, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
@@ -26,11 +25,10 @@ export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
     multi: true
   }]
 })
-export class SelectComponent implements ControlValueAccessor, OnInit {
+export class SelectComponent implements ControlValueAccessor {
   @HostBinding('class') private _class = 'flex group/select';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
-  @Input() public options: SelectOption[] | null = null;
 
   public isDropdownOpen = false;
 
@@ -48,21 +46,11 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   public faTimesCircle = faTimesCircle;
   public faCircleExclamation = faCircleExclamation;
   private _dropdownHover = false;
-  private readonly _dropdownOptionsHeightVar = '--dropdown-options-height';
-  public dropdownOptionsHeightVarClass: string | null = null;
+  
+  public internalOptions: SelectOption[] | null = null;
+  public internalGroups: SelectOptionGroup[] | null = null;
 
   constructor(private _host: ElementRef<HTMLElement>) {}
-
-  public ngOnInit(): void {
-    const classList = this._host.nativeElement.classList;
-
-    for(let index = 0; index < classList.length; index++) {
-      if (classList[index].includes(this._dropdownOptionsHeightVar)) {
-        this.dropdownOptionsHeightVarClass = classList[index];
-        break;
-      }
-    }
-  }
 
   /** A public accessor for the internal value of the select. */
   public get value(): SelectValueType | null {
@@ -106,13 +94,13 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
       if (Array.isArray(this.value)) {
         const values = this.value as SelectOption['value'][];
 
-        this.selectLabel = this.options?.filter(o => values.includes(o.value))
+        this.selectLabel = this.getOptions().filter(o => values.includes(o.value))
           .map(o => o.text)
           .sort()
           .join(', ');
       }
       else {
-        this.selectLabel = this.options?.find(o => o.value === this.value)?.text;
+        this.selectLabel = this.getOptions().find(o => o.value === this.value)?.text;
       }
     } else {
       this.selectLabel = undefined;
@@ -125,7 +113,7 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
   }
 
   public clearSelectedValue() : void {
-    this.options?.forEach(option => option.selected = false);
+    this.getOptions().forEach(option => option.selected = false);
     this.selectLabel = undefined;
     this.value = null;
     this.valueChange.next(null);
@@ -172,5 +160,16 @@ export class SelectComponent implements ControlValueAccessor, OnInit {
     if (!relatedTarget || (!host.contains(relatedTarget) && !currentTarget.contains(relatedTarget))) {
       this.closeDropdown();
     }
+  }
+
+  public getOptions() : SelectOption[] {
+    const options: SelectOption[] = [];
+    if (this.internalOptions) {
+      options.push(...this.internalOptions);
+    } else {
+      this.internalGroups?.forEach(group => options?.push(...group.options));
+    }
+
+    return options;
   }
 }

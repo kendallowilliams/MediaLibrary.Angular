@@ -7,3 +7,9 @@ export interface SelectOption {
   selected?: boolean;
   hidden?: boolean;
 }
+
+export interface SelectOptionGroup {
+  name: string;
+  options: SelectOption[];
+  hidden?: boolean;
+}

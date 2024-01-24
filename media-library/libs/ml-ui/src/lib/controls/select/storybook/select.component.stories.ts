@@ -3,7 +3,7 @@ import { SelectComponent } from '../select.component';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ControlsModule } from '../../controls.module';
-import { options } from './select.data';
+import { optionGroups, options } from './select.data';
 
 const meta: Meta<SelectComponent> = {
   title: 'Components/Select',
@@ -20,29 +20,39 @@ type Story = StoryObj<SelectComponent>;
 
 export const Default: Story = {
   args: {
-    options: options,
     placeholder: 'Select an option'
   },
   render: (args) => ({
     props: {
       ...args,
-      selectedValue: 5
+      options: options,
+      groups: optionGroups,
+      selectedValue: 5,
+      selectedGroupValue: 5
     },
     template: `
-      <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"
-        class="[--dropdown-options-height:100px]"></ml-select>
+      <div class="flex gap-[30px]">
+        <div class="flex flex-col gap-[10px] basis-1/2">
+          <label mlLabel>Options</label>
+          <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"></ml-select>
+        </div>
+        <div class="flex flex-col gap-[10px] basis-1/2">
+          <label mlLabel>Categories</label>
+          <ml-select [groups]="groups" [placeholder]="placeholder" [(ngModel)]="selectedGroupValue"></ml-select>
+        </div>
+      </div>
     `
   })
 };
 
 export const Required: Story = {
   args: {
-    options: options,
     placeholder: 'Select an option'
   },
   render: (args) => ({
     props: {
       ...args,
+      options: options,
       formGroup: new FormGroup({ select: new FormControl(null, [Validators.required]) })
     },
     template: `

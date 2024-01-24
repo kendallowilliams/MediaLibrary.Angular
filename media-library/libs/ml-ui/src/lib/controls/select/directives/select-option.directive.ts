@@ -1,9 +1,8 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
-import { SelectOption } from '../interfaces/SelectOption.interface';
+import { SelectOption } from '../interfaces/select-option.interface';
 import { SelectComponent } from '../select.component';
 import { SelectMultiSelectDirective } from './select-multiselect.directive';
 import { SelectOptionComponent } from '../select-option/select-option.component';
-import { take } from 'rxjs';
 
 @Directive({
   selector: '[mlSelectOption]'
@@ -92,7 +91,7 @@ export class SelectOptionDirective implements OnInit {
         this.removeValue(this.option.value);
       }
     } else {
-      this._select.options?.forEach(option => option.selected = false);
+      this._select.getOptions().forEach(option => option.selected = false);
       this._setSelected(true);
       this._select.writeValue(this.option.value);
       this._select.closeDropdown();

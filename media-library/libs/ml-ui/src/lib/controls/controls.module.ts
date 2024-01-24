@@ -13,10 +13,9 @@ import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
 
 @NgModule({
-  imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule, TextBoxDirective],
+  imports: [CommonModule, ButtonModule, SearchModule, SelectModule, FontAwesomeModule, TextBoxDirective, LabelDirective],
   declarations: [
     CheckboxDirective,
-    LabelDirective,
     SwitchComponent,
     ThemeToggleDirective,
     ListBoxComponent,

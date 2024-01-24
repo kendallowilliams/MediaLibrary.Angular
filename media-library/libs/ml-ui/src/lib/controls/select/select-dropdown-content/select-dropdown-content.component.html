@@ -1,0 +1,23 @@
+<div class="">
+  <ng-container *ngIf="options">
+    <ul role="group">
+      <ng-container *ngFor="let option of options">
+        <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
+      </ng-container>
+    </ul>
+  </ng-container>
+  <ng-container *ngIf="groups">
+    <ul role="listbox">
+      <ng-container *ngFor="let group of groups">
+        <li role="group">
+          <div mlLabel>{{group.name}}</div>
+          <ul role="presentation">
+            <ng-container *ngFor="let option of group.options">
+              <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
+            </ng-container>
+          </ul>
+        </li>
+      </ng-container>
+    </ul>
+  </ng-container>
+</div>

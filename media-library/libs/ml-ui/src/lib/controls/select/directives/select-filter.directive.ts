@@ -23,7 +23,7 @@ export class SelectFilterDirective implements OnInit, OnChanges {
   }
 
   private _applyFilter(query: string | null) : void {
-    this._select.options?.forEach(o => {
+    this._select.getOptions().forEach(o => {
       o.hidden = !!query && !strMatch(o.text, query, this.caseInsensitive, this.partial);
     });
   }

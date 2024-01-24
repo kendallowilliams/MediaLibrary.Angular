@@ -13,9 +13,22 @@ import { SelectSearchDirective } from './directives/select-search.directive';
 import { SelectSearchTemplateDirective } from './directives/select-search-template.directive';
 import { TextBoxDirective } from '../text-box/directives/text-box.directive';
 import { SelectSearchComponent } from './select-search/select-search.component';
+import { SelectOptionsDirective } from './directives/select-options.directive';
+import { SelectOptionGroupsDirective } from './directives/select-option-groups.directive';
+import { SelectDropdownContentComponent } from './select-dropdown-content/select-dropdown-content.component';
+import { LabelDirective } from '../label/directives/label.directive';
 
 @NgModule({
-  imports: [CommonModule, FontAwesomeModule, ModalModule, FormsModule, ReactiveFormsModule, PopoverModule, TextBoxDirective],
+  imports: [
+    CommonModule, 
+    FontAwesomeModule, 
+    ModalModule, 
+    FormsModule, 
+    ReactiveFormsModule,
+    PopoverModule, 
+    TextBoxDirective,
+    LabelDirective
+  ],
   declarations: [
     SelectComponent,
     SelectMultiSelectDirective,
@@ -24,7 +37,10 @@ import { SelectSearchComponent } from './select-search/select-search.component';
     SelectOptionComponent,
     SelectSearchDirective,
     SelectSearchTemplateDirective,
-    SelectSearchComponent
+    SelectSearchComponent,
+    SelectOptionsDirective,
+    SelectOptionGroupsDirective,
+    SelectDropdownContentComponent
   ],
   exports: [
     SelectComponent,
@@ -32,7 +48,9 @@ import { SelectSearchComponent } from './select-search/select-search.component';
     SelectFilterDirective,
     SelectOptionDirective,
     SelectOptionComponent,
-    SelectSearchDirective
+    SelectSearchDirective,
+    SelectOptionsDirective,
+    SelectOptionGroupsDirective
   ],
 })
 export class SelectModule {}

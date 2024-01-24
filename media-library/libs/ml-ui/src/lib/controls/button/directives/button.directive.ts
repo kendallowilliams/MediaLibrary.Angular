@@ -11,6 +11,7 @@ export class ButtonDirective implements OnInit {
   @Input() public variant: ButtonVariant = 'primary';
   @Input() public disabled = false;
   @HostBinding('attr.tabindex') private _tabIndex = 0;
+  @HostBinding('attr.type') private _type = 'button';
 
   private _baseClasses = [
     'inline-flex',
