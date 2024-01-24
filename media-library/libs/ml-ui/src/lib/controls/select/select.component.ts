@@ -76,6 +76,7 @@ export class SelectComponent implements ControlValueAccessor {
   public closeDropdown(): void {
     this.isDropdownOpen = false;
     this._ariaExpanded = false;
+    this._dropdownHover = false;
   }
 
   public writeValue(value: SelectValueType | null): void {
