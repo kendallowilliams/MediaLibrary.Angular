@@ -1,5 +1,5 @@
 import { Directive, ElementRef, HostBinding, HostListener, Input, OnInit, Optional, Renderer2, ViewContainerRef } from '@angular/core';
-import { SelectOption } from '../interfaces/select-option.interface';
+import { SelectOption } from '../types/select.types';
 import { SelectComponent } from '../select.component';
 import { SelectMultiSelectDirective } from './select-multiselect.directive';
 import { SelectOptionComponent } from '../select-option/select-option.component';

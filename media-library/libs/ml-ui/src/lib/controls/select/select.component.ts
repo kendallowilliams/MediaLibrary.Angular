@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, noop } from 'rxjs';
-import { SelectOption, SelectOptionGroup } from './interfaces/select-option.interface';
+import { SelectDropdownConfig, SelectOption, SelectOptionGroup } from './types/select.types';
 import { faCaretDown, faCaretUp, faCircleExclamation, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
@@ -29,6 +29,7 @@ export class SelectComponent implements ControlValueAccessor {
   @HostBinding('class') private _class = 'flex group/select';
   /** The text that appears when no select options are present. */
   @Input() public placeholder = '';
+  @Input() public dropdownConfig: SelectDropdownConfig| null = null;
 
   public isDropdownOpen = false;
 

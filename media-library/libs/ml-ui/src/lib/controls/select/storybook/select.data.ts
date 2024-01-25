@@ -1,4 +1,4 @@
-import { SelectOption, SelectOptionGroup } from "../interfaces/select-option.interface";
+import { SelectOption, SelectOptionGroup } from "../types/select.types";
 
 export const options = [0,1,2,3,4,5,6,7,8,9].map(num => ({
   text: `Option ${num}`,

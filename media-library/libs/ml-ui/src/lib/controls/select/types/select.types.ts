@@ -13,3 +13,7 @@ export interface SelectOptionGroup {
   options: SelectOption[];
   hidden?: boolean;
 }
+
+export interface SelectDropdownConfig {
+  maxOptionsHeight?: string;
+}

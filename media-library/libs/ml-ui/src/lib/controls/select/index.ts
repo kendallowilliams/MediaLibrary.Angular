@@ -1,6 +1,6 @@
 export * from './select.component';
 export * from './select.module';
-export * from './interfaces/select-option.interface';
+export * from './types/select.types';
 export * from './directives/select-filter.directive';
 export * from './directives/select-multiselect.directive';
 export * from './directives/select-option.directive';

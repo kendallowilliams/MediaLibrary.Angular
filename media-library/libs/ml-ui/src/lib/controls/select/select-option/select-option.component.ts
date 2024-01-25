@@ -6,7 +6,7 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
-import { SelectOption } from '../interfaces/select-option.interface';
+import { SelectOption } from '../types/select.types';
 import { SelectMultiSelectDirective } from '../directives/select-multiselect.directive';
 
 @Component({

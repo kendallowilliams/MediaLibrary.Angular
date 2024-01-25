@@ -1,10 +1,16 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
+  HostBinding,
+  Input,
+  OnInit,
+  Renderer2,
+  RendererStyleFlags2,
   ViewEncapsulation,
 } from '@angular/core';
 import { SelectComponent } from '../select.component';
-import { SelectOption, SelectOptionGroup } from '../interfaces/select-option.interface';
+import { SelectDropdownConfig, SelectOption, SelectOptionGroup } from '../types/select.types';
 
 @Component({
   selector: 'ml-select-dropdown-content',
@@ -12,12 +18,22 @@ import { SelectOption, SelectOptionGroup } from '../interfaces/select-option.int
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class SelectDropdownContentComponent {
+export class SelectDropdownContentComponent implements OnInit {
+  @Input() public config: SelectDropdownConfig | null = null;
+
+  @HostBinding('class') private _class = 'block overflow-auto';
+  
   public groups: SelectOptionGroup[] | null = null;
   public options: SelectOption[] | null = null;
 
-  constructor(private _select: SelectComponent) {
+  constructor(private _select: SelectComponent, private _renderer: Renderer2, private _host: ElementRef<HTMLElement>) {
     this.groups = this._select.internalGroups;
     this.options = this._select.internalOptions;
+  }
+  
+  public ngOnInit(): void {
+    if (this.config?.maxOptionsHeight) {
+      this._renderer.setStyle(this._host.nativeElement, 'max-height', this.config.maxOptionsHeight, RendererStyleFlags2.DashCase);
+    }
   }
 }

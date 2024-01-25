@@ -28,17 +28,20 @@ export const Default: Story = {
       options: options,
       groups: optionGroups,
       selectedValue: 5,
-      selectedGroupValue: 5
+      selectedGroupValue: 5,
+      dropdownConfig: {
+        maxOptionsHeight: '100px'
+      }
     },
     template: `
       <div class="flex gap-[30px]">
         <div class="flex flex-col gap-[10px] basis-1/2">
           <label mlLabel>Options</label>
-          <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue"></ml-select>
+          <ml-select [options]="options" [placeholder]="placeholder" [(ngModel)]="selectedValue" [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
         <div class="flex flex-col gap-[10px] basis-1/2">
           <label mlLabel>Categories</label>
-          <ml-select [groups]="groups" [placeholder]="placeholder" [(ngModel)]="selectedGroupValue"></ml-select>
+          <ml-select [groups]="groups" [placeholder]="placeholder" [(ngModel)]="selectedGroupValue" [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
       </div>
     `

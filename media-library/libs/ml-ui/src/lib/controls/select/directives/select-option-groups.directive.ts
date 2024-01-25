@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit } from "@angular/core";
 import { SelectComponent } from "../select.component";
-import { SelectOptionGroup } from "../interfaces/select-option.interface";
+import { SelectOptionGroup } from "../types/select.types";
 
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
