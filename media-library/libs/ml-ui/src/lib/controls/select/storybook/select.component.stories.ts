@@ -53,12 +53,22 @@ export const Required: Story = {
     props: {
       ...args,
       options: options,
-      formGroup: new FormGroup({ select: new FormControl(null, [Validators.required]) })
+      groups: optionGroups,
+      formGroup: new FormGroup({ 
+        options: new FormControl(null, [Validators.required]),
+        groups: new FormControl(null, [Validators.required])
+      })
     },
     template: `
-      <div [formGroup]="formGroup">
-        <ml-select [options]="options" [placeholder]="placeholder" formControlName="select"
-          class="[--dropdown-options-height:100px]"></ml-select>
+      <div class="flex gap-[30px]" [formGroup]="formGroup">
+        <div class="flex flex-col gap-[10px] basis-1/2">
+          <label mlLabel>Options</label>
+          <ml-select [options]="options" [placeholder]="placeholder" formControlName="options"></ml-select>
+        </div>
+        <div class="flex flex-col gap-[10px] basis-1/2">
+          <label mlLabel>Categories</label>
+          <ml-select [groups]="groups" [placeholder]="placeholder" formControlName="groups"></ml-select>
+        </div>
       </div>
     `
   })

@@ -108,7 +108,7 @@ export class SelectComponent implements ControlValueAccessor {
     }
   }
 
-  public clearSelection(evt: Event) : void {
+  public clearSelection(evt: MouseEvent) : void {
     evt.stopPropagation();
     this.clearSelectedValue();
   }
