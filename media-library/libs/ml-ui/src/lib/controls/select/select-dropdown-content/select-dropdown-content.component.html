@@ -1,19 +1,26 @@
-<ng-container *ngIf="options">
-  <ul role="group">
-    <ng-container *ngFor="let option of options">
-      <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
-    </ng-container>
-  </ul>
-</ng-container>
-<ng-container *ngIf="groups">
-  <ul role="listbox">
-    <li role="group" *ngFor="let group of groups">
-      <div mlLabel>{{group.name}}</div>
-      <ul role="presentation">
-        <ng-container *ngFor="let option of group.options">
+
+<div class="mt-[5px] select-none w-[var(--dropdown-width)] border-dark dark:border-light border-[1px] border-solid rounded-[5px]
+  p-[1px] bg-light dark:bg-dark text-dark dark:text-light" >
+  <ng-container mlSelectSearchTemplate></ng-container>
+  <div class="overflow-auto max-h-[var(--dropdown-options-height)]">
+    <ng-container *ngIf="options">
+      <ul role="group">
+        <ng-container *ngFor="let option of options">
           <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
         </ng-container>
       </ul>
-    </li>
-  </ul>
-</ng-container>
+    </ng-container>
+    <ng-container *ngIf="groups">
+      <ul role="listbox">
+        <li role="group" *ngFor="let group of groups">
+          <div mlLabel>{{group.name}}</div>
+          <ul role="presentation">
+            <ng-container *ngFor="let option of group.options">
+              <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
+            </ng-container>
+          </ul>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+</div>

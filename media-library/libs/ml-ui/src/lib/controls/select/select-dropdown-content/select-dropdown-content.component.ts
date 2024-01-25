@@ -20,8 +20,6 @@ import { SelectDropdownConfig, SelectOption, SelectOptionGroup } from '../types/
 })
 export class SelectDropdownContentComponent implements OnInit {
   @Input() public config: SelectDropdownConfig | null = null;
-
-  @HostBinding('class') private _class = 'block overflow-auto';
   
   public groups: SelectOptionGroup[] | null = null;
   public options: SelectOption[] | null = null;
@@ -33,7 +31,7 @@ export class SelectDropdownContentComponent implements OnInit {
   
   public ngOnInit(): void {
     if (this.config?.maxOptionsHeight) {
-      this._renderer.setStyle(this._host.nativeElement, 'max-height', this.config.maxOptionsHeight, RendererStyleFlags2.DashCase);
+      this._renderer.setStyle(this._host.nativeElement, '--dropdown-options-height', this.config.maxOptionsHeight, RendererStyleFlags2.DashCase);
     }
   }
 }

@@ -17,10 +17,6 @@
   </span>
 </button>
 <ng-template #dropdown>
-  <div class="mt-[5px] select-none w-[var(--dropdown-width)] border-dark dark:border-light border-[1px] border-solid rounded-[5px]
-    p-[1px] bg-light dark:bg-dark text-dark dark:text-light" [ngStyle]="getDropdownVariables()" tabindex="0" 
-    (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)">
-    <ng-container mlSelectSearchTemplate></ng-container>
-    <ml-select-dropdown-content [config]="dropdownConfig"></ml-select-dropdown-content>
-  </div>
+    <ml-select-dropdown-content [config]="dropdownConfig" [ngStyle]="getDropdownVariables()" tabindex="0" 
+      (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)"></ml-select-dropdown-content>
 </ng-template>
