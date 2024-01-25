@@ -28,7 +28,7 @@ export const Default: Story = {
     template: `
       <div>
         <ml-select mlSelectMultiSelect [options]="options" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue" class="[--dropdown-options-height:100px]"></ml-select>
+          [(ngModel)]="defaultValue"></ml-select>
       </div>
     `
   })

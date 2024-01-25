@@ -36,13 +36,13 @@ export const Default: Story = {
       <div class="flex flex-col gap-[20px]">
         <ml-select mlSelectSearch [options]="options" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
+          [caseInsensitive]="caseInsensitive"></ml-select>
         <ml-select mlSelectMultiSelect mlSelectSearch [options]="groups" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
+          [caseInsensitive]="caseInsensitive"></ml-select>
         <ml-select mlSelectMultiSelect mlSelectSearch [options]="categories" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive" class="[--dropdown-options-height:100px]"></ml-select>
+          [caseInsensitive]="caseInsensitive"></ml-select>
       </div>
     `
   })

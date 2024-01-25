@@ -35,7 +35,7 @@ export const Default: Story = {
       <div>
         <ml-select mlSelectFilter [(query)]="query" [caseInsensitive]="caseInsensitive" [partial]="partial"
           [options]="options" [placeholder]="placeholder"
-          [(ngModel)]="defaultValue" class="[--dropdown-options-height:100px]"></ml-select>
+          [(ngModel)]="defaultValue"></ml-select>
       </div>
     `
   })
