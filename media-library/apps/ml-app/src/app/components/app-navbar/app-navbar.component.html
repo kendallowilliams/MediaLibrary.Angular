@@ -16,7 +16,7 @@
         <fa-icon [icon]="faGear"></fa-icon>
       </ml-navbar-icon>
     </ml-navbar-controls>
-    <ml-switch mlThemeToggle></ml-switch>
+    <ml-switch mlThemeToggle [offLabel]="'Light'" [onLabel]="'Dark'"></ml-switch>
     <ml-navbar-toggler *ngIf="isMobile || (navHidden$ | async)"></ml-navbar-toggler>
   </nav>
   <ml-navbar-menu>

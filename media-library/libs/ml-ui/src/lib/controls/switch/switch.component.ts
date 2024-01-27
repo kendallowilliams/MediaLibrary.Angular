@@ -2,34 +2,69 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  EventEmitter,
   HostBinding,
-  HostListener,
   Input,
-  Output,
-  ViewChild,
+  OnInit,
+  Renderer2,
+  RendererStyleFlags2,
   ViewEncapsulation,
 } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+import { Subject, noop } from 'rxjs';
 
 @Component({
   selector: 'ml-switch',
   templateUrl: './switch.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class SwitchComponent {
-  @HostBinding('class') private _class = 'flex items-center justify-center';
-  @ViewChild('switch') private _input!: ElementRef;
+export class SwitchComponent implements ControlValueAccessor, OnInit {
+  @HostBinding('class') private _class = `inline-flex items-center gap-[5px]`;
+  @Input() public offLabel = '';
+  @Input() public onLabel = '';
 
-  public id = `ml-switch-${Math.random().toString(36).substring(2)}`;
+  private _onChange: (_: boolean) => void = noop;
+  private _onTouched: () => void = noop;
 
-  @Input() public checked = false;
-  @Output() public checkedChange = new EventEmitter<boolean>();
+  private _checked = false;
+  private _isDisabled = false;
+  public valueChange = new Subject<boolean>();
 
-  @HostListener('click', ['$event'])
-  private _handleClick(event: MouseEvent) : void {
-    event.stopPropagation();
-    this.checked = this._input.nativeElement.checked;
-    this.checkedChange.emit(this.checked);
+  constructor(private _renderer: Renderer2, private _host: ElementRef) {}
+  
+  public ngOnInit(): void {
+    this._renderer.setStyle(this._host.nativeElement, '--ml-switch-on-label', this.onLabel, RendererStyleFlags2.DashCase);
+    this._renderer.setStyle(this._host.nativeElement, '--ml-switch-off-label', this.offLabel, RendererStyleFlags2.DashCase);
+  }
+
+  public get checked() : boolean {
+    return this._checked;
+  }
+
+  public set checked(checked: boolean) {
+    this._checked = checked;
+    this._onChange(this._checked);
+    this.valueChange.next(this._checked);
+  }
+
+  public writeValue(obj: boolean): void {
+    this.checked = obj;
+  }
+
+  public registerOnChange(fn: never): void {
+    this._onChange = fn;
+  }
+
+  public registerOnTouched(fn: never): void {
+    this._onTouched = fn;
+  }
+
+  public setDisabledState?(isDisabled: boolean): void {
+    this._isDisabled = isDisabled;
+  }
+
+  public handleChange(evt: Event) : void {
+    const input = evt.target as HTMLInputElement;
+    this.writeValue(input.checked);
   }
 }

@@ -1,7 +1,11 @@
-<input class="h-0 w-0 invisible peer" type="checkbox" [checked]="checked" id="{{id}}" #switch />
+<div>{{offLabel}}</div>
 <label class="cursor-pointer w-[35px] h-[20px] bg-dark dark:bg-light block rounded-[17.5px] relative
   after:content-[''] after:absolute after:top-[2.5px] after:left-[2.5px] after:bg-light dark:after:bg-dark
-  after:w-[15px] after:h-[15px] after:rounded-[17.5px] after:duration-[0.3s] peer-checked:bg-light
-  peer-checked:after:left-[calc(100%-2.5px)] peer-checked:after:translate-x-[-100%] 
+  after:w-[15px] after:h-[15px] after:rounded-[17.5px] after:duration-[0.3s]
   active:after:w-[20px] indent-[-9999px]"
-  for="{{id}}"></label>
+  [ngClass]="{
+    'after:translate-x-[-100%] after:left-[calc(100%-2.5px)]': checked
+  }">
+  <input class="hidden" type="checkbox" [checked]="checked" (change)="handleChange($event)" />
+</label>
+<div>{{onLabel}}</div>
