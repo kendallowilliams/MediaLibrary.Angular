@@ -9,7 +9,6 @@ export type ButtonVariant = typeof BUTTON_VARIANTS[number];
 export class ButtonDirective implements OnInit {
   @HostBinding('class') private _class = '';
   @Input() public variant: ButtonVariant = 'primary';
-  @Input() public disabled = false;
   @HostBinding('attr.tabindex') private _tabIndex = 0;
   @HostBinding('attr.type') private _type = 'button';
 

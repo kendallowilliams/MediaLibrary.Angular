@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalDirective } from '../directives/modal.directive';
 import { ModalModule } from '../modal.module';
 import { ButtonModule } from '../../controls/button/button.module';
@@ -54,7 +54,8 @@ export const Default: Story = {
         }, {
           text: 'Transparent',
           value: 'transparent' as ModalConfig['backdrop']
-        }]
+        }],
+        handleSave: () => updateArgs({...args, config: {...args.config}, isOpen: false})
       },
       template: `
       <div class="flex justify-center">
@@ -72,13 +73,16 @@ export const Default: Story = {
               </div>
               <div class="flex flex-col gap-[10px]">
                 <label mlLabel>Backdrop</label>
-                <ml-select [options]="options" [(ngModel)]="config.backdrop"></ml-select>
+                <ml-select [options]="options" [(ngModel)]="config.backdrop" #select></ml-select>
               </div>
               <div class="flex flex-col gap-[10px]">
                 <label mlLabel>Modeless</label>
                 <ml-switch [offLabel]="'Off'" [onLabel]="'On'" [(ngModel)]="config.modeless"></ml-switch>
               </div>
             </ml-modal-body>
+            <ml-modal-footer class="flex items-center justify-end">
+              <button mlButton (click)="handleSave()" [disabled]="!select.value">Save</button>
+            </ml-modal-footer>
           </ml-modal-content>
         </ng-template>
       </div>
