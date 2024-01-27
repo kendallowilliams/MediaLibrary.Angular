@@ -1,6 +1,6 @@
 import { moduleMetadata, type Meta, type StoryObj } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalDirective } from '../directives/modal.directive';
 import { ModalModule } from '../modal.module';
 import { ButtonModule } from '../../controls/button/button.module';
@@ -41,8 +41,12 @@ export const Default: Story = {
     useAppRootVcr: true,
   },
   render: (args) => {
-    const [{ isOpen }, updateArgs] = useArgs();
-
+    const [{ isOpen }, updateArgs] = useArgs(),
+      form = new FormGroup({
+        static: new FormControl(args.config.static),
+        backdrop: new FormControl(args.config.backdrop, [Validators.required]),
+        modeless: new FormControl(args.config.modeless)
+      });
     return {
       props: {
         ...args,
@@ -55,7 +59,8 @@ export const Default: Story = {
           text: 'Transparent',
           value: 'transparent' as ModalConfig['backdrop']
         }],
-        handleSave: () => updateArgs({...args, config: {...args.config}, isOpen: false})
+        handleSave: () => updateArgs({...args, config: form.value, isOpen: false}),
+        form: form
       },
       template: `
       <div class="flex justify-center">
@@ -66,22 +71,22 @@ export const Default: Story = {
             <ml-modal-header>
               <ml-modal-title>Modal Config</ml-modal-title>
             </ml-modal-header>
-            <ml-modal-body class="flex flex-col gap-[20px]">
+            <ml-modal-body class="flex flex-col gap-[20px]" [formGroup]="form">
               <div class="flex flex-col gap-[10px]">
                 <label mlLabel>Static</label>
-                <ml-switch [offLabel]="'Off'" [onLabel]="'On'" [(ngModel)]="config.static"></ml-switch>
+                <ml-switch [offLabel]="'Off'" [onLabel]="'On'" formControlName="static"></ml-switch>
               </div>
               <div class="flex flex-col gap-[10px]">
                 <label mlLabel>Backdrop</label>
-                <ml-select [options]="options" [(ngModel)]="config.backdrop" #select></ml-select>
+                <ml-select [options]="options" formControlName="backdrop"></ml-select>
               </div>
               <div class="flex flex-col gap-[10px]">
                 <label mlLabel>Modeless</label>
-                <ml-switch [offLabel]="'Off'" [onLabel]="'On'" [(ngModel)]="config.modeless"></ml-switch>
+                <ml-switch [offLabel]="'Off'" [onLabel]="'On'" formControlName="modeless"></ml-switch>
               </div>
             </ml-modal-body>
             <ml-modal-footer class="flex items-center justify-end">
-              <button mlButton (click)="handleSave()" [disabled]="!select.value">Save</button>
+              <button mlButton (click)="handleSave()" [disabled]="!form.valid">Save</button>
             </ml-modal-footer>
           </ml-modal-content>
         </ng-template>
