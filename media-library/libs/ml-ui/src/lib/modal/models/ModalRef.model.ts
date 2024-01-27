@@ -1,6 +1,5 @@
 import { ComponentRef, TemplateRef, Type } from "@angular/core";
 import { Modal } from "./Modal.interface";
-import { fromEvent } from "rxjs";
 
 export class ModalRef<T> {
   private _componentType?: Type<T>;

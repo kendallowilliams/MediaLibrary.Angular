@@ -28,8 +28,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   template: `
     <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none max-w-full max-h-full"
       [ngClass]="{
-        'backdrop:bg-dark backdrop:opacity-50': backdrop === 'visible',
-        'backdrop:bg-transparent': backdrop === 'transparent'
+        'backdrop:bg-dark backdrop:opacity-50': config.backdrop === 'visible',
+        'backdrop:bg-transparent': config.backdrop === 'transparent'
       }" (close)="handleClose($event)" (cancel)="handleCancel($event)">
       <ng-template #modalContent></ng-template>
     </dialog>
@@ -38,19 +38,16 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class ModalComponent<T> implements AfterViewInit, Modal {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
-  @Input() public static = false;
+  @Input() public config = new ModalConfig<T>();
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
-  public backdrop: ModalConfig['backdrop'] | null = null;
-
   constructor(
     private _destroyRef: DestroyRef,
-    @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>, 
-    @Inject(ModalConfig<T>) @Optional() private _modalConfig?: ModalConfig<T>) {
-      this.backdrop = this._modalConfig?.backdrop || null;
-      this.static = this._modalConfig?.static || false;
+    @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>) {
+      this.static = this.config.static || false;
     }
+  static: boolean;
 
   public ngAfterViewInit(): void {
     this._initializeContent();
@@ -60,8 +57,6 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
     const injector = Injector.create({ 
         providers: [{ 
           provide: ModalRef<T>, useValue: this._modalRef
-        }, {
-          provide: ModalConfig<T>, useValue: this._modalConfig
         }]
       });
     
@@ -69,7 +64,7 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
       const componentRef = this._modalContent.createComponent<T>(this._modalRef?.componentType, { injector: injector });
       
       this._modalRef.component = componentRef.instance;
-      this._modalConfig?.configureComponentInputs?.call(this, this._modalRef.component);
+      this.config?.configureComponentInputs?.call(this, this._modalRef.component);
       componentRef.changeDetectorRef.detectChanges();
       this.show();
     } else if (this._modalRef?.template) {
@@ -81,7 +76,7 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   }
 
   public show() : void {
-    if (this._modalConfig?.modeless) {
+    if (this.config.modeless) {
       this._dialog.nativeElement.show();
     } else {
       this._dialog.nativeElement.showModal();

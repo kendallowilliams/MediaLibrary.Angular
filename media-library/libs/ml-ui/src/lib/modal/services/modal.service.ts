@@ -31,13 +31,12 @@ export class ModalService {
       const injector = Injector.create({ 
         providers: [{ 
             provide: ModalRef<T>, useValue: modalRef
-          }, {
-            provide: ModalConfig, useValue: modalConfig
-        }]
+          }]
       }),
       componentRef = vcrToUse.createComponent(ModalComponent<T>, { injector: injector });
 
       modalRef.modalComponentRef = componentRef;
+      componentRef.setInput('config', modalConfig);
       componentRef.changeDetectorRef.detectChanges();
     } else {
       console.error('No valid ViewContainerRef provided. Apply AppRootVcrDirective or pass in a valid ViewContainerRef to ModalService.')

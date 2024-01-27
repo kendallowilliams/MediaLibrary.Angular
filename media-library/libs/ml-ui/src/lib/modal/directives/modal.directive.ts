@@ -2,6 +2,7 @@ import { Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges, Templ
 import { ModalRef } from '../models/ModalRef.model';
 import { ModalConfig } from '../models/ModalConfig.model';
 import { ModalService } from '../services/modal.service';
+import { Modal } from '../models/Modal.interface';
 
 @Directive({
   selector: '[mlModal]'
@@ -13,6 +14,7 @@ export class ModalDirective implements OnChanges {
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
   private _dropDownRef?: ModalRef<unknown>;
+  public modal?: Modal;
 
   constructor(
     private _template: TemplateRef<unknown>, 
