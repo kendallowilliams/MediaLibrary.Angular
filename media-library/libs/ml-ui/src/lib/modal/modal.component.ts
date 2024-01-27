@@ -44,10 +44,7 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
   constructor(
     private _destroyRef: DestroyRef,
-    @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>) {
-      this.static = this.config.static || false;
-    }
-  static: boolean;
+    @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>) {}
 
   public ngAfterViewInit(): void {
     this._initializeContent();
@@ -94,7 +91,7 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   public handleClick(event: Event) : void {
     const dialog = this._dialog.nativeElement;
 
-    if (Object.is(event.target, dialog) && !this.static) {
+    if (Object.is(event.target, dialog) && !this.config.static) {
       this.hide();
     }
   }
