@@ -13,5 +13,6 @@ export class SelectOptionGroupsDirective implements OnInit {
   
   public ngOnInit(): void {
     this._select.internalGroups = this.groups;
+    this._select.updateSelectLabel();
   }
 }

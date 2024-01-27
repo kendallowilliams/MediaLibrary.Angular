@@ -8,4 +8,4 @@ export * from './directives/select-search-template.directive';
 export * from './directives/select-search.directive';
 export * from './select-search/select-search.component';
 export * from './directives/select-options.directive';
-export * from './directives/select-option-groups.directive';
+export * from './directives/select-groups.directive';

@@ -13,5 +13,6 @@ export class SelectOptionsDirective implements OnInit {
   
   public ngOnInit(): void {
     this._select.internalOptions = this.options;
+    this._select.updateSelectLabel();
   }
 }

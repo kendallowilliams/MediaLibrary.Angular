@@ -14,7 +14,7 @@ import { SelectSearchTemplateDirective } from './directives/select-search-templa
 import { TextBoxDirective } from '../text-box/directives/text-box.directive';
 import { SelectSearchComponent } from './select-search/select-search.component';
 import { SelectOptionsDirective } from './directives/select-options.directive';
-import { SelectOptionGroupsDirective } from './directives/select-option-groups.directive';
+import { SelectOptionGroupsDirective } from './directives/select-groups.directive';
 import { SelectDropdownContentComponent } from './select-dropdown-content/select-dropdown-content.component';
 import { LabelDirective } from '../label/directives/label.directive';
 

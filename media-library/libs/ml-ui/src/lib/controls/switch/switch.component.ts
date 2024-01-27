@@ -8,8 +8,9 @@ import {
   Renderer2,
   RendererStyleFlags2,
   ViewEncapsulation,
+  forwardRef,
 } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subject, noop } from 'rxjs';
 
 @Component({
@@ -17,6 +18,11 @@ import { Subject, noop } from 'rxjs';
   templateUrl: './switch.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => SwitchComponent),
+    multi: true
+  }]
 })
 export class SwitchComponent implements ControlValueAccessor, OnInit {
   @HostBinding('class') private _class = `inline-flex items-center gap-[5px]`;
@@ -47,8 +53,8 @@ export class SwitchComponent implements ControlValueAccessor, OnInit {
     this.valueChange.next(this._checked);
   }
 
-  public writeValue(obj: boolean): void {
-    this.checked = obj;
+  public writeValue(checked: boolean): void {
+    this.checked = checked;
   }
 
   public registerOnChange(fn: never): void {

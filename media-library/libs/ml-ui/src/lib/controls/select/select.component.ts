@@ -50,6 +50,7 @@ export class SelectComponent implements ControlValueAccessor {
   
   public internalOptions: SelectOption[] | null = null;
   public internalGroups: SelectOptionGroup[] | null = null;
+  public dialog: HTMLElement | null = null;
 
   constructor(private _host: ElementRef<HTMLElement>) {}
 
@@ -69,6 +70,7 @@ export class SelectComponent implements ControlValueAccessor {
     if (this.isDropdownOpen) {
       this.closeDropdown();
     } else {
+      this.dialog = this.dialog || this._host.nativeElement.closest('dialog');
       this.isDropdownOpen = true;
       this._ariaExpanded = true;
     }
