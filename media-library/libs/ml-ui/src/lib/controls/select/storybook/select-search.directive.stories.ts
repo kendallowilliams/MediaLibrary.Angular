@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SelectModule } from '../select.module';
 import { SelectSearchDirective } from '../directives/select-search.directive';
-import { categories, groups, options } from './select.data';
+import { groups, optionGroups, options } from './select.data';
 
 const meta: Meta<SelectSearchDirective> = {
   title: 'Components/Select/Search',
@@ -29,20 +29,23 @@ export const Default: Story = {
       ...args,
       options: options,
       groups: groups,
-      categories: categories,
-      placeholder: 'Select items...'
+      optionGroups: optionGroups,
+      placeholder: 'Select items...',
+      dropdownConfig: {
+        maxOptionsHeight: '100px'
+      }
     },
     template: `
       <div class="flex flex-col gap-[20px]">
         <ml-select mlSelectSearch [options]="options" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive"></ml-select>
+          [caseInsensitive]="caseInsensitive" [dropdownConfig]="dropdownConfig"></ml-select>
         <ml-select mlSelectMultiSelect mlSelectSearch [options]="groups" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive"></ml-select>
-        <ml-select mlSelectMultiSelect mlSelectSearch [options]="categories" [placeholder]="placeholder"
+          [caseInsensitive]="caseInsensitive" [dropdownConfig]="dropdownConfig"></ml-select>
+        <ml-select mlSelectMultiSelect mlSelectSearch [groups]="optionGroups" [placeholder]="placeholder"
           [searchPlaceholder]="searchPlaceholder" [partial]="partial"
-          [caseInsensitive]="caseInsensitive"></ml-select>
+          [caseInsensitive]="caseInsensitive" [dropdownConfig]="dropdownConfig"></ml-select>
       </div>
     `
   })

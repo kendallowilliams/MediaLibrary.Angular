@@ -12,14 +12,16 @@
     </ng-container>
     <ng-container *ngIf="groups">
       <ul role="listbox">
-        <li role="group" *ngFor="let group of groups">
-          <div mlLabel>{{group.name}}</div>
-          <ul role="presentation">
-            <ng-container *ngFor="let option of group.options">
-              <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
-            </ng-container>
-          </ul>
-        </li>
+        <ng-container *ngFor="let group of groups">
+          <li role="group" *ngIf="!group.hidden">
+            <div mlLabel>{{group.name}}</div>
+            <ul role="presentation">
+              <ng-container *ngFor="let option of group.options">
+                <li mlSelectOption [option]="option" *ngIf="!option.hidden"></li>
+              </ng-container>
+            </ul>
+          </li>
+        </ng-container>
       </ul>
     </ng-container>
   </div>

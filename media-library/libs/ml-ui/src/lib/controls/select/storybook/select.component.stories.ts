@@ -20,7 +20,10 @@ type Story = StoryObj<SelectComponent>;
 
 export const Default: Story = {
   args: {
-    placeholder: 'Select an option'
+    placeholder: 'Select an option',
+    dropdownConfig: {
+      maxOptionsHeight: '100px'
+    }
   },
   render: (args) => ({
     props: {
@@ -28,10 +31,7 @@ export const Default: Story = {
       options: options,
       groups: optionGroups,
       selectedValue: 5,
-      selectedGroupValue: 5,
-      dropdownConfig: {
-        maxOptionsHeight: '100px'
-      }
+      selectedGroupValue: 5
     },
     template: `
       <div class="flex gap-[30px]">
@@ -50,7 +50,10 @@ export const Default: Story = {
 
 export const Required: Story = {
   args: {
-    placeholder: 'Select an option'
+    placeholder: 'Select an option',
+    dropdownConfig: {
+      maxOptionsHeight: '100px'
+    }
   },
   render: (args) => ({
     props: {
@@ -66,11 +69,11 @@ export const Required: Story = {
       <div class="flex gap-[30px]" [formGroup]="formGroup">
         <div class="flex flex-col gap-[10px] basis-1/2">
           <label mlLabel>Options</label>
-          <ml-select [options]="options" [placeholder]="placeholder" formControlName="options"></ml-select>
+          <ml-select [options]="options" [placeholder]="placeholder" formControlName="options" [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
         <div class="flex flex-col gap-[10px] basis-1/2">
           <label mlLabel>Categories</label>
-          <ml-select [groups]="groups" [placeholder]="placeholder" formControlName="groups"></ml-select>
+          <ml-select [groups]="groups" [placeholder]="placeholder" formControlName="groups" [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
       </div>
     `
