@@ -36,40 +36,40 @@ export class MusicEffects {
   );
 
   loadArtists$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(MusicActions.loadAlbums),
-    withLatestFrom(this._store.select(store => store.music)),
-    mergeMap(([, state]) => {
-      if (state.useTestData) {
-        return of(MusicActions.loadArtistsSuccess({ artists: artists }));
-      } else {
-        return this._musicService.getArtists()
-          .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })))
-      }
-    }),
-    catchError((error) => {
-      console.error('Error', error);
-      return of(MusicActions.loadArtistsFailure({ error }));
-    }),
-  ),
-);
+    this.actions$.pipe(
+      ofType(MusicActions.loadAlbums),
+      withLatestFrom(this._store.select(store => store.music)),
+      mergeMap(([, state]) => {
+        if (state.useTestData) {
+          return of(MusicActions.loadArtistsSuccess({ artists: artists }));
+        } else {
+          return this._musicService.getArtists()
+            .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })))
+        }
+      }),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(MusicActions.loadArtistsFailure({ error }));
+      }),
+    ),
+  );
 
   loadTracks$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(MusicActions.loadTracks),
-    withLatestFrom(this._store.select(store => store.music)),
-    mergeMap(([, state]) => {
-      if (state.useTestData) {
-        return of(MusicActions.loadTracksSuccess({ tracks: tracks }));
-      } else {
-        return this._musicService.getTracks()
-          .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })))
-      }
-    }),
-    catchError((error) => {
-      console.error('Error', error);
-      return of(MusicActions.loadTracksFailure({ error }));
-    }),
-  ),
-);
+    this.actions$.pipe(
+      ofType(MusicActions.loadTracks),
+      withLatestFrom(this._store.select(store => store.music)),
+      mergeMap(([, state]) => {
+        if (state.useTestData) {
+          return of(MusicActions.loadTracksSuccess({ tracks: tracks }));
+        } else {
+          return this._musicService.getTracks()
+            .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })))
+        }
+      }),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(MusicActions.loadTracksFailure({ error }));
+      }),
+    ),
+  );
 }
