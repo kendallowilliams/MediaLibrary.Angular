@@ -1,2 +1,14 @@
-<ng-content select="ml-tab"></ng-content>
-<ng-content></ng-content>
+<div class="flex flex-col px-[10px]">
+  <div class="flex basis-auto">
+    <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px]" 
+      [ngClass]="{ 
+        'bg-dark text-light': tab.isSelected,
+        'hover:bg-light': !tab.isSelected
+      }" (click)="selectTab(tab)">
+      <span>{{tab.header}}</span>
+    </div>
+  </div>
+  <div class="basis-full">
+    <ng-content select="ml-tab"></ng-content>
+  </div>
+</div>

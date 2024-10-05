@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { Track } from '@media-library/ml-data';
+import { Album } from '@media-library/ml-data';
 
 @Component({
-  selector: 'ml-song',
-  templateUrl: './song.component.html',
+  selector: 'ml-album',
+  templateUrl: './album.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SongComponent {
-  @Input({required: true}) public song!: Track;
+export class AlbumComponent {
+  @Input({required: true}) public album!: Album;
 }

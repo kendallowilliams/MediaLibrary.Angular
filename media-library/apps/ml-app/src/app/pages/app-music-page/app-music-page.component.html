@@ -1,3 +1,11 @@
 <ml-tab-group>
-  <ml-tab></ml-tab>
+  <ml-tab header="Albums" [isSelected]="true">
+    <ml-album *ngFor="let album of albums$ | async" [album]="album"></ml-album>
+  </ml-tab>
+  <ml-tab header="Artists">
+    <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
+  </ml-tab>
+  <ml-tab header="Songs">
+    <ml-song *ngFor="let song of songs$ | async" [song]="song"></ml-song>
+  </ml-tab>
 </ml-tab-group>

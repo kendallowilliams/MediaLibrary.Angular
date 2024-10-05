@@ -9,7 +9,7 @@ import { AppSearchPageComponent } from './app-search-page/app-search-page.compon
 import { AppSettingsPageComponent } from './app-settings-page/app-settings-page.component';
 import { AppTelevisionPageComponent } from './app-television-page/app-television-page.component';
 import { RouterModule, Routes } from '@angular/router';
-import { ConfigurationModule, ControlsModule, TabModule } from '@media-library/ml-ui';
+import { ConfigurationModule, ControlsModule, MusicModule, TabModule } from '@media-library/ml-ui';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MlDataModule, API_BASE_URL } from '@media-library/ml-data';
 import { environment } from '../../environments/environment';
@@ -50,7 +50,8 @@ export const routes: Routes = [
     ConfigurationModule,
     ControlsModule,
     AppComponentsModule,
-    TabModule
+    TabModule,
+    MusicModule
   ],
   exports: [
     RouterModule

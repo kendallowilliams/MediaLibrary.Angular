@@ -140,5 +140,5 @@ export class ButtonDirective implements OnInit {
     }
 
     return classes.concat([...this._baseClasses]);
-  };
+  }
 }
