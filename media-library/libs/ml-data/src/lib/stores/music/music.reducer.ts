@@ -1,8 +1,8 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { MusicActions } from './music.actions';
-import { Artist } from '../../models/music/Artist.model';
-import { Track } from '../../models/music/Track.model';
-import { Album } from '../../models/music/Album.model';
+import { Artist } from '../../models/music/artist.model';
+import { Track } from '../../models/music/track.model';
+import { Album } from '../../models/music/album.model';
 
 export const MUSIC_FEATURE_KEY = 'music';
 

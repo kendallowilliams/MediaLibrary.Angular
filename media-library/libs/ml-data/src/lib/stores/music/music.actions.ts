@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { Album } from '../../models/music/Album.model';
-import { Artist } from '../../models/music/Artist.model';
-import { Track } from '../../models/music/Track.model';
+import { Album } from '../../models/music/album.model';
+import { Artist } from '../../models/music/artist.model';
+import { Track } from '../../models/music/track.model';
 
 export class MusicActions {
   public static loadAlbums = createAction('[Music/API] Load Albums');

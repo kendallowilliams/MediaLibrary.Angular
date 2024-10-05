@@ -1,4 +1,4 @@
-import { Track } from "../music/Track.model";
+import { Track } from "../music/track.model";
 
 export interface Playlist {
   id: number;
