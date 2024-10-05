@@ -5,7 +5,6 @@ import { MusicService } from '../../services/music/music.service';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
 import { MusicActions } from './music.actions';
-import { albums, artists, tracks } from './music.data';
 
 @Injectable()
 export class MusicEffects {
@@ -20,14 +19,9 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadAlbums),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(MusicActions.loadAlbumsSuccess({ albums: albums }));
-        } else {
-          return this._musicService.getAlbums()
-            .pipe(map(albums => MusicActions.loadAlbumsSuccess({ albums })))
-        }
-      }),
+      mergeMap(([, state]) => this._musicService.getAlbums()
+        .pipe(map(albums => MusicActions.loadAlbumsSuccess({ albums })
+      ))),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadAlbumsFailure({ error }));
@@ -39,14 +33,9 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadAlbums),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(MusicActions.loadArtistsSuccess({ artists: artists }));
-        } else {
-          return this._musicService.getArtists()
-            .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })))
-        }
-      }),
+      mergeMap(([, state]) => this._musicService.getArtists()
+        .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })
+      ))),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadArtistsFailure({ error }));
@@ -58,14 +47,9 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadTracks),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(MusicActions.loadTracksSuccess({ tracks: tracks }));
-        } else {
-          return this._musicService.getTracks()
-            .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })))
-        }
-      }),
+      mergeMap(([, state]) => this._musicService.getTracks()
+        .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })
+      ))),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadTracksFailure({ error }));

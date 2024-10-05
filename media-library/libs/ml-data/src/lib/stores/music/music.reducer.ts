@@ -11,11 +11,9 @@ export interface MusicState {
   albums: Album[];
   artists: Artist[];
   error?: string | null; // last known error (if any)
-  useTestData: boolean;
 }
 
 export const initialMusicState: MusicState = {
-  useTestData: false,
   tracks: [],
   albums: [],
   artists: []

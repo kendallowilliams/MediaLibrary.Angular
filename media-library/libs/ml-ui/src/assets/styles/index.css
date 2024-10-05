@@ -3,6 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Core Data Grid CSS */
+@import '../../../../../node_modules/ag-grid-community/styles/ag-grid.css';
+/* Quartz Theme Specific CSS */
+@import '../../../../../node_modules/ag-grid-community/styles/ag-theme-quartz.css';
+
 .required:after {
   content: ' *';
   color: theme('colors.danger.DEFAULT');

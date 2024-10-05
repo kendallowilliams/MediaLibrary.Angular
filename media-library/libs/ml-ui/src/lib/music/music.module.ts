@@ -1,13 +1,14 @@
 import { NgModule } from "@angular/core";
-import { SongComponent } from "./song/song.component";
+import { SongsGridComponent } from "./song/songs-grid.component";
 import { CommonModule } from "@angular/common";
 import { ArtistComponent } from "./artist/artist.component";
 import { AlbumComponent } from "./album/album.component";
+import { AgGridAngular } from "ag-grid-angular";
 
 @NgModule({
-  exports: [SongComponent, ArtistComponent, AlbumComponent],
-  declarations: [SongComponent, ArtistComponent, AlbumComponent],
-  imports: [CommonModule]
+  exports: [SongsGridComponent, ArtistComponent, AlbumComponent],
+  declarations: [SongsGridComponent, ArtistComponent, AlbumComponent],
+  imports: [CommonModule, AgGridAngular]
 })
 export class MusicModule {
 }
