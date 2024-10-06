@@ -21,7 +21,8 @@ export class SongsGridComponent {
       flex: 1
     },
     {
-      field: 'year'
+      field: 'year',
+      valueGetter: params => params.data?.year || ''
     },
     {
       field: 'album.title',
