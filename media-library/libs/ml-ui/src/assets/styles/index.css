@@ -4,9 +4,9 @@
 @tailwind utilities;
 
 /* Core Data Grid CSS */
-@import '../../../../../node_modules/ag-grid-community/styles/ag-grid.css';
-/* Quartz Theme Specific CSS */
-@import '../../../../../node_modules/ag-grid-community/styles/ag-theme-quartz.css';
+@import '@ag-grid-community/styles/ag-grid.css';
+/* Balham Theme Specific CSS */
+@import '@ag-grid-community/styles/ag-theme-balham.css';
 
 .required:after {
   content: ' *';
@@ -15,4 +15,9 @@
 
 .dark .required:after {
   color: theme('colors.danger.dark');
+}
+
+/** AG Grid */
+.ag-theme-balham {
+  --ag-row-height: 50px;
 }

@@ -1,7 +1,9 @@
 <ag-grid-angular
-  class="ag-theme-quartz w-auto"
+  class="ag-theme-balham w-auto"
   [rowData]="songs"
   [columnDefs]="colDefs"
   [domLayout]="'autoHeight'"
-  [pagination]="true">
+  [groupDisplayType]="'groupRows'"
+  [defaultColGroupDef]="groupColDef"
+  [gridOptions]="gridOptions">
 </ag-grid-angular>

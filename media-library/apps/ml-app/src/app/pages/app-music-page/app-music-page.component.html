@@ -7,7 +7,7 @@
       <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
     </ml-tab>
     <ml-tab header="Songs">
-      <ml-songs-grid [songs]="songs$ | async"></ml-songs-grid>
+      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto"></ml-songs-grid>
     </ml-tab>
   </ml-tab-group>
 </div>

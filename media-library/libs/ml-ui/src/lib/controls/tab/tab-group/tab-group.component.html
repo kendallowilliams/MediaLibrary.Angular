@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-[10px]">
-  <div class="flex basis-auto">
+  <div class="flex">
     <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px]" 
       [ngClass]="{ 
         'bg-dark text-light': tab.isSelected,
@@ -8,7 +8,7 @@
       <span>{{tab.header}}</span>
     </div>
   </div>
-  <div class="basis-full">
+  <div class="flex-grow">
     <ng-content select="ml-tab"></ng-content>
   </div>
 </div>
