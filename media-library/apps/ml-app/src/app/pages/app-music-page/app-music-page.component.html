@@ -1,13 +1,13 @@
 <div class="p-[10px]">
   <ml-tab-group>
-    <ml-tab header="Albums" [isSelected]="true">
+    <ml-tab header="Songs" [isSelected]="true">
+      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto"></ml-songs-grid>
+    </ml-tab>
+    <ml-tab header="Albums">
       <ml-album *ngFor="let album of albums$ | async" [album]="album"></ml-album>
     </ml-tab>
     <ml-tab header="Artists">
       <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
-    </ml-tab>
-    <ml-tab header="Songs">
-      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto"></ml-songs-grid>
     </ml-tab>
   </ml-tab-group>
 </div>

@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Track } from '@media-library/ml-data';
-import { ColDef, GridOptions } from '@ag-grid-community/core';
+import { ColDef, GridOptions, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 
 @Component({
@@ -12,12 +12,20 @@ import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options
 export class SongsGridComponent {
   @Input() public songs!: Track[] | null;
 
+  @Output() public editSong = new EventEmitter<number>();
+  @Output() public addToPlaylist = new EventEmitter<number>();
+
+  public isEditModalOpen = false;
+  public isAddToPlaylistModalOpen = false;
+  public selectedSong?: Track;
   public gridOptions: GridOptions<Track> = {
-    groupRowRendererParams: {
-      suppressCount: true
-    }
+    onRowGroupOpened: this.onRowGroupOpened,
+    alwaysMultiSort: true
   };
   public groupColDef: ColDef<Track> = {
+    cellRendererParams: {
+      suppressCount: true,
+    }
   };
   public colDefs: ColDef<Track>[] = [
     {
@@ -25,14 +33,14 @@ export class SongsGridComponent {
       hide: true
     },
     {
-      field: 'title',
-      hide: true,
       rowGroup: true,
       valueGetter: params => params.data?.title?.charAt(0)?.toUpperCase(),
+      hide: true,
       sort: 'asc'
     },
     {
       field: 'title',
+      sort: 'asc',
       flex: 1
     },
     {
@@ -52,8 +60,33 @@ export class SongsGridComponent {
       headerName: 'Genre'
     },
     {
-      cellRenderer: SongOptionsCellRendererComponent,
-      valueGetter: params => params.data
+      cellRendererSelector: params => !params.node.group ? ({
+        component: SongOptionsCellRendererComponent,
+        params: {
+          edit: () => this.showEditModal(params.data),
+          addToPlaylist: () => this.showAddToPlaylistModal(params.data?.id)
+        }
+      }) : undefined
+      
     }
   ];
+
+  public onRowGroupOpened(evt: RowGroupOpenedEvent<Track>): void {
+    if (evt.node.expanded) {
+      evt.api.forEachNode(node => {
+        if (node.group && node.key !== evt.node.key) {
+          evt.api.setRowNodeExpanded(node, false);
+        }
+      });
+    }
+  }
+
+  public showEditModal(track?: Track) : void {
+    this.isEditModalOpen = !!track;
+    this.selectedSong = track;
+  }
+
+  public showAddToPlaylistModal(id?: number) : void {
+    this.isAddToPlaylistModalOpen = !!id;
+  }
 }

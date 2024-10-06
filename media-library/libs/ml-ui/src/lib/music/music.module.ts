@@ -8,13 +8,34 @@ import { ModuleRegistry } from "@ag-grid-community/core";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 import { SongOptionsCellRendererComponent } from './cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
-import { ButtonModule } from "../controls";
+import { ButtonModule, ControlsModule } from "../controls";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
+import { EditSongModalComponent } from './modals/edit-song-modal/edit-song-modal.component';
+import { ModalModule } from "../modal";
+import { CardModule } from "../controls/card/card.module";
+import { TextBoxDirective } from "../controls/text-box/directives/text-box.directive";
+import { AddToPlaylistModalComponent } from "./modals/add-to-playlist-modal/add-to-playlist-modal.component";
 
 @NgModule({
-  exports: [SongsGridComponent, ArtistComponent, AlbumComponent],
-  declarations: [SongsGridComponent, ArtistComponent, AlbumComponent, SongOptionsCellRendererComponent],
-  imports: [CommonModule, AgGridAngular, ButtonModule, FontAwesomeModule]
+  exports: [SongsGridComponent, ArtistComponent, AlbumComponent, EditSongModalComponent],
+  declarations: [
+    SongsGridComponent, 
+    ArtistComponent, 
+    AlbumComponent, 
+    SongOptionsCellRendererComponent, 
+    EditSongModalComponent, 
+    AddToPlaylistModalComponent
+  ],
+  imports: [
+    CommonModule, 
+    AgGridAngular, 
+    ButtonModule, 
+    FontAwesomeModule, 
+    ModalModule, 
+    CardModule, 
+    ControlsModule, 
+    TextBoxDirective
+  ]
 })
 export class MusicModule {
   constructor() {
