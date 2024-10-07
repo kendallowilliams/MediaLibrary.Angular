@@ -21,13 +21,13 @@ export * from './lib/services/playlist/playlist.service';
 export * from './lib/services/television/television.service';
 
 /** Configuration */
-export * from './lib/models/configurations/MusicConfiguration.interface';
-export * from './lib/models/configurations/PodcastConfiguration.interface';
-export * from './lib/models/configurations/PlaylistConfiguration.interface';
-export * from './lib/models/configurations/PlayerConfiguration.interface';
-export * from './lib/models/configurations/TelevisionConfiguration.interface';
-export * from './lib/models/configurations/HomeConfiguration.interface';
-export * from './lib/models/configurations/MediaLibraryConfiguration.interface';
+export * from './lib/models/configurations/music-configuration.interface';
+export * from './lib/models/configurations/podcast-configuration.interface';
+export * from './lib/models/configurations/playlist-configuration.interface';
+export * from './lib/models/configurations/player-configuration.interface';
+export * from './lib/models/configurations/television-configuration.interface';
+export * from './lib/models/configurations/home-configuration.interface';
+export * from './lib/models/configurations/media-library-configuration.interface';
 
 /** Models */
 export * from './lib/models/music/track.model';

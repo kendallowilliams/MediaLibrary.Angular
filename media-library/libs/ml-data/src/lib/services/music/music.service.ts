@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MusicConfiguration } from '../../models/configurations/MusicConfiguration.interface';
+import { MusicConfiguration } from '../../models/configurations/music-configuration.interface';
 import { Album } from '../../models/music/album.model';
 import { Artist } from '../../models/music/artist.model';
 import { Track } from '../../models/music/track.model';

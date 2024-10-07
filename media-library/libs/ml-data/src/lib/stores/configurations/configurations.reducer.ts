@@ -1,11 +1,11 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { ConfigurationsActions } from './configurations.actions';
-import { MusicConfiguration } from '../../models/configurations/MusicConfiguration.interface';
-import { MediaLibraryConfiguration } from '../../models/configurations/MediaLibraryConfiguration.interface';
-import { PodcastConfiguration } from '../../models/configurations/PodcastConfiguration.interface';
-import { PlayerConfiguration } from '../../models/configurations/PlayerConfiguration.interface';
-import { PlaylistConfiguration } from '../../models/configurations/PlaylistConfiguration.interface';
-import { TelevisionConfiguration } from '../../models/configurations/TelevisionConfiguration.interface';
+import { MusicConfiguration } from '../../models/configurations/music-configuration.interface';
+import { MediaLibraryConfiguration } from '../../models/configurations/media-library-configuration.interface';
+import { PodcastConfiguration } from '../../models/configurations/podcast-configuration.interface';
+import { PlayerConfiguration } from '../../models/configurations/player-configuration.interface';
+import { PlaylistConfiguration } from '../../models/configurations/playlist-configuration.interface';
+import { TelevisionConfiguration } from '../../models/configurations/television-configuration.interface';
 
 export const CONFIGURATIONS_FEATURE_KEY = 'configurations';
 

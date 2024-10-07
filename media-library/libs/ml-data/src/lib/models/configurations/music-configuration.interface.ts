@@ -1,5 +1,5 @@
 ﻿import { AlbumSort, ArtistSort, SongSort, MusicTabs, MusicPages } from "../../../lib/enums/enums";
-import { Configuration } from "./Configuration.interface";
+import { Configuration } from "./configuration.interface";
 
 export interface MusicConfiguration extends Configuration {
     selectedAlbumId: number;

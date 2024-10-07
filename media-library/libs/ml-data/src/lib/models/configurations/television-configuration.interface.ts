@@ -1,5 +1,5 @@
 ﻿import { TelevisionPages, SeriesSort } from "../../../lib/enums/enums";
-import { Configuration } from "./Configuration.interface";
+import { Configuration } from "./configuration.interface";
 
 export interface TelevisionConfiguration extends Configuration {
     selectedSeriesId: number;

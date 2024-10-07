@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { TelevisionConfiguration } from '../../models/configurations/TelevisionConfiguration.interface';
+import { TelevisionConfiguration } from '../../models/configurations/television-configuration.interface';
 import { Observable, of } from 'rxjs';
 import { BaseService } from '../base.service';
 import { Series } from '../../models/television/Series.model';
