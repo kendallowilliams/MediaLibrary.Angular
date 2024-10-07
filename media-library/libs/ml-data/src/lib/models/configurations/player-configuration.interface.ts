@@ -1,5 +1,5 @@
 ﻿import { MediaTypes, RepeatTypes, PlayerPages } from "../../enums/enums";
-import { ListItem } from "../collections/list-tem.interface";
+import { ListItem } from "../collections/list-item.interface";
 import { Configuration } from "./configuration.interface";
 
 export interface PlayerConfiguration extends Configuration {
@@ -14,7 +14,7 @@ export interface PlayerConfiguration extends Configuration {
     audioVisualizerEnabled: boolean;
     skipForwardSeconds: number;
     skipBackwardSeconds: number;
-    nowPlayingList: ListItem<number, number>[];
+    nowPlayingList: ListItem<number>[];
     progressUpdateInterval: number;
     audioVisualizerBarCount: number;
     //nowPlayingLists: Array<KeyValuePair<MediaTypes, ListItem<number, number>[]>>;

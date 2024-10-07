@@ -33,7 +33,8 @@ export * from './lib/models/configurations/media-library-configuration.interface
 export * from './lib/models/music/track.model';
 export * from './lib/models/music/artist.model';
 export * from './lib/models/music/album.model';
-export * from './lib/models/playlist/Playlist.model';
+export * from './lib/models/playlist/playlist.model';
+export * from './lib/models/collections/list-item.interface';
 
 /** Enums */
 export * from './lib/enums/Enums.enum';

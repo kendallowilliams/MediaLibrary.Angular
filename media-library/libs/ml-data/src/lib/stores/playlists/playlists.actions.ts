@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Playlist } from '../../models/playlist/Playlist.model';
+import { Playlist } from '../../models/playlist/playlist.model';
 
 export class PlaylistsActions {
   public static loadPlaylists = createAction('[Playlists/API] Load Playlists');

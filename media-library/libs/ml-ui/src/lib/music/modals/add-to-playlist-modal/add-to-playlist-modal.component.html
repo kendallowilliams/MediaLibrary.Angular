@@ -1,1 +1,11 @@
-<p>add-to-playlist-modal works!</p>
+<ml-modal-content class="">
+  <ml-modal-body class="grid grid-cols-2">
+    <div class="flex flex-col gap-[10px]">
+      <label mlLabel>Playlists</label>
+      <ml-select></ml-select>
+    </div>
+    <div class="">
+      <ml-list-box [(ngModel)]="selectedPlaylists"></ml-list-box>
+    </div>
+  </ml-modal-body>
+</ml-modal-content>

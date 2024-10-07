@@ -22,3 +22,8 @@ export const selectAllTracks = createSelector(
   (state: MusicState) => state.tracks
 );
 
+export const selectTrack = (id: number) => createSelector(
+  selectMusicState,
+  (state: MusicState) => state.tracks.find(track => track.id === id)
+);
+

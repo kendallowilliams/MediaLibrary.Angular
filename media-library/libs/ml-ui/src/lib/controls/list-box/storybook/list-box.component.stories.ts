@@ -4,7 +4,7 @@ import { ListBoxComponent } from '../list-box.component';
 import { ControlsModule } from '../../controls.module';
 import { FormsModule } from '@angular/forms';
 
-const meta: Meta<ListBoxComponent> = {
+const meta: Meta<ListBoxComponent<number>> = {
   title: 'Components/List Box',
   component: ListBoxComponent,
   decorators: [
@@ -17,7 +17,7 @@ const meta: Meta<ListBoxComponent> = {
 };
 
 export default meta;
-type Story = StoryObj<ListBoxComponent>;
+type Story = StoryObj<ListBoxComponent<number>>;
 
 export const Default: Story = {
   args: {
@@ -26,7 +26,22 @@ export const Default: Story = {
   render: (args) => ({
     props: {
       ...args,
-      items: ['Cars', 'Pets', 'Games', 'Movies', 'Categories'],
+      items: [{
+        Name: 'Cars',
+        Value: 1
+      }, {
+        Name: 'Pets',
+        Value: 2
+      }, {
+        Name: 'Games',
+        Value: 3
+      }, {
+        Name: 'Movies', 
+        Value: 4 
+      }, {
+        Name: 'Categories',
+        Value: 5
+      }],
     },
     template: `
       <div>

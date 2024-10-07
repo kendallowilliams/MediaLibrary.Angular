@@ -1,4 +1,4 @@
-import { Playlist } from "../../models/playlist/Playlist.model";
+import { Playlist } from "../../models/playlist/playlist.model";
 
 export const playlists: Playlist[] = [
 

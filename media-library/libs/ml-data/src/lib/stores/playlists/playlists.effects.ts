@@ -20,14 +20,9 @@ export class PlaylistsEffects {
     this.actions$.pipe(
       ofType(PlaylistsActions.loadPlaylists),
       withLatestFrom(this._store.select(store => store.playlists)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(PlaylistsActions.loadPlaylistsSuccess({ playlists }));
-        } else {
-          return this._playlistService.getPlaylists()
+      mergeMap(([, state]) => this._playlistService.getPlaylists()
             .pipe(map(playlists => PlaylistsActions.loadPlaylistsSuccess({ playlists })))
-        }
-      }),
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(PlaylistsActions.loadPlaylistsFailure({ error }));

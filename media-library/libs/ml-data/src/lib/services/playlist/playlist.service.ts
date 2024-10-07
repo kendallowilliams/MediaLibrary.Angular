@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PlaylistConfiguration } from '../../models/configurations/playlist-configuration.interface';
 import { Observable, of } from 'rxjs';
 import { BaseService } from '../base.service';
-import { Playlist } from '../../models/playlist/Playlist.model';
+import { Playlist } from '../../models/playlist/playlist.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class PlaylistService extends BaseService {
   }
 
   public getPlaylists() : Observable<Playlist[]> {
-    return of([]);
+    return this.get<Playlist[]>(this.controller, 'Get');
   }
 
   public getMusicPlaylists() : Observable<Playlist[]> {

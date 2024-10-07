@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ListItem, Playlist } from '@media-library/ml-data';
 
 @Component({
   selector: 'ml-add-to-playlist-modal',
@@ -7,5 +8,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddToPlaylistModalComponent {
-
+  @Input() public playlists: Playlist[] | null = [];
+  
+  public selectedPlaylists: ListItem<number>[] = [];
 }

@@ -6,13 +6,7 @@
   [groupDisplayType]="'singleColumn'"
   [autoGroupColumnDef]="groupColDef"
   [gridOptions]="gridOptions"
-  [suppressCellFocus]="true">
+  [suppressCellFocus]="true"
+  (gridReady)="gridReady($event)"
+  (rowDataUpdated)="rowDataUpdated($event)">
 </ag-grid-angular>
-
-<ng-template mlModal [(isOpen)]="isEditModalOpen">
-  <ml-edit-song-modal *ngIf="selectedSong" [song]="selectedSong"></ml-edit-song-modal>
-</ng-template>
-
-<ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen">
-  <ml-add-to-playlist-modal></ml-add-to-playlist-modal>
-</ng-template>

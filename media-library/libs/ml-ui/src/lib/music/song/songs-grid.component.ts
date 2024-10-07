@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Track } from '@media-library/ml-data';
-import { ColDef, GridOptions, RowGroupOpenedEvent } from '@ag-grid-community/core';
+import { ColDef, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 
 @Component({
@@ -15,16 +15,15 @@ export class SongsGridComponent {
   @Output() public editSong = new EventEmitter<number>();
   @Output() public addToPlaylist = new EventEmitter<number>();
 
-  public isEditModalOpen = false;
-  public isAddToPlaylistModalOpen = false;
-  public selectedSong?: Track;
+  private gridApi?: GridApi;
   public gridOptions: GridOptions<Track> = {
     onRowGroupOpened: this.onRowGroupOpened,
     alwaysMultiSort: true
   };
   public groupColDef: ColDef<Track> = {
+    cellClass: ['font-bold'],
     cellRendererParams: {
-      suppressCount: true,
+      suppressCount: true
     }
   };
   public colDefs: ColDef<Track>[] = [
@@ -63,30 +62,33 @@ export class SongsGridComponent {
       cellRendererSelector: params => !params.node.group ? ({
         component: SongOptionsCellRendererComponent,
         params: {
-          edit: () => this.showEditModal(params.data),
-          addToPlaylist: () => this.showAddToPlaylistModal(params.data?.id)
+          edit: () => this.editSong.emit(params.data?.id),
+          addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
         }
       }) : undefined
       
     }
   ];
 
+  public gridReady(evt: GridReadyEvent) : void {
+    this.gridApi = evt.api;
+  }
+
+  public rowDataUpdated(evt: RowDataUpdatedEvent) : void {
+    evt.api.forEachNode(rowNode => {
+      if (rowNode.rowIndex === 0) {
+        evt.api.setRowNodeExpanded(rowNode, rowNode.rowIndex === 0);
+      }
+  });
+  }
+
   public onRowGroupOpened(evt: RowGroupOpenedEvent<Track>): void {
     if (evt.node.expanded) {
       evt.api.forEachNode(node => {
-        if (node.group && node.key !== evt.node.key) {
+        if (node.group && node.key !== evt.node.key && node.expanded) {
           evt.api.setRowNodeExpanded(node, false);
         }
       });
     }
-  }
-
-  public showEditModal(track?: Track) : void {
-    this.isEditModalOpen = !!track;
-    this.selectedSong = track;
-  }
-
-  public showAddToPlaylistModal(id?: number) : void {
-    this.isAddToPlaylistModalOpen = !!id;
   }
 }

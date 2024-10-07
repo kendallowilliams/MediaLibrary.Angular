@@ -1,7 +1,8 @@
 <div class="p-[10px]">
   <ml-tab-group>
     <ml-tab header="Songs" [isSelected]="true">
-      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto"></ml-songs-grid>
+      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
+        (addToPlaylist)="showAddSongToPlaylistModal($event)"></ml-songs-grid>
     </ml-tab>
     <ml-tab header="Albums">
       <ml-album *ngFor="let album of albums$ | async" [album]="album"></ml-album>
@@ -11,3 +12,11 @@
     </ml-tab>
   </ml-tab-group>
 </div>
+
+<ng-template mlModal [(isOpen)]="isEditModalOpen">
+  <ml-edit-song-modal *ngIf="selectedSong" [song]="selectedSong"></ml-edit-song-modal>
+</ng-template>
+
+<ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen">
+  <ml-add-to-playlist-modal [playlists]="playlists$ | async"></ml-add-to-playlist-modal>
+</ng-template>

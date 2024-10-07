@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { PlaylistsActions } from './playlists.actions';
-import { Playlist } from '../../models/playlist/Playlist.model';
+import { Playlist } from '../../models/playlist/playlist.model';
 
 
 export const PLAYLISTS_FEATURE_KEY = 'playlists';
@@ -8,11 +8,9 @@ export const PLAYLISTS_FEATURE_KEY = 'playlists';
 export interface PlaylistsState {
   playlists: Playlist[];
   error?: string | null; // last known error (if any)
-  useTestData: boolean;
 }
 
 export const initialPlaylistsState: PlaylistsState = {
-  useTestData: true,
   playlists: []
 };
 

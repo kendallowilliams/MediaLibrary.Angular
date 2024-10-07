@@ -3,7 +3,7 @@
     text-dark dark:text-light bg-light dark:bg-dark items-center" [ngClass]="{
       'border-r-0 rounded-r-none': !readonly,
       'text-secondary border-secondary': disabled
-    }">{{item}}</span>
+    }">{{item.Name}}</span>
   <button mlSecondaryButton *ngIf="!readonly" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item)" [disabled]="disabled">
     <fa-icon [icon]="faTrashCan"></fa-icon>
     <span class="sr-only">delete list item</span>
