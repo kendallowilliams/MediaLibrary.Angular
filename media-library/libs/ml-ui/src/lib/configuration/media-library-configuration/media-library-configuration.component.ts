@@ -41,11 +41,9 @@ export class MediaLibraryConfigurationComponent implements OnInit, OnChanges {
   }
 
   public showMediaLibraryConfigurationEditor(): void {
-    const modalConfig = new ModalConfig<MediaLibraryConfigurationEditorComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = component => {
-      component.configuration = this.configuration;
-    };
+    modalConfig.inputs = { 'configuration': this.configuration };
     this._editorRef = this._modalService.showComponent(MediaLibraryConfigurationEditorComponent, modalConfig);
   }
 }

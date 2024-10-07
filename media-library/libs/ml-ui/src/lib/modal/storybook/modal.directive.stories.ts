@@ -7,7 +7,7 @@ import { ButtonModule } from '../../controls/button/button.module';
 import { AppRootVcrDirective } from '@media-library/ml-utility';
 import { MessageBoxModule } from '../../message-box';
 import { useArgs } from '@storybook/preview-api';
-import { ModalConfig } from '../models/ModalConfig.model';
+import { ModalConfig } from '../models/modal-config.model';
 import { ControlsModule } from '../../controls';
 
 const meta: Meta<ModalDirective> = {
@@ -37,7 +37,7 @@ type Story = StoryObj<ModalDirective>;
 export const Default: Story = {
   args: {
     isOpen: false,
-    config: new ModalConfig<unknown>(),
+    config: new ModalConfig(),
     useAppRootVcr: true,
   },
   render: (args) => {

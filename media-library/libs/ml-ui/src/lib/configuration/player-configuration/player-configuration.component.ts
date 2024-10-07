@@ -41,11 +41,9 @@ export class PlayerConfigurationComponent implements OnInit, OnChanges {
   }
 
   public showPlayerConfigurationEditor(): void {
-    const modalConfig = new ModalConfig<PlayerConfigurationEditorComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = component => {
-      component.configuration = this.configuration;
-    };
+    modalConfig.inputs = { 'configuration': this.configuration };
     this._editorRef = this._modalService.showComponent(PlayerConfigurationEditorComponent, modalConfig);
   }
 }

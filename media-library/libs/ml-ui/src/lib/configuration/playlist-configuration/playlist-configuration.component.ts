@@ -48,11 +48,9 @@ export class PlaylistConfigurationComponent implements OnInit, OnChanges {
   }
 
   public showPlaylistConfigurationEditor(): void {
-    const modalConfig = new ModalConfig<PlaylistConfigurationEditorComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = component => {
-      component.configuration = this.configuration;
-    };
+    modalConfig.inputs = { 'configuration': this.configuration };
     this._editorRef = this._modalService.showComponent(PlaylistConfigurationEditorComponent, modalConfig);
   }
 }

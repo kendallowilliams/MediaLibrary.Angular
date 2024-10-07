@@ -46,11 +46,9 @@ export class PodcastConfigurationComponent implements OnInit, OnChanges {
   }
 
   public showPodcastConfigurationEditor(): void {
-    const modalConfig = new ModalConfig<PodcastConfigurationEditorComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = component => {
-      component.configuration = this.configuration;
-    };
+    modalConfig.inputs = { 'configuration': this.configuration };
     this._editorRef = this._modalService.showComponent(PodcastConfigurationEditorComponent, modalConfig);
   }
 

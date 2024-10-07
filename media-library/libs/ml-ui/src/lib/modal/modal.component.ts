@@ -15,9 +15,9 @@ import {
   AfterViewInit,
   DestroyRef
 } from '@angular/core';
-import { ModalConfig } from './models/ModalConfig.model';
-import { ModalRef } from './models/ModalRef.model';
-import { Modal } from './models/Modal.interface';
+import { ModalConfig } from './models/modal-config.model';
+import { ModalRef } from './models/modal-ref.model';
+import { Modal } from './models/modal.interface';
 import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -31,14 +31,17 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         'backdrop:bg-dark backdrop:opacity-50': config.backdrop === 'visible',
         'backdrop:bg-transparent': config.backdrop === 'transparent'
       }" (close)="handleClose($event)" (cancel)="handleCancel($event)">
-      <ng-template #modalContent></ng-template>
+      <div #backgroundDiv class="flex justify-center items-center h-lvh w-lvw">
+        <ng-template #modalContent></ng-template>
+      </div>
     </dialog>
     `
 })
 export class ModalComponent<T> implements AfterViewInit, Modal {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('backgroundDiv') private _backgroundDiv!: ElementRef<HTMLDivElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
-  @Input() public config = new ModalConfig<T>();
+  @Input() public config = new ModalConfig();
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
@@ -61,7 +64,10 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
       const componentRef = this._modalContent.createComponent<T>(this._modalRef?.componentType, { injector: injector });
       
       this._modalRef.component = componentRef.instance;
-      this.config?.configureComponentInputs?.call(this, this._modalRef.component);
+      if (this.config?.inputs) {
+        Object.keys(this.config.inputs)
+          .forEach(input => componentRef.setInput(input, this.config?.inputs?.[input]));
+      }
       componentRef.changeDetectorRef.detectChanges();
       this.show();
     } else if (this._modalRef?.template) {
@@ -89,9 +95,9 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
   @HostListener('click', ['$event'])
   public handleClick(event: Event) : void {
-    const dialog = this._dialog.nativeElement;
+    const background = this._backgroundDiv.nativeElement;
 
-    if (Object.is(event.target, dialog) && !this.config.static) {
+    if (Object.is(event.target, background) && !this.config.static) {
       this.hide();
     }
   }

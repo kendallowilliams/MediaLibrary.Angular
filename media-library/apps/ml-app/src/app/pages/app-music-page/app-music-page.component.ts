@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@
 import { MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, selectAllPlaylists, PlaylistsActions } from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-music-page',

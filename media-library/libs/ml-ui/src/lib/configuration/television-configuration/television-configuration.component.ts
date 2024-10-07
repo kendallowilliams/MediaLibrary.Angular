@@ -44,11 +44,9 @@ export class TelevisionConfigurationComponent implements OnInit, OnChanges {
   }
 
   public showTelevisionConfigurationEditor(): void {
-    const modalConfig = new ModalConfig<TelevisionConfigurationEditorComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = component => {
-      component.configuration = this.configuration;
-    };
+    modalConfig.inputs = { 'configuration': this.configuration };
     this._editorRef = this._modalService.showComponent(TelevisionConfigurationEditorComponent, modalConfig);
   }
 

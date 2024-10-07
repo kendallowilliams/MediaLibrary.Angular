@@ -18,5 +18,6 @@
 </button>
 <ng-template #dropdown>
     <ml-select-dropdown-content [config]="dropdownConfig" [ngStyle]="getDropdownVariables()" tabindex="0" 
-      (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)"></ml-select-dropdown-content>
+      (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)"
+      [options]="internalOptions" [groups]="internalGroups"></ml-select-dropdown-content>
 </ng-template>

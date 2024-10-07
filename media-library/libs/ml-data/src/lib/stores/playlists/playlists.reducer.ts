@@ -7,22 +7,25 @@ export const PLAYLISTS_FEATURE_KEY = 'playlists';
 
 export interface PlaylistsState {
   playlists: Playlist[];
+  isCached: boolean;
   error?: string | null; // last known error (if any)
 }
 
 export const initialPlaylistsState: PlaylistsState = {
-  playlists: []
+  playlists: [],
+  isCached: false
 };
 
 const reducer = createReducer(
   initialPlaylistsState,
   on(
     PlaylistsActions.loadPlaylistsSuccess,
-    (state, { playlists }) => ({ ...state, playlists })
+    (state, { playlists }) => ({ ...state, playlists, isCached: true })
   ),
   on(PlaylistsActions.loadPlaylistsFailure, (state, { error }) => ({
     ...state,
     error,
+    isCached: false
   })),
 );
 

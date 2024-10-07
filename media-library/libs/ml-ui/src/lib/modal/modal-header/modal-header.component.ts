@@ -6,7 +6,7 @@ import {
   Optional,
   ViewEncapsulation,
 } from '@angular/core';
-import { ModalRef } from '../models/ModalRef.model';
+import { ModalRef } from '../models/modal-ref.model';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({

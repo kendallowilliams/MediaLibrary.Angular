@@ -5,7 +5,6 @@ import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
 import { PlaylistService } from '../../services/playlist/playlist.service';
 import { PlaylistsActions } from './playlists.actions';
-import { playlists } from './playlists.data';
 
 @Injectable()
 export class PlaylistsEffects {
@@ -20,9 +19,14 @@ export class PlaylistsEffects {
     this.actions$.pipe(
       ofType(PlaylistsActions.loadPlaylists),
       withLatestFrom(this._store.select(store => store.playlists)),
-      mergeMap(([, state]) => this._playlistService.getPlaylists()
-            .pipe(map(playlists => PlaylistsActions.loadPlaylistsSuccess({ playlists })))
-      ),
+      mergeMap(([, state]) => {
+        if (state.isCached) {
+          return of(PlaylistsActions.loadPlaylistsSuccess({ playlists: state.playlists }));
+        } else {
+          return this._playlistService.getPlaylists()
+            .pipe(map(playlists => PlaylistsActions.loadPlaylistsSuccess({ playlists })));
+        }
+      }),
       catchError((error) => {
         console.error('Error', error);
         return of(PlaylistsActions.loadPlaylistsFailure({ error }));

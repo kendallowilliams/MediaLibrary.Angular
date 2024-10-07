@@ -1,13 +1,13 @@
 import { Directive, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ModalRef } from '../models/ModalRef.model';
-import { ModalConfig } from '../models/ModalConfig.model';
+import { ModalRef } from '../models/modal-ref.model';
+import { ModalConfig } from '../models/modal-config.model';
 import { ModalService } from '../services/modal.service';
 
 @Directive({
   selector: '[mlModal]'
 })
 export class ModalDirective implements OnChanges {
-  @Input() public config: ModalConfig<unknown> = new ModalConfig<unknown>();
+  @Input() public config: ModalConfig = new ModalConfig();
   @Input() public useAppRootVcr = true;
   @Input() public isOpen = false;
   @Output() public isOpenChange = new EventEmitter<boolean>();

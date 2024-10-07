@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MessageBoxComponent } from '../message-box.component';
 import { ModalService } from '../../modal/services/modal.service';
-import { ModalRef } from '../../modal/models/ModalRef.model';
-import { ModalConfig } from '../../modal/models/ModalConfig.model';
+import { ModalRef } from '../../modal/models/modal-ref.model';
+import { ModalConfig } from '../../modal/models/modal-config.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,45 +14,45 @@ export class MessageBoxService {
   constructor(private _modalService: ModalService) {}
 
   public alert(title: string, message: string) : void {
-    const modalConfig = new ModalConfig<MessageBoxComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
-      c.title = title;
-      c.message = message;
-      c.messageType = 'alert';
+    modalConfig.inputs = {
+      'title': title,
+      'message': message,
+      'messageType': 'alert'
     };
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
   public error(title: string, message: string) : void {
-    const modalConfig = new ModalConfig<MessageBoxComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
-      c.title = title;
-      c.message = message;
-      c.messageType = 'error';
+    modalConfig.inputs = {
+      'title': title,
+      'message': message,
+      'messageType': 'error'
     };
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
   public warn(title: string, message: string) : void {
-    const modalConfig = new ModalConfig<MessageBoxComponent>();
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
-      c.title = title;
-      c.message = message;
-      c.messageType = 'warn';
+    modalConfig.inputs = {
+      'title': title,
+      'message': message,
+      'messageType': 'warn'
     };
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
   }
 
-  public confirm(title: string, message: string, yesNo: boolean = false) : Observable<boolean> {
-    const modalConfig = new ModalConfig<MessageBoxComponent>();
+  public confirm(title: string, message: string, yesNo = false) : Observable<boolean> {
+    const modalConfig = new ModalConfig();
 
-    modalConfig.configureComponentInputs = (c: MessageBoxComponent) => {
-      c.title = title;
-      c.message = message;
-      c.messageType = yesNo ? 'yesNo' : 'confirm';
+    modalConfig.inputs = {
+      'title': title,
+      'message': message,
+      'messageType': yesNo ? 'yesNo' : 'confirm'
     };
     this._modalRef = this._modalService.showComponent(MessageBoxComponent, modalConfig);
 
