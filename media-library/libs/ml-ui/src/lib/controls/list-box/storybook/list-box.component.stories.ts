@@ -27,25 +27,26 @@ export const Default: Story = {
     props: {
       ...args,
       items: [{
-        Name: 'Cars',
-        Value: 1
+        name: 'Cars',
+        value: 1
       }, {
-        Name: 'Pets',
-        Value: 2
+        name: 'Pets',
+        value: 2
       }, {
-        Name: 'Games',
-        Value: 3
+        name: 'Games',
+        value: 3
       }, {
-        Name: 'Movies', 
-        Value: 4 
+        name: 'Movies', 
+        value: 4 
       }, {
-        Name: 'Categories',
-        Value: 5
+        name: 'Categories',
+        value: 5
       }],
+      selectedValues: []
     },
     template: `
       <div>
-        <ml-list-box [readonly]="readonly" [(ngModel)]="items" disabled></ml-list-box>
+        <ml-list-box [readonly]="readonly" [items]="items" [(ngModel)]="selectedValues" disabled></ml-list-box>
       </div>
     `
   })

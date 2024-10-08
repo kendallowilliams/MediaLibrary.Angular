@@ -3,8 +3,12 @@
     text-dark dark:text-light bg-light dark:bg-dark items-center" [ngClass]="{
       'border-r-0 rounded-r-none': !readonly,
       'text-secondary border-secondary': disabled
-    }">{{item.Name}}</span>
-  <button mlSecondaryButton *ngIf="!readonly" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item)" [disabled]="disabled">
+    }">{{item.name}}</span>
+  <button mlSecondaryButton *ngIf="!readonly && !item.isSelected" class="rounded-l-none" (click)="handleAdd(item.value)" [disabled]="disabled">
+    <fa-icon [icon]="faPlus"></fa-icon>
+    <span class="sr-only">add list item</span>
+  </button>
+  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item.value)" [disabled]="disabled">
     <fa-icon [icon]="faTrashCan"></fa-icon>
     <span class="sr-only">delete list item</span>
   </button>

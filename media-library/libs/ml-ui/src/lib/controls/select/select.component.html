@@ -2,7 +2,7 @@
   w-full px-[5px] h-control select-none group-focus/select:ring bg-light dark:bg-dark text-dark dark:text-light
   gap-[5px] group-[.ml-invalid]/select:border-danger group-[.ml-invalid]/select:dark:border-danger-dark focus:ring"
   (click)="toggleDropdown()" mlPopover [hidden]="!isDropdownOpen" [content]="dropdown" [placement]="'bottom-start'"
-  (blur)="handleBlur()" [appendTo]="dialog || 'body'">
+  (blur)="handleBlur()" [appendTo]="dialog || 'body'" [contentContext]="{ $implicit: { internalOptions, internalGroups} }">
   <span class="grow text-left truncate">
     <ng-container *ngIf="selectLabel; else placeholderTemplate">{{selectLabel}}</ng-container>
     <ng-template #placeholderTemplate>
@@ -16,8 +16,8 @@
     <fa-icon [icon]="faCaretUp" *ngIf="isDropdownOpen"></fa-icon>
   </span>
 </button>
-<ng-template #dropdown>
+<ng-template #dropdown let-context>
     <ml-select-dropdown-content [config]="dropdownConfig" [ngStyle]="getDropdownVariables()" tabindex="0" 
       (mouseenter)="handleMouseEnter()" (mouseleave)="handleMouseLeave()" (focusout)="handleFocusOut($event)"
-      [options]="internalOptions" [groups]="internalGroups"></ml-select-dropdown-content>
+      [options]="context.internalOptions" [groups]="context.internalGroups"></ml-select-dropdown-content>
 </ng-template>

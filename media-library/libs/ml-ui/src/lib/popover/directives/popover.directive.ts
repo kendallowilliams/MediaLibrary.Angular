@@ -9,6 +9,7 @@ export class PopoverDirective implements OnChanges, OnDestroy {
   @Input() public placement: Placement = 'top';
   @Input() public appendTo: HTMLElement | 'body' = 'body';
   @Input() public content: TemplateRef<unknown> | null = null;
+  @Input() public contentContext: unknown;
   @Input() public hidden = true;
 
   private _instance: Instance | null = null;
@@ -37,6 +38,7 @@ export class PopoverDirective implements OnChanges, OnDestroy {
     if (this.content && appendTo) {
       this._popover = this._vcr.createComponent(PopoverContentComponent);
       this._popover.setInput('template', this.content);
+      this._popover.setInput('templateContext', this.contentContext);
       appendTo.appendChild(this._popover.location.nativeElement);
       this._instance = createPopper(
         this._host.nativeElement,

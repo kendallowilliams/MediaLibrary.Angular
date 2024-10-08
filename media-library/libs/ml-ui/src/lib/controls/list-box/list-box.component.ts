@@ -7,11 +7,9 @@ import {
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { noop } from 'rxjs';
 import { ListItem } from '@media-library/ml-data';
-
-type ItemComparerFn<TValue> = (item1: ListItem<TValue>, item2: ListItem<TValue>) => boolean;
 
 @Component({
   selector: 'ml-list-box',
@@ -26,22 +24,21 @@ type ItemComparerFn<TValue> = (item1: ListItem<TValue>, item2: ListItem<TValue>)
 })
 export class ListBoxComponent<TValue> implements ControlValueAccessor {
   @Input() public readonly = false;
-  @Input() public itemComparer: ItemComparerFn<TValue> = 
-    (item1: ListItem<TValue>, item2: ListItem<TValue>) => item1.Value === item2.Value;
+  @Input() public items: ListItem<TValue>[] = [];
   @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none outline-none`;
   @HostBinding('attr.role') private _role = 'listbox';
   @HostBinding('attr.tabindex') private _tabIndex = 0;
 
-  public items: ListItem<TValue>[] = [];
   public disabled = false;
+  public faPlus = faPlus;
   public faTrashCan = faTrashCan;
-  private _value: ListItem<TValue>[] = [];
-  private _onChange: (_: ListItem<TValue>[]) => void = noop;
+  private _value: TValue[] = [];
+  private _onChange: (_: TValue[]) => void = noop;
   private _onTouched: () => void = noop;
 
-  public writeValue(obj: ListItem<TValue>[]): void {
-    this._value = obj;
-    this.items = this._value;
+  public writeValue(obj: TValue[]): void {
+    this._value = obj || [];
+    this.items.forEach(o => o.isSelected = this._value.includes(o.value));
     this._onChange(this._value);
   }
 
@@ -57,7 +54,11 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor {
     this.disabled = isDisabled;
   }
 
-  public handleDelete(item: ListItem<TValue>): void {
-    this.writeValue(this.items.filter(i => !this.itemComparer(i, item)));
+  public handleAdd(val: TValue): void {
+    this.writeValue([...this._value, val]);
+  }
+
+  public handleDelete(val: TValue): void {
+    this.writeValue(this._value.filter(v => v !== val));
   }
 }

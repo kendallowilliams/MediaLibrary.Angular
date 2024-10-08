@@ -1,5 +1,5 @@
 ﻿export interface ListItem<TValue> {
-    Name?: string;
-    Value?: TValue;
-    IsSelected: boolean;
+    name: string;
+    value: TValue;
+    isSelected?: boolean;
 }
