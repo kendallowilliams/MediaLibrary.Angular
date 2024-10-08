@@ -1,26 +1,33 @@
-<ml-modal-content class="w-[400px]">
-  <ml-modal-header>
-    <ml-modal-title>Edit {{song.title}}</ml-modal-title>
-  </ml-modal-header>
-  <ml-modal-body class="flex flex-col gap-[10px]">
-    <div>
-      <input mlTextBox placeholder="Enter title..." />
-    </div>
-    <div>
-      <input mlTextBox placeholder="Enter album..." />
-    </div>
-    <div>
-      <input mlTextBox placeholder="Enter artist..." />
-    </div>
-    <div>
-      <input mlTextBox placeholder="Enter various..." />
-    </div>
-    <div>
-      <input mlTextBox placeholder="Enter position..." type="number" />
-    </div>
-  </ml-modal-body>
-  <ml-modal-footer class="flex justify-end gap-[5px]">
-    <button mlButton>Save</button>
-    <button mlButton [variant]="'secondary'" (click)="close()">Cancel</button>
-  </ml-modal-footer>
-</ml-modal-content>
+<form [formGroup]="songForm">
+  <ml-modal-content class="w-[400px]">
+    <ml-modal-header>
+      <ml-modal-title>Edit {{song?.title}}</ml-modal-title>
+    </ml-modal-header>
+    <ml-modal-body class="flex flex-col gap-[10px]">
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Title</label>
+          <input mlTextBox placeholder="Enter title..." formControlName="title" />
+        </div>
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Album</label>
+          <input mlTextBox placeholder="Enter album..." formControlName="album" />
+        </div>
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Artist</label>
+          <input mlTextBox placeholder="Enter artist..." formControlName="artist" />
+        </div>
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Genre</label>
+          <input mlTextBox placeholder="Enter genre..." formControlName="genre" />
+        </div>
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Position</label>
+          <input mlTextBox placeholder="Enter position..." type="number" formControlName="position" />
+        </div>
+    </ml-modal-body>
+    <ml-modal-footer class="flex justify-end gap-[5px]">
+      <button mlButton [disabled]="!songForm.dirty">Save</button>
+      <button mlButton [variant]="'secondary'" (click)="close()">Cancel</button>
+    </ml-modal-footer>
+  </ml-modal-content>
+</form>

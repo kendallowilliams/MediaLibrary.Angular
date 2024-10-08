@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Playlist } from '../../models/playlist/playlist.model';
+import { AddSongToPlaylistsRequest } from '../../models/requests/add-song-to-playlists.request';
 
 export class PlaylistsActions {
   public static loadPlaylists = createAction('[Playlists/API] Load Playlists');
@@ -13,7 +14,7 @@ export class PlaylistsActions {
   );
   public static addSongToPlaylists = createAction(
     '[Playlists/API] Add Song To Playlists',
-    props<{ songId: number, playlistIds: number[] }>()
+    props<AddSongToPlaylistsRequest>()
   );
   public static addSongToPlaylistsSuccess = createAction(
     '[Playlists/API] Add Song To Playlists Success'

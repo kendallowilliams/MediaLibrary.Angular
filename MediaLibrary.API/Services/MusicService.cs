@@ -91,5 +91,10 @@ namespace MediaLibrary.API.Services
                 await _dataService.Get<Track>(track => track.Id == id)
                     .ContinueWith(task => _memoryCache.Set($"{TRACK_KEY}_{id}", task.Result));
         }
+
+        public Task<IEnumerable<Genre>> GetGenres()
+        {
+            return _dataService.GetList<Genre>();
+        }
     }
 }

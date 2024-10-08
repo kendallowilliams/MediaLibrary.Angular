@@ -6,6 +6,7 @@ import { Album } from '../../models/music/album.model';
 import { Artist } from '../../models/music/artist.model';
 import { Track } from '../../models/music/track.model';
 import { BaseService } from '../base.service';
+import { Genre } from '../../models/music/genre.model';
 
 @Injectable({
   providedIn: 'root'
@@ -34,7 +35,6 @@ export class MusicService extends BaseService {
     return this.get<Album>(this.controller, `Album/${id}`);
   }
 
-
   /** Artist */
   public getArtists(): Observable<Artist[]> {
     return this.get<Artist[]>(this.controller, 'Artists');
@@ -55,4 +55,10 @@ export class MusicService extends BaseService {
   public getAlbumTracks(albumId: number): Observable<Track[]> {
     return this.get<Track[]>(this.controller, `TracksByAlbumId/${albumId}`);
   }
+
+  /** Genre */
+  public getGenres(): Observable<Genre[]> {
+    return this.get<Genre[]>(this.controller, 'Genres');
+  }
+
 }

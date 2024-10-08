@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Album } from '../../models/music/album.model';
 import { Artist } from '../../models/music/artist.model';
 import { Track } from '../../models/music/track.model';
+import { Genre } from '../../models/music/genre.model';
 
 export class MusicActions {
   public static loadAlbums = createAction('[Music/API] Load Albums');
@@ -29,6 +30,15 @@ export class MusicActions {
   );
   public static loadTracksFailure = createAction(
     '[Music/API] Load Tracks Failure',
+    props<{ error: string }>(),
+  );
+  public static loadGenres = createAction('[Music/API] Load Genres');
+  public static loadGenresSuccess = createAction(
+    '[Music/API] Load Genres Success',
+    props<{ genres: Genre[] }>(),
+  );
+  public static loadGenresFailure = createAction(
+    '[Music/API] Load Genres Failure',
     props<{ error: string }>(),
   );
 }

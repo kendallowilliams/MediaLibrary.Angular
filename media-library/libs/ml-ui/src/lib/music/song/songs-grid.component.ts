@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
-import { Track } from '@media-library/ml-data';
+import { Album, Artist, Track, Genre } from '@media-library/ml-data';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 
@@ -11,6 +11,9 @@ import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options
 })
 export class SongsGridComponent {
   @Input() public songs!: Track[] | null;
+  @Input() public artists!: Artist[] | null;
+  @Input() public albums!: Album[] | null;
+  @Input() public genres!: Genre[] | null;
 
   @Output() public editSong = new EventEmitter<number>();
   @Output() public addToPlaylist = new EventEmitter<number>();
@@ -44,19 +47,22 @@ export class SongsGridComponent {
     },
     {
       field: 'year',
-      valueGetter: params => params.data?.year || ''
+      valueFormatter: params => params.value || '--'
     },
     {
-      field: 'album.title',
-      headerName: 'Album'
+      field: 'albumId',
+      headerName: 'Album',
+      valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
     },
     {
-      field: 'artist.name',
-      headerName: 'Artist'
+      field: 'artistId',
+      headerName: 'Artist',
+      valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name
     },
     {
-      field: 'genre.name',
-      headerName: 'Genre'
+      field: 'genreId',
+      headerName: 'Genre',
+      valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
     },
     {
       cellRendererSelector: params => !params.node.group ? ({

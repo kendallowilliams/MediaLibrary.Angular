@@ -34,9 +34,13 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
   public disabled = false;
   public faPlus = faPlus;
   public faTrashCan = faTrashCan;
+  public get value(): TValue[] {
+    return this._value;
+  }
   private _value: TValue[] = [];
   private _onChange: (_: TValue[]) => void = noop;
   private _onTouched: () => void = noop;
+  public isDirty = false;
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('items' in changes) {
@@ -45,8 +49,8 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
   }
 
   public writeValue(obj: TValue[]): void {
-    this._value = obj || [];
-    this.items.forEach(o => o.isSelected = this._value.includes(o.value));
+    this._value = obj;
+    this.items.forEach(o => o.isSelected = this._value?.includes(o.value));
     this._onChange(this._value);
   }
 
@@ -63,10 +67,12 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
   }
 
   public handleAdd(val: TValue): void {
+    this.isDirty = true;
     this.writeValue([...this._value, val]);
   }
 
   public handleDelete(val: TValue): void {
+    this.isDirty = true;
     this.writeValue(this._value.filter(v => v !== val));
   }
 }

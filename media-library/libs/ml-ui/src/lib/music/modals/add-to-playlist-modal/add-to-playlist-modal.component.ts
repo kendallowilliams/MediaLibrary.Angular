@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { ListItem, Playlist } from '@media-library/ml-data';
+import { AddSongToPlaylistsRequest, ListItem, Playlist, Track } from '@media-library/ml-data';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,7 +11,8 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class AddToPlaylistModalComponent implements OnChanges {
   @Input() public playlists: Playlist[] | null = [];
   @Input() public selectedPlaylistIds: number[] | null = [];
-  @Output() public selectedPlaylistIdsChange = new EventEmitter<number[]>();
+  @Input({ required: true }) public song: Track | null = null;
+  @Output() public selectedPlaylistIdsChange = new EventEmitter<AddSongToPlaylistsRequest>();
 
   public playlistItems: ListItem<number>[] = [];
   public faPlus = faPlus;
@@ -25,7 +26,12 @@ export class AddToPlaylistModalComponent implements OnChanges {
     }
   }
 
-  public handleListBoxChange(values: number[]) : void {
-    this.selectedPlaylistIdsChange.emit(values);
+  public handleSave(values: number[]) : void {
+      if (this.song && values) {
+      this.selectedPlaylistIdsChange.emit({
+        songId: this.song?.id,
+        playlistIds: values
+      });
+    }
   }
 }

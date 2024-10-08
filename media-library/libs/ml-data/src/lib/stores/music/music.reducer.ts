@@ -3,6 +3,7 @@ import { MusicActions } from './music.actions';
 import { Artist } from '../../models/music/artist.model';
 import { Track } from '../../models/music/track.model';
 import { Album } from '../../models/music/album.model';
+import { Genre } from '../../models/music/genre.model';
 
 export const MUSIC_FEATURE_KEY = 'music';
 
@@ -10,13 +11,15 @@ export interface MusicState {
   tracks: Track[];
   albums: Album[];
   artists: Artist[];
+  genres: Genre[];
   error?: string | null; // last known error (if any)
 }
 
 export const initialMusicState: MusicState = {
   tracks: [],
   albums: [],
-  artists: []
+  artists: [],
+  genres: []
 };
 
 const reducer = createReducer(
@@ -42,6 +45,14 @@ const reducer = createReducer(
     (state, { tracks }) => ({ ...state, tracks })
   ),
   on(MusicActions.loadTracksFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
+  on(
+    MusicActions.loadGenresSuccess,
+    (state, { genres }) => ({ ...state, genres })
+  ),
+  on(MusicActions.loadGenresFailure, (state, { error }) => ({
     ...state,
     error,
   }))

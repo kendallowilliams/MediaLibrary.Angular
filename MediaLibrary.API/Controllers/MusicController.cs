@@ -52,5 +52,10 @@ namespace MediaLibrary.API.Controllers
         [Route("{id:int}")]
         public async Task<Track> Track(int id) => await musicService.GetTrack(id);
         #endregion
+
+        #region Genres
+        [HttpGet]
+        public async Task<IEnumerable<Genre>> Genres() => await musicService.GetGenres();
+        #endregion
     }
 }

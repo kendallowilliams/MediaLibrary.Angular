@@ -56,4 +56,18 @@ export class MusicEffects {
       }),
     ),
   );
+
+  loadGenres$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MusicActions.loadGenres),
+      withLatestFrom(this._store.select(store => store.music)),
+      mergeMap(([, state]) => this._musicService.getGenres()
+        .pipe(map(genres => MusicActions.loadGenresSuccess({ genres })
+      ))),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(MusicActions.loadGenresFailure({ error }));
+      }),
+    ),
+  );
 }

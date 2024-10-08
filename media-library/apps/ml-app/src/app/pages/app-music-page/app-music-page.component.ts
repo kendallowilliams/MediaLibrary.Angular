@@ -1,8 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, selectAllPlaylists, PlaylistsActions, selectMusicPlaylists, PlaylistTypes, PlaylistService } from '@media-library/ml-data';
+import { 
+  MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, 
+  selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, PlaylistsActions, 
+  selectMusicPlaylists, PlaylistTypes, PlaylistService, selectAllGenres, 
+  AddSongToPlaylistsRequest
+} from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-music-page',
@@ -22,11 +27,12 @@ export class AppMusicPageComponent implements OnInit {
   public albums$ = this._store.select(selectAllAlbums);
   public artists$ = this._store.select(selectAllArtists);
   public songs$ = this._store.select(selectAllTracks);
+  public genres$ = this._store.select(selectAllGenres);
   public playlists$ = this._store.select(selectMusicPlaylists(PlaylistTypes.Music));
   public playlists: Playlist[] = [];
   public isEditModalOpen = false;
   public isAddToPlaylistModalOpen = false;
-  public selectedSong: Track | null = null;
+  public selectedSong$?: Observable<Track | null>;
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
 
@@ -36,19 +42,19 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(MusicActions.loadAlbums());
     this._store.dispatch(MusicActions.loadArtists());
     this._store.dispatch(MusicActions.loadTracks());
+    this._store.dispatch(MusicActions.loadGenres());
   }
 
   public showEditSongModal(id: number) : void {
     this.selectedSongId = id;
     this.isEditModalOpen = !!this.selectedSongId;
-    this._store.select(selectTrack(id))
-      .pipe(tap(track => this.selectedSong = track || null))
-      .subscribe();
+    this.selectedSong$ = this._store.select(selectTrack(id));
   }
 
   public showAddSongToPlaylistModal(id: number) : void {
     this._store.dispatch(PlaylistsActions.loadPlaylists());
     this.selectedSongId = id;
+    this.selectedSong$ = this._store.select(selectTrack(id));
     this.selectedPlaylistIds$ = this._playlistApi.getSongPlaylistIds(this.selectedSongId);
     this.isAddToPlaylistModalOpen = !!this.selectedSongId;
   }
@@ -56,13 +62,10 @@ export class AppMusicPageComponent implements OnInit {
   public handleIsOpenChange(isOpen: boolean) : void {
     if (!isOpen) {
       this.selectedSongId = null;
-      this.selectedSong = null;
     }
   }
 
-  public handlePlaylistIdsChange(ids: number[]) : void {
-    if (this.selectedSongId && ids?.length > 0) {
-      this._store.dispatch(PlaylistsActions.addSongToPlaylists({ songId: this.selectedSongId, playlistIds: ids }));
-    }
+  public handlePlaylistIdsChange(request: AddSongToPlaylistsRequest) : void {
+    this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
   }
 }

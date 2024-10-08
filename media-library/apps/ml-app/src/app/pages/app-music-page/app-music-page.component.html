@@ -1,7 +1,8 @@
 <div class="p-[10px]">
   <ml-tab-group>
     <ml-tab header="Songs" [isSelected]="true">
-      <ml-songs-grid [songs]="songs$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
+      <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
+        [genres]="genres$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
         (addToPlaylist)="showAddSongToPlaylistModal($event)"></ml-songs-grid>
     </ml-tab>
     <ml-tab header="Albums">
@@ -14,11 +15,11 @@
 </div>
 
 <ng-template mlModal [(isOpen)]="isEditModalOpen" (isOpenChange)="handleIsOpenChange($event)">
-  <ml-edit-song-modal *ngIf="selectedSong" [song]="selectedSong"></ml-edit-song-modal>
+  <ml-edit-song-modal [song]="selectedSong$ | async"></ml-edit-song-modal>
 </ng-template>
 
 <ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen" (isOpenChange)="handleIsOpenChange($event)">
   <ml-add-to-playlist-modal [playlists]="playlists$ | async" [selectedPlaylistIds]="selectedPlaylistIds$ | async" 
-    (selectedPlaylistIdsChange)="handlePlaylistIdsChange($event)">
+    (selectedPlaylistIdsChange)="handlePlaylistIdsChange($event)" [song]="selectedSong$ | async">
   </ml-add-to-playlist-modal>
 </ng-template>
