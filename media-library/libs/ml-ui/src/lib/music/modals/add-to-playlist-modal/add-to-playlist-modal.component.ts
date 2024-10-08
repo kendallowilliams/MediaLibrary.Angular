@@ -10,7 +10,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class AddToPlaylistModalComponent implements OnChanges {
   @Input() public playlists: Playlist[] | null = [];
-  @Input() public selectedPlaylistIds?: number[] = [];
+  @Input() public selectedPlaylistIds: number[] | null = [];
   @Output() public selectedPlaylistIdsChange = new EventEmitter<number[]>();
 
   public playlistItems: ListItem<number>[] = [];

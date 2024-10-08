@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using MediaLibrary.BLL.Repository;
 
 namespace MediaLibrary.BLL.Extensions
 {
@@ -47,6 +48,7 @@ namespace MediaLibrary.BLL.Extensions
             services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IWebService, WebService>();
             services.AddTransient<IProcessorService, ProcessorService>();
+            services.AddTransient<PlaylistRepository>();
             services.AddMemoryCache();
         }
     }

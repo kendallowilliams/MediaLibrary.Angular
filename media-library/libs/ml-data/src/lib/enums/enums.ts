@@ -53,6 +53,11 @@ export enum PlaylistTabs {
     Podcast,
     Television
 }
+export enum PlaylistTypes { 
+  Music, 
+  Podcast, 
+  Television 
+}
 export enum PodcastPages {
     Index = 0,
     Podcast

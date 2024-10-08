@@ -18,7 +18,7 @@
 </ng-template>
 
 <ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen" (isOpenChange)="handleIsOpenChange($event)">
-  <ml-add-to-playlist-modal [playlists]="playlists$ | async" [(selectedPlaylistIds)]="selectedPlaylistIds" 
+  <ml-add-to-playlist-modal [playlists]="playlists$ | async" [selectedPlaylistIds]="selectedPlaylistIds$ | async" 
     (selectedPlaylistIdsChange)="handlePlaylistIdsChange($event)">
   </ml-add-to-playlist-modal>
 </ng-template>

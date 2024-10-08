@@ -1,4 +1,5 @@
-﻿using MediaLibrary.DAL.Models;
+﻿using MediaLibrary.BLL.Repository;
+using MediaLibrary.DAL.Models;
 using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.AspNetCore.Mvc;
@@ -11,23 +12,24 @@ namespace MediaLibrary.API.Controllers
     public class PlaylistController : ControllerBase
     {
         private readonly IDataService dataService;
+        private readonly PlaylistRepository playlistRepository;
 
-        public PlaylistController(IDataService _dataService) : base()
+        public PlaylistController(IDataService _dataService, PlaylistRepository playlistRepository) : base()
         {
             this.dataService = _dataService;
+            this.playlistRepository = playlistRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get(int? id = null)
+        public async Task<IActionResult> GetPlaylists()
         {
-            if (id.HasValue)
-            {
-                return new JsonResult(await dataService.Get<Playlist>(playlist => playlist.Id == id));
-            }
-            else
-            {
-                return new JsonResult(await dataService.GetList<Playlist>());
-            }
+            return new JsonResult(await dataService.GetList<Playlist>());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPlaylist(int id)
+        {
+            return new JsonResult(await dataService.Get<Playlist>(playlist => playlist.Id == id));
         }
 
         [HttpGet]
@@ -36,10 +38,16 @@ namespace MediaLibrary.API.Controllers
             return await dataService.GetList<Playlist>(playlist => playlist.Type == playlistType);
         }
 
-        [HttpPost]
-        public async Task<bool> AddSongToPlaylists(int songId, int[] playlistIds)
+        [HttpGet]
+        public async Task<IEnumerable<int>> GetSongPlaylistIds(int songId)
         {
-            return await Task.FromResult(true);
+            return await dataService.SelectWhere<PlaylistTrack, int>(pt => pt.PlaylistId, pt => pt.TrackId == songId);
+        }
+
+        [HttpPost]
+        public Task<bool> AddSongToPlaylists(int songId, int[] playlistIds)
+        {
+            return playlistRepository.AddSongToPlaylists(songId, playlistIds);
         }
 
         [HttpGet]

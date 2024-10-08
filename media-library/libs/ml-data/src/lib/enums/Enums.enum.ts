@@ -3,4 +3,4 @@ export enum MusicCategoryEnum {
   Artist,
   Song,
   Playlist
-};
+}

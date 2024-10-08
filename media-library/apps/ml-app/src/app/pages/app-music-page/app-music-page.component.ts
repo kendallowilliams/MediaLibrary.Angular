@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, selectAllPlaylists, PlaylistsActions } from '@media-library/ml-data';
+import { MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, selectAllPlaylists, PlaylistsActions, selectMusicPlaylists, PlaylistTypes, PlaylistService } from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Component({
   selector: 'app-music-page',
@@ -22,15 +22,15 @@ export class AppMusicPageComponent implements OnInit {
   public albums$ = this._store.select(selectAllAlbums);
   public artists$ = this._store.select(selectAllArtists);
   public songs$ = this._store.select(selectAllTracks);
-  public playlists$ = this._store.select(selectAllPlaylists);
+  public playlists$ = this._store.select(selectMusicPlaylists(PlaylistTypes.Music));
   public playlists: Playlist[] = [];
   public isEditModalOpen = false;
   public isAddToPlaylistModalOpen = false;
   public selectedSong: Track | null = null;
   public selectedSongId: number | null = null;
-  public selectedPlaylistIds?: number[] = [];
+  public selectedPlaylistIds$?: Observable<number[]>;
 
-  constructor(private _store: Store<MlDataFeatureState>) {}
+  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(MusicActions.loadAlbums());
@@ -49,6 +49,7 @@ export class AppMusicPageComponent implements OnInit {
   public showAddSongToPlaylistModal(id: number) : void {
     this._store.dispatch(PlaylistsActions.loadPlaylists());
     this.selectedSongId = id;
+    this.selectedPlaylistIds$ = this._playlistApi.getSongPlaylistIds(this.selectedSongId);
     this.isAddToPlaylistModalOpen = !!this.selectedSongId;
   }
 

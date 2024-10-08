@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Threading;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MediaLibrary.DAL.Services.Interfaces
 {
@@ -43,6 +44,11 @@ namespace MediaLibrary.DAL.Services.Interfaces
         Task<bool> Exists<T>(Expression<Func<T, bool>> expression = null, CancellationToken token = default(CancellationToken)) where T : class, IDataModel;
 
         Task<int> Execute(string sql, CancellationToken token = default(CancellationToken), params object[] parameters);
+
+        Task<IEnumerable<TReturn>> SelectWhere<T, TReturn>(Expression<Func<T, TReturn>> selector,
+            Expression<Func<T, bool>> predicate = default,
+            CancellationToken token = default)
+            where T : class, IDataModel;
 
         SqlParameter CreateParameter(string name, object value);
 

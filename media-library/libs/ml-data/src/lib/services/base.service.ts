@@ -15,7 +15,7 @@ export abstract class BaseService {
     return this.post<T>(controller, 'Configuration', configuration);
   }
 
-  public get<T>(controller: string, action: string, options?: {
+  public get<T>(controller: string, action: string | null = null, options?: {
     headers?: HttpHeaders | {
       [header: string]: string | string[];
     };
@@ -28,10 +28,11 @@ export abstract class BaseService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    return this.http.get<T>(`${this._baseUrl}/api/${controller}/${action}`, options);
+    const url = `${this._baseUrl}/api/${controller}${action ? '/'.concat(action) : ''}`;
+    return this.http.get<T>(url, options);
   }
 
-  public post<T>(controller: string, action: string, body: unknown | null, options?: {
+  public post<T>(controller: string, action: string | null = null, body: unknown | null, options?: {
     headers?: HttpHeaders | {
       [header: string]: string | string[];
     };
@@ -44,6 +45,7 @@ export abstract class BaseService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    return this.http.post<T>(`${this._baseUrl}/api/${controller}/${action}`, body, options);
+    const url = `${this._baseUrl}/api/${controller}${action ? '/'.concat(action) : ''}`;
+    return this.http.post<T>(url, body, options);
   }
 }
