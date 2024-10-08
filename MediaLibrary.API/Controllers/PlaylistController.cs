@@ -36,6 +36,12 @@ namespace MediaLibrary.API.Controllers
             return await dataService.GetList<Playlist>(playlist => playlist.Type == playlistType);
         }
 
+        [HttpPost]
+        public async Task<bool> AddSongToPlaylists(int songId, int[] playlistIds)
+        {
+            return await Task.FromResult(true);
+        }
+
         [HttpGet]
         public async Task<PlaylistConfiguration> Configuration()
         {

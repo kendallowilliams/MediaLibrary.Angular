@@ -60,5 +60,8 @@ export class AppMusicPageComponent implements OnInit {
   }
 
   public handlePlaylistIdsChange(ids: number[]) : void {
+    if (this.selectedSongId && ids?.length > 0) {
+      this._store.dispatch(PlaylistsActions.addSongToPlaylists({ songId: this.selectedSongId, playlistIds: ids }));
+    }
   }
 }

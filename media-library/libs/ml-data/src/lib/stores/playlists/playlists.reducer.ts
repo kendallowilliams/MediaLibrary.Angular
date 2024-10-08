@@ -27,6 +27,14 @@ const reducer = createReducer(
     error,
     isCached: false
   })),
+  on(
+    PlaylistsActions.addSongToPlaylistsSuccess, (state) => ({ 
+      ...state 
+  })),
+  on(PlaylistsActions.addSongToPlaylistsFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
 );
 
 export function playlistsReducer(

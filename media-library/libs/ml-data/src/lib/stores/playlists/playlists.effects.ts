@@ -33,4 +33,19 @@ export class PlaylistsEffects {
       }),
     ),
   );
+
+  addSongToPlaylists$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PlaylistsActions.addSongToPlaylists),
+      withLatestFrom(this._store.select(store => store.playlists)),
+      mergeMap(([action, state]) => {
+          return this._playlistService.addSongToPlaylists(action.songId, action.playlistIds)
+            .pipe(map(() => PlaylistsActions.addSongToPlaylistsSuccess()));
+      }),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(PlaylistsActions.loadPlaylistsFailure({ error }));
+      }),
+    ),
+  );
 }

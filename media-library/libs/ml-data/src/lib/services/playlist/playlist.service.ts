@@ -30,4 +30,8 @@ export class PlaylistService extends BaseService {
   public getMusicPlaylists() : Observable<Playlist[]> {
     return this.get<Playlist[]>(this.controller, 'GetByType?playlistType=0');
   }
+
+  public addSongToPlaylists(songId: number, playlistIds: number[]) : Observable<boolean> {
+    return this.post<boolean>(this.controller, `AddSongToPlaylists?songId=${songId}`, playlistIds);
+  }
 }
