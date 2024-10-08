@@ -1,11 +1,8 @@
-<ml-modal-content class="">
-  <ml-modal-body class="grid grid-cols-2">
-    <div class="flex flex-col gap-[10px]">
-      <label mlLabel>Playlists</label>
-      <ml-select></ml-select>
-    </div>
-    <div class="">
-      <ml-list-box [(ngModel)]="selectedPlaylists"></ml-list-box>
-    </div>
+<ml-modal-content class="w-[450px]">
+  <ml-modal-header>
+    <ml-modal-title>Add To Playlist</ml-modal-title>
+  </ml-modal-header>
+  <ml-modal-body>
+    <ml-list-box [items]="playlistItems" [(ngModel)]="selectedPlaylistIds" (ngModelChange)="handleListBoxChange($event)"></ml-list-box>
   </ml-modal-body>
 </ml-modal-content>

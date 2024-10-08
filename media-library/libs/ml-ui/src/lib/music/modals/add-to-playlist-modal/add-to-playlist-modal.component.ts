@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { ListItem, Playlist } from '@media-library/ml-data';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'ml-add-to-playlist-modal',
@@ -7,8 +8,24 @@ import { ListItem, Playlist } from '@media-library/ml-data';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddToPlaylistModalComponent {
+export class AddToPlaylistModalComponent implements OnChanges {
   @Input() public playlists: Playlist[] | null = [];
-  
-  public selectedPlaylists: ListItem<number>[] = [];
+  @Input() public selectedPlaylistIds?: number[] = [];
+  @Output() public selectedPlaylistIdsChange = new EventEmitter<number[]>();
+
+  public playlistItems: ListItem<number>[] = [];
+  public faPlus = faPlus;
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('playlists' in changes) {
+      this.playlistItems = this.playlists?.map(playlist => ({
+        name: playlist.name,
+        value: playlist.id
+      })) || [];
+    }
+  }
+
+  public handleListBoxChange(values: number[]) : void {
+    this.selectedPlaylistIdsChange.emit(values);
+  }
 }

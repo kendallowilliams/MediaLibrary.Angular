@@ -23,13 +23,14 @@ export class AppMusicPageComponent implements OnInit {
   public artists$ = this._store.select(selectAllArtists);
   public songs$ = this._store.select(selectAllTracks);
   public playlists$ = this._store.select(selectAllPlaylists);
-  public selectedSong?: Track;
   public playlists: Playlist[] = [];
   public isEditModalOpen = false;
   public isAddToPlaylistModalOpen = false;
+  public selectedSong: Track | null = null;
+  public selectedSongId: number | null = null;
+  public selectedPlaylistIds?: number[] = [];
 
-  constructor(private _store: Store<MlDataFeatureState>) {
-  }
+  constructor(private _store: Store<MlDataFeatureState>) {}
 
   public ngOnInit(): void {
     this._store.dispatch(MusicActions.loadAlbums());
@@ -38,14 +39,26 @@ export class AppMusicPageComponent implements OnInit {
   }
 
   public showEditSongModal(id: number) : void {
-    this.isEditModalOpen = !!id;
+    this.selectedSongId = id;
+    this.isEditModalOpen = !!this.selectedSongId;
     this._store.select(selectTrack(id))
-      .pipe(tap(track => this.selectedSong = track))
+      .pipe(tap(track => this.selectedSong = track || null))
       .subscribe();
   }
 
   public showAddSongToPlaylistModal(id: number) : void {
     this._store.dispatch(PlaylistsActions.loadPlaylists());
-    this.isAddToPlaylistModalOpen = !!id;
+    this.selectedSongId = id;
+    this.isAddToPlaylistModalOpen = !!this.selectedSongId;
+  }
+
+  public handleIsOpenChange(isOpen: boolean) : void {
+    if (!isOpen) {
+      this.selectedSongId = null;
+      this.selectedSong = null;
+    }
+  }
+
+  public handlePlaylistIdsChange(ids: number[]) : void {
   }
 }

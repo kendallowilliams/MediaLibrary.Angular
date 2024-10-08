@@ -13,10 +13,12 @@
   </ml-tab-group>
 </div>
 
-<ng-template mlModal [(isOpen)]="isEditModalOpen">
+<ng-template mlModal [(isOpen)]="isEditModalOpen" (isOpenChange)="handleIsOpenChange($event)">
   <ml-edit-song-modal *ngIf="selectedSong" [song]="selectedSong"></ml-edit-song-modal>
 </ng-template>
 
-<ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen">
-  <ml-add-to-playlist-modal [playlists]="playlists$ | async"></ml-add-to-playlist-modal>
+<ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen" (isOpenChange)="handleIsOpenChange($event)">
+  <ml-add-to-playlist-modal [playlists]="playlists$ | async" [(selectedPlaylistIds)]="selectedPlaylistIds" 
+    (selectedPlaylistIdsChange)="handlePlaylistIdsChange($event)">
+  </ml-add-to-playlist-modal>
 </ng-template>

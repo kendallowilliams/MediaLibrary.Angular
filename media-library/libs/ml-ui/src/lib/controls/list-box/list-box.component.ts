@@ -3,6 +3,8 @@ import {
   Component,
   HostBinding,
   Input,
+  OnChanges,
+  SimpleChanges,
   ViewEncapsulation,
   forwardRef,
 } from '@angular/core';
@@ -22,7 +24,7 @@ import { ListItem } from '@media-library/ml-data';
       multi: true,
   }]
 })
-export class ListBoxComponent<TValue> implements ControlValueAccessor {
+export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges {
   @Input() public readonly = false;
   @Input() public items: ListItem<TValue>[] = [];
   @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none outline-none`;
@@ -35,6 +37,12 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor {
   private _value: TValue[] = [];
   private _onChange: (_: TValue[]) => void = noop;
   private _onTouched: () => void = noop;
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('items' in changes) {
+      this.items.forEach(o => o.isSelected = this._value.includes(o.value));
+    }
+  }
 
   public writeValue(obj: TValue[]): void {
     this._value = obj || [];
