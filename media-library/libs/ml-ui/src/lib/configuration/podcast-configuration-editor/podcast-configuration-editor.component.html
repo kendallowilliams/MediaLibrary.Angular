@@ -9,9 +9,9 @@
         <label mlLabel class=""></label>
       </div>
     </ml-modal-body>
-    <ml-modal-footer class="flex items-center justify-end gap-[10px]">
-      <button mlButton [variant]="'secondary'" (click)="handleCancel()">Cancel</button>
+    <ml-modal-footer class="flex items-center justify-end gap-[5px]">
       <button mlButton [variant]="'primary'" (click)="handleSave()" [attr.disabled]="!configForm.dirty || null">Save</button>
+      <button mlButton [variant]="'secondary'" (click)="handleCancel()">Cancel</button>
     </ml-modal-footer>
   </ml-modal-content>
 </form>
