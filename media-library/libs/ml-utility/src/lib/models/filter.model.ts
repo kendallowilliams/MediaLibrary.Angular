@@ -1,4 +1,4 @@
-export interface Filter<TValue = unknown> {
+export interface MlFilter<TValue = unknown> {
   name: string;
   value: TValue;
 }

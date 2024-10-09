@@ -8,7 +8,7 @@
     <ml-album *ngFor="let album of albums$ | async" [album]="album" (albumSelect)="handleAlbumSelect($event)"></ml-album>
   </ml-tab>
   <ml-tab header="Artists">
-    <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
+    <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist" (artistSelect)="handleArtistSelect($event)"></ml-artist>
   </ml-tab>
 </ml-tab-group>
 

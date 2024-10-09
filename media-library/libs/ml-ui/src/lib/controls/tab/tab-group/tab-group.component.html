@@ -4,7 +4,7 @@
       [ngClass]="{ 
         'bg-dark text-light': tab.isSelected,
         'hover:bg-light': !tab.isSelected
-      }" (click)="selectTab(tab)">
+      }" (click)="goToTab({ tab })">
       <span>{{tab.header}}</span>
     </div>
   </div>

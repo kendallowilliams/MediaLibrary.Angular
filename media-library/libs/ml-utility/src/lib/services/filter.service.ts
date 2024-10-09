@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
-import { Filter } from "../models/filter.model";
+import { MlFilter } from "../models/filter.model";
 
 @Injectable({
   providedIn: 'root'
 })
-export class FilterService {
-  private _filters = new BehaviorSubject<Filter[]>([]);
+export class MlFilterService {
+  private _filters = new BehaviorSubject<MlFilter[]>([]);
 
-  public add(filter: Filter) : void {
+  public add(filter: MlFilter) : void {
     const filters = this._filters.getValue(),
       existingFilter = filters.find(f => f.name === filter.name);
 
@@ -36,7 +36,7 @@ export class FilterService {
     return !existingFilter || existingFilter.value === value;
   }
 
-  public getFilters() : Observable<Filter[]> {
+  public getFilters() : Observable<MlFilter[]> {
     return this._filters.asObservable();
   }
 }

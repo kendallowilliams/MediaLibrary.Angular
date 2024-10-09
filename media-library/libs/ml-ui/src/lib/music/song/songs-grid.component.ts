@@ -1,7 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre } from '@media-library/ml-data';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
+import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, IRowNode, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
+import { MlFilter, MlFilterService } from '@media-library/ml-utility';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'ml-songs-grid',
@@ -9,7 +12,7 @@ import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SongsGridComponent {
+export class SongsGridComponent implements OnInit {
   @HostBinding('class') private _class = 'block h-full';
   @Input() public songs!: Track[] | null;
   @Input() public artists!: Artist[] | null;
@@ -77,6 +80,21 @@ export class SongsGridComponent {
       
     }
   ];
+  private _filters: MlFilter[] = [];
+
+  constructor(private _filterService: MlFilterService, private _destroyRef: DestroyRef) {}
+
+  public ngOnInit(): void {
+    this._filterService.getFilters()
+      .pipe(
+        takeUntilDestroyed(this._destroyRef),
+        tap(filters => {
+          this._filters = filters;
+          this.gridApi?.onFilterChanged();
+        })
+      )
+      .subscribe();
+  }
 
   public gridReady(evt: GridReadyEvent) : void {
     this.gridApi = evt.api;
@@ -98,5 +116,18 @@ export class SongsGridComponent {
         }
       });
     }
+  }
+
+  public filterChanged(evt: FilterChangedEvent) : void {
+    evt.api.getDisplayedRowAtIndex(0)?.setExpanded(true);
+  }
+
+  public isExternalFilterPresent = (/*params: IsExternalFilterPresentParams*/) : boolean => {
+    return this._filters.length > 0;
+  }
+
+  public doesExternalFilterPass = (rowNode: IRowNode<Track>) : boolean => {
+    return this._filterService.isMatch('albumId', rowNode.data?.albumId) &&
+      this._filterService.isMatch('artistId', rowNode.data?.artistId);
   }
 }
