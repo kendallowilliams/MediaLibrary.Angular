@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre } from '@media-library/ml-data';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
@@ -10,6 +10,7 @@ import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SongsGridComponent {
+  @HostBinding('class') private _class = 'block h-full';
   @Input() public songs!: Track[] | null;
   @Input() public artists!: Artist[] | null;
   @Input() public albums!: Album[] | null;
@@ -24,6 +25,7 @@ export class SongsGridComponent {
     alwaysMultiSort: true
   };
   public groupColDef: ColDef<Track> = {
+    headerName: '',
     cellClass: ['font-bold'],
     cellRendererParams: {
       suppressCount: true
@@ -47,7 +49,7 @@ export class SongsGridComponent {
     },
     {
       field: 'year',
-      valueFormatter: params => params.value || '--'
+      valueFormatter: params => params.node?.group ? '' : (params.value || '--')
     },
     {
       field: 'albumId',

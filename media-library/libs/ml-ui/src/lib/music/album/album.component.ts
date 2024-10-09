@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { Album } from '@media-library/ml-data';
 
 @Component({
@@ -9,4 +9,9 @@ import { Album } from '@media-library/ml-data';
 })
 export class AlbumComponent {
   @Input({required: true}) public album!: Album;
+  @Output() public albumSelect = new EventEmitter<number>();
+
+  public handleAlbumClick(id: number) : void {
+    this.albumSelect.emit(id);
+  }
 }

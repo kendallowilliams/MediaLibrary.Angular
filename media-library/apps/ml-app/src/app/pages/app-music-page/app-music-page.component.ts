@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
 import { 
   MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, 
   selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, PlaylistsActions, 
@@ -8,6 +8,7 @@ import {
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { FilterService } from '@media-library/ml-utility';
 
 @Component({
   selector: 'app-music-page',
@@ -16,6 +17,7 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMusicPageComponent implements OnInit {
+  @HostBinding('class') private _class = 'flex flex-col h-full p-[10px]';
   private _configuration?: MusicConfiguration;
 
   public faMusic = faMusic;
@@ -36,7 +38,7 @@ export class AppMusicPageComponent implements OnInit {
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
 
-  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService) {}
+  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService, private _filterService: FilterService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(MusicActions.loadAlbums());
@@ -67,5 +69,9 @@ export class AppMusicPageComponent implements OnInit {
 
   public handlePlaylistIdsChange(request: AddSongToPlaylistsRequest) : void {
     this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
+  }
+
+  public handleAlbumSelect(albumId: number) : void {
+    this._filterService.add({ name: 'albumId', value: albumId });
   }
 }

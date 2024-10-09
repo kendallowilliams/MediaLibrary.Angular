@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-[10px]">
+<div class="flex flex-col gap-[10px] h-full">
   <div class="flex">
     <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px]" 
       [ngClass]="{ 
@@ -8,7 +8,7 @@
       <span>{{tab.header}}</span>
     </div>
   </div>
-  <div class="flex-grow">
+  <div class="flex flex-col flex-grow">
     <ng-content select="ml-tab"></ng-content>
   </div>
 </div>

@@ -1,18 +1,16 @@
-<div class="p-[10px]">
-  <ml-tab-group>
-    <ml-tab header="Songs" [isSelected]="true">
-      <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
-        [genres]="genres$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
-        (addToPlaylist)="showAddSongToPlaylistModal($event)"></ml-songs-grid>
-    </ml-tab>
-    <ml-tab header="Albums">
-      <ml-album *ngFor="let album of albums$ | async" [album]="album"></ml-album>
-    </ml-tab>
-    <ml-tab header="Artists">
-      <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
-    </ml-tab>
-  </ml-tab-group>
-</div>
+<ml-tab-group class="block h-full">
+  <ml-tab header="Songs" [isSelected]="true">
+    <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
+      [genres]="genres$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
+      (addToPlaylist)="showAddSongToPlaylistModal($event)"></ml-songs-grid>
+  </ml-tab>
+  <ml-tab header="Albums">
+    <ml-album *ngFor="let album of albums$ | async" [album]="album" (albumSelect)="handleAlbumSelect($event)"></ml-album>
+  </ml-tab>
+  <ml-tab header="Artists">
+    <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist"></ml-artist>
+  </ml-tab>
+</ml-tab-group>
 
 <ng-template mlModal [(isOpen)]="isEditModalOpen" (isOpenChange)="handleIsOpenChange($event)">
   <ml-edit-song-modal [song]="selectedSong$ | async"></ml-edit-song-modal>
