@@ -27,3 +27,6 @@ export * from './lib/popover/index';
 
 /** Music */
 export * from './lib/music/index';
+
+/** Media Player */
+export * from './lib/media-player/index';

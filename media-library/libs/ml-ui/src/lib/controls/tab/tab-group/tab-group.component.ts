@@ -2,7 +2,7 @@ import { AfterContentInit, Component, ContentChildren, QueryList, Renderer2, Vie
 import { TabComponent } from '../tab.component';
 
 export interface TabQuery {
-  header?: string;
+  headerText?: string;
   tab?: TabComponent;
 }
 
@@ -31,7 +31,8 @@ export class TabGroupComponent implements AfterContentInit {
 
   public goToTab(query: TabQuery) : void {
     this.tabs.forEach(tab => {
-      tab.isSelected = tab.header === query?.header || Object.is(tab, query.tab);
+      tab.isSelected = (!!tab.headerText && tab.headerText === query?.headerText) || 
+        Object.is(tab, query.tab);
       this.setVisibility(tab);
     });
   }

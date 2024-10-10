@@ -1,14 +1,15 @@
-import { Component, HostBinding, Input, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, Input, TemplateRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ml-tab',
-  templateUrl: './tab.component.html',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  template: `<ng-content *ngIf="isSelected"></ng-content>`
 })
 export class TabComponent {
   @HostBinding('class') private _class = 'block h-full';
 
-  @Input({required: true}) public header!: string;
+  @Input() public headerText?: string;
+  @Input() public headerTemplate?: TemplateRef<unknown>;
   @Input() public isSelected = false;
 
   constructor(public vcr: ViewContainerRef) {}

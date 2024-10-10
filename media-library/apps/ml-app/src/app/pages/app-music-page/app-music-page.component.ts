@@ -3,13 +3,14 @@ import {
   MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, 
   selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, PlaylistsActions, 
   selectMusicPlaylists, PlaylistTypes, PlaylistService, selectAllGenres, 
-  AddSongToPlaylistsRequest
+  AddSongToPlaylistsRequest,
+  Artist
 } from '@media-library/ml-data';
-import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { MlFilterService } from '@media-library/ml-utility';
-import { TabGroupComponent } from '@media-library/ml-ui';
+import { TabComponent, TabGroupComponent } from '@media-library/ml-ui';
 
 @Component({
   selector: 'app-music-page',
@@ -29,14 +30,20 @@ export class AppMusicPageComponent implements OnInit {
   public faHeadphones = faHeadphones;
   public faList = faList;
   public faXmark = faXmark;
+  public faFilter = faFilter;
   public albums$ = this._store.select(selectAllAlbums);
-  public artists$ = this._store.select(selectAllArtists);
+  public artists$ = this._store.select(selectAllArtists)
+    .pipe(tap(artists => {
+      artists.forEach(artist => this.artists[artist.id] = artist);
+    }));
+  public artists: { [key: number]: Artist } = {};
   public songs$ = this._store.select(selectAllTracks);
   public genres$ = this._store.select(selectAllGenres);
   public playlists$ = this._store.select(selectMusicPlaylists(PlaylistTypes.Music));
   public playlists: Playlist[] = [];
   public isEditModalOpen = false;
   public isAddToPlaylistModalOpen = false;
+  public isFilterModalOpen = false;
   public selectedSong$?: Observable<Track | null>;
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
@@ -67,6 +74,10 @@ export class AppMusicPageComponent implements OnInit {
   public handleIsOpenChange(isOpen: boolean) : void {
     if (!isOpen) {
       this.selectedSongId = null;
+    } else {
+      this.isAddToPlaylistModalOpen = false;
+      this.isEditModalOpen = false;
+      this.isFilterModalOpen = false;
     }
   }
 
@@ -74,13 +85,17 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
   }
 
-  public handleAlbumSelect(albumId: number) : void {
+  public handleAlbumSelect(albumId: number, songsTab: TabComponent) : void {
     this._filterService.add({ name: 'albumId', value: albumId });
-    this._tabGroup.goToTab({ header:'Songs' });
+    this._tabGroup.goToTab({ tab: songsTab });
   }
 
-  public handleArtistSelect(artistId: number) : void {
+  public handleArtistSelect(artistId: number, songsTab: TabComponent) : void {
     this._filterService.add({ name: 'artistId', value: artistId });
-    this._tabGroup.goToTab({ header:'Songs' });
+    this._tabGroup.goToTab({ tab: songsTab });
+  }
+
+  public showFilterModal() : void {
+    this.isFilterModalOpen = true;
   }
 }

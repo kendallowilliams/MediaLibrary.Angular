@@ -16,16 +16,17 @@ import { CardModule } from "../controls/card/card.module";
 import { TextBoxDirective } from "../controls/text-box/directives/text-box.directive";
 import { AddToPlaylistModalComponent } from "./modals/add-to-playlist-modal/add-to-playlist-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MusicFilterModalComponent } from './modals/music-filter-modal/music-filter-modal.component';
 
 @NgModule({
-  exports: [SongsGridComponent, ArtistComponent, AlbumComponent, EditSongModalComponent, AddToPlaylistModalComponent],
+  exports: [SongsGridComponent, ArtistComponent, AlbumComponent, EditSongModalComponent, AddToPlaylistModalComponent, MusicFilterModalComponent],
   declarations: [
     SongsGridComponent, 
     ArtistComponent, 
     AlbumComponent, 
     SongOptionsCellRendererComponent, 
     EditSongModalComponent, 
-    AddToPlaylistModalComponent
+    AddToPlaylistModalComponent, MusicFilterModalComponent
   ],
   imports: [
     CommonModule, 

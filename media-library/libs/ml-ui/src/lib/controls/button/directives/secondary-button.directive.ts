@@ -1,4 +1,4 @@
-import { Directive, Host, HostBinding, Input, OnInit } from '@angular/core';
+import { Directive, HostBinding, Input, OnInit } from '@angular/core';
 import { ButtonVariant } from './button.directive';
 
 @Directive({
@@ -7,9 +7,9 @@ import { ButtonVariant } from './button.directive';
 export class SecondaryButtonDirective implements OnInit {
   @HostBinding('class') private _class = '';
   @Input() public variant: ButtonVariant = 'primary';
-  @Input() public disabled = false;
   @HostBinding('attr.tabindex') private _tabIndex = 0;
-
+  @HostBinding('attr.type') private _type = 'button';
+  
   private _baseClasses = [
     'inline-flex',
     'items-center',
@@ -136,5 +136,5 @@ export class SecondaryButtonDirective implements OnInit {
     }
 
     return classes.concat([...this._baseClasses]);
-  };
+  }
 }

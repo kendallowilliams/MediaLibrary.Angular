@@ -5,7 +5,11 @@
         'bg-dark text-light': tab.isSelected,
         'hover:bg-light': !tab.isSelected
       }" (click)="goToTab({ tab })">
-      <span>{{tab.header}}</span>
+      @if (tab.headerTemplate) {
+        <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>
+      } @else {
+        <span>{{tab.headerText}}</span>
+      }
     </div>
   </div>
   <div class="flex flex-col flex-grow">

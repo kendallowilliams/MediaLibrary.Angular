@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, HostBinding } from '@angular/core';
 import { PlayerConfiguration } from '@media-library/ml-data';
 
 @Component({
@@ -8,5 +8,7 @@ import { PlayerConfiguration } from '@media-library/ml-data';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppPlayerPageComponent {
+  @HostBinding('class') private _class = 'block h-full';
+
   private _configuration?: PlayerConfiguration;
 }

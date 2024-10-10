@@ -22,65 +22,21 @@ export class SongsGridComponent implements OnInit {
   @Output() public editSong = new EventEmitter<number>();
   @Output() public addToPlaylist = new EventEmitter<number>();
 
+  private _filters: MlFilter[] = [];
   private gridApi?: GridApi;
   public gridOptions: GridOptions<Track> = {
     onRowGroupOpened: this.onRowGroupOpened,
-    alwaysMultiSort: true
+    alwaysMultiSort: true,
+    groupDisplayType: 'singleColumn',
+    //rowGroupPanelShow: 'onlyWhenGrouping',
   };
   public groupColDef: ColDef<Track> = {
-    headerName: '',
+    headerName: 'A-Z',
     cellClass: ['font-bold'],
     cellRendererParams: {
       suppressCount: true
     }
   };
-  public colDefs: ColDef<Track>[] = [
-    {
-      field: 'id',
-      hide: true
-    },
-    {
-      rowGroup: true,
-      valueGetter: params => params.data?.title?.charAt(0)?.toUpperCase(),
-      hide: true,
-      sort: 'asc'
-    },
-    {
-      field: 'title',
-      sort: 'asc',
-      flex: 1
-    },
-    {
-      field: 'year',
-      valueFormatter: params => params.node?.group ? '' : (params.value || '--')
-    },
-    {
-      field: 'albumId',
-      headerName: 'Album',
-      valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
-    },
-    {
-      field: 'artistId',
-      headerName: 'Artist',
-      valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name
-    },
-    {
-      field: 'genreId',
-      headerName: 'Genre',
-      valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
-    },
-    {
-      cellRendererSelector: params => !params.node.group ? ({
-        component: SongOptionsCellRendererComponent,
-        params: {
-          edit: () => this.editSong.emit(params.data?.id),
-          addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
-        }
-      }) : undefined
-      
-    }
-  ];
-  private _filters: MlFilter[] = [];
 
   constructor(private _filterService: MlFilterService, private _destroyRef: DestroyRef) {}
 
@@ -91,13 +47,64 @@ export class SongsGridComponent implements OnInit {
         tap(filters => {
           this._filters = filters;
           this.gridApi?.onFilterChanged();
+          this.gridApi?.setGridOption('columnDefs', this._getColDefs());
         })
       )
       .subscribe();
   }
 
+  private _getColDefs() : ColDef<Track>[] {
+    return [
+      {
+        field: 'id',
+        hide: true
+      },
+      {
+        rowGroup: this._filters.length === 0,
+        valueGetter: params => params.data?.title?.charAt(0)?.toUpperCase(),
+        hide: true,
+        sort: 'asc'
+      },
+      {
+        field: 'title',
+        sort: 'asc',
+        flex: 1
+      },
+      {
+        field: 'year',
+        valueFormatter: params => params.node?.group ? '' : (params.value || '--')
+      },
+      {
+        field: 'albumId',
+        headerName: 'Album',
+        valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
+      },
+      {
+        field: 'artistId',
+        headerName: 'Artist',
+        valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name
+      },
+      {
+        field: 'genreId',
+        headerName: 'Genre',
+        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
+      },
+      {
+        cellRendererSelector: params => !params.node.group ? ({
+          component: SongOptionsCellRendererComponent,
+          params: {
+            edit: () => this.editSong.emit(params.data?.id),
+            addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
+          }
+        }) : undefined
+        
+      }
+    ];
+  }
+
   public gridReady(evt: GridReadyEvent) : void {
     this.gridApi = evt.api;
+    this.gridApi?.setGridOption('columnDefs', this._getColDefs());
   }
 
   public rowDataUpdated(evt: RowDataUpdatedEvent) : void {

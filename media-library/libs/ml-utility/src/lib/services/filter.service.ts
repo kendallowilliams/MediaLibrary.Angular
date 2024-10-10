@@ -29,6 +29,10 @@ export class MlFilterService {
     }
   }
 
+  public clear() : void {
+    this._filters.next([]);
+  }
+
   public isMatch<TValue>(name: string, value: TValue) : boolean {
     const filters = this._filters.getValue(),
       existingFilter = filters.find(f => f.name === name);
