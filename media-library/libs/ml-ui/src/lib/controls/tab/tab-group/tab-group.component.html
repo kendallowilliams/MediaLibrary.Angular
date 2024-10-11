@@ -1,9 +1,8 @@
 <div class="flex flex-col gap-[10px] h-full">
-  <div class="flex">
-    <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px]" 
+  <div class="flex shadow">
+    <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px] border-solid border-dark" 
       [ngClass]="{ 
-        'bg-dark text-light': tab.isSelected,
-        'hover:bg-light': !tab.isSelected
+        'border-b-[1px]': tab.isSelected
       }" (click)="goToTab({ tab })">
       @if (tab.headerTemplate) {
         <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>

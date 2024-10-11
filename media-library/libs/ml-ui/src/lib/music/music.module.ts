@@ -6,6 +6,7 @@ import { AlbumComponent } from "./album/album.component";
 import { AgGridAngular } from "@ag-grid-community/angular";
 import { ModuleRegistry } from "@ag-grid-community/core";
 import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { FiltersToolPanelModule } from "@ag-grid-enterprise/filter-tool-panel";
 import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 import { SongOptionsCellRendererComponent } from './cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 import { ButtonModule, ControlsModule } from "../controls";
@@ -16,17 +17,22 @@ import { CardModule } from "../controls/card/card.module";
 import { TextBoxDirective } from "../controls/text-box/directives/text-box.directive";
 import { AddToPlaylistModalComponent } from "./modals/add-to-playlist-modal/add-to-playlist-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MusicFilterModalComponent } from './modals/music-filter-modal/music-filter-modal.component';
 
 @NgModule({
-  exports: [SongsGridComponent, ArtistComponent, AlbumComponent, EditSongModalComponent, AddToPlaylistModalComponent, MusicFilterModalComponent],
+  exports: [
+    SongsGridComponent, 
+    ArtistComponent, 
+    AlbumComponent, 
+    EditSongModalComponent, 
+    AddToPlaylistModalComponent
+  ],
   declarations: [
     SongsGridComponent, 
     ArtistComponent, 
     AlbumComponent, 
     SongOptionsCellRendererComponent, 
     EditSongModalComponent, 
-    AddToPlaylistModalComponent, MusicFilterModalComponent
+    AddToPlaylistModalComponent
   ],
   imports: [
     CommonModule, 
@@ -43,6 +49,6 @@ import { MusicFilterModalComponent } from './modals/music-filter-modal/music-fil
 })
 export class MusicModule {
   constructor() {
-    ModuleRegistry.registerModules([ClientSideRowModelModule, RowGroupingModule]);
+    ModuleRegistry.registerModules([ClientSideRowModelModule, RowGroupingModule, FiltersToolPanelModule]);
   }
 }

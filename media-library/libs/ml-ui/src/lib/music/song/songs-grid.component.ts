@@ -23,12 +23,19 @@ export class SongsGridComponent implements OnInit {
   @Output() public addToPlaylist = new EventEmitter<number>();
 
   private _filters: MlFilter[] = [];
-  private gridApi?: GridApi;
+  private gridApi?: GridApi<Track>;
   public gridOptions: GridOptions<Track> = {
     onRowGroupOpened: this.onRowGroupOpened,
     alwaysMultiSort: true,
     groupDisplayType: 'singleColumn',
     //rowGroupPanelShow: 'onlyWhenGrouping',
+    //sideBar: 'filters',
+    defaultColDef: {
+      filterParams: {
+        maxNumConditions: 1,
+        buttons: ['apply', 'reset', 'cancel']
+      }
+    }
   };
   public groupColDef: ColDef<Track> = {
     headerName: 'A-Z',
@@ -46,8 +53,13 @@ export class SongsGridComponent implements OnInit {
         takeUntilDestroyed(this._destroyRef),
         tap(filters => {
           this._filters = filters;
-          this.gridApi?.onFilterChanged();
           this.gridApi?.setGridOption('columnDefs', this._getColDefs());
+          this.gridApi?.setFilterModel(null);
+          this._filters.forEach(filter => this.gridApi?.setColumnFilterModel(filter.name, {
+            type: 'equals',
+            filter: filter.value
+          }));
+          this.gridApi?.onFilterChanged();
         })
       )
       .subscribe();
@@ -61,33 +73,60 @@ export class SongsGridComponent implements OnInit {
       },
       {
         rowGroup: this._filters.length === 0,
-        valueGetter: params => params.data?.title?.charAt(0)?.toUpperCase(),
         hide: true,
-        sort: 'asc'
+        sort: 'asc',
+        keyCreator: params => params.value,
+        valueGetter: params => {
+          const firstChar = params.data?.title?.charAt(0).toUpperCase() || '';
+          if (/^[A-z]$/.test(firstChar)) {
+            return firstChar;
+          }
+          return '#';
+        }
       },
       {
         field: 'title',
         sort: 'asc',
-        flex: 1
+        flex: 1,
+        filter: true
       },
       {
         field: 'year',
-        valueFormatter: params => params.node?.group ? '' : (params.value || '--')
+        valueFormatter: params => params.node?.group ? '' : (params.value || '--'),
+        filter: true
       },
       {
         field: 'albumId',
+        hide: true,
+      },
+      {
+        colId: 'album',
         headerName: 'Album',
-        valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
+        valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
+        filter: true,
+        filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
       },
       {
         field: 'artistId',
+        hide: true
+      },
+      {
+        colId: 'artist',
         headerName: 'Artist',
-        valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name
+        valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
+        filter: true,
+        filterValueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
       },
       {
         field: 'genreId',
+        hide: true,
+      },
+      {
+        colId: 'genre',
         headerName: 'Genre',
-        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
+        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name,
+        filter: true,
+        filterValueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
       },
       {
         cellRendererSelector: params => !params.node.group ? ({
@@ -127,14 +166,5 @@ export class SongsGridComponent implements OnInit {
 
   public filterChanged(evt: FilterChangedEvent) : void {
     evt.api.getDisplayedRowAtIndex(0)?.setExpanded(true);
-  }
-
-  public isExternalFilterPresent = (/*params: IsExternalFilterPresentParams*/) : boolean => {
-    return this._filters.length > 0;
-  }
-
-  public doesExternalFilterPass = (rowNode: IRowNode<Track>) : boolean => {
-    return this._filterService.isMatch('albumId', rowNode.data?.albumId) &&
-      this._filterService.isMatch('artistId', rowNode.data?.artistId);
   }
 }

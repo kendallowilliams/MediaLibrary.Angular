@@ -19,7 +19,7 @@ import { TabComponent, TabGroupComponent } from '@media-library/ml-ui';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppMusicPageComponent implements OnInit {
-  @HostBinding('class') private _class = 'flex flex-col h-full p-[10px]';
+  @HostBinding('class') private _class = 'flex flex-col h-full';
   @ViewChild(TabGroupComponent) private _tabGroup!: TabGroupComponent;
 
   private _configuration?: MusicConfiguration;
@@ -43,7 +43,6 @@ export class AppMusicPageComponent implements OnInit {
   public playlists: Playlist[] = [];
   public isEditModalOpen = false;
   public isAddToPlaylistModalOpen = false;
-  public isFilterModalOpen = false;
   public selectedSong$?: Observable<Track | null>;
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
@@ -77,7 +76,6 @@ export class AppMusicPageComponent implements OnInit {
     } else {
       this.isAddToPlaylistModalOpen = false;
       this.isEditModalOpen = false;
-      this.isFilterModalOpen = false;
     }
   }
 
@@ -85,17 +83,15 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
   }
 
-  public handleAlbumSelect(albumId: number, songsTab: TabComponent) : void {
-    this._filterService.add({ name: 'albumId', value: albumId });
+  public handleAlbumSelect(album: string, songsTab: TabComponent) : void {
+    this._filterService.clear();
+    this._filterService.add({ name: 'album', value: album });
     this._tabGroup.goToTab({ tab: songsTab });
   }
 
-  public handleArtistSelect(artistId: number, songsTab: TabComponent) : void {
-    this._filterService.add({ name: 'artistId', value: artistId });
+  public handleArtistSelect(artist: string, songsTab: TabComponent) : void {
+    this._filterService.clear();
+    this._filterService.add({ name: 'artist', value: artist });
     this._tabGroup.goToTab({ tab: songsTab });
-  }
-
-  public showFilterModal() : void {
-    this.isFilterModalOpen = true;
   }
 }
