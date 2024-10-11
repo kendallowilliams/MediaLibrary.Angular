@@ -54,8 +54,7 @@ export class SongsGridComponent implements OnInit {
           this.gridApi?.setGridOption('columnDefs', this._getColDefs());
           this.gridApi?.setFilterModel(null);
           this._filters.forEach(filter => this.gridApi?.setColumnFilterModel(filter.name, {
-            type: 'equals',
-            filter: filter.value
+            values: [filter.value]
           }));
           this.gridApi?.onFilterChanged();
         })
@@ -90,9 +89,10 @@ export class SongsGridComponent implements OnInit {
       },
       {
         field: 'year',
-        colId: 'year',
-        valueFormatter: params => params.node?.group ? '' : (params.value || '--'),
-        filter: true
+        valueGetter: params => params.data?.year || null,
+        valueFormatter: params => params.node?.group ? '' : params.value || '--',
+        filter: true,
+        filterValueGetter: params => params.data?.year || null
       },
       {
         field: 'albumId',
