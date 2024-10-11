@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre } from '@media-library/ml-data';
-import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, IRowNode, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
+import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 import { MlFilter, MlFilterService } from '@media-library/ml-utility';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -28,8 +28,6 @@ export class SongsGridComponent implements OnInit {
     onRowGroupOpened: this.onRowGroupOpened,
     alwaysMultiSort: true,
     groupDisplayType: 'singleColumn',
-    //rowGroupPanelShow: 'onlyWhenGrouping',
-    //sideBar: 'filters',
     defaultColDef: {
       filterParams: {
         maxNumConditions: 1,
@@ -92,6 +90,7 @@ export class SongsGridComponent implements OnInit {
       },
       {
         field: 'year',
+        colId: 'year',
         valueFormatter: params => params.node?.group ? '' : (params.value || '--'),
         filter: true
       },

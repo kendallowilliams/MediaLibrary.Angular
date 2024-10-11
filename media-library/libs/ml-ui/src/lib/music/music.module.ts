@@ -17,6 +17,7 @@ import { CardModule } from "../controls/card/card.module";
 import { TextBoxDirective } from "../controls/text-box/directives/text-box.directive";
 import { AddToPlaylistModalComponent } from "./modals/add-to-playlist-modal/add-to-playlist-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
 
 @NgModule({
   exports: [
@@ -49,6 +50,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 })
 export class MusicModule {
   constructor() {
-    ModuleRegistry.registerModules([ClientSideRowModelModule, RowGroupingModule, FiltersToolPanelModule]);
+    ModuleRegistry.registerModules([ClientSideRowModelModule, RowGroupingModule, FiltersToolPanelModule, SetFilterModule]);
   }
 }
