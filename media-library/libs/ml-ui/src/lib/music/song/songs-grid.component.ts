@@ -1,10 +1,7 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre } from '@media-library/ml-data';
-import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
+import { ColDef, GridApi, GridOptions, GridReadyEvent, RowClassParams } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
-import { MlFilter, MlFilterService } from '@media-library/ml-utility';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'ml-songs-grid',
@@ -12,7 +9,7 @@ import { tap } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SongsGridComponent implements OnInit, OnChanges {
+export class SongsGridComponent implements OnChanges {
   @HostBinding('class') private _class = 'block h-full';
   @Input() public songs!: Track[] | null;
   @Input() public artists!: Artist[] | null;
@@ -22,7 +19,6 @@ export class SongsGridComponent implements OnInit, OnChanges {
   @Output() public editSong = new EventEmitter<number>();
   @Output() public addToPlaylist = new EventEmitter<number>();
 
-  private _filters: MlFilter[] = [];
   private gridApi?: GridApi<Track>;
   public gridOptions: GridOptions<Track> = {
     groupDisplayType: 'groupRows',
@@ -39,10 +35,11 @@ export class SongsGridComponent implements OnInit, OnChanges {
     suppressCellFocus: true,
     groupRowRendererParams: {
       suppressCount: true
+    },
+    rowClassRules: {
+      'font-bold': (params: RowClassParams<Track>) => !!params.node.group
     }
   };
-
-  constructor(private _filterService: MlFilterService, private _destroyRef: DestroyRef) {}
   
   public ngOnChanges(changes: SimpleChanges): void {
     if ('genres' in changes) {
@@ -56,22 +53,10 @@ export class SongsGridComponent implements OnInit, OnChanges {
     }
   }
 
-  public ngOnInit(): void {
-    this._filterService.getFilters()
-      .pipe(
-        takeUntilDestroyed(this._destroyRef),
-        tap(filters => {
-          this._filters = filters;
-          this.gridApi?.setFilterModel(null);
-          Promise.all(
-            this._filters.map(filter => 
-              this.gridApi?.setColumnFilterModel(filter.name, { values: [filter.value?.toString()] })
-            )
-          )
-          .then(() => this.gridApi?.onFilterChanged());
-        })
-      )
-      .subscribe();
+  public gridReady(evt: GridReadyEvent) : void {
+    this.gridApi = evt.api;
+    this.gridApi?.setGridOption('columnDefs', this._getColDefs());
+    this.gridApi?.addRowGroupColumns(['title']);
   }
 
   private _getColDefs() : ColDef<Track>[] {
@@ -103,7 +88,7 @@ export class SongsGridComponent implements OnInit, OnChanges {
       },
       {
         field: 'albumId',
-        hide: true,
+        hide: true
       },
       {
         colId: 'album',
@@ -125,7 +110,7 @@ export class SongsGridComponent implements OnInit, OnChanges {
       },
       {
         field: 'genreId',
-        hide: true,
+        hide: true
       },
       {
         colId: 'genre',
@@ -150,9 +135,13 @@ export class SongsGridComponent implements OnInit, OnChanges {
     ];
   }
 
-  public gridReady(evt: GridReadyEvent) : void {
-    this.gridApi = evt.api;
-    this.gridApi?.setGridOption('columnDefs', this._getColDefs());
-    this.gridApi?.addRowGroupColumns(['title']);
+  public selectAlbum(album: string) : void {
+    this.gridApi?.setColumnFilterModel('album', { values: [album] })
+      .then(() => this.gridApi?.onFilterChanged());
+  }
+
+  public selectArtist(artist: string) : void {
+    this.gridApi?.setColumnFilterModel('artist', { values: [artist] })
+      .then(() => this.gridApi?.onFilterChanged());
   }
 }

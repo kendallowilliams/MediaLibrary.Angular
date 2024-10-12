@@ -9,8 +9,7 @@ import {
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { MlFilterService } from '@media-library/ml-utility';
-import { TabComponent, TabGroupComponent } from '@media-library/ml-ui';
+import { SongsGridComponent, TabComponent, TabGroupComponent } from '@media-library/ml-ui';
 
 @Component({
   selector: 'app-music-page',
@@ -47,7 +46,7 @@ export class AppMusicPageComponent implements OnInit {
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
 
-  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService, private _filterService: MlFilterService) {}
+  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(MusicActions.loadAlbums());
@@ -83,15 +82,13 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
   }
 
-  public handleAlbumSelect(album: string, songsTab: TabComponent) : void {
-    this._filterService.clear();
-    this._filterService.add({ name: 'album', value: album });
+  public handleAlbumSelect(album: string, songsTab: TabComponent, songsGrid: SongsGridComponent) : void {
+    songsGrid.selectAlbum(album);
     this._tabGroup.goToTab({ tab: songsTab });
   }
 
-  public handleArtistSelect(artist: string, songsTab: TabComponent) : void {
-    this._filterService.clear();
-    this._filterService.add({ name: 'artist', value: artist });
+  public handleArtistSelect(artist: string, songsTab: TabComponent, songsGrid: SongsGridComponent) : void {
+    songsGrid.selectArtist(artist);
     this._tabGroup.goToTab({ tab: songsTab });
   }
 }

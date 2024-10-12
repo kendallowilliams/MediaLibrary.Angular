@@ -2,15 +2,15 @@
   <ml-tab headerText="Songs" [isSelected]="true" #songsTab class="p-[10px]">
     <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
       [genres]="genres$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
-      (addToPlaylist)="showAddSongToPlaylistModal($event)"></ml-songs-grid>
+      (addToPlaylist)="showAddSongToPlaylistModal($event)" #songsGrid></ml-songs-grid>
   </ml-tab>
   <ml-tab headerText="Albums" class="flex gap-[10px] flex-wrap p-[10px]">
     <ml-album *ngFor="let album of albums$ | async" [album]="album" [artist]="artists[album.artistId]"
-      (click)="handleAlbumSelect(album.title, songsTab)"></ml-album>
+      (click)="handleAlbumSelect(album.title, songsTab, songsGrid)"></ml-album>
   </ml-tab>
   <ml-tab headerText="Artists" class="flex gap-[10px] flex-wrap p-[10px]">
     <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist" 
-      (click)="handleArtistSelect(artist.name, songsTab)"></ml-artist>
+      (click)="handleArtistSelect(artist.name, songsTab, songsGrid)"></ml-artist>
   </ml-tab>
 </ml-tab-group>
 
