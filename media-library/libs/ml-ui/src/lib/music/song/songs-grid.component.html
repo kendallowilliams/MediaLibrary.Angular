@@ -1,10 +1,6 @@
 <ag-grid-angular
   class="ag-theme-balham h-full"
   [rowData]="songs"
-  [autoGroupColumnDef]="groupColDef"
   [gridOptions]="gridOptions"
-  [suppressCellFocus]="true"
-  (gridReady)="gridReady($event)"
-  (rowDataUpdated)="rowDataUpdated($event)"
-  (filterChanged)="filterChanged($event)">
+  (gridReady)="gridReady($event)">
 </ag-grid-angular>

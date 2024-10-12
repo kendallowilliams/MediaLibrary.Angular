@@ -37,7 +37,9 @@ export class MlFilterService {
     const filters = this._filters.getValue(),
       existingFilter = filters.find(f => f.name === name);
 
-    return !existingFilter || existingFilter.value === value;
+    return !existingFilter || 
+      (!!existingFilter.comparer && existingFilter.comparer(value)) ||
+      existingFilter.value === value;
   }
 
   public getFilters() : Observable<MlFilter[]> {

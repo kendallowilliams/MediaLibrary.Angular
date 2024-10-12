@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, EventEmitter, HostBinding, Input, OnChanges, OnInit, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre } from '@media-library/ml-data';
 import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, RowDataUpdatedEvent, RowGroupOpenedEvent } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
@@ -10,9 +10,9 @@ import { tap } from 'rxjs';
   selector: 'ml-songs-grid',
   templateUrl: './songs-grid.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SongsGridComponent implements OnInit {
+export class SongsGridComponent implements OnInit, OnChanges {
   @HostBinding('class') private _class = 'block h-full';
   @Input() public songs!: Track[] | null;
   @Input() public artists!: Artist[] | null;
@@ -25,25 +25,36 @@ export class SongsGridComponent implements OnInit {
   private _filters: MlFilter[] = [];
   private gridApi?: GridApi<Track>;
   public gridOptions: GridOptions<Track> = {
-    onRowGroupOpened: this.onRowGroupOpened,
+    groupDisplayType: 'groupRows',
     alwaysMultiSort: true,
-    groupDisplayType: 'singleColumn',
     defaultColDef: {
       filterParams: {
         maxNumConditions: 1,
         buttons: ['apply', 'reset', 'cancel']
-      }
-    }
-  };
-  public groupColDef: ColDef<Track> = {
-    headerName: 'A-Z',
-    cellClass: ['font-bold'],
-    cellRendererParams: {
+      },
+      enableRowGroup: true
+    },
+    rowGroupPanelShow: 'always',
+    suppressRowGroupHidesColumns: true,
+    suppressCellFocus: true,
+    groupRowRendererParams: {
       suppressCount: true
     }
   };
 
   constructor(private _filterService: MlFilterService, private _destroyRef: DestroyRef) {}
+  
+  public ngOnChanges(changes: SimpleChanges): void {
+    if ('genres' in changes) {
+      this.gridApi?.refreshCells({columns: ['genre']});
+    } 
+    if ('albums' in changes) {
+      this.gridApi?.refreshCells({columns: ['album']});
+    }
+    if ('artists' in changes) {
+      this.gridApi?.refreshCells({columns: ['artist']});
+    }
+  }
 
   public ngOnInit(): void {
     this._filterService.getFilters()
@@ -51,12 +62,13 @@ export class SongsGridComponent implements OnInit {
         takeUntilDestroyed(this._destroyRef),
         tap(filters => {
           this._filters = filters;
-          this.gridApi?.setGridOption('columnDefs', this._getColDefs());
           this.gridApi?.setFilterModel(null);
-          this._filters.forEach(filter => this.gridApi?.setColumnFilterModel(filter.name, {
-            values: [filter.value]
-          }));
-          this.gridApi?.onFilterChanged();
+          Promise.all(
+            this._filters.map(filter => 
+              this.gridApi?.setColumnFilterModel(filter.name, { values: [filter.value?.toString()] })
+            )
+          )
+          .then(() => this.gridApi?.onFilterChanged());
         })
       )
       .subscribe();
@@ -69,30 +81,25 @@ export class SongsGridComponent implements OnInit {
         hide: true
       },
       {
-        rowGroup: this._filters.length === 0,
-        hide: true,
+        field: 'title',
         sort: 'asc',
-        keyCreator: params => params.value,
-        valueGetter: params => {
+        flex: 1,
+        filter: true,
+        keyCreator: params => {
           const firstChar = params.data?.title?.charAt(0).toUpperCase() || '';
           if (/^[A-z]$/.test(firstChar)) {
             return firstChar;
           }
           return '#';
-        }
-      },
-      {
-        field: 'title',
-        sort: 'asc',
-        flex: 1,
-        filter: true
+        },
+        comparator: (a, b) => a?.localeCompare(b)
       },
       {
         field: 'year',
         valueGetter: params => params.data?.year || null,
-        valueFormatter: params => params.node?.group ? '' : params.value || '--',
+        valueFormatter: params => params.value || '--',
         filter: true,
-        filterValueGetter: params => params.data?.year || null
+        filterValueGetter: params => params.data?.year
       },
       {
         field: 'albumId',
@@ -123,9 +130,10 @@ export class SongsGridComponent implements OnInit {
       {
         colId: 'genre',
         headerName: 'Genre',
-        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name,
+        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null,
+        valueFormatter: params => params.value || '--',
         filter: true,
-        filterValueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name
+        filterValueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null
       },
       {
         cellRendererSelector: params => !params.node.group ? ({
@@ -134,8 +142,10 @@ export class SongsGridComponent implements OnInit {
             edit: () => this.editSong.emit(params.data?.id),
             addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
           }
-        }) : undefined
-        
+        }) : undefined,
+        enableRowGroup: false,
+        suppressFiltersToolPanel: true,
+        sortable: false
       }
     ];
   }
@@ -143,27 +153,6 @@ export class SongsGridComponent implements OnInit {
   public gridReady(evt: GridReadyEvent) : void {
     this.gridApi = evt.api;
     this.gridApi?.setGridOption('columnDefs', this._getColDefs());
-  }
-
-  public rowDataUpdated(evt: RowDataUpdatedEvent) : void {
-    evt.api.forEachNode(rowNode => {
-      if (rowNode.rowIndex === 0) {
-        evt.api.setRowNodeExpanded(rowNode, rowNode.rowIndex === 0);
-      }
-  });
-  }
-
-  public onRowGroupOpened(evt: RowGroupOpenedEvent<Track>): void {
-    if (evt.node.expanded) {
-      evt.api.forEachNode(node => {
-        if (node.group && node.key !== evt.node.key && node.expanded) {
-          evt.api.setRowNodeExpanded(node, false);
-        }
-      });
-    }
-  }
-
-  public filterChanged(evt: FilterChangedEvent) : void {
-    evt.api.getDisplayedRowAtIndex(0)?.setExpanded(true);
+    this.gridApi?.addRowGroupColumns(['title']);
   }
 }
