@@ -138,6 +138,13 @@ export class SongsGridComponent implements OnChanges {
   public selectAlbum(album: string) : void {
     this.gridApi?.setFilterModel(null);
     this.gridApi?.setRowGroupColumns(['title']);
+    this.gridApi?.applyColumnState({
+      state: [
+        { colId: 'album', sort: 'asc', sortIndex: 1 },
+        { colId: 'title', sort: 'asc', sortIndex: 0 },
+      ],
+      defaultState: { sort: null },
+    });
     this.gridApi?.setColumnFilterModel('album', { values: [album] })
       .then(() => this.gridApi?.onFilterChanged());
   }
@@ -145,6 +152,13 @@ export class SongsGridComponent implements OnChanges {
   public selectArtist(artist: string) : void {
     this.gridApi?.setFilterModel(null);
     this.gridApi?.setRowGroupColumns(['title']);
+    this.gridApi?.applyColumnState({
+      state: [
+        { colId: 'artist', sort: 'asc', sortIndex: 1 },
+        { colId: 'title', sort: 'asc', sortIndex: 0 },
+      ],
+      defaultState: { sort: null },
+    });
     this.gridApi?.setColumnFilterModel('artist', { values: [artist] })
       .then(() => this.gridApi?.onFilterChanged());
   }
