@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild, Vie
 import { 
   MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, 
   selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, PlaylistsActions, 
-  selectMusicPlaylists, PlaylistTypes, PlaylistService, selectAllGenres, 
+  selectMusicPlaylists, PlaylistTypes, PlaylistApiService, selectAllGenres, 
   AddSongToPlaylistsRequest,
   Artist
 } from '@media-library/ml-data';
@@ -46,7 +46,7 @@ export class AppMusicPageComponent implements OnInit {
   public selectedSongId: number | null = null;
   public selectedPlaylistIds$?: Observable<number[]>;
 
-  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistService) {}
+  constructor(private _store: Store<MlDataFeatureState>, private _playlistApi: PlaylistApiService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(MusicActions.loadAlbums());

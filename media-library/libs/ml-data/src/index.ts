@@ -13,12 +13,12 @@ export * from './lib//stores/podcasts/podcasts.actions';
 export * from './lib/ml-data.module';
 
 /** Services */
-export * from './lib/services/app/app.service';
-export * from './lib/services/music/music.service';
-export * from './lib/services/player/player.service';
-export * from './lib/services/podcast/podcast.service';
-export * from './lib/services/playlist/playlist.service';
-export * from './lib/services/television/television.service';
+export * from './lib/services/app/app-api.service';
+export * from './lib/services/music/music-api.service';
+export * from './lib/services/player/player-api.service';
+export * from './lib/services/podcast/podcast-api.service';
+export * from './lib/services/playlist/playlist-api.service';
+export * from './lib/services/television/television-api.service';
 
 /** Configuration */
 export * from './lib/models/configurations/music-configuration.interface';

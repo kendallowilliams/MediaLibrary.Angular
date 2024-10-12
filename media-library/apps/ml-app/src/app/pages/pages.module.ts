@@ -14,7 +14,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MlDataModule, API_BASE_URL } from '@media-library/ml-data';
 import { environment } from '../../environments/environment';
 import { AppComponentsModule } from '../components/app-components.module';
-import { MlFilterService } from '@media-library/ml-utility';
 
 export const routes: Routes = [
   { 
@@ -60,8 +59,7 @@ export const routes: Routes = [
     RouterModule
   ],
   providers: [
-    { provide: API_BASE_URL, useValue: environment.apiBaseUrl },
-    MlFilterService
+    { provide: API_BASE_URL, useValue: environment.apiBaseUrl }
   ]
 })
 export class PagesModule { }

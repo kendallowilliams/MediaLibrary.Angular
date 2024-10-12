@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MediaLibraryConfiguration } from '../../models/configurations/media-library-configuration.interface';
 import { Observable } from 'rxjs';
-import { BaseService } from '../base.service';
+import { BaseApiService } from '../base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AppService extends BaseService {
+export class AppApiService extends BaseApiService {
   public readonly controller = 'medialibrary';
 
   constructor(public readonly http: HttpClient) {

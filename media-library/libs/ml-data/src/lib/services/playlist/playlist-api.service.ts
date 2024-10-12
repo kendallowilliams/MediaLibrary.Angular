@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlaylistConfiguration } from '../../models/configurations/playlist-configuration.interface';
-import { Observable, of } from 'rxjs';
-import { BaseService } from '../base.service';
+import { Observable } from 'rxjs';
+import { BaseApiService } from '../base-api.service';
 import { Playlist } from '../../models/playlist/playlist.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlaylistService extends BaseService {
+export class PlaylistApiService extends BaseApiService {
   public controller = 'playlist';
 
   constructor(public http: HttpClient) {

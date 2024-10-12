@@ -2,12 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlayerConfiguration } from '../../models/configurations/player-configuration.interface';
 import { Observable } from 'rxjs';
-import { BaseService } from '../base.service';
+import { BaseApiService } from '../base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PlayerService extends BaseService {
+export class PlayerApiService extends BaseApiService {
   public controller = 'player';
 
   constructor(public http: HttpClient) {

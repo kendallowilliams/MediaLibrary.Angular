@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
-import { PlaylistService } from '../../services/playlist/playlist.service';
+import { PlaylistApiService } from '../../services/playlist/playlist-api.service';
 import { PlaylistsActions } from './playlists.actions';
 
 @Injectable()
@@ -12,7 +12,7 @@ export class PlaylistsEffects {
 
   constructor(
     private _store: Store<MlDataFeatureState>,
-    private _playlistService: PlaylistService
+    private _playlistService: PlaylistApiService
   ) {}
 
   loadPlaylists$ = createEffect(() =>

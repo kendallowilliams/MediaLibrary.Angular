@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
-import { PodcastService } from '../../services/podcast/podcast.service';
+import { PodcastApiService } from '../../services/podcast/podcast-api.service';
 import { PodcastsActions } from './podcasts.actions';
 import { podcasts } from './podcasts.data';
 
@@ -13,7 +13,7 @@ export class PodcastsEffects {
 
   constructor(
     private _store: Store<MlDataFeatureState>,
-    private _podcastService: PodcastService
+    private _podcastService: PodcastApiService
   ) {}
 
   loadMusicConfiguration$ = createEffect(() =>

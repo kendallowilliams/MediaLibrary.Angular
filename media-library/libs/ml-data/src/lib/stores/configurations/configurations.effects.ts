@@ -2,28 +2,28 @@ import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
 import { ConfigurationsActions } from './configurations.actions';
-import { MusicService } from '../../services/music/music.service';
+import { MusicApiService } from '../../services/music/music-api.service';
 import { Store } from '@ngrx/store';
 import { mediaLibraryConfiguration, musicConfiguration, playerConfiguration, playlistConfiguration, podcastConfiguration, televisionConfiguration } from './configurations.data';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
-import { TelevisionService } from '../../services/television/television.service';
-import { PlaylistService } from '../../services/playlist/playlist.service';
-import { PodcastService } from '../../services/podcast/podcast.service';
-import { AppService } from '../../services/app/app.service';
-import { PlayerService } from '../../services/player/player.service';
+import { TelevisionApiService } from '../../services/television/television-api.service';
+import { PlaylistApiService } from '../../services/playlist/playlist-api.service';
+import { PodcastApiService } from '../../services/podcast/podcast-api.service';
+import { AppApiService } from '../../services/app/app-api.service';
+import { PlayerApiService } from '../../services/player/player-api.service';
 
 @Injectable()
 export class ConfigurationsEffects {
   private actions$ = inject(Actions);
 
   constructor(
-    private _musicService: MusicService, 
+    private _musicService: MusicApiService, 
     private _store: Store<MlDataFeatureState>,
-    private _appService: AppService,
-    private _televisionService: TelevisionService,
-    private _playerService: PlayerService,
-    private _playlistService: PlaylistService,
-    private _podcastService: PodcastService
+    private _appService: AppApiService,
+    private _televisionService: TelevisionApiService,
+    private _playerService: PlayerApiService,
+    private _playlistService: PlaylistApiService,
+    private _podcastService: PodcastApiService
     ) {
     }
 

@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { TelevisionConfiguration } from '../../models/configurations/television-configuration.interface';
 import { Observable, of } from 'rxjs';
-import { BaseService } from '../base.service';
+import { BaseApiService } from '../base-api.service';
 import { Series } from '../../models/television/Series.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TelevisionService extends BaseService {
+export class TelevisionApiService extends BaseApiService {
   public _controller = 'television';
 
   constructor(public http: HttpClient) {

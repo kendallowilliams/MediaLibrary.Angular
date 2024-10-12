@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
-import { MusicService } from '../../services/music/music.service';
+import { MusicApiService } from '../../services/music/music-api.service';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
 import { MusicActions } from './music.actions';
@@ -11,7 +11,7 @@ export class MusicEffects {
   private actions$ = inject(Actions);
 
   constructor(
-    private _musicService: MusicService, 
+    private _musicService: MusicApiService, 
     private _store: Store<MlDataFeatureState>
   ) {}
 

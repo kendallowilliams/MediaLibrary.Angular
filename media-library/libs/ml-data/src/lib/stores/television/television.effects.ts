@@ -3,7 +3,7 @@ import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
-import { TelevisionService } from '../../services/television/television.service';
+import { TelevisionApiService } from '../../services/television/television-api.service';
 import { series } from './television.data';
 import { TelevisionActions } from './television.actions';
 
@@ -13,7 +13,7 @@ export class TelevisionEffects {
 
   constructor(
     private _store: Store<MlDataFeatureState>,
-    private _televisionService: TelevisionService,
+    private _televisionService: TelevisionApiService,
     ) {}
 
   loadTelevision$ = createEffect(() =>

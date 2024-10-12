@@ -3,7 +3,7 @@ import { inject } from "@angular/core";
 import { Observable } from "rxjs";
 import { API_BASE_URL } from "../tokens/api-base-url.token";
 
-export abstract class BaseService {
+export abstract class BaseApiService {
   public abstract http: HttpClient;
   private _baseUrl = inject(API_BASE_URL);
   

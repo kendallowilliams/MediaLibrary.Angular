@@ -5,13 +5,13 @@ import { MusicConfiguration } from '../../models/configurations/music-configurat
 import { Album } from '../../models/music/album.model';
 import { Artist } from '../../models/music/artist.model';
 import { Track } from '../../models/music/track.model';
-import { BaseService } from '../base.service';
+import { BaseApiService } from '../base-api.service';
 import { Genre } from '../../models/music/genre.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MusicService extends BaseService {
+export class MusicApiService extends BaseApiService {
   public controller = 'music';
 
   constructor(public http: HttpClient) {

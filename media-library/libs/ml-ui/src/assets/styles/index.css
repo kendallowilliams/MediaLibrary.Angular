@@ -20,4 +20,5 @@
 /** AG Grid */
 .ag-theme-balham {
   --ag-row-height: 40px;
+  --ag-odd-row-background-color: initial;
 }
