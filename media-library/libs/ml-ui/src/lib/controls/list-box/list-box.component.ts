@@ -44,7 +44,7 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('items' in changes) {
-      this.items.forEach(o => o.isSelected = this._value.includes(o.value));
+      this.items.forEach(o => o.isSelected = this._value?.includes(o.value));
     }
   }
 
@@ -73,6 +73,6 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
 
   public handleDelete(val: TValue): void {
     this.isDirty = true;
-    this.writeValue(this._value.filter(v => v !== val));
+    this.writeValue(this._value?.filter(v => v !== val));
   }
 }

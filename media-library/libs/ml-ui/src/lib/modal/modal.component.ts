@@ -2,7 +2,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   Output,
   ViewChild,
   ViewEncapsulation,
@@ -31,7 +30,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         'backdrop:bg-dark backdrop:opacity-50': config.backdrop === 'visible',
         'backdrop:bg-transparent': config.backdrop === 'transparent'
       }" (close)="handleClose($event)" (cancel)="handleCancel($event)">
-      <div #backgroundDiv class="flex justify-center items-center h-lvh w-lvw">
+      <div mlModalBackground class="flex justify-center items-center h-lvh w-lvw">
         <ng-template #modalContent></ng-template>
       </div>
     </dialog>
@@ -39,13 +38,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class ModalComponent<T> implements AfterViewInit, Modal {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;
-  @ViewChild('backgroundDiv') private _backgroundDiv!: ElementRef<HTMLDivElement>;
   @ViewChild('modalContent', {read: ViewContainerRef}) private _modalContent!: ViewContainerRef;
   @Input() public config = new ModalConfig();
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
-
-  private _mouseDownTarget: EventTarget | null = null;
 
   constructor(
     private _destroyRef: DestroyRef,
@@ -93,21 +89,6 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
 
   public hide() : void {
     this._dialog.nativeElement.close();
-  }
-
-  @HostListener('click')
-  public handleClick() : void {
-    const background = this._backgroundDiv.nativeElement;
-
-    if (!this.config.static &&
-        Object.is(this._mouseDownTarget, background)) {
-      this.hide();
-    }
-  }
-
-  @HostListener('mousedown', ['$event'])
-  public handleMouseDown(evt: MouseEvent) : void {
-    this._mouseDownTarget = evt.target;
   }
 
   public handleCancel(event: Event) : void {

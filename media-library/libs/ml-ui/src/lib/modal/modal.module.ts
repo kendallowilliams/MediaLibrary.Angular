@@ -8,6 +8,7 @@ import { ModalFooterComponent } from './modal-footer/modal-footer.component';
 import { ModalContentComponent } from './modal-content/modal-content.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModalDirective } from './directives/modal.directive';
+import { ModalBackgroundDirective } from './directives/modal-background.directive';
 
 @NgModule({
   imports: [CommonModule, FontAwesomeModule],
@@ -18,7 +19,8 @@ import { ModalDirective } from './directives/modal.directive';
     ModalBodyComponent,
     ModalFooterComponent,
     ModalContentComponent,
-    ModalDirective
+    ModalDirective,
+    ModalBackgroundDirective
   ],
   exports: [
     ModalTitleComponent,
