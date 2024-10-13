@@ -6,7 +6,7 @@ import { Environment } from '@media-library/ml-data';
 
 export const environment: Environment = {
   production: false,
-  apiBaseUrl: 'https://localhost:7182',
+  apiBaseUrl: 'https://localhost:7182/api',
   useSampleConfigurations: true
 };
 

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
-import { Album, Artist, Track, Genre } from '@media-library/ml-data';
+import { Album, Artist, Track, Genre, MediaPages } from '@media-library/ml-data';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, RowClassParams } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
+import { PlayerService } from '../../media-player';
 
 @Component({
   selector: 'ml-songs-grid',
@@ -38,8 +39,11 @@ export class SongsGridComponent implements OnChanges {
     },
     rowClassRules: {
       'font-bold': (params: RowClassParams<Track>) => !!params.node.group
-    }
+    },
+    onRowDoubleClicked: evt => evt.data?.id && this._playerService.playAudio(MediaPages.Music, evt.data.id)
   };
+
+  constructor(private _playerService: PlayerService) {}
   
   public ngOnChanges(changes: SimpleChanges): void {
     if ('genres' in changes) {
@@ -57,6 +61,7 @@ export class SongsGridComponent implements OnChanges {
     this.gridApi = evt.api;
     this.gridApi?.setGridOption('columnDefs', this._getColDefs());
     this.gridApi?.addRowGroupColumns(['title']);
+    console.clear();
   }
 
   private _getColDefs() : ColDef<Track>[] {

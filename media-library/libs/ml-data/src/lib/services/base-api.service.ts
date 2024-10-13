@@ -28,7 +28,7 @@ export abstract class BaseApiService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    const url = `${this._baseUrl}/api/${controller}${action ? '/'.concat(action) : ''}`;
+    const url = `${this._baseUrl}/${controller}${action ? '/'.concat(action) : ''}`;
     return this.http.get<T>(url, options);
   }
 
@@ -45,7 +45,7 @@ export abstract class BaseApiService {
     responseType?: 'json';
     withCredentials?: boolean;
     }) : Observable<T> {
-    const url = `${this._baseUrl}/api/${controller}${action ? '/'.concat(action) : ''}`;
+    const url = `${this._baseUrl}/${controller}${action ? '/'.concat(action) : ''}`;
     return this.http.post<T>(url, body, options);
   }
 }

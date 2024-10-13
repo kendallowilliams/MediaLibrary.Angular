@@ -1,5 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { PlayerService } from '@media-library/ml-utility';
+import { PlayerService } from './services/player.service';
 
 @Component({
   selector: 'ml-media-player',

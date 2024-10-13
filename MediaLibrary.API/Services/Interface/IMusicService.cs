@@ -23,6 +23,8 @@ namespace MediaLibrary.API.Services.Interfaces
 
         Task<IEnumerable<Genre>> GetGenres();
 
+        Task<string?> GetFilePath(int id);
+
         Task<Track> GetTrack(int id);
     }
 }

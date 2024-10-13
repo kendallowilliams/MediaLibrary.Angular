@@ -96,5 +96,21 @@ namespace MediaLibrary.API.Services
         {
             return _dataService.GetList<Genre>();
         }
+
+        public Task<string?> GetFilePath(int id)
+        {
+            return _dataService
+                .SelectWhere<Track, string[]>(track => new string[]
+                {
+                    track.Path.Location,
+                    track.FileName
+                }, track => track.Id == id)
+                .ContinueWith(task =>
+                {
+                    var paths = task.Result.FirstOrDefault();
+
+                    return paths != null ? Path.Combine(paths) : null;
+                });
+        }
     }
 }

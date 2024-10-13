@@ -2,7 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MediaPlayerComponent } from "./media-player.component";
 import { PlayerControlsComponent } from "./player-controls/player-controls.component";
-import { MlUtilityModule, PlayerService } from "@media-library/ml-utility";
+import { PlayerService } from "./services/player.service";
 
 @NgModule({
   exports: [
@@ -14,8 +14,7 @@ import { MlUtilityModule, PlayerService } from "@media-library/ml-utility";
     PlayerControlsComponent
   ],
   imports: [
-    CommonModule, 
-    MlUtilityModule
+    CommonModule
   ],
   providers: [PlayerService]
 })

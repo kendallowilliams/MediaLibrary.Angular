@@ -2,6 +2,7 @@
 using MediaLibrary.DAL.Models;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace MediaLibrary.API.Controllers
 {
@@ -51,6 +52,21 @@ namespace MediaLibrary.API.Controllers
         [HttpGet]
         [Route("{id:int}")]
         public async Task<Track> Track(int id) => await musicService.GetTrack(id);
+
+        [HttpGet]
+        [Route("{id:int}")]
+        public async Task<IActionResult?> File(int id)
+        {
+            var filePath = await musicService.GetFilePath(id); 
+            var provider = new FileExtensionContentTypeProvider();
+
+            if (filePath != null && provider.TryGetContentType(filePath, out string contentType))
+            {
+                return new PhysicalFileResult(filePath, contentType) { EnableRangeProcessing = true };
+            }
+
+            return null;
+        }
         #endregion
 
         #region Genres

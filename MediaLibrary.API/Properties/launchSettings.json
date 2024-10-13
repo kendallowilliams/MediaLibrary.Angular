@@ -12,6 +12,14 @@
     "MediaLibrary.API": {
       "commandName": "Project",
       "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7182;http://localhost:5182",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    "MediaLibrary.API (Swagger)": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
       "applicationUrl": "https://localhost:7182;http://localhost:5182",
