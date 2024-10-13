@@ -26,5 +26,7 @@ namespace MediaLibrary.API.Services.Interfaces
         Task<string?> GetFilePath(int id);
 
         Task<Track> GetTrack(int id);
+
+        Task<Track> UpdateTrack(Track track);
     }
 }

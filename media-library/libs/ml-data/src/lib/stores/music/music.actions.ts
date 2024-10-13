@@ -41,5 +41,17 @@ export class MusicActions {
     '[Music/API] Load Genres Failure',
     props<{ error: string }>(),
   );
+  public static updateTrack = createAction(
+    '[Music/API] Update Track',
+    props<{ track: Track }>()
+  );
+  public static updateTrackSuccess = createAction(
+    '[Music/API] Update Track Success',
+    props<{ track: Track }>(),
+  );
+  public static updateTrackFailure = createAction(
+    '[Music/API] Update Track Failure',
+    props<{ error: string }>(),
+  );
 }
 

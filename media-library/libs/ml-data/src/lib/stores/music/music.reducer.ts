@@ -55,6 +55,17 @@ const reducer = createReducer(
   on(MusicActions.loadGenresFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(
+    MusicActions.updateTrackSuccess,
+    (state, { track }) => ({ 
+      ...state, 
+      tracks: state.tracks.map(t => t.id === track.id ? track : t) 
+    })
+  ),
+  on(MusicActions.updateTrackFailure, (state, { error }) => ({
+    ...state,
+    error,
   }))
 );
 

@@ -70,4 +70,18 @@ export class MusicEffects {
       }),
     ),
   );
+
+  updateTrack$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(MusicActions.updateTrack),
+      withLatestFrom(this._store.select(store => store.music)),
+      mergeMap(([action, state]) => this._musicService.updateTrack(action.track)
+        .pipe(map(track => MusicActions.updateTrackSuccess({ track })
+      ))),
+      catchError((error) => {
+        console.error('Error', error);
+        return of(MusicActions.loadGenresFailure({ error }));
+      }),
+    ),
+  );
 }

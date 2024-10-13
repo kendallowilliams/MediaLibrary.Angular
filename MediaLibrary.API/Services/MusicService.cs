@@ -92,6 +92,33 @@ namespace MediaLibrary.API.Services
                     .ContinueWith(task => _memoryCache.Set($"{TRACK_KEY}_{id}", task.Result));
         }
 
+        public async Task<Track> UpdateTrack(Track track)
+        {
+            var existingTrack = await _dataService.Get<Track>(t => t.Id == track.Id);
+
+            if (existingTrack == null)
+            {
+                throw new Exception("track not found.");
+            }
+
+            existingTrack.ArtistId = track.ArtistId;
+            existingTrack.AlbumId = track.AlbumId;
+            existingTrack.GenreId = track.GenreId;
+            existingTrack.Title = track.Title;
+            existingTrack.Year = track.Year;
+            existingTrack.Position = track.Position;
+
+            if (await _dataService.Update(existingTrack) <= 0)
+            {
+                throw new Exception("failed to update track.");
+            }
+
+            _memoryCache.Remove(TRACKS_KEY);
+            _memoryCache.Remove($"{TRACK_KEY}_{track.Id}");
+
+            return existingTrack;
+        }
+
         public Task<IEnumerable<Genre>> GetGenres()
         {
             return _dataService.GetList<Genre>();

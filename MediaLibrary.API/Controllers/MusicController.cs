@@ -53,6 +53,9 @@ namespace MediaLibrary.API.Controllers
         [Route("{id:int}")]
         public async Task<Track> Track(int id) => await musicService.GetTrack(id);
 
+        [HttpPost]
+        public async Task<Track> UpdateTrack(Track track) => await musicService.UpdateTrack(track);
+
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult?> File(int id)

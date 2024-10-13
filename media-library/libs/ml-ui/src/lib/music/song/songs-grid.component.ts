@@ -79,8 +79,10 @@ export class SongsGridComponent implements OnChanges {
           const firstChar = params.data?.title?.charAt(0).toUpperCase() || '';
           if (/^[A-z]$/.test(firstChar)) {
             return firstChar;
+          } else if (/^[0-9]$/.test(firstChar)) {
+            return '#';
           }
-          return '#';
+          return '&';
         },
         comparator: (a, b) => a?.localeCompare(b)
       },
@@ -89,7 +91,7 @@ export class SongsGridComponent implements OnChanges {
         valueGetter: params => params.data?.year || null,
         valueFormatter: params => params.value || '--',
         filter: true,
-        filterValueGetter: params => params.data?.year
+        filterValueGetter: params => params.data?.year || null
       },
       {
         field: 'albumId',

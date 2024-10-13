@@ -10,15 +10,19 @@
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Album</label>
-          <ml-select [options]="albumOptions" formControlName="album" placeholder="Select an album..."></ml-select>
+          <ml-select [options]="albumOptions" formControlName="albumId" placeholder="Select an album..."></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Artist</label>
-          <ml-select [options]="artistOptions" formControlName="artist" placeholder="Select an artist..."></ml-select>
+          <ml-select [options]="artistOptions" formControlName="artistId" placeholder="Select an artist..."></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Genre</label>
-          <ml-select [options]="genreOptions" formControlName="genre" placeholder="Select a genre..."></ml-select>
+          <ml-select [options]="genreOptions" formControlName="genreId" placeholder="Select a genre..."></ml-select>
+        </div>
+        <div class="flex flex-col gap-[5px]">
+          <label mlLabel>Year</label>
+          <input mlTextBox placeholder="Enter year..." type="number" formControlName="year" />
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Position</label>
@@ -26,7 +30,7 @@
         </div>
     </ml-modal-body>
     <ml-modal-footer class="flex justify-end gap-[5px]">
-      <button mlButton [disabled]="!songForm.dirty">Save</button>
+      <button mlButton [disabled]="!songForm.dirty || !songForm.valid" (click)="handleSave()">Save</button>
       <button mlButton [variant]="'secondary'" (click)="close()">Cancel</button>
     </ml-modal-footer>
   </ml-modal-content>

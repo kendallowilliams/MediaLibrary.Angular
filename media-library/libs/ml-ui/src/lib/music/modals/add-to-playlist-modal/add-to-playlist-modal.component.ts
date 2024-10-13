@@ -38,4 +38,8 @@ export class AddToPlaylistModalComponent implements OnChanges {
       this._modalRef.hide();
     }
   }
+
+  public close() : void {
+    this._modalRef.hide();
+  }
 }

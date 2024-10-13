@@ -91,4 +91,8 @@ export class AppMusicPageComponent implements OnInit {
     songsGrid.selectArtist(artist);
     this._tabGroup.goToTab({ tab: songsTab });
   }
+
+  public handleSongSave(track: Track) : void {
+    this._store.dispatch(MusicActions.updateTrack({ track }));
+  }
 }

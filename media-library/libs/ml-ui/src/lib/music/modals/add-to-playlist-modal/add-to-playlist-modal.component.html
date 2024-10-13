@@ -7,7 +7,8 @@
   <ml-modal-body>
     <ml-list-box [items]="playlistItems" [(ngModel)]="selectedPlaylistIds" #listbox></ml-list-box>
   </ml-modal-body>
-  <ml-modal-footer class="flex justify-end">
+  <ml-modal-footer class="flex justify-end gap-[5px]">
     <button mlButton (click)="handleSave(listbox.value)" [disabled]="!listbox.isDirty">Save</button>
+    <button mlButton [variant]="'secondary'" (click)="close()">Cancel</button>
   </ml-modal-footer>
 </ml-modal-content>

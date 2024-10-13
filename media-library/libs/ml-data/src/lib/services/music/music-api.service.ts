@@ -56,6 +56,10 @@ export class MusicApiService extends BaseApiService {
     return this.get<Track[]>(this.controller, `TracksByAlbumId/${albumId}`);
   }
 
+  public updateTrack(track: Track) : Observable<Track> {
+    return this.post<Track>(this.controller, 'UpdateTrack', track);
+  }
+
   /** Genre */
   public getGenres(): Observable<Genre[]> {
     return this.get<Genre[]>(this.controller, 'Genres');

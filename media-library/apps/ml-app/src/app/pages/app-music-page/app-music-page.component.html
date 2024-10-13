@@ -16,7 +16,7 @@
 
 <ng-template mlModal [(isOpen)]="isEditModalOpen" (isOpenChange)="handleIsOpenChange($event)">
   <ml-edit-song-modal [song]="selectedSong$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
-    [genres]="genres$ | async"></ml-edit-song-modal>
+    [genres]="genres$ | async" (songSave)="handleSongSave($event)"></ml-edit-song-modal>
 </ng-template>
 
 <ng-template mlModal [(isOpen)]="isAddToPlaylistModalOpen" (isOpenChange)="handleIsOpenChange($event)">
