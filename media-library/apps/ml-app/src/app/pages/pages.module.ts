@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppHomePageComponent } from './app-home-page/app-home-page.component';
 import { AppMusicPageComponent } from './app-music-page/app-music-page.component';
-import { AppPlayerPageComponent } from './app-player-page/app-player-page.component';
 import { AppPlaylistPageComponent } from './app-playlist-page/app-playlist-page.component';
 import { AppPodcastPageComponent } from './app-podcast-page/app-podcast-page.component';
 import { AppSearchPageComponent } from './app-search-page/app-search-page.component';
@@ -24,7 +23,6 @@ export const routes: Routes = [
       { path: 'podcast', title:'Podcast', component: AppPodcastPageComponent },
       { path: 'television', title:'Television', component: AppTelevisionPageComponent },
       { path: 'playlist', title:'Playlist', component: AppPlaylistPageComponent },
-      { path: 'player', title:'Player', component: AppPlayerPageComponent },
       { path: 'search', title:'Search', component: AppSearchPageComponent },
       { path: 'settings', title:'Settings', component: AppSettingsPageComponent }
     ]
@@ -36,7 +34,6 @@ export const routes: Routes = [
     AppHomePageComponent,
     AppMusicPageComponent,
     AppPlaylistPageComponent,
-    AppPlayerPageComponent,
     AppSearchPageComponent,
     AppSettingsPageComponent,
     AppTelevisionPageComponent,

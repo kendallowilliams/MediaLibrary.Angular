@@ -48,4 +48,8 @@ export abstract class BaseApiService {
     const url = `${this._baseUrl}/${controller}${action ? '/'.concat(action) : ''}`;
     return this.http.post<T>(url, body, options);
   }
+
+  public getBaseUrl() : string {
+    return this._baseUrl;
+  }
 }

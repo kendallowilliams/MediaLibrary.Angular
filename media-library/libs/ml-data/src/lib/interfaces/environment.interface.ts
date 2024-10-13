@@ -1,5 +1,5 @@
 export interface Environment {
     production: boolean;
-    apiBaseUrl:  string,
-    useSampleConfigurations: boolean
+    apiBaseUrl:  string;
+    useSampleConfigurations: boolean;
 }

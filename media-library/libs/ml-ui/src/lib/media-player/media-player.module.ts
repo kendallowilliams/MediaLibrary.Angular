@@ -2,21 +2,25 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MediaPlayerComponent } from "./media-player.component";
 import { PlayerControlsComponent } from "./player-controls/player-controls.component";
-import { PlayerService } from "./services/player.service";
+import { AudioPlayerDirective } from "./directives/audio-player.directive";
+import { VideoPlayerDirective } from "./directives/video-player.directive";
 
 @NgModule({
   exports: [
     MediaPlayerComponent,
-    PlayerControlsComponent
+    PlayerControlsComponent,
+    AudioPlayerDirective,
+    VideoPlayerDirective
   ],
   declarations: [
     MediaPlayerComponent,
-    PlayerControlsComponent
+    PlayerControlsComponent,
+    AudioPlayerDirective,
+    VideoPlayerDirective
   ],
   imports: [
     CommonModule
-  ],
-  providers: [PlayerService]
+  ]
 })
 export class MediaPlayerModule {
 }

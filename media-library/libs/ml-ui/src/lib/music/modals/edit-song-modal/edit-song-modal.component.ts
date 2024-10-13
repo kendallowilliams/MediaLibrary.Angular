@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { Track } from '@media-library/ml-data';
 import { ModalRef } from '../../../modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -6,8 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'ml-edit-song-modal',
   templateUrl: './edit-song-modal.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
 export class EditSongModalComponent implements OnInit {
   @Input({required: true}) public song: Track | null = null;

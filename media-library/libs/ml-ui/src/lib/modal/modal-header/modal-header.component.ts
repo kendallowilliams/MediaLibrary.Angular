@@ -1,5 +1,6 @@
 import {
-  ChangeDetectionStrategy,
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   HostBinding,
   Inject,
@@ -12,22 +13,24 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'ml-modal-header',
   template: `
-    <div class="flex items-center w-full h-full">
-      <div class="grow"><ng-content></ng-content></div>
-      <fa-icon [icon]="faXmark" (click)="handleClose()"
-        [classes]="['cursor-pointer', 'text-primary', 'fa-lg']"></fa-icon>
+    <div class="flex items-center max-w-full h-full px-[30px] gap-[10px]" #parent>
+      <div [ngStyle]="{ 'max-width.px': parent.clientWidth - sibling.clientWidth - 60 - 10 }">
+        <ng-content></ng-content>
+      </div>
+      <div #sibling>
+        <fa-icon [icon]="faXmark" (click)="handleClose()" class="cursor-pointer text-primary fa-lg" />
+      </div>
     </div>`,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ModalHeaderComponent {
-  @HostBinding('class') private _class = 'h-[50px] px-[30px] shadow';
+  @HostBinding('class') private _class = 'h-[50px] shadow';
 
   public faXmark = faXmark;
 
   constructor(
-    @Inject(ModalRef<ModalHeaderComponent>) @Optional() private _modalRef?: ModalRef<ModalHeaderComponent>) {
-  }
+    @Inject(ModalRef<ModalHeaderComponent>) @Optional() private _modalRef?: ModalRef<ModalHeaderComponent>
+  ) { }
 
   public handleClose() : void {
     this._modalRef?.hide();

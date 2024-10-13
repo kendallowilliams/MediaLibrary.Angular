@@ -2,6 +2,13 @@
   <header>
     <router-outlet [name]="'header'"></router-outlet>
   </header>
-  <main class="grow overflow-auto"><router-outlet mlAppRootVcr></router-outlet></main>
-  <footer class="flex items-center justify-center h-footer bg-light text-dark dark:bg-dark dark:text-light">&copy; {{year}} Kendall O. Williams</footer>
+  <main class="grow overflow-auto">
+    <router-outlet mlAppRootVcr></router-outlet>
+    <div hidden>
+      <ml-media-player></ml-media-player>
+    </div>
+  </main>
+  <footer class="flex items-center justify-center h-footer bg-light text-dark dark:bg-dark dark:text-light">
+    &copy; {{year}} Kendall O. Williams
+  </footer>
 </div>
