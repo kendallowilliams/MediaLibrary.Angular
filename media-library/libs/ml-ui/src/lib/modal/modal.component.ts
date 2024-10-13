@@ -45,6 +45,8 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
   @Output() public modalClose = new EventEmitter<Event>();
   @Output() public modalCancel = new EventEmitter<Event>();
 
+  private _mouseDownTarget: EventTarget | null = null;
+
   constructor(
     private _destroyRef: DestroyRef,
     @Inject(ModalRef<T>) @Optional() private _modalRef?: ModalRef<T>) {}
@@ -93,13 +95,19 @@ export class ModalComponent<T> implements AfterViewInit, Modal {
     this._dialog.nativeElement.close();
   }
 
-  @HostListener('click', ['$event'])
-  public handleClick(event: Event) : void {
+  @HostListener('click')
+  public handleClick() : void {
     const background = this._backgroundDiv.nativeElement;
 
-    if (Object.is(event.target, background) && !this.config.static) {
+    if (!this.config.static &&
+        Object.is(this._mouseDownTarget, background)) {
       this.hide();
     }
+  }
+
+  @HostListener('mousedown', ['$event'])
+  public handleMouseDown(evt: MouseEvent) : void {
+    this._mouseDownTarget = evt.target;
   }
 
   public handleCancel(event: Event) : void {

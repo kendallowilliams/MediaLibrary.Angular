@@ -10,15 +10,15 @@
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Album</label>
-          <input mlTextBox placeholder="Enter album..." formControlName="album" />
+          <ml-select [options]="albumOptions" formControlName="album" placeholder="Select an album..."></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Artist</label>
-          <input mlTextBox placeholder="Enter artist..." formControlName="artist" />
+          <ml-select [options]="artistOptions" formControlName="artist" placeholder="Select an artist..."></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Genre</label>
-          <input mlTextBox placeholder="Enter genre..." formControlName="genre" />
+          <ml-select [options]="genreOptions" formControlName="genre" placeholder="Select a genre..."></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Position</label>
