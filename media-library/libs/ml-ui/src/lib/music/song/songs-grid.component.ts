@@ -1,14 +1,16 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre, MediaPages } from '@media-library/ml-data';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, RowClassParams } from '@ag-grid-community/core';
+import { ColDef, GridApi, GridOptions, GridReadyEvent, GridState, KeyCreatorParams, RowClassParams, ValueFormatterParams } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 import { PlayerService } from '../../media-player';
+import { IconCellRendererComponent } from '../cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { debounceTime, fromEvent } from 'rxjs';
 
 @Component({
   selector: 'ml-songs-grid',
   templateUrl: './songs-grid.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
 export class SongsGridComponent implements OnChanges {
   @HostBinding('class') private _class = 'block h-full';
@@ -20,27 +22,120 @@ export class SongsGridComponent implements OnChanges {
   @Output() public editSong = new EventEmitter<number>();
   @Output() public addToPlaylist = new EventEmitter<number>();
 
+  private _gridState?: GridState;
   private gridApi?: GridApi<Track>;
+  private _colDefs: ColDef<Track>[] = [
+    {
+      field: 'id',
+      headerName: '',
+      cellRenderer: IconCellRendererComponent,
+      cellRendererParams: {
+        icon: faPlayCircle
+      },
+      enableRowGroup: false,
+      sortable: false,
+      filter: false
+    },
+    {
+      field: 'title',
+      sort: 'asc',
+      flex: 1,
+      keyCreator: params => {
+        const firstChar = params.value.charAt(0).toUpperCase() || '';
+        if (/^[A-z]$/.test(firstChar)) {
+          return firstChar;
+        } else if (/^[0-9]$/.test(firstChar)) {
+          return '#';
+        }
+        return '&';
+      },
+      comparator: (a, b) => a?.localeCompare(b),
+      filterParams: {
+        keyCreator: (params: KeyCreatorParams) => params.value,
+        valueFormatter: (params: ValueFormatterParams) => !params.node?.group && params.value
+      }
+    },
+    {
+      field: 'year',
+      valueGetter: params => params.data?.year || null,
+      valueFormatter: params => params.value || '--',
+      filterValueGetter: params => params.data?.year || null
+    },
+    {
+      field: 'albumId',
+      hide: true,
+      filter: false
+    },
+    {
+      colId: 'album',
+      headerName: 'Album',
+      valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
+      filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
+    },
+    {
+      field: 'artistId',
+      hide: true,
+      filter: false
+    },
+    {
+      colId: 'artist',
+      headerName: 'Artist',
+      valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
+      filterValueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
+    },
+    {
+      field: 'genreId',
+      hide: true,
+      filter: false
+    },
+    {
+      colId: 'genre',
+      headerName: 'Genre',
+      valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null,
+      valueFormatter: params => params.value || '--',
+      filterValueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null
+    },
+    {
+      colId: 'actions',
+      cellRendererSelector: params => !params.node.group ? ({
+        component: SongOptionsCellRendererComponent,
+        params: {
+          edit: () => this.editSong.emit(params.data?.id),
+          addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
+        }
+      }) : undefined,
+      enableRowGroup: false,
+      suppressFiltersToolPanel: true,
+      sortable: false,
+      filter: false
+    }
+  ];
   public gridOptions: GridOptions<Track> = {
+    columnDefs: this._colDefs,
     groupDisplayType: 'groupRows',
     alwaysMultiSort: true,
     defaultColDef: {
       filterParams: {
-        maxNumConditions: 1,
         buttons: ['apply', 'reset', 'cancel']
       },
-      enableRowGroup: true
+      enableRowGroup: true,
+      filter: true,
+      lockPinned: true,
     },
     rowGroupPanelShow: 'always',
     suppressRowGroupHidesColumns: true,
     suppressCellFocus: true,
+    groupRowRenderer: undefined,
     groupRowRendererParams: {
       suppressCount: true
     },
     rowClassRules: {
       'font-bold': (params: RowClassParams<Track>) => !!params.node.group
     },
-    onRowDoubleClicked: evt => evt.data?.id && this._playerService.playAudio(MediaPages.Music, evt.data.id)
+    onRowDoubleClicked: evt => evt.data?.id && this._playerService.playAudio(MediaPages.Music, evt.data.id),
+    onRowGroupOpened: evt => evt.node.expanded && this._autoSizeColumns(),
+    onStateUpdated: evt => this._gridState = evt.state,
+    onFilterChanged: evt => this._autoSizeColumns()
   };
 
   constructor(private _playerService: PlayerService) {}
@@ -59,92 +154,22 @@ export class SongsGridComponent implements OnChanges {
 
   public gridReady(evt: GridReadyEvent) : void {
     this.gridApi = evt.api;
-    this.gridApi?.setGridOption('columnDefs', this._getColDefs());
     this.gridApi?.addRowGroupColumns(['title']);
+    this._autoSizeColumns();
+    fromEvent(window, 'resize')
+      .pipe(debounceTime(100))
+      .subscribe();
     console.clear();
   }
 
-  private _getColDefs() : ColDef<Track>[] {
-    return [
-      {
-        field: 'id',
-        hide: true
-      },
-      {
-        field: 'title',
-        sort: 'asc',
-        flex: 1,
-        filter: true,
-        keyCreator: params => {
-          const firstChar = params.data?.title?.charAt(0).toUpperCase() || '';
-          if (/^[A-z]$/.test(firstChar)) {
-            return firstChar;
-          } else if (/^[0-9]$/.test(firstChar)) {
-            return '#';
-          }
-          return '&';
-        },
-        comparator: (a, b) => a?.localeCompare(b)
-      },
-      {
-        field: 'year',
-        valueGetter: params => params.data?.year || null,
-        valueFormatter: params => params.value || '--',
-        filter: true,
-        filterValueGetter: params => params.data?.year || null
-      },
-      {
-        field: 'albumId',
-        hide: true
-      },
-      {
-        colId: 'album',
-        headerName: 'Album',
-        valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
-        filter: true,
-        filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
-      },
-      {
-        field: 'artistId',
-        hide: true
-      },
-      {
-        colId: 'artist',
-        headerName: 'Artist',
-        valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
-        filter: true,
-        filterValueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
-      },
-      {
-        field: 'genreId',
-        hide: true
-      },
-      {
-        colId: 'genre',
-        headerName: 'Genre',
-        valueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null,
-        valueFormatter: params => params.value || '--',
-        filter: true,
-        filterValueGetter: params => this.genres?.find(g => params.data?.genreId === g.id)?.name || null
-      },
-      {
-        cellRendererSelector: params => !params.node.group ? ({
-          component: SongOptionsCellRendererComponent,
-          params: {
-            edit: () => this.editSong.emit(params.data?.id),
-            addToPlaylist: () => this.addToPlaylist.emit(params.data?.id)
-          }
-        }) : undefined,
-        enableRowGroup: false,
-        suppressFiltersToolPanel: true,
-        sortable: false
-      }
-    ];
+  private _autoSizeColumns() : void {
+    const cols = this.gridApi?.getColumns()?.map(col => col.getColId()) || [];
+    this.gridApi?.autoSizeColumns(cols.filter(col => !['title'].includes(col)));
   }
 
   public selectAlbum(album: string) : void {
     this.gridApi?.setFilterModel(null);
-    this.gridApi?.setRowGroupColumns(['title']);
+    this._removeRowColumnGroups();
     this.gridApi?.applyColumnState({
       state: [
         { colId: 'album', sort: 'asc', sortIndex: 1 },
@@ -158,7 +183,7 @@ export class SongsGridComponent implements OnChanges {
 
   public selectArtist(artist: string) : void {
     this.gridApi?.setFilterModel(null);
-    this.gridApi?.setRowGroupColumns(['title']);
+    this._removeRowColumnGroups();
     this.gridApi?.applyColumnState({
       state: [
         { colId: 'artist', sort: 'asc', sortIndex: 1 },
@@ -168,5 +193,10 @@ export class SongsGridComponent implements OnChanges {
     });
     this.gridApi?.setColumnFilterModel('artist', { values: [artist] })
       .then(() => this.gridApi?.onFilterChanged());
+  }
+
+  private _removeRowColumnGroups() : void {
+    const groupColIds = this.gridApi?.getColumns()?.filter(col => col.isAllowRowGroup).map(col => col.getColId());
+    this.gridApi?.removeRowGroupColumns(groupColIds || []);
   }
 }

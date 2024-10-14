@@ -19,6 +19,7 @@ import { AddToPlaylistModalComponent } from "./modals/add-to-playlist-modal/add-
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
 import { MenuModule } from "@ag-grid-enterprise/menu";
+import { IconCellRendererComponent } from './cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
 
 @NgModule({
   exports: [
@@ -34,7 +35,8 @@ import { MenuModule } from "@ag-grid-enterprise/menu";
     AlbumComponent, 
     SongOptionsCellRendererComponent, 
     EditSongModalComponent, 
-    AddToPlaylistModalComponent
+    AddToPlaylistModalComponent, 
+    IconCellRendererComponent
   ],
   imports: [
     CommonModule, 
