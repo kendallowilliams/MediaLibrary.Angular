@@ -7,11 +7,9 @@ import { SearchModule } from './search/search.module';
 import { SelectModule } from './select';
 import { SwitchComponent } from './switch/switch.component';
 import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
-import { ListBoxComponent } from './list-box/list-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
-import { ListboxItemComponent } from './list-box/listbox-item/listbox-item.component';
 
 @NgModule({
   imports: [
@@ -26,9 +24,7 @@ import { ListboxItemComponent } from './list-box/listbox-item/listbox-item.compo
     CheckboxDirective,
     SwitchComponent,
     ThemeToggleDirective,
-    ListBoxComponent,
-    ControlValidatorDirective,
-    ListboxItemComponent
+    ControlValidatorDirective
   ],
   exports: [
     CheckboxDirective,
@@ -38,7 +34,6 @@ import { ListboxItemComponent } from './list-box/listbox-item/listbox-item.compo
     ButtonModule,
     SearchModule,
     SelectModule,
-    ListBoxComponent,
     ControlValidatorDirective
   ],
 })

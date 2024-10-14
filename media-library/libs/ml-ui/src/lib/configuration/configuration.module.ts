@@ -16,6 +16,7 @@ import { TelevisionConfigurationEditorComponent } from './television-configurati
 import { PodcastConfigurationEditorComponent } from './podcast-configuration-editor/podcast-configuration-editor.component';
 import { CardModule, ControlsModule } from '../controls';
 import { ModalModule } from '../modal';
+import { ListBoxModule } from '../controls/list-box';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ModalModule } from '../modal';
     FormsModule,
     ControlsModule,
     ReactiveFormsModule,
-    ModalModule
+    ModalModule,
+    ListBoxModule
   ],
   exports: [
     MusicConfigurationComponent,

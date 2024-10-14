@@ -20,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SetFilterModule } from "@ag-grid-enterprise/set-filter";
 import { MenuModule } from "@ag-grid-enterprise/menu";
 import { IconCellRendererComponent } from './cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
+import { ListBoxModule } from "../controls/list-box";
 
 @NgModule({
   exports: [
@@ -48,7 +49,8 @@ import { IconCellRendererComponent } from './cell-renderers/icon-cell-renderer/i
     ControlsModule, 
     TextBoxDirective,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ListBoxModule
   ]
 })
 export class MusicModule {

@@ -1,1 +1,2 @@
-<ml-listbox-item *ngFor="let item of items" [item]="item" [disabled]="disabled" [readonly]="readonly" />
+<ml-list-box-item *ngFor="let item of items" [item]="item" [disabled]="disabled" [readonly]="readonly"
+  (addItem)="handleAdd($event)" (deleteItem)="handleDelete($event)" />
