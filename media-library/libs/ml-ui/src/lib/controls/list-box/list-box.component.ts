@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs';
-import { ListItem } from '@media-library/ml-data';
+import { ListBoxItemValueType, ListItem } from '@media-library/ml-data';
 import { ListBoxItemComponent } from './list-box-item/list-box-item.component';
 import { ListBoxItemContext } from './directives/list-box-item-template.directive';
 
@@ -29,23 +29,23 @@ import { ListBoxItemContext } from './directives/list-box-item-template.directiv
       multi: true,
   }]
 })
-export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges, AfterContentInit {
+export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterContentInit {
   @Input() public readonly = false;
-  @Input() public items: ListItem<TValue>[] = [];
+  @Input() public items: ListItem[] = [];
   @Input() public itemTemplate: TemplateRef<ListBoxItemContext> | null = null;
 
   @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none outline-none`;
   @HostBinding('attr.role') private _role = 'listbox';
   @HostBinding('attr.tabindex') private _tabIndex = 0;
 
-  @ContentChildren(ListBoxItemComponent) private _children!: QueryList<ListBoxItemComponent<TValue>>;
+  @ContentChildren(ListBoxItemComponent) private _children!: QueryList<ListBoxItemComponent>;
 
   public disabled = false;
-  public get value(): TValue[] {
+  public get value(): ListBoxItemValueType[] {
     return this._value;
   }
-  private _value: TValue[] = [];
-  private _onChange: (_: TValue[]) => void = noop;
+  private _value: ListBoxItemValueType[] = [];
+  private _onChange: (_: ListBoxItemValueType[]) => void = noop;
   private _onTouched: () => void = noop;
   public isDirty = false;
 
@@ -62,7 +62,11 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
     this.items.forEach(o => o.isSelected = this._value?.includes(o.value));
   }
 
-  public writeValue(obj: TValue[]): void {
+  public getValues<T>() : T[] {
+    return this.value as T[];
+  }
+
+  public writeValue(obj: ListBoxItemValueType[]): void {
     this._value = obj;
     this.items.forEach(o => o.isSelected = this._value?.includes(o.value));
     this._onChange(this._value);
@@ -80,12 +84,12 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
     this.disabled = isDisabled;
   }
 
-  public handleAdd(val: TValue): void {
+  public handleAdd(val: ListBoxItemValueType): void {
     this.isDirty = true;
     this.writeValue([...this._value, val]);
   }
 
-  public handleRemove(val: TValue): void {
+  public handleRemove(val: ListBoxItemValueType): void {
     this.isDirty = true;
     this.writeValue(this._value?.filter(v => v !== val));
   }

@@ -2,7 +2,7 @@ import { Directive } from "@angular/core";
 import { ListBoxItem } from "../interfaces/list-box-item.interface";
 
 export interface ListBoxItemContext {
-  $implicit: ListBoxItem<unknown>
+  $implicit: ListBoxItem
 }
 
 @Directive({

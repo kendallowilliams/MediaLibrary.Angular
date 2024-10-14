@@ -1,5 +1,7 @@
-﻿export interface ListItem<TValue> {
+﻿export type ListBoxItemValueType = string | number; 
+
+export interface ListItem {
     name: string;
-    value: TValue;
+    value: ListBoxItemValueType;
     isSelected?: boolean;
 }

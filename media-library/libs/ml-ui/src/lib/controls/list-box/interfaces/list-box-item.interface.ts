@@ -1,9 +1,9 @@
-import { ListItem } from "@media-library/ml-data";
+import { ListBoxItemValueType, ListItem } from "@media-library/ml-data";
 
-export interface ListBoxItem<TValue> {
-  item: ListItem<TValue>;
+export interface ListBoxItem {
+  item: ListItem;
   readonly: boolean;
   disabled: boolean;
-  handleAdd: (value: TValue) => void;
-  handleRemove: (value: TValue) => void;
+  handleAdd: (value: ListBoxItemValueType) => void;
+  handleRemove: (value: ListBoxItemValueType) => void;
 }

@@ -14,7 +14,7 @@ export interface PlayerConfiguration extends Configuration {
     audioVisualizerEnabled: boolean;
     skipForwardSeconds: number;
     skipBackwardSeconds: number;
-    nowPlayingList: ListItem<number>[];
+    nowPlayingList: ListItem[];
     progressUpdateInterval: number;
     audioVisualizerBarCount: number;
     //nowPlayingLists: Array<KeyValuePair<MediaTypes, ListItem<number, number>[]>>;

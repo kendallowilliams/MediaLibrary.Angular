@@ -15,7 +15,7 @@ export class AddToPlaylistModalComponent implements OnChanges {
   @Input({ required: true }) public song: Track | null = null;
   @Output() public selectedPlaylistIdsChange = new EventEmitter<AddSongToPlaylistsRequest>();
 
-  public playlistItems: ListItem<number>[] = [];
+  public playlistItems: ListItem[] = [];
   public faPlus = faPlus;
 
   constructor(private _modalRef: ModalRef<AddSongToPlaylistsRequest>) {}
