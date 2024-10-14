@@ -17,6 +17,7 @@ import { PodcastConfigurationEditorComponent } from './podcast-configuration-edi
 import { CardModule, ControlsModule } from '../controls';
 import { ModalModule } from '../modal';
 import { ListBoxModule } from '../controls/list-box';
+import { DirectorySelectorModule } from '../controls/directory-selector';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ListBoxModule } from '../controls/list-box';
     ControlsModule,
     ReactiveFormsModule,
     ModalModule,
-    ListBoxModule
+    ListBoxModule,
+    DirectorySelectorModule
   ],
   exports: [
     MusicConfigurationComponent,

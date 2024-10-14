@@ -4,7 +4,6 @@ import { catchError, of, map, withLatestFrom, mergeMap } from 'rxjs';
 import { ConfigurationsActions } from './configurations.actions';
 import { MusicApiService } from '../../services/music/music-api.service';
 import { Store } from '@ngrx/store';
-import { mediaLibraryConfiguration, musicConfiguration, playerConfiguration, playlistConfiguration, podcastConfiguration, televisionConfiguration } from './configurations.data';
 import { MlDataFeatureState } from '../../interfaces/ml-data-state.inteface';
 import { TelevisionApiService } from '../../services/television/television-api.service';
 import { PlaylistApiService } from '../../services/playlist/playlist-api.service';
@@ -31,14 +30,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadMusicConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadMusicConfigurationSuccess({ configuration: musicConfiguration }));
-        } else {
-          return this._musicService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadMusicConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._musicService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadMusicConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadMusicConfigurationFailure({ error }));
@@ -50,14 +44,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updateMusicConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updateMusicConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._musicService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updateMusicConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._musicService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updateMusicConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updateMusicConfigurationFailure({ error }));
@@ -69,14 +58,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadMediaLibraryConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadMediaLibraryConfigurationSuccess({ configuration: mediaLibraryConfiguration }));
-        } else {
-          return this._appService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadMediaLibraryConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._appService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadMediaLibraryConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadMediaLibraryConfigurationFailure({ error }));
@@ -88,14 +72,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updateMediaLibraryConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updateMediaLibraryConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._appService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updateMediaLibraryConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._appService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updateMediaLibraryConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updateMediaLibraryConfigurationFailure({ error }));
@@ -107,14 +86,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadTelevisionConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadTelevisionConfigurationSuccess({ configuration: televisionConfiguration }));
-        } else {
-          return this._televisionService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadTelevisionConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._televisionService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadTelevisionConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadTelevisionConfigurationFailure({ error }));
@@ -126,14 +100,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updateTelevisionConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updateTelevisionConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._televisionService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updateTelevisionConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._televisionService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updateTelevisionConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updateTelevisionConfigurationFailure({ error }));
@@ -145,14 +114,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadPodcastConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadPodcastConfigurationSuccess({ configuration: podcastConfiguration }));
-        } else {
-          return this._podcastService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadPodcastConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._podcastService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadPodcastConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadPodcastConfigurationFailure({ error }));
@@ -164,14 +128,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updatePodcastConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updatePodcastConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._podcastService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updatePodcastConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._podcastService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updatePodcastConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updatePodcastConfigurationFailure({ error }));
@@ -183,14 +142,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadPlayerConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadPlayerConfigurationSuccess({ configuration: playerConfiguration }));
-        } else {
-          return this._playerService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadPlayerConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._playerService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadPlayerConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadPlayerConfigurationFailure({ error }));
@@ -202,14 +156,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updatePlayerConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updatePlayerConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._playerService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updatePlayerConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._playerService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updatePlayerConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updatePlayerConfigurationFailure({ error }));
@@ -221,14 +170,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.loadPlaylistConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.loadPlaylistConfigurationSuccess({ configuration: playlistConfiguration }));
-        } else {
-          return this._playlistService.getConfiguration()
-            .pipe(map(configuration => ConfigurationsActions.loadPlaylistConfigurationSuccess({ configuration })))
-        }
-      }),
+      mergeMap(([, state]) => this._playlistService.getConfiguration()
+        .pipe(map(configuration => ConfigurationsActions.loadPlaylistConfigurationSuccess({ configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.loadPlaylistConfigurationFailure({ error }));
@@ -240,14 +184,9 @@ export class ConfigurationsEffects {
     this.actions$.pipe(
       ofType(ConfigurationsActions.updatePlaylistConfiguration),
       withLatestFrom(this._store.select(store => store.configurations)),
-      mergeMap(([action, state]) => {
-        if (state.useTestData) {
-          return of(ConfigurationsActions.updatePlaylistConfigurationSuccess({ configuration: action.configuration }));
-        } else {
-          return this._playlistService.updateConfiguration(action.configuration)
-            .pipe(map(() => ConfigurationsActions.updatePlaylistConfigurationSuccess({ configuration: action.configuration })))
-        }
-      }),
+      mergeMap(([action, state]) => this._playlistService.updateConfiguration(action.configuration)
+        .pipe(map(() => ConfigurationsActions.updatePlaylistConfigurationSuccess({ configuration: action.configuration })))
+      ),
       catchError((error) => {
         console.error('Error', error);
         return of(ConfigurationsActions.updatePlaylistConfigurationFailure({ error }));

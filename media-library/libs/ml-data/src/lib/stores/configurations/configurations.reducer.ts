@@ -17,11 +17,9 @@ export interface ConfigurationsState {
   televisionConfiguration?: TelevisionConfiguration;
   playlistConfiguration?: PlaylistConfiguration;
   error?: string | null; // last known error (if any)
-  useTestData: boolean;
 }
 
 export const initialConfigurationsState: ConfigurationsState = {
-  useTestData: true
 };
 
 const reducer = createReducer(
