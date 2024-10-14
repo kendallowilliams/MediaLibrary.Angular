@@ -1,2 +1,15 @@
-<ml-list-box-item *ngFor="let item of items" [item]="item" [disabled]="disabled" [readonly]="readonly"
-  (addItem)="handleAdd($event)" (deleteItem)="handleDelete($event)" />
+<ng-container *ngFor="let item of items">
+  @if(itemTemplate) {
+    <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ 
+      $implicit: {
+        item,
+        readonly,
+        disabled,
+        handleAdd: handleAdd.bind(this),
+        handleRemove: handleRemove.bind(this)
+      }}"></ng-container>
+  } @else {
+    <ml-list-box-item [item]="item" [disabled]="disabled" [readonly]="readonly"
+      (addItem)="handleAdd($event)" (removeItem)="handleRemove($event)" />
+  }
+</ng-container>

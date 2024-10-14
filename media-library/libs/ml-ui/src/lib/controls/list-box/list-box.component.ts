@@ -8,6 +8,7 @@ import {
   OnChanges,
   QueryList,
   SimpleChanges,
+  TemplateRef,
   ViewEncapsulation,
   forwardRef,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs';
 import { ListItem } from '@media-library/ml-data';
 import { ListBoxItemComponent } from './list-box-item/list-box-item.component';
+import { ListBoxItemContext } from './directives/list-box-item-template.directive';
 
 @Component({
   selector: 'ml-list-box',
@@ -30,6 +32,7 @@ import { ListBoxItemComponent } from './list-box-item/list-box-item.component';
 export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges, AfterContentInit {
   @Input() public readonly = false;
   @Input() public items: ListItem<TValue>[] = [];
+  @Input() public itemTemplate: TemplateRef<ListBoxItemContext> | null = null;
 
   @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none outline-none`;
   @HostBinding('attr.role') private _role = 'listbox';
@@ -82,7 +85,7 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
     this.writeValue([...this._value, val]);
   }
 
-  public handleDelete(val: TValue): void {
+  public handleRemove(val: TValue): void {
     this.isDirty = true;
     this.writeValue(this._value?.filter(v => v !== val));
   }
