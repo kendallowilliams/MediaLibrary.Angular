@@ -1,6 +1,6 @@
 import { ICellRendererAngularComp } from '@ag-grid-community/angular';
 import { ICellRendererParams } from '@ag-grid-community/core';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 export type IconCellRendererParams = { icon: IconDefinition } & ICellRendererParams;
