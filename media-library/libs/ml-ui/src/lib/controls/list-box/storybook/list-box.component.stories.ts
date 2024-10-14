@@ -46,6 +46,39 @@ export const Default: Story = {
     },
     template: `
       <div>
+        <ml-list-box [readonly]="readonly" [items]="items" [(ngModel)]="selectedValues"></ml-list-box>
+      </div>
+    `
+  })
+};
+
+export const Disabled: Story = {
+  args: {
+    readonly: false
+  },
+  render: (args) => ({
+    props: {
+      ...args,
+      items: [{
+        name: 'Cars',
+        value: 1
+      }, {
+        name: 'Pets',
+        value: 2
+      }, {
+        name: 'Games',
+        value: 3
+      }, {
+        name: 'Movies', 
+        value: 4 
+      }, {
+        name: 'Categories',
+        value: 5
+      }],
+      selectedValues: []
+    },
+    template: `
+      <div>
         <ml-list-box [readonly]="readonly" [items]="items" [(ngModel)]="selectedValues" disabled></ml-list-box>
       </div>
     `

@@ -9,7 +9,6 @@ import {
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { noop } from 'rxjs';
 import { ListItem } from '@media-library/ml-data';
 
@@ -32,8 +31,6 @@ export class ListBoxComponent<TValue> implements ControlValueAccessor, OnChanges
   @HostBinding('attr.tabindex') private _tabIndex = 0;
 
   public disabled = false;
-  public faPlus = faPlus;
-  public faTrashCan = faTrashCan;
   public get value(): TValue[] {
     return this._value;
   }

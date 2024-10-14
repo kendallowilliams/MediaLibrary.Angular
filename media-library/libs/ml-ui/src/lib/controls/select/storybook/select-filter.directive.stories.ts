@@ -24,7 +24,7 @@ export const Default: Story = {
     caseInsensitive: true,
     partial: true
   },
-  render: (args: SelectFilterDirective) => ({
+  render: (args) => ({
     props: {
       options: options,
       placeholder: 'Select an option',

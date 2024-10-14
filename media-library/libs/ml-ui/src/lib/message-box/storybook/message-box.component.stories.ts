@@ -30,7 +30,7 @@ export const Default: Story = {
     message: 'Hello, world!',
     messageType: 'alert'
   },
-  render: (args: MessageBoxComponent) => ({
+  render: (args) => ({
     props: {
       ...args,
       isOpen: false

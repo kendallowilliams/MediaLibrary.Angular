@@ -1,15 +1,1 @@
-<div class="flex items-center h-control" *ngFor="let item of items" role="option">
-  <span class="inline-flex border-dark border-[1px] border-solid rounded-[5px] self-stretch px-[10px]
-    text-dark dark:text-light bg-light dark:bg-dark items-center" [ngClass]="{
-      'border-r-0 rounded-r-none': !readonly,
-      'text-secondary border-secondary': disabled
-    }">{{item.name}}</span>
-  <button mlSecondaryButton *ngIf="!readonly && !item.isSelected" class="rounded-l-none" (click)="handleAdd(item.value)" [disabled]="disabled">
-    <fa-icon [icon]="faPlus"></fa-icon>
-    <span class="sr-only">add list item</span>
-  </button>
-  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" class="rounded-l-none" [variant]="'danger'" (click)="handleDelete(item.value)" [disabled]="disabled">
-    <fa-icon [icon]="faTrashCan"></fa-icon>
-    <span class="sr-only">delete list item</span>
-  </button>
-</div>
+<ml-listbox-item *ngFor="let item of items" [item]="item" [disabled]="disabled" [readonly]="readonly" />

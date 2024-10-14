@@ -11,6 +11,7 @@ import { ListBoxComponent } from './list-box/list-box.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
+import { ListboxItemComponent } from './list-box/listbox-item/listbox-item.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
     SwitchComponent,
     ThemeToggleDirective,
     ListBoxComponent,
-    ControlValidatorDirective
+    ControlValidatorDirective,
+    ListboxItemComponent
   ],
   exports: [
     CheckboxDirective,

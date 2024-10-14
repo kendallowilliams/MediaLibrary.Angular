@@ -24,7 +24,7 @@ export const Default: Story = {
     caseInsensitive: true,
     searchPlaceholder: 'Select an option...'
   },
-  render: (args: SelectSearchDirective) => ({
+  render: (args) => ({
     props: {
       ...args,
       options: options,
