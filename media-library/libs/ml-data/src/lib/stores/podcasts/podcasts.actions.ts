@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Podcast } from "../../models/podcast/Podcast.model";
+import { Podcast } from "../../models/podcast/podcast.model";
 
 export class PodcastsActions {
   public static loadPodcasts = createAction('[Podcasts/API] Load Podcasts');

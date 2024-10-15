@@ -96,3 +96,10 @@ export enum MessageBoxConfirmType {
     YesNoCancel,
     TrueFalse
 }
+
+export enum MusicCategoryEnum {
+  Album,
+  Artist,
+  Song,
+  Playlist
+}

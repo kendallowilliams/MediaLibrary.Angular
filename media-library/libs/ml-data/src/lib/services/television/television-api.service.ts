@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TelevisionConfiguration } from '../../models/configurations/television-configuration.interface';
 import { Observable, of } from 'rxjs';
 import { BaseApiService } from '../base-api.service';
-import { Series } from '../../models/television/Series.model';
+import { Series } from '../../models/television/series.model';
 
 @Injectable({
   providedIn: 'root'

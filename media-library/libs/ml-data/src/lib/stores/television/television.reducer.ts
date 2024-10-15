@@ -1,6 +1,6 @@
 import { createReducer, on, Action } from '@ngrx/store';
 import { TelevisionActions } from './television.actions';
-import { Series } from '../../models/television/Series.model';
+import { Series } from '../../models/television/series.model';
 export const TELEVISION_FEATURE_KEY = 'television';
 
 export interface TelevisionState {

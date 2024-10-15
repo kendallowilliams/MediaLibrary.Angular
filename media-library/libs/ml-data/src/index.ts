@@ -39,12 +39,11 @@ export * from './lib/models/collections/list-item.interface';
 export * from './lib/models/requests/add-song-to-playlists.request';
 
 /** Enums */
-export * from './lib/enums/Enums.enum';
 export * from './lib/enums/enum-functions';
 export * from './lib/enums/enums';
 
 /** Types */
-export * from './lib/types/Music.type';
+export * from './lib/types/music.type';
 
 /** Tokens */
 export * from './lib/tokens/api-base-url.token';

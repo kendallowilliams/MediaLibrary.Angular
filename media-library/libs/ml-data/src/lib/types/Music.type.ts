@@ -1,3 +1,3 @@
-import { MusicCategoryEnum } from "../../lib/enums/Enums.enum";
+import { MusicCategoryEnum } from '../enums/enums';
 
 export type MusicCategory = keyof typeof MusicCategoryEnum;

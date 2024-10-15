@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Series } from '../../models/television/Series.model';
+import { Series } from '../../models/television/series.model';
 
 export class TelevisionActions {
   public static loadSeries = createAction('[Television/API] Load Series');
