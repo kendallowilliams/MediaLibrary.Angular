@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre, MediaPages } from '@media-library/ml-data';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, GridState, KeyCreatorParams, RowClassParams, ValueFormatterParams } from '@ag-grid-community/core';
+import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, GridState, KeyCreatorParams, RowClassParams, ValueFormatterParams } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 import { PlayerService } from '../../media-player';
 import { IconCellRendererComponent } from '../cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
@@ -70,6 +70,7 @@ export class SongsGridComponent implements OnChanges {
       colId: 'album',
       headerName: 'Album',
       valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
+      valueFormatter: params => params.value || '--',
       filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
     },
     {
@@ -81,6 +82,7 @@ export class SongsGridComponent implements OnChanges {
       colId: 'artist',
       headerName: 'Artist',
       valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
+      valueFormatter: params => params.value || '--',
       filterValueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
     },
     {
@@ -135,7 +137,7 @@ export class SongsGridComponent implements OnChanges {
     onRowDoubleClicked: evt => evt.data?.id && this._playerService.playAudio(MediaPages.Music, evt.data.id),
     onRowGroupOpened: evt => evt.node.expanded && this._autoSizeColumns(),
     onStateUpdated: evt => this._gridState = evt.state,
-    onFilterChanged: evt => this._autoSizeColumns()
+    onFilterChanged: (/*evt: FilterChangedEvent<Track>*/) => this._autoSizeColumns()
   };
 
   constructor(private _playerService: PlayerService) {}

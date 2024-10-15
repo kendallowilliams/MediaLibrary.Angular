@@ -26,11 +26,11 @@ export class EditSongModalComponent implements OnInit {
   public ngOnInit(): void {
     this.songForm = this.fb.group({
       title: this.fb.control(this.song?.title, Validators.required),
-      artistId: this.fb.control(this.song?.artistId, Validators.required),
-      albumId: this.fb.control(this.song?.albumId, Validators.required),
-      genreId: this.fb.control(this.song?.genreId, Validators.required),
-      position: this.fb.control(this.song?.position, Validators.required),
-      year: this.fb.control(this.song?.year, Validators.required)
+      artistId: this.fb.control(this.song?.artistId),
+      albumId: this.fb.control(this.song?.albumId),
+      genreId: this.fb.control(this.song?.genreId),
+      position: this.fb.control(this.song?.position),
+      year: this.fb.control(this.song?.year)
     });
     this.albumOptions = this.albums?.map(album => ({
       text: album.title,
