@@ -8,7 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "esnext",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
@@ -18,7 +18,8 @@
       "@media-library/ml-data": ["libs/ml-data/src/index.ts"],
       "@media-library/ml-ui": ["libs/ml-ui/src/index.ts"],
       "@media-library/ml-utility": ["libs/ml-utility/src/index.ts"]
-    }
+    },
+    "useDefineForClassFields": false
   },
   "exclude": ["node_modules", "tmp"]
 }
