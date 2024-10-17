@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostBinding, Input, OnChanges, Output, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { Album, Artist, Track, Genre, MediaPages } from '@media-library/ml-data';
-import { ColDef, FilterChangedEvent, GridApi, GridOptions, GridReadyEvent, GridState, KeyCreatorParams, RowClassParams, ValueFormatterParams } from '@ag-grid-community/core';
+import { ColDef, GridApi, GridOptions, GridReadyEvent, GridState, KeyCreatorParams, RowClassParams, ValueFormatterParams } from '@ag-grid-community/core';
 import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
 import { PlayerService } from '../../media-player';
 import { IconCellRendererComponent } from '../cell-renderers/icon-cell-renderer/icon-cell-renderer.component';

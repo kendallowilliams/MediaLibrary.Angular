@@ -5,11 +5,11 @@
       '!text-secondary !border-secondary': disabled
     }">{{item.name}}</span>
   <button mlSecondaryButton *ngIf="!readonly && !item.isSelected" class="rounded-l-none" (click)="handleAdd(item.value)" [disabled]="disabled">
-    <fa-icon [icon]="faPlus"></fa-icon>
+    <fa-icon [icon]="faSquare"></fa-icon>
     <span class="sr-only">add list item</span>
   </button>
-  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" class="rounded-l-none" [variant]="'danger'" (click)="handleRemove(item.value)" [disabled]="disabled">
-    <fa-icon [icon]="faTrashCan"></fa-icon>
+  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" class="rounded-l-none" (click)="handleRemove(item.value)" [disabled]="disabled">
+    <fa-icon [icon]="faSquareCheck"></fa-icon>
     <span class="sr-only">delete list item</span>
   </button>
 </div>

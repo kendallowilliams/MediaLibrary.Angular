@@ -1,7 +1,7 @@
 import { Component, EventEmitter, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
-import { faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ListBoxItemValueType, ListItem } from '@media-library/ml-data';
 import { ListBoxItem } from '../interfaces/list-box-item.interface';
+import { faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'ml-list-box-item',
@@ -16,8 +16,8 @@ export class ListBoxItemComponent implements ListBoxItem {
   @Output() public removeItem = new EventEmitter<ListBoxItemValueType>();
   @HostBinding('attr.role') private _role = 'option';
   
-  public faPlus = faPlus;
-  public faTrashCan = faTrashCan;
+  public faSquare = faSquare;
+  public faSquareCheck = faSquareCheck;
 
   public handleAdd(val: ListBoxItemValueType): void {
     this.addItem.emit(val);
