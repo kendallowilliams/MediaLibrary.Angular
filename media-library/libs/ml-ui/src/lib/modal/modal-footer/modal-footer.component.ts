@@ -13,5 +13,5 @@ import {
 })
 export class ModalFooterComponent {
   @HostBinding('class') private _class = `flex items-center h-[50px] 
-    border-secondary border-solid border-t-[1px] px-[30px]`;
+    border-secondary border-solid border-t-[1px] px-[30px] shrink-0`;
 }

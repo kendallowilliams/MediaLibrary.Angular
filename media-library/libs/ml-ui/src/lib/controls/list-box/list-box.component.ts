@@ -86,7 +86,7 @@ export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterC
 
   public handleAdd(val: ListBoxItemValueType): void {
     this.isDirty = true;
-    this.writeValue([...this._value, val]);
+    this.writeValue(this._value ? [...this._value, val] : [val]);
   }
 
   public handleRemove(val: ListBoxItemValueType): void {

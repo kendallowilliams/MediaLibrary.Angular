@@ -36,3 +36,6 @@ export * from './lib/controls/list-box/index';
 
 /** Control Group */
 export * from './lib/controls/control-group/index';
+
+/** Breadcrumb Bar */
+export * from './lib/controls/breadcrumb-bar/index';

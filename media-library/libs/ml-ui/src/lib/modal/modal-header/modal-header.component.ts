@@ -23,7 +23,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
   encapsulation: ViewEncapsulation.None
 })
 export class ModalHeaderComponent {
-  @HostBinding('class') private _class = 'h-[50px] shadow';
+  @HostBinding('class') private _class = 'h-[50px] shadow shrink-0';
 
   public faXmark = faXmark;
 
