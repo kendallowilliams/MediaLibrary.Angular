@@ -28,7 +28,7 @@ export const Default: Story = {
       ...args
     },
     template: `
-      <button mlButton mlPopover [appendTo]="appendTo" [content]="content" [placement]="placement" [hidden]="hidden"
+      <button mlButton mlPopover [appendTo]="appendTo" [template]="content" [placement]="placement" [hidden]="hidden"
         (click)="hidden=!hidden">Click Me!</button>
 
       <ng-template #content>
