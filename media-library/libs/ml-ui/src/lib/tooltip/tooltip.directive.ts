@@ -27,6 +27,6 @@ export class TooltipDirective {
   
   @HostListener('mouseleave')
   private _handleMouseLeave() : void {
-    //this._popoverDirective.hide();
+    this._popoverDirective.hide();
   }
 }
