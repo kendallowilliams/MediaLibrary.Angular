@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MusicConfigurationComponent } from './music-configuration/music-configuration.component';
-import { MusicConfigurationEditorComponent } from './music-configuration-editor/music-configuration-editor.component';
+import { MusicConfigurationEditorComponent } from './music-configuration/music-configuration-editor/music-configuration-editor.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MediaLibraryConfigurationComponent } from './media-library-configuration/media-library-configuration.component';
@@ -18,6 +18,8 @@ import { CardModule, ControlsModule } from '../controls';
 import { ModalModule } from '../modal';
 import { ListBoxModule } from '../controls/list-box';
 import { DirectorySelectorModule } from '../controls/directory-selector';
+import { MusicDirectorySelectorComponent } from './music-configuration/music-directory-selector/music-directory-selector.component';
+import { ControlGroupModule } from '../controls/control-group';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { DirectorySelectorModule } from '../controls/directory-selector';
     PlayerConfigurationEditorComponent,
     PlaylistConfigurationEditorComponent,
     TelevisionConfigurationEditorComponent,
-    PodcastConfigurationEditorComponent
+    PodcastConfigurationEditorComponent,
+    MusicDirectorySelectorComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +46,8 @@ import { DirectorySelectorModule } from '../controls/directory-selector';
     ReactiveFormsModule,
     ModalModule,
     ListBoxModule,
-    DirectorySelectorModule
+    DirectorySelectorModule,
+    ControlGroupModule
   ],
   exports: [
     MusicConfigurationComponent,

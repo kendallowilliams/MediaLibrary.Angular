@@ -33,3 +33,6 @@ export * from './lib/media-player/index';
 
 /** ListBox */
 export * from './lib/controls/list-box/index';
+
+/** Control Group */
+export * from './lib/controls/control-group/index';

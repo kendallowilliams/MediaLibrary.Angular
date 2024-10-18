@@ -61,10 +61,8 @@ namespace MediaLibrary.BLL.Services
         {
             SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
             DirectoryInfo directoryInfo = Directory.Exists(path) ? new DirectoryInfo(path) : default;
-            Func<DirectoryInfo, bool> canUse = dirInfo => (dirInfo.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
-                                                          (dirInfo.Attributes & FileAttributes.System) != FileAttributes.System;
 
-            return directoryInfo != null && canUse(directoryInfo) ?
+            return directoryInfo != null && CanUseDirectory(path) ?
                 Directory.EnumerateFiles(path, searchPattern, searchOption) : 
                 Enumerable.Empty<string>();
         }

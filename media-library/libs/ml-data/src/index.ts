@@ -37,6 +37,7 @@ export * from './lib/models/music/genre.model';
 export * from './lib/models/playlist/playlist.model';
 export * from './lib/models/collections/list-item.interface';
 export * from './lib/models/requests/add-song-to-playlists.request';
+export * from './lib/models/app/directory.model';
 
 /** Enums */
 export * from './lib/enums/enum-functions';

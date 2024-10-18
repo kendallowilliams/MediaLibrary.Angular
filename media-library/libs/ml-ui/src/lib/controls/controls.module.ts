@@ -19,7 +19,8 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
     SelectModule, 
     FontAwesomeModule, 
     TextBoxDirective, 
-    LabelDirective],
+    LabelDirective
+  ],
   declarations: [
     CheckboxDirective,
     SwitchComponent,

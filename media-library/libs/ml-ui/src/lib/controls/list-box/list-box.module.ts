@@ -5,12 +5,14 @@ import { ButtonModule } from "../button";
 import { CommonModule } from "@angular/common";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { ListBoxItemTemplateDirective } from "./directives/list-box-item-template.directive";
+import { ControlGroupModule } from "../control-group";
 
 @NgModule({
   imports: [
     CommonModule,
     ButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ControlGroupModule
   ],
   declarations: [
     ListBoxComponent,

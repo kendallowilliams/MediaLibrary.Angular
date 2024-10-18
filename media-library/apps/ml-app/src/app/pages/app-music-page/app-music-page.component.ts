@@ -14,8 +14,7 @@ import { SongsGridComponent, TabComponent, TabGroupComponent } from '@media-libr
 @Component({
   selector: 'app-music-page',
   templateUrl: './app-music-page.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
 export class AppMusicPageComponent implements OnInit {
   @HostBinding('class') private _class = 'flex flex-col h-full';

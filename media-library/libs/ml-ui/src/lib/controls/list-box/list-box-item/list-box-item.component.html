@@ -1,15 +1,11 @@
-<div class="flex items-center h-control">
-  <button mlSecondaryButton *ngIf="!readonly && !item.isSelected" class="rounded-r-none" (click)="handleAdd(item.value)" [disabled]="disabled">
+<ml-control-group>
+  <button mlSecondaryButton *ngIf="!readonly && !item.isSelected" (click)="handleAdd(item.value)" [disabled]="disabled">
     <fa-icon [icon]="faSquare"></fa-icon>
     <span class="sr-only">add list item</span>
   </button>
-  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" class="rounded-r-none" (click)="handleRemove(item.value)" [disabled]="disabled">
+  <button mlSecondaryButton *ngIf="!readonly && item.isSelected" (click)="handleRemove(item.value)" [disabled]="disabled">
     <fa-icon [icon]="faSquareCheck"></fa-icon>
-    <span class="sr-only">delete list item</span>
+    <span class="sr-only">remove list item</span>
   </button>
-  <span class="inline-flex border-dark border-[1px] border-solid rounded-[5px] self-stretch px-[10px]
-    text-dark dark:text-light bg-light dark:bg-dark items-center" [ngClass]="{
-      'border-l-0 rounded-l-none': !readonly,
-      '!text-secondary !border-secondary': disabled
-    }">{{item.name}}</span>
-</div>
+  <span class="px-[10px]" [ngClass]="{ '!text-secondary !border-secondary': disabled }">{{item.name}}</span>
+</ml-control-group>
