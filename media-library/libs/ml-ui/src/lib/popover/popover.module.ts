@@ -4,8 +4,8 @@ import { PopoverDirective } from "./directives/popover.directive";
 import { PopoverContentComponent } from "./popover-content.component";
 
 @NgModule({
-  declarations: [PopoverDirective, PopoverContentComponent],
-  imports: [CommonModule],
+  declarations: [PopoverContentComponent],
+  imports: [CommonModule, PopoverDirective],
   exports: [PopoverDirective],
 })
 export class PopoverModule {

@@ -3,13 +3,15 @@ import { Instance, Placement, createPopper } from "@popperjs/core";
 import { PopoverContentComponent } from "../popover-content.component";
 
 @Directive({
-  selector: '[mlPopover]'
+  selector: '[mlPopover]',
+  standalone: true
 })
 export class PopoverDirective implements OnChanges, OnDestroy {
   @Input() public placement: Placement = 'top';
   @Input() public appendTo: HTMLElement | 'body' = 'body';
-  @Input() public content: TemplateRef<unknown> | null = null;
-  @Input() public contentContext: unknown;
+  @Input() public content: string | null = null;
+  @Input() public template: TemplateRef<unknown> | null = null;
+  @Input() public templateCtx: unknown;
   @Input() public hidden = true;
 
   private _instance: Instance | null = null;
@@ -35,22 +37,21 @@ export class PopoverDirective implements OnChanges, OnDestroy {
     const appendTo = this.appendTo === 'body' ? document.body : this.appendTo as HTMLElement;
 
     this.hide();
-    if (this.content && appendTo) {
-      this._popover = this._vcr.createComponent(PopoverContentComponent);
-      this._popover.setInput('template', this.content);
-      this._popover.setInput('templateContext', this.contentContext);
-      appendTo.appendChild(this._popover.location.nativeElement);
-      this._instance = createPopper(
-        this._host.nativeElement,
-        this._popover.location.nativeElement, {
-          placement: this.placement,
-          modifiers: [{
-            name: 'flip',
-            enabled: false,
-          }]
-        }
-      );
-    }
+    this._popover = this._vcr.createComponent(PopoverContentComponent);
+    this._popover.setInput('content', this.content);
+    this._popover.setInput('template', this.template);
+    this._popover.setInput('templateContext', this.templateCtx);
+    appendTo.appendChild(this._popover.location.nativeElement);
+    this._instance = createPopper(
+      this._host.nativeElement,
+      this._popover.location.nativeElement, {
+        placement: this.placement,
+        modifiers: [{
+          name: 'flip',
+          enabled: false,
+        }]
+      }
+    );
   }
 
   public hide() : void {

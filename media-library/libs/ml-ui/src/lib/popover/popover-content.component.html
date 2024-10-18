@@ -1,0 +1,7 @@
+<div>
+  @if (template) {
+    <ng-container *ngIf="template" [ngTemplateOutlet]="template" [ngTemplateOutletContext]="templateCtx"]></ng-container>
+  } @else if (content) {
+    {{content}}
+  }
+</div>
