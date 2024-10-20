@@ -1,0 +1,29 @@
+<ml-modal-content class="w-[450px] h-[400px]">
+  <ml-modal-header>
+    <ml-modal-title>Manage Music Paths</ml-modal-title>
+  </ml-modal-header>
+  <ml-modal-body class="grid grid-flow-row grid-rows-[auto_auto_1fr] gap-[10px] overflow-hidden">
+    <ml-breadcrumb-bar>
+      <ml-breadcrumb *ngFor="let breadcrumb of breadcrumbs" 
+        (click)="handleBreadcrumbClick(breadcrumb)">{{breadcrumb.name}}</ml-breadcrumb>
+    </ml-breadcrumb-bar>
+    <hr />
+    <div class="flex gap-[5px] flex-wrap overflow-auto content-start p-[5px]">
+      <ml-control-group *ngFor="let dir of directory?.subDirectories">
+        @if (dir.pathId) {
+          <button mlSecondaryButton [variant]="'danger'" (click)="handleRemove(dir)">
+            <fa-icon [icon]="faTrashCan"></fa-icon>
+          </button>
+        } @else {
+          <button mlSecondaryButton [variant]="'dark'" (click)="handleAdd(dir)">
+            <fa-icon [icon]="faPlus"></fa-icon>
+          </button>
+        }
+        <div class="grow px-[10px] truncate">{{dir.name}}</div>
+        <button mlSecondaryButton (click)="handleClick(dir.path)" [variant]="'dark'">
+          <fa-icon [icon]="faFolderOpen"></fa-icon>
+        </button>
+      </ml-control-group>
+    </div>
+  </ml-modal-body>
+</ml-modal-content>

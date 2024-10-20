@@ -2,13 +2,18 @@
   <ml-card-header>
     <ml-card-title class="flex w-full">
       <div class="grow">Music Settings</div>
-      <fa-icon [icon]="faPenToSquare" class="text-primary cursor-pointer" (click)="showMusicConfigurationEditor()"></fa-icon>
+      <fa-icon [icon]="faPenToSquare" class="text-primary cursor-pointer" (click)="showConfigurationEditor()"></fa-icon>
     </ml-card-title>
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
     <div class="grid grid-cols-[150px_1fr] items-start">
-      <label mlLabel>Paths</label>
-      <ml-list-box [readonly]="true" [ngModel]="configuration.musicPaths"></ml-list-box>
+      <label mlLabel>Locations</label>
+      <ml-control-group *ngFor="let musicPath of configuration.musicPaths">
+        <div class="px-[10px]">{{musicPath}}</div>
+        <button mlSecondaryButton (click)="showDirectorySelectorModal(musicPath)">
+          <fa-icon [icon]="faFolderOpen"></fa-icon>
+        </button>
+      </ml-control-group>
     </div>
   </ml-card-body>
   <ml-card-footer>
@@ -18,3 +23,13 @@
     </div>
   </ml-card-footer>
 </ml-card>
+
+<ng-template mlModal [(isOpen)]="isConfigurationEditorOpen">
+  <ml-music-configuration-editor [(configuration)]="editConfigurationState"></ml-music-configuration-editor>
+</ng-template>
+
+<ng-template mlModal [(isOpen)]="isDirectorySelectorModalOpen">
+  @if (selectedMusicPath) {
+    <ml-music-directory-selector [rootPath]="selectedMusicPath"></ml-music-directory-selector>
+  }
+</ng-template>

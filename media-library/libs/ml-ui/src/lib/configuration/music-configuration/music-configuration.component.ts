@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   Input,
   OnChanges,
@@ -7,16 +6,14 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import { ModalConfig, ModalRef, ModalService } from '../../modal';
 import { MusicConfiguration, getAlbumSortEnumString, getArtistSortEnumString, getSongSortEnumString } from '@media-library/ml-data';
-import { MusicConfigurationEditorComponent } from '../music-configuration-editor/music-configuration-editor.component';
 import { faPenToSquare, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'ml-music-configuration',
   templateUrl: './music-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class MusicConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: MusicConfiguration;
@@ -25,9 +22,11 @@ export class MusicConfigurationComponent implements OnInit, OnChanges {
   public songSort = '';
   public faPenToSquare = faPenToSquare;
   public faSpinner = faSpinner;
-  private _editorRef?: ModalRef<MusicConfigurationEditorComponent>;
-
-  constructor(private _modalService: ModalService) {}
+  public faFolderOpen = faFolderOpen;
+  public isDirectorySelectorModalOpen = false;
+  public isConfigurationEditorOpen = false;
+  public editConfigurationState!: MusicConfiguration;
+  public selectedMusicPath?: string;
 
   public ngOnInit(): void {
     this._setData(this.configuration);
@@ -42,21 +41,28 @@ export class MusicConfigurationComponent implements OnInit, OnChanges {
   }
 
   private _setData(configuration: MusicConfiguration): void {
+    this.editConfigurationState = Object.assign({}, this.configuration);
     this.albumSort = getAlbumSortEnumString(configuration.selectedAlbumSort);
     this.songSort = getSongSortEnumString(configuration.selectedSongSort);
     this.artistSort = getArtistSortEnumString(configuration.selectedArtistSort);
   }
 
-  public showMusicConfigurationEditor(): void {
-    const modalConfig = new ModalConfig();
+  public showConfigurationEditor(): void {
+    this.editConfigurationState = Object.assign({}, this.configuration);
+    this.isConfigurationEditorOpen = true;
+  }
 
-    modalConfig.inputs = { 'configuration': this.configuration };
-    this._editorRef = this._modalService.showComponent(MusicConfigurationEditorComponent, modalConfig);
+  public showDirectorySelectorModal(musicPath: string): void {
+    this.selectedMusicPath = musicPath;
+    this.isConfigurationEditorOpen = false;
+    this.isDirectorySelectorModalOpen = true;
   }
 
   public handleRefresh() {
+    //TODO
   }
 
   public handleUpload() {
+    //TODO
   }
 }

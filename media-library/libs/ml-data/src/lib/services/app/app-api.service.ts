@@ -27,4 +27,14 @@ export class AppApiService extends BaseApiService {
     const params = new HttpParams().set('path', path);
     return this.get<DirectoryModel>(this.controller, 'GetDirectory', {params});
   }
+
+  public addMusicDirectory(path: string) : Observable<number> {
+    const params = new HttpParams().set('path', path);
+    return this.post<number>(this.controller, 'AddMusicDirectory', null, {params});
+  }
+
+  public removeMusicDirectory(pathId: number) : Observable<number> {
+    const params = new HttpParams().set('id', pathId);
+    return this.post<number>(this.controller, 'RemoveMusicDirectory', null, {params});
+  }
 }

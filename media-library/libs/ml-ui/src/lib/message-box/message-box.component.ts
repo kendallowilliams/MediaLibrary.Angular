@@ -35,12 +35,12 @@ type MessageType = typeof MESSAGE_BOX_TYPES[number];
     <ml-modal-footer>
       <div class="flex gap-[10px] items-center justify-end w-full h-full" [ngSwitch]="messageType">
         <ng-container *ngSwitchCase="'confirm'">
-          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
           <button mlButton [variant]="'primary'" (click)="handleOKClick()">OK</button>
+          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">Cancel</button>
         </ng-container>
         <ng-container *ngSwitchCase="'yesNo'">
-          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
           <button mlButton [variant]="'primary'" (click)="handleOKClick()">Yes</button>
+          <button mlButton [variant]="'secondary'" (click)="handleCancelClick()">No</button>
         </ng-container>
         <ng-container *ngSwitchDefault>
           <button mlButton [variant]="'primary'" (click)="handleOKClick()">OK</button>

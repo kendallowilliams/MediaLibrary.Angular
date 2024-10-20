@@ -106,7 +106,7 @@ export const CustomItemTemplate: Story = {
           <ml-list-box-item [item]="countryItem"></ml-list-box-item>
         </ml-list-box>
       </div>
-      <ng-template let-context mlListBoxItemTemplate #itemTemplate>
+      <ng-template let-context mlListBoxItem #itemTemplate>
         <div class="flex flex-col gap-[5px]">
           <ml-list-box-item [item]="context.item" (addItem)="context.handleAdd($event)"
             (removeItem)="context.handleRemove($event)" [readonly]="context.readonly"

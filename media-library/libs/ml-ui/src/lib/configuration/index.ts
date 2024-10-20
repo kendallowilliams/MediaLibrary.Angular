@@ -1,5 +1,5 @@
 export * from './configuration.module';
-export * from './music-configuration-editor/music-configuration-editor.component';
+export * from './music-configuration/music-configuration-editor/music-configuration-editor.component';
 export * from './music-configuration/music-configuration.component';
 export * from './media-library-configuration/media-library-configuration.component';
 export * from './media-library-configuration-editor/media-library-configuration-editor.component';

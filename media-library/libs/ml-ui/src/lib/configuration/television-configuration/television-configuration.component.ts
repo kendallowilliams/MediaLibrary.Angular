@@ -51,6 +51,6 @@ export class TelevisionConfigurationComponent implements OnInit, OnChanges {
   }
 
   public handleRefresh(): void {
-
+    //TODO
   }
 }

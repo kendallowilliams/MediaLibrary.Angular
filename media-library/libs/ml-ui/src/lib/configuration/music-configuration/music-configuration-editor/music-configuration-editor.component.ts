@@ -1,25 +1,29 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { 
   AlbumSort, 
   ArtistSort, 
   ConfigurationsActions, 
+  ListItem, 
   MusicConfiguration, 
   SongSort, 
   getAlbumSortEnumString, 
   getArtistSortEnumString, 
   getSongSortEnumString 
 } from '@media-library/ml-data';
-import { SelectOption } from '../../controls/select';
-import { ModalRef } from '../../modal';
+import { SelectOption } from '../../../controls/select';
+import { ModalRef } from '../../../modal';
 import { Store } from '@ngrx/store';
 import { MlDataFeatureState } from '@media-library/ml-data';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'ml-music-configuration-editor',
@@ -29,6 +33,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class MusicConfigurationEditorComponent implements OnInit {
   @Input({ required: true }) public configuration!: MusicConfiguration;
+  @Output() public configurationChange = new EventEmitter<MusicConfiguration>();
+  @Output() public saveConfiguration = new EventEmitter<MusicConfiguration>();
   
   public albumSortOptions: SelectOption[] = [{
     text: getAlbumSortEnumString(AlbumSort.AtoZ),
@@ -56,6 +62,9 @@ export class MusicConfigurationEditorComponent implements OnInit {
   }];
 
   public configForm!: FormGroup;
+  public locationItems: ListItem[] = [];
+  public faFolderOpen = faFolderOpen;
+  public faTrashCan = faTrashCan;
   
   constructor(
     private _modalRef: ModalRef<MusicConfigurationEditorComponent>,
@@ -65,6 +74,10 @@ export class MusicConfigurationEditorComponent implements OnInit {
   
   public ngOnInit(): void {
     this.configForm = this._createConfigForm();
+    this.locationItems = this.configuration.musicPaths.map(location => ({
+      name: location,
+      value: location
+    }));
   }
 
   private _createConfigForm(): FormGroup {
@@ -89,5 +102,9 @@ export class MusicConfigurationEditorComponent implements OnInit {
 
   public handleCancel(): void {
     this._modalRef?.hide();
+  }
+
+  public handleLocationRemove(item: ListItem) : void {
+    //TODO
   }
 }

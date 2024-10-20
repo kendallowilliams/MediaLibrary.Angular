@@ -16,6 +16,8 @@ namespace MediaLibrary.Shared.Models
 
         public string Path { get; set; }
 
+        public int? PathId { get; set; }
+
         public IEnumerable<DirectoryModel> SubDirectories { get; set; }
     }
 }

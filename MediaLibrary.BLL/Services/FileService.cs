@@ -46,22 +46,20 @@ namespace MediaLibrary.BLL.Services
         public IEnumerable<string> EnumerateDirectories(string path, string searchPattern = "*", bool recursive = false)
         {
             SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            DirectoryInfo directoryInfo = Directory.Exists(path) ? new DirectoryInfo(path) : default;
-            Func<DirectoryInfo, bool> canUse = dirInfo => (dirInfo.Attributes & FileAttributes.Hidden) != FileAttributes.Hidden &&
-                                                          (dirInfo.Attributes & FileAttributes.System) != FileAttributes.System;
+            DirectoryInfo directoryInfo = CanUseDirectory(path) ? new DirectoryInfo(path) : default;
 
-            return directoryInfo != null && canUse(directoryInfo) ?
-                Directory.EnumerateDirectories(path, searchPattern, searchOption) :
+            return directoryInfo != null ?
+                Directory.EnumerateDirectories(directoryInfo.FullName, searchPattern, searchOption) :
                 Enumerable.Empty<string>();
         }
 
         public IEnumerable<string> EnumerateFiles(string path, string searchPattern = "*", bool recursive = false)
         {
             SearchOption searchOption = recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
-            DirectoryInfo directoryInfo = Directory.Exists(path) ? new DirectoryInfo(path) : default;
+            DirectoryInfo directoryInfo = CanUseDirectory(path) ? new DirectoryInfo(path) : default;
 
-            return directoryInfo != null && CanUseDirectory(path) ?
-                Directory.EnumerateFiles(path, searchPattern, searchOption) : 
+            return directoryInfo != null ?
+                Directory.EnumerateFiles(directoryInfo.FullName, searchPattern, searchOption) : 
                 Enumerable.Empty<string>();
         }
 

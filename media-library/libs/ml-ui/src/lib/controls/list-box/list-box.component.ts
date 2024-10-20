@@ -22,7 +22,6 @@ import { ListBoxItemContext } from './directives/list-box-item-template.directiv
   selector: 'ml-list-box',
   templateUrl: './list-box.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
   providers:[{
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => ListBoxComponent),
@@ -33,6 +32,7 @@ export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterC
   @Input() public readonly = false;
   @Input() public items: ListItem[] = [];
   @Input() public itemTemplate: TemplateRef<ListBoxItemContext> | null = null;
+  @Input() public multiple = true;
 
   @HostBinding('class') private _class = `inline-flex flex-row flex-wrap gap-[10px] rounded-[5px] select-none outline-none`;
   @HostBinding('attr.role') private _role = 'listbox';
@@ -42,7 +42,7 @@ export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterC
 
   public disabled = false;
   public get value(): ListBoxItemValueType[] {
-    return this._value;
+    return this._value || [];
   }
   private _value: ListBoxItemValueType[] = [];
   private _onChange: (_: ListBoxItemValueType[]) => void = noop;
@@ -51,7 +51,7 @@ export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterC
 
   public ngOnChanges(changes: SimpleChanges): void {
     if ('items' in changes) {
-      this.items.forEach(o => o.isSelected = this._value?.includes(o.value));
+      this._value = this.items.filter(o => o.isSelected).map(o => o.value);
     }
   }
 
@@ -86,7 +86,7 @@ export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterC
 
   public handleAdd(val: ListBoxItemValueType): void {
     this.isDirty = true;
-    this.writeValue(this._value ? [...this._value, val] : [val]);
+    this.writeValue(this._value && this.multiple ? [...this._value, val] : [val]);
   }
 
   public handleRemove(val: ListBoxItemValueType): void {

@@ -17,9 +17,9 @@ import { PodcastConfigurationEditorComponent } from './podcast-configuration-edi
 import { CardModule, ControlsModule } from '../controls';
 import { ModalModule } from '../modal';
 import { ListBoxModule } from '../controls/list-box';
-import { DirectorySelectorModule } from '../controls/directory-selector';
 import { MusicDirectorySelectorComponent } from './music-configuration/music-directory-selector/music-directory-selector.component';
 import { ControlGroupModule } from '../controls/control-group';
+import { BreadcrumbBarModule } from '../controls/breadcrumb-bar';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,8 @@ import { ControlGroupModule } from '../controls/control-group';
     ReactiveFormsModule,
     ModalModule,
     ListBoxModule,
-    DirectorySelectorModule,
-    ControlGroupModule
+    ControlGroupModule,
+    BreadcrumbBarModule
   ],
   exports: [
     MusicConfigurationComponent,
