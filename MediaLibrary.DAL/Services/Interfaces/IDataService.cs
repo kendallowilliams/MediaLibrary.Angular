@@ -1,15 +1,10 @@
-﻿using MediaLibrary.DAL.Models;
-using MediaLibrary.DAL.Models.Interfaces;
+﻿using MediaLibrary.DAL.Models.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Data;
 using System.Linq.Expressions;
 using System.Threading;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace MediaLibrary.DAL.Services.Interfaces
 {

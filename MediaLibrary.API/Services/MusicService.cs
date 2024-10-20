@@ -3,7 +3,6 @@ using MediaLibrary.DAL.Models;
 using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.Extensions.Caching.Memory;
-using System.ComponentModel;
 using static MediaLibrary.Shared.Enums;
 
 namespace MediaLibrary.API.Services

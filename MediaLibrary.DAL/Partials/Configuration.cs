@@ -1,12 +1,7 @@
 ﻿using MediaLibrary.DAL.Models.Interfaces;
-using MediaLibrary.Shared.Models.Configurations;
 using MediaLibrary.Shared.Models.Interfaces;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static MediaLibrary.Shared.Enums;
 
 namespace MediaLibrary.DAL.Models

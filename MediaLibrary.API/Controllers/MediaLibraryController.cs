@@ -4,7 +4,6 @@ using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using static MediaLibrary.Shared.Enums;
 
 namespace MediaLibrary.API.Controllers

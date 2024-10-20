@@ -15,3 +15,5 @@
 /MediaLibrary.Shared/obj
 *.dbmdl
 MediaLibrary.DB/MediaLibrary.DB.jfm
+/MediaLibrary.Console/obj
+/MediaLibrary.Console/bin

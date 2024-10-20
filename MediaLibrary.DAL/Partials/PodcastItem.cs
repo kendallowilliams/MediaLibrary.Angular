@@ -1,7 +1,5 @@
-﻿using MediaLibrary.DAL.Models;
-using MediaLibrary.DAL.Models.Interfaces;
+﻿using MediaLibrary.DAL.Models.Interfaces;
 using MediaLibrary.DAL.Partials.Interfaces;
-using System;
 using IO_File = System.IO.File;
 using System.ComponentModel.DataAnnotations.Schema;
 

@@ -2,9 +2,6 @@
 using System.Threading.Tasks;
 using MediaLibrary.BLL.Services.Interfaces;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
-using System.Text;
 using System.Threading;
 using System.IO;
 
