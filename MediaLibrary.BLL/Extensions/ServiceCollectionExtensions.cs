@@ -40,12 +40,10 @@ namespace MediaLibrary.BLL.Extensions
             services.AddTransient<IFileService, FileService>();
             services.AddTransient<IGenreService, GenreService>();
             services.AddTransient<IId3Service, Id3Service>();
-            services.AddTransient<ILogService, LogService>();
             services.AddTransient<IPlayerService, PlayerService>();
             services.AddTransient<IPlaylistService, PlaylistService>();
             services.AddTransient<IPodcastService, PodcastService>();
             services.AddTransient<ITrackService, TrackService>();
-            services.AddTransient<ITransactionService, TransactionService>();
             services.AddTransient<IWebService, WebService>();
             services.AddTransient<IProcessorService, ProcessorService>();
             services.AddTransient<PlaylistRepository>();

@@ -13,6 +13,7 @@ using System.Threading;
 using MediaLibrary.Shared.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace MediaLibrary.BLL.Services
 {
@@ -21,19 +22,17 @@ namespace MediaLibrary.BLL.Services
         private readonly IDataService dataService;
         private readonly IPodcastService podcastService;
         private readonly IFileService fileService;
-        private readonly ILogService logService;
         private readonly ITPLService tplService;
-        private readonly ITransactionService transactionService;
+        private readonly ILogger<ProcessorService> logger;
 
         public ProcessorService(IDataService dataService, IPodcastService podcastService, IFileService fileService,
-                                ILogService logService, ITPLService tplService, ITransactionService transactionService)
+                                ITPLService tplService, ILogger<ProcessorService> logger)
         {
             this.dataService = dataService;
             this.podcastService = podcastService;
             this.fileService = fileService;
-            this.logService = logService;
             this.tplService = tplService;
-            this.transactionService = transactionService;
+            this.logger = logger;
         }
 
         public async Task RefreshPodcasts()
@@ -55,34 +54,34 @@ namespace MediaLibrary.BLL.Services
 
                             var newItems = Enumerable.Empty<PodcastItem>();
 
-                            await logService.Trace($"{message} [{podcast.Title}] started...");
+                            logger.LogTrace($"{message} [{podcast.Title}] started...");
                             await podcastService.RefreshPodcast(podcast);
                             newItems = podcast.PodcastItems.Where(item => item.PublishDate > lastAutoDownloadDate && !item.IsDownloaded);
 
                             if (podcast.DownloadNewEpisodes && newItems.Any())
                             {
-                                await logService.Trace($"Podcast [{podcast.Title}] auto-download started...");
+                                logger.LogTrace($"Podcast [{podcast.Title}] auto-download started...");
 
                                 foreach (var item in newItems) 
                                 { 
                                     await podcastService.AddPodcastFile(item.Id);
-                                    await logService.Info($"File [{item.Url}] downloaded.");
+                                    logger.LogInformation($"File [{item.Url}] downloaded.");
                                 }
 
-                                await logService.Trace($"Podcast [{podcast.Title}] auto-download completed.");
+                                logger.LogTrace($"Podcast [{podcast.Title}] auto-download completed.");
                             }
 
-                            await logService.Trace($"{message} [{podcast.Title}] completed.");
+                            logger.LogTrace($"{message} [{podcast.Title}] completed.");
                         }
                         catch(AggregateException ex)
                         {
-                            await logService.Warn($"{message} [{podcast.Title}] failed.");
-                            await logService.Error(ex);
+                            logger.LogWarning($"{message} [{podcast.Title}] failed.");
+                            logger.LogError(ex, ex.Message);
                         }
                         catch(Exception ex)
                         {
-                            await logService.Warn($"{message} [{podcast.Title}] failed.");
-                            await logService.Error(ex);
+                            logger.LogWarning($"{message} [{podcast.Title}] failed.");
+                            logger.LogError(ex, ex.Message);
                         }
                     }, podcasts, 4, default(CancellationToken));
                 podcastConfiguration.LastAutoDownloadDate = DateTime.Now;
@@ -92,32 +91,17 @@ namespace MediaLibrary.BLL.Services
             }
             catch (AggregateException ex)
             {
-                await logService.Error(ex);
+                logger.LogError(ex, ex.Message);
             }
             catch (Exception ex)
             {
-                await logService.Error(ex);
+                logger.LogError(ex, ex.Message);
             }
         }
 
         public async Task RefreshMusic()
         {
-            Transaction transaction = null;
-
-            try
-            {
-                transaction = await transactionService.GetNewTransaction(TransactionTypes.RefreshMusic);
-                await fileService.CheckForMusicUpdates(transaction);
-            }
-            catch(Exception ex)
-            {
-                await transactionService.UpdateTransactionErrored(transaction, ex);
-            }
-        }
-
-        public async Task PerformCleanup()
-        {
-            await transactionService.CleanUpTransactions();
+            await fileService.CheckForMusicUpdates();
         }
     }
 }

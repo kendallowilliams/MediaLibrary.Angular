@@ -76,6 +76,5 @@
     <Build Include="dbo\Tables\Series.sql" />
     <Build Include="dbo\Tables\Track.sql" />
     <Build Include="dbo\Tables\TrackPath.sql" />
-    <Build Include="dbo\Tables\Transaction.sql" />
   </ItemGroup>
 </Project>

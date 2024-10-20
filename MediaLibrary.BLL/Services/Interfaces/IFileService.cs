@@ -17,9 +17,9 @@ namespace MediaLibrary.BLL.Services.Interfaces
 
         void Write(string path, byte[] data);
 
-        Task ReadDirectory(Transaction transaction, string path, bool recursive = false);
+        Task ReadDirectory(string path, bool recursive = false);
 
-        Task CheckForMusicUpdates(Transaction transaction);
+        Task CheckForMusicUpdates(bool canDelete = false);
 
         Task ReadMediaFile(string path);
 

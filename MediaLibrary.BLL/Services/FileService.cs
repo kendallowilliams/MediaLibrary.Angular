@@ -24,19 +24,17 @@ namespace MediaLibrary.BLL.Services
         private readonly IAlbumService albumService;
         private readonly IGenreService genreService;
         private readonly ITrackService trackService;
-        private readonly ITransactionService transactionService;
         private readonly IConfiguration configuration;
 
         public FileService(IId3Service id3Service, IArtistService artistService, IAlbumService albumService,
-                           IGenreService genreService, ITrackService trackService, ITransactionService transactionService,
-                           IDataService dataService, IConfiguration configuration)
+                           IGenreService genreService, ITrackService trackService, IDataService dataService, 
+                           IConfiguration configuration)
         {
             this.id3Service = id3Service;
             this.artistService = artistService;
             this.albumService = albumService;
             this.genreService = genreService;
             this.trackService = trackService;
-            this.transactionService = transactionService;
             this.dataService = dataService;
             this.configuration = configuration;
         }
@@ -78,25 +76,16 @@ namespace MediaLibrary.BLL.Services
             if (File.Exists(path)) { File.Delete(path); }
         }
 
-        public async Task ReadDirectory(Transaction transaction, string path, bool recursive = false)
+        public async Task ReadDirectory(string path, bool recursive = false)
         {
-            try
-            {
-                IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
-                                    allFiles = EnumerateFiles(path, recursive: recursive);
-                var fileGroups = allFiles.Where(file => fileTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
-                                         .GroupBy(file => Path.GetDirectoryName(file), StringComparer.OrdinalIgnoreCase);
+            IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
+                                allFiles = EnumerateFiles(path, recursive: recursive);
+            var fileGroups = allFiles.Where(file => fileTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase))
+                                        .GroupBy(file => Path.GetDirectoryName(file), StringComparer.OrdinalIgnoreCase);
 
-                foreach (var group in fileGroups.Where(item => Directory.Exists(item.Key)))
-                {
-                    foreach (string file in group) { await ReadMediaFile(file); }
-                }
-
-                await transactionService.UpdateTransactionCompleted(transaction);
-            }
-            catch(Exception ex)
+            foreach (var group in fileGroups.Where(item => Directory.Exists(item.Key)))
             {
-                await transactionService.UpdateTransactionErrored(transaction, ex);
+                foreach (string file in group) { await ReadMediaFile(file); }
             }
         }
 
@@ -112,81 +101,57 @@ namespace MediaLibrary.BLL.Services
             await dataService.Insert(track);
         }
 
-        public async Task CheckForMusicUpdates(Transaction transaction)
+        public async Task CheckForMusicUpdates(bool canDelete = false)
         {
-            try
+            var musicConfiguration = await dataService.Get<Configuration>(item => item.Type == ConfigurationTypes.Music)
+                                                        .ContinueWith(task => task.Result.GetConfigurationObject<MusicConfiguration>() ?? 
+                                                                            new MusicConfiguration());
+            IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
+                                configPaths = musicConfiguration.MusicPaths;
+            IEnumerable<TrackPath> savedPaths = await dataService.GetList<TrackPath>(includes: path => path.Tracks),
+                                    validPaths = savedPaths.Where(_path => _path.Tracks.Any()),
+                                    emptyPaths = savedPaths.Where(_path => !_path.Tracks.Any()),
+                                    invalidPaths = savedPaths.Where(_path => !configPaths.Any(p => _path.Location.StartsWith(p, StringComparison.OrdinalIgnoreCase)));
+            IEnumerable<Album> albumsToDelete = Enumerable.Empty<Album>();
+            IEnumerable<Artist> artistsToDelete = Enumerable.Empty<Artist>();
+
+            foreach (TrackPath path in validPaths)
             {
-                var musicConfiguration = await dataService.Get<Configuration>(item => item.Type == ConfigurationTypes.Music)
-                                                          .ContinueWith(task => task.Result.GetConfigurationObject<MusicConfiguration>() ?? 
-                                                                                new MusicConfiguration());
-                IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
-                                    configPaths = musicConfiguration.MusicPaths;
-                IEnumerable<TrackPath> savedPaths = await dataService.GetList<TrackPath>(includes: path => path.Tracks),
-                                       validPaths = savedPaths.Where(_path => _path.Tracks.Any()),
-                                       emptyPaths = savedPaths.Where(_path => !_path.Tracks.Any()),
-                                       invalidPaths = savedPaths.Where(_path => !configPaths.Any(p => _path.Location.StartsWith(p, StringComparison.OrdinalIgnoreCase)));
-                IEnumerable<Album> albumsToDelete = Enumerable.Empty<Album>();
-                IEnumerable<Artist> artistsToDelete = Enumerable.Empty<Artist>();
+                IEnumerable<Track> tracks = path.Tracks;
+                IEnumerable<string> existingFiles = tracks.Select(track => Path.Combine(path.Location, track.FileName)),
+                                    files = EnumerateFiles(path.Location).Where(file => fileTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase)),
+                                    deletedFiles = existingFiles.Where(file => !File.Exists(file)),
+                                    newFiles = files.Except(existingFiles),
+                                    existingDirectories = savedPaths.Where(_path => !path.Equals(_path) && 
+                                                                                    _path.Location.StartsWith(path.Location))
+                                                                    .Select(_path => _path.Location);
 
-                foreach (TrackPath path in validPaths)
+                foreach (string file in newFiles)
                 {
-                    IEnumerable<Track> tracks = path.Tracks;
-                    IEnumerable<string> existingFiles = tracks.Select(track => Path.Combine(path.Location, track.FileName)),
-                                        files = EnumerateFiles(path.Location).Where(file => fileTypes.Contains(Path.GetExtension(file), StringComparer.OrdinalIgnoreCase)),
-                                        deletedFiles = existingFiles.Where(file => !File.Exists(file)),
-                                        newFiles = files.Except(existingFiles),
-                                        existingDirectories = savedPaths.Where(_path => !path.Equals(_path) && 
-                                                                                        _path.Location.StartsWith(path.Location))
-                                                                        .Select(_path => _path.Location);
-
-                    foreach (string file in newFiles)
-                    {
-                        await ReadMediaFile(file);
-                    }
-
-                    if (transaction.Type == TransactionTypes.RefreshMusicWithDelete)
-                    {
-                        foreach (string file in deletedFiles)
-                        {
-                            Transaction deleteTransaction = null;
-
-                            try
-                            {
-                                Track song = tracks.FirstOrDefault(track => track.FileName.Equals(Path.GetFileName(file), StringComparison.OrdinalIgnoreCase));
-
-                                deleteTransaction = await transactionService.GetNewTransaction(TransactionTypes.RemoveTrack);
-                                deleteTransaction.Message = $"Attempting to remove song [ID: {song?.Id}]...";
-                                await dataService.Update(deleteTransaction);
-                                await dataService.Delete(song);
-                                await transactionService.UpdateTransactionCompleted(deleteTransaction, $"Song [ID: {song?.Id}] removed.");
-                            }
-                            catch (Exception ex)
-                            {
-                                await transactionService.UpdateTransactionErrored(deleteTransaction, ex);
-                            }
-                        }
-                    }
-
-                    if (transaction.Type == TransactionTypes.RefreshMusicWithDelete)
-                    {
-                        foreach (var _path in invalidPaths) { await dataService.Delete<TrackPath>(_path.Id); }
-                    }
-
-                    path.LastScanDate = DateTime.Now;
-                    await dataService.Update(path);
+                    await ReadMediaFile(file);
                 }
 
-                foreach (TrackPath path in emptyPaths) { await dataService.Delete<TrackPath>(path.Id); }
-                albumsToDelete = await dataService.GetList<Album>(album => album.Tracks.Count() == 0, default, album => album.Tracks);
-                artistsToDelete = await dataService.GetList<Artist>(artist => artist.Tracks.Count() == 0, default, artist => artist.Tracks);
-                foreach (Album album in albumsToDelete) { await dataService.Delete<Album>(album.Id); }
-                foreach (Artist artist in artistsToDelete) { await dataService.Delete<Artist>(artist.Id); }
-                await transactionService.UpdateTransactionCompleted(transaction);
+                if (canDelete)
+                {
+                    foreach (string file in deletedFiles)
+                    {
+                        Track song = tracks.FirstOrDefault(track => track.FileName.Equals(Path.GetFileName(file), StringComparison.OrdinalIgnoreCase));
+
+                        await dataService.Delete(song);
+                    }
+
+                    foreach (var _path in invalidPaths) { await dataService.Delete<TrackPath>(_path.Id); }
+                }
+
+                path.LastScanDate = DateTime.Now;
+                await dataService.Update(path);
             }
-            catch (Exception ex)
-            {
-                await transactionService.UpdateTransactionErrored(transaction, ex);
-            }
+
+            foreach (TrackPath path in emptyPaths) { await dataService.Delete<TrackPath>(path.Id); }
+            albumsToDelete = await dataService.GetList<Album>(album => album.Tracks.Count() == 0, default, album => album.Tracks);
+            artistsToDelete = await dataService.GetList<Artist>(artist => artist.Tracks.Count() == 0, default, artist => artist.Tracks);
+            foreach (Album album in albumsToDelete) { await dataService.Delete<Album>(album.Id); }
+            foreach (Artist artist in artistsToDelete) { await dataService.Delete<Artist>(artist.Id); }
         }
 
         public bool CanUseDirectory(string path)

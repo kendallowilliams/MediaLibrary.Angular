@@ -10,6 +10,5 @@ namespace MediaLibrary.BLL.Services.Interfaces
     {
         Task RefreshPodcasts();
         Task RefreshMusic();
-        Task PerformCleanup();
     }
 }

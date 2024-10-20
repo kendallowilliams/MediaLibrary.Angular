@@ -13,6 +13,7 @@ using MediaLibrary.DAL.Services.Interfaces;
 using System.Linq.Expressions;
 using MediaLibrary.DAL.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace MediaLibrary.BLL.Services
 {
@@ -20,20 +21,18 @@ namespace MediaLibrary.BLL.Services
     {
         private readonly IDataService dataService;
         private readonly IWebService webService;
-        private readonly ITransactionService transactionService;
         private readonly IFileService fileService;
-        private readonly ILogService logService;
         private readonly IMemoryCache memoryCache;
+        private readonly ILogger logger;
 
-        public PodcastService(IDataService dataService, IWebService webService, ITransactionService transactionService,
-                              IFileService fileService, ILogService logService, IMemoryCache memoryCache)
+        public PodcastService(IDataService dataService, IWebService webService, IFileService fileService, 
+            IMemoryCache memoryCache, ILogger<PodcastService> logger)
         {
             this.dataService = dataService;
             this.webService = webService;
-            this.transactionService = transactionService;
             this.fileService = fileService;
-            this.logService = logService;
             this.memoryCache = memoryCache;
+            this.logger = logger;
         }
 
         public async Task<Podcast> AddPodcast(string url) => await ParseRssFeed(new Podcast { Url = url });
@@ -62,7 +61,7 @@ namespace MediaLibrary.BLL.Services
             IEnumerable<PodcastItem> podcastItems = Enumerable.Empty<PodcastItem>();
             Podcast podcast = null;
 
-            await logService.Trace($"{nameof(PodcastService)} -> {nameof(ParseRssFeed)} -> {podcastData?.Url} -> Started");
+            logger.LogTrace($"{nameof(PodcastService)} -> {nameof(ParseRssFeed)} -> {podcastData?.Url} -> Started");
 
             using (var xmlReader = XmlReader.Create(podcastData.Url, new XmlReaderSettings { Async = true }))
             {
@@ -139,7 +138,7 @@ namespace MediaLibrary.BLL.Services
                 await dataService.Update(podcast);
             }
 
-            await logService.Trace($"{nameof(PodcastService)} -> {nameof(ParseRssFeed)} -> {podcastData?.Url} -> Completed");
+            logger.LogTrace($"{nameof(PodcastService)} -> {nameof(ParseRssFeed)} -> {podcastData?.Url} -> Completed");
 
             return podcast;
         }
@@ -183,17 +182,17 @@ namespace MediaLibrary.BLL.Services
                     }
                     else
                     {
-                        await logService.Warn($"Podcast: {podcastItem.Podcast.Title}, Episode: {podcastItem.Title} already downloaded.");
+                        logger.LogWarning($"Podcast: {podcastItem.Podcast.Title}, Episode: {podcastItem.Title} already downloaded.");
                     }
                 }
                 else
                 {
-                    await logService.Warn($"No podcast item found with id: {podcastItemId}.");
+                    logger.LogWarning($"No podcast item found with id: {podcastItemId}.");
                 }
             }
             catch(Exception ex)
             {
-                await logService.Error(ex);
+                logger.LogError(ex, ex.Message);
             }
 
             return fileName;

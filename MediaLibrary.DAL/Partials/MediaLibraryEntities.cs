@@ -19,12 +19,6 @@ namespace MediaLibrary.DAL.DbContexts
             modelBuilder.Entity<Playlist>()
                         .Property(e => e.Type)
                         .HasConversion<int>();
-            modelBuilder.Entity<Transaction>()
-                        .Property(e => e.Type)
-                        .HasConversion<int>();
-            modelBuilder.Entity<Transaction>()
-                        .Property(e => e.Status)
-                        .HasConversion<int>();
         }
     }
 }
