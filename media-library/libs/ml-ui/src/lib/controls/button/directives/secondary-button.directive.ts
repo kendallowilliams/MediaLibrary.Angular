@@ -25,7 +25,8 @@ export class SecondaryButtonDirective implements OnInit {
     'bg-transparent',
     'disabled:pointer-events-none',
     'select-none',
-    'cursor-pointer'
+    'cursor-pointer',
+    'w-fit'
   ];
 
   public ngOnInit(): void {

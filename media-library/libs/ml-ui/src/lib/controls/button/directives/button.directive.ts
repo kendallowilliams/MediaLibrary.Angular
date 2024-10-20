@@ -23,7 +23,8 @@ export class ButtonDirective implements OnInit {
     'rounded-[5px]',
     'disabled:pointer-events-none',
     'cursor-pointer',
-    'select-none'
+    'select-none',
+    'w-fit'
   ];
 
   public ngOnInit(): void {
