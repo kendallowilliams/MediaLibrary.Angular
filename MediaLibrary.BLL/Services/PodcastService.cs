@@ -115,7 +115,15 @@ namespace MediaLibrary.BLL.Services
                 }
                 else
                 {
-                    podcast = new Podcast(title, podcastData.Url, imageUrl, description, author) { LastUpdateDate = pubDate == DateTime.MinValue ? DateTime.Now : pubDate };
+                    podcast = new Podcast()
+                    {
+                        Title = title,
+                        Url = podcastData.Url,
+                        ImageUrl = imageUrl,
+                        Description = description,
+                        Author = author,
+                        LastUpdateDate = pubDate == DateTime.MinValue ? DateTime.Now : pubDate 
+                    };
                     await dataService.Insert<Podcast>(podcast);
                 }
 
@@ -128,8 +136,15 @@ namespace MediaLibrary.BLL.Services
 
                                         })
                                     .Where(item => item.Enclosure != null)
-                                    .Select(data => new PodcastItem(data.Title, data.Description, data.Enclosure.Uri.OriginalString,
-                                                                    data.Enclosure.Length, data.PublishDate, podcast.Id))
+                                    .Select(data => new PodcastItem()
+                                    {
+                                        Title = data.Title,
+                                        Url = data.Enclosure.Uri.OriginalString,
+                                        Description = data.Description,
+                                        Length = (int)data.Enclosure.Length,
+                                        PublishDate = data.PublishDate,
+                                        PodcastId = podcast.Id
+                                    })
                                     .Where(item => item.PublishDate > lastUpdateDate)
                                     .ToList();
                 

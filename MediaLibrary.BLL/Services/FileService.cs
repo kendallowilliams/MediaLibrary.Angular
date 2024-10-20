@@ -94,9 +94,27 @@ namespace MediaLibrary.BLL.Services
             MediaData data = await id3Service.ProcessFile(path);
             int? genreId = await genreService.AddGenre(data.Genres),
                 artistId = await artistService.AddArtist(data.Artists),
-                albumId = await albumService.AddAlbum(new Album(data, artistId, genreId)),
+                albumId = await albumService.AddAlbum(new Album()
+                {
+                    Title = data.Album,
+                    ArtistId = artistId,
+                    GenreId = genreId,
+                    Year = (int)data.Year
+                }),
                 pathId = await trackService.AddPath(Path.GetDirectoryName(path));
-            Track track = new Track(data, pathId, genreId, albumId, artistId);
+            Track track = new Track()
+            {
+                Title = data.Title,
+                FileName = data.FileName,
+                PathId = pathId,
+                AlbumId = albumId,
+                GenreId = genreId,
+                ArtistId = artistId,
+                Position = (int)data.Track,
+                Year = (int)data.Year,
+                Duration = (decimal)data.Duration,
+                PlayCount = 0
+            };
 
             await dataService.Insert(track);
         }
