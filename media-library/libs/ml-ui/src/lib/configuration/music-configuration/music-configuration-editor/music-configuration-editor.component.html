@@ -7,7 +7,16 @@
     <ml-modal-body class="flex flex-col gap-[10px]">
       <div class="grid grid-flow-col grid-cols-[150px_1fr]">
         <label mlLabel>Locations</label>
-        <ml-list-box [items]="locationItems" formControlName="musicPaths" [itemTemplate]="locationTemplate"></ml-list-box>
+        <div class="flex gap-[5px] flex-wrap overflow-auto content-start p-[5px]">
+          <ml-control-group *ngFor="let musicPath of configuration.musicPaths">
+            <div class="grow px-[10px] truncate">{{musicPath}}</div>
+            <button mlSecondaryButton class="rounded-l-none" [variant]="'danger'" 
+              (click)="handleLocationRemove(musicPath)">
+              <fa-icon [icon]="faTrashCan"></fa-icon>
+              <span class="sr-only">delete list item</span>
+            </button>
+          </ml-control-group>
+        </div>
       </div>
     </ml-modal-body>
     <ml-modal-footer class="flex items-center justify-end gap-[5px]">
@@ -16,15 +25,3 @@
     </ml-modal-footer>
   </ml-modal-content>
 </form>
-
-<ng-template #locationTemplate mlListBoxItemTemplate let-context>
-  <div class="flex items-center h-control">
-    <span class="inline-flex border-dark border-[1px] border-solid rounded-[5px] self-stretch px-[10px]
-      text-dark dark:text-light bg-light dark:bg-dark items-center rounded-r-none border-r-0">{{context.item.name}}</span>
-    <button mlSecondaryButton class="rounded-l-none" [variant]="'danger'" 
-      (click)="handleLocationRemove(context.item)">
-      <fa-icon [icon]="faTrashCan"></fa-icon>
-      <span class="sr-only">delete list item</span>
-    </button>
-  </div>
-</ng-template>

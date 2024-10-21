@@ -8,7 +8,7 @@
         (click)="handleBreadcrumbClick(breadcrumb)">{{breadcrumb.name}}</ml-breadcrumb>
     </ml-breadcrumb-bar>
     <hr />
-    <div class="flex gap-[5px] flex-wrap overflow-auto content-start p-[5px]">
+    <div class="grid grid-flow-rows auto-rows-auto gap-[5px] flex-wrap overflow-auto content-start p-[5px]">
       <ml-control-group *ngFor="let dir of directory?.subDirectories">
         @if (dir.pathId) {
           <button mlSecondaryButton [variant]="'danger'" (click)="handleRemove(dir)">
@@ -19,7 +19,7 @@
             <fa-icon [icon]="faPlus"></fa-icon>
           </button>
         }
-        <div class="grow px-[10px] truncate">{{dir.name}}</div>
+        <div class="px-[10px] truncate">{{dir.name}}</div>
         <button mlSecondaryButton (click)="handleClick(dir.path)" [variant]="'dark'">
           <fa-icon [icon]="faFolderOpen"></fa-icon>
         </button>

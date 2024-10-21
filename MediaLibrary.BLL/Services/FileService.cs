@@ -119,15 +119,13 @@ namespace MediaLibrary.BLL.Services
                                                         .ContinueWith(task => task.Result.GetConfigurationObject<MusicConfiguration>() ?? 
                                                                             new MusicConfiguration());
             IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
-                                configPaths = musicConfiguration.MusicPaths;
+                                configPaths = musicConfiguration.MusicPaths.Select(mp => new DirectoryInfo(mp).FullName);
             IEnumerable<TrackPath> savedPaths = await dataService.GetList<TrackPath>(includes: path => path.Tracks),
-                                    validPaths = savedPaths.Where(_path => _path.Tracks.Any()),
-                                    emptyPaths = savedPaths.Where(_path => !_path.Tracks.Any()),
                                     invalidPaths = savedPaths.Where(_path => !configPaths.Any(p => _path.Location.StartsWith(p, StringComparison.OrdinalIgnoreCase)));
             IEnumerable<Album> albumsToDelete = Enumerable.Empty<Album>();
             IEnumerable<Artist> artistsToDelete = Enumerable.Empty<Artist>();
 
-            foreach (TrackPath path in validPaths)
+            foreach (TrackPath path in savedPaths.Except(invalidPaths))
             {
                 IEnumerable<Track> tracks = path.Tracks;
                 IEnumerable<string> existingFiles = tracks.Select(track => Path.Combine(path.Location, track.FileName)),
@@ -152,14 +150,13 @@ namespace MediaLibrary.BLL.Services
                         await dataService.Delete(song);
                     }
 
-                    foreach (var _path in invalidPaths) { await dataService.Delete<TrackPath>(_path.Id); }
                 }
 
                 path.LastScanDate = DateTime.Now;
                 await dataService.Update(path);
             }
 
-            foreach (TrackPath path in emptyPaths) { await dataService.Delete<TrackPath>(path.Id); }
+            foreach (var _path in invalidPaths) { await dataService.Delete<TrackPath>(_path.Id); }
             albumsToDelete = await dataService.GetList<Album>(album => album.Tracks.Count() == 0, default, album => album.Tracks);
             artistsToDelete = await dataService.GetList<Artist>(artist => artist.Tracks.Count() == 0, default, artist => artist.Tracks);
             foreach (Album album in albumsToDelete) { await dataService.Delete<Album>(album.Id); }

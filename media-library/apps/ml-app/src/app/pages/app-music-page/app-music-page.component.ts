@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, HostBinding, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { 
   MusicConfiguration, Playlist, MlDataFeatureState, MusicActions, 
   selectAllAlbums, selectAllArtists, selectAllTracks, Track, selectTrack, PlaylistsActions, 
   selectMusicPlaylists, PlaylistTypes, PlaylistApiService, selectAllGenres, 
   AddSongToPlaylistsRequest,
-  Artist
+  Artist,
+  Album
 } from '@media-library/ml-data';
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
-import { Observable, tap } from 'rxjs';
+import { map, Observable, of, tap } from 'rxjs';
 import { SongsGridComponent, TabComponent, TabGroupComponent } from '@media-library/ml-ui';
+import { sortAlbums, sortArtists } from '@media-library/ml-utility';
 
 @Component({
   selector: 'app-music-page',
@@ -29,11 +31,8 @@ export class AppMusicPageComponent implements OnInit {
   public faList = faList;
   public faXmark = faXmark;
   public faFilter = faFilter;
-  public albums$ = this._store.select(selectAllAlbums);
-  public artists$ = this._store.select(selectAllArtists)
-    .pipe(tap(artists => {
-      artists.forEach(artist => this.artists[artist.id] = artist);
-    }));
+  public albums$: Observable<Album[]> = of();
+  public artists$: Observable<Artist[]> = of()
   public artists: { [key: number]: Artist } = {};
   public songs$ = this._store.select(selectAllTracks);
   public genres$ = this._store.select(selectAllGenres);
@@ -52,6 +51,14 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(MusicActions.loadArtists());
     this._store.dispatch(MusicActions.loadTracks());
     this._store.dispatch(MusicActions.loadGenres());
+    this.albums$ = this._store.select(selectAllAlbums)
+      .pipe(map(albums => sortAlbums(this._configuration?.selectedAlbumSort, albums)));
+    this.artists$ = this._store.select(selectAllArtists)
+      .pipe(
+        map(artists => sortArtists(this._configuration?.selectedArtistSort, artists)),
+        tap(artists => {
+        artists.forEach(artist => this.artists[artist.id] = artist);
+      }));
   }
 
   public showEditSongModal(id: number) : void {

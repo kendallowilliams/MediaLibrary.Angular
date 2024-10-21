@@ -10,7 +10,7 @@
       <label mlLabel>Locations</label>
       <ml-control-group *ngFor="let musicPath of configuration.musicPaths">
         <div class="px-[10px]">{{musicPath}}</div>
-        <button mlSecondaryButton (click)="showDirectorySelectorModal(musicPath)">
+        <button mlSecondaryButton (click)="showDirectorySelectorModal(musicPath)" [variant]="'dark'">
           <fa-icon [icon]="faFolderOpen"></fa-icon>
         </button>
       </ml-control-group>

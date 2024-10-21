@@ -11,7 +11,6 @@ import {
   AlbumSort, 
   ArtistSort, 
   ConfigurationsActions, 
-  ListItem, 
   MusicConfiguration, 
   SongSort, 
   getAlbumSortEnumString, 
@@ -62,7 +61,6 @@ export class MusicConfigurationEditorComponent implements OnInit {
   }];
 
   public configForm!: FormGroup;
-  public locationItems: ListItem[] = [];
   public faFolderOpen = faFolderOpen;
   public faTrashCan = faTrashCan;
   
@@ -74,10 +72,6 @@ export class MusicConfigurationEditorComponent implements OnInit {
   
   public ngOnInit(): void {
     this.configForm = this._createConfigForm();
-    this.locationItems = this.configuration.musicPaths.map(location => ({
-      name: location,
-      value: location
-    }));
   }
 
   private _createConfigForm(): FormGroup {
@@ -104,7 +98,7 @@ export class MusicConfigurationEditorComponent implements OnInit {
     this._modalRef?.hide();
   }
 
-  public handleLocationRemove(item: ListItem) : void {
+  public handleLocationRemove(path: string) : void {
     //TODO
   }
 }
