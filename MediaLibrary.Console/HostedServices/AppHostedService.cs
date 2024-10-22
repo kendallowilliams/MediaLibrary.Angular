@@ -22,11 +22,10 @@ namespace MediaLibrary.Console.HostedServices
             this.dataService = dataService;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            Trace.WriteLine($"{nameof(StartAsync)}: Started...");
-            await RepeatAsync(cancellationToken);
-            Trace.WriteLine($"{nameof(StartAsync)}: Finished.");
+            RepeatAsync(cancellationToken);
+            return Task.CompletedTask;
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)

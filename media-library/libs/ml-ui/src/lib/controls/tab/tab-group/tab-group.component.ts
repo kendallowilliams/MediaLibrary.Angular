@@ -12,7 +12,7 @@ export interface TabQuery {
   encapsulation: ViewEncapsulation.None
 })
 export class TabGroupComponent implements AfterContentInit {
-  @ContentChildren(TabComponent) public tabs!: QueryList<TabComponent>;
+  @ContentChildren(TabComponent, { descendants: true }) public tabs!: QueryList<TabComponent>;
 
   constructor(private renderer: Renderer2) {}
   

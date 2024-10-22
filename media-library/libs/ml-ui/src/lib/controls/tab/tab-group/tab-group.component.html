@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-[10px] h-full">
+<div class="grid grid-flow-row auto-rows-[auto_1fr] h-full">
   <div class="flex shadow">
     <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px] border-solid border-dark" 
       [ngClass]="{ 
@@ -11,7 +11,7 @@
       }
     </div>
   </div>
-  <div class="flex flex-col flex-grow">
-    <ng-content select="ml-tab"></ng-content>
+  <div>
+    <ng-content></ng-content>
   </div>
 </div>
