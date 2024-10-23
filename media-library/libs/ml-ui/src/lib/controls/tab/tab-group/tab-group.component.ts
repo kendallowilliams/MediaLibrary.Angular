@@ -12,7 +12,8 @@ export interface TabQuery {
   encapsulation: ViewEncapsulation.None
 })
 export class TabGroupComponent implements AfterContentInit {
-  @Input() public alignment: 'left' | 'center' | 'right' = 'center';
+  @Input() public alignment: 'start' | 'center' | 'end' = 'start';
+  @Input() public orientation: 'horizontal' | 'vertical' = 'horizontal';
 
   @ContentChildren(TabComponent, { descendants: true }) public tabs!: QueryList<TabComponent>;
 

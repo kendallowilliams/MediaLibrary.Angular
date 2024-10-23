@@ -1,12 +1,18 @@
-<div class="grid grid-flow-row auto-rows-[auto_1fr] h-full">
+<div class="grid h-full" [ngClass]="{
+  'grid-flow-row auto-rows-[auto_1fr]': orientation === 'horizontal',
+  'grid-flow-col auto-cols-[auto_1fr]': orientation === 'vertical'
+}">
   <div class="flex shadow" [ngClass]="{
-    'justify-start': alignment === 'left',
+    'justify-start': alignment === 'start',
     'justify-center': alignment === 'center',
-    'justify-end': alignment === 'right' 
+    'justify-end': alignment === 'end',
+    'flex-row': orientation === 'horizontal',
+    'flex-col': orientation === 'vertical'
   }">
     <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px] border-solid border-dark" 
-      [ngClass]="{ 
-        'border-b-[1px]': tab.isSelected
+      [ngClass]="{
+        'border-b-[1px]': orientation === 'horizontal' && tab.isSelected,
+        'border-r-[1px]': orientation === 'vertical' && tab.isSelected
       }" (click)="goToTab({ tab })">
       @if (tab.headerTemplate) {
         <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>

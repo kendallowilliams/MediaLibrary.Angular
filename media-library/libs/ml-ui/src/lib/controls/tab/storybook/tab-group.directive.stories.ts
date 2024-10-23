@@ -13,13 +13,24 @@ const meta: Meta<TabGroupComponent> = {
   ],
   argTypes: {
     alignment: {
-      options: ['left', 'center', 'right'],
+      options: ['start', 'center', 'end'],
       control: {
         type: 'select'
       },
       table: {
         defaultValue: {
-          summary: 'left'
+          summary: 'start'
+        }
+      }
+    },
+    orientation: {
+      options: ['horizontal', 'vertical'],
+      control: {
+        type: 'select'
+      },
+      table: {
+        defaultValue: {
+          summary: 'horizontal'
         }
       }
     }
@@ -31,15 +42,16 @@ type Story = StoryObj<TabGroupComponent>;
 
 export const Default: Story = {
   args: {
-    alignment: 'left'
+    alignment: 'start',
+    orientation: 'horizontal'
   },
   render: (args) => ({
     props: {
       ...args
     },
     template: `
-      <ml-tab-group [alignment]="alignment">
-        <div class="p-[20px] border-[1px] border-solid">
+      <ml-tab-group [alignment]="alignment" [orientation]="orientation">
+        <div class="p-[20px] border-[1px] border-solid h-full">
           <ml-tab [headerText]="'Sunday'" [isSelected]="true">Sunday Content</ml-tab>
           <ml-tab [headerText]="'Monday'">Monday Content</ml-tab>
           <ml-tab [headerText]="'Tuesday'">Tuesday Content</ml-tab>
