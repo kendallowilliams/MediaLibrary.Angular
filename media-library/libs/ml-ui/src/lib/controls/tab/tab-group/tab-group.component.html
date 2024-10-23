@@ -1,5 +1,9 @@
 <div class="grid grid-flow-row auto-rows-[auto_1fr] h-full">
-  <div class="flex shadow">
+  <div class="flex shadow" [ngClass]="{
+    'justify-start': alignment === 'left',
+    'justify-center': alignment === 'center',
+    'justify-end': alignment === 'right' 
+  }">
     <div *ngFor="let tab of tabs" class="flex items-center h-tab cursor-pointer px-[10px] border-solid border-dark" 
       [ngClass]="{ 
         'border-b-[1px]': tab.isSelected
@@ -7,7 +11,7 @@
       @if (tab.headerTemplate) {
         <ng-container [ngTemplateOutlet]="tab.headerTemplate"></ng-container>
       } @else {
-        <span>{{tab.headerText}}</span>
+        <span [ngClass]="{'font-bold': tab.isSelected}">{{tab.headerText}}</span>
       }
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, Input, QueryList, Renderer2, ViewEncapsulation } from '@angular/core';
 import { TabComponent } from '../tab.component';
 
 export interface TabQuery {
@@ -12,6 +12,8 @@ export interface TabQuery {
   encapsulation: ViewEncapsulation.None
 })
 export class TabGroupComponent implements AfterContentInit {
+  @Input() public alignment: 'left' | 'center' | 'right' = 'center';
+
   @ContentChildren(TabComponent, { descendants: true }) public tabs!: QueryList<TabComponent>;
 
   constructor(private renderer: Renderer2) {}
