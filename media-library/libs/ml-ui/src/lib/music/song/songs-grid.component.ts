@@ -6,6 +6,7 @@ import { PlayerService } from '../../media-player';
 import { IconCellRendererComponent } from '../cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { debounceTime, fromEvent } from 'rxjs';
+import { getAtoZKey } from '@media-library/ml-utility';
 
 @Component({
   selector: 'ml-songs-grid',
@@ -40,15 +41,7 @@ export class SongsGridComponent implements OnChanges {
       field: 'title',
       sort: 'asc',
       flex: 1,
-      keyCreator: params => {
-        const firstChar = params.value.charAt(0).toUpperCase() || '';
-        if (/^[A-z]$/.test(firstChar)) {
-          return firstChar;
-        } else if (/^[0-9]$/.test(firstChar)) {
-          return '#';
-        }
-        return '&';
-      },
+      keyCreator: params => getAtoZKey(params.value),
       comparator: (a, b) => a?.localeCompare(b),
       filterParams: {
         keyCreator: (params: KeyCreatorParams) => params.value,

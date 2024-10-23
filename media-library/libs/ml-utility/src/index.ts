@@ -3,7 +3,8 @@ export * from './lib/ml-utility.module';
 /** Functions */
 export * from './lib/functions/string-functions.utils';
 export * from './lib/functions/array-functions.utils';
-export * from './lib/functions/music-functions-utils';
+export * from './lib/functions/music-functions.utils';
+export * from './lib/functions/helper-functions.utils';
 
 /** Services */
 export * from './lib/services/theme.service';
