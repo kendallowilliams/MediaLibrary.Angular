@@ -7,7 +7,7 @@
   </ml-card-header>
   <ml-card-body class="flex flex-col gap-[10px]">
     <div class="grid grid-cols-[150px_1fr] items-start">
-      <label mlLabel>Locations</label>
+      <label mlLabel>Music Paths</label>
       <ml-control-group *ngFor="let musicPath of configuration.musicPaths">
         <div class="px-[10px]">{{musicPath}}</div>
         <button mlSecondaryButton (click)="showDirectorySelectorModal(musicPath)" [variant]="'dark'">

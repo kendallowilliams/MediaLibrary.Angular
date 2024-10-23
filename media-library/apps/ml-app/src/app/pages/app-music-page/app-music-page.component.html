@@ -1,17 +1,19 @@
 <ml-tab-group class="block h-full">
-  <ml-tab headerText="Songs" [isSelected]="true" #songsTab class="p-[10px]">
-    <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
-      [genres]="genres$ | async" class="overflow-auto" (editSong)="showEditSongModal($event)"
-      (addToPlaylist)="showAddSongToPlaylistModal($event)" #songsGrid></ml-songs-grid>
-  </ml-tab>
-  <ml-tab headerText="Albums" class="flex gap-[10px] flex-wrap p-[10px]">
-    <ml-album *ngFor="let album of albums$ | async" [album]="album" [artist]="artists[album.artistId]"
-      (click)="handleAlbumSelect(album.title, songsTab, songsGrid)"></ml-album>
-  </ml-tab>
-  <ml-tab headerText="Artists" class="flex gap-[10px] flex-wrap p-[10px]">
-    <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist" 
-      (click)="handleArtistSelect(artist.name, songsTab, songsGrid)"></ml-artist>
-  </ml-tab>
+  <div class="p-[10px]" [ngStyle]="{ 'height': songsTab.isSelected ? '100%' : 'initial' }" #tabsContainer>
+    <ml-tab headerText="Songs" #songsTab [isSelected]="true">
+      <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 
+        [genres]="genres$ | async" (editSong)="showEditSongModal($event)"
+        (addToPlaylist)="showAddSongToPlaylistModal($event)" #songsGrid></ml-songs-grid>
+    </ml-tab>
+    <ml-tab headerText="Albums" class="flex flex-wrap gap-[10px]">
+      <ml-album *ngFor="let album of albums$ | async" [album]="album" [artist]="artists[album.artistId]"
+        (click)="handleAlbumSelect(album.title, songsTab, songsGrid)"></ml-album>
+    </ml-tab>
+    <ml-tab headerText="Artists" class="flex flex-wrap gap-[10px] h-full">
+      <ml-artist *ngFor="let artist of artists$ | async" [artist]="artist" 
+        (click)="handleArtistSelect(artist.name, songsTab, songsGrid)"></ml-artist>
+    </ml-tab>
+  </div>
 </ml-tab-group>
 
 <ng-template mlModal [(isOpen)]="isEditModalOpen" (isOpenChange)="handleIsOpenChange($event)">
