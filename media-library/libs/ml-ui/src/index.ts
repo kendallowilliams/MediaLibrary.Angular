@@ -39,3 +39,6 @@ export * from './lib/controls/control-group/index';
 
 /** Breadcrumb Bar */
 export * from './lib/controls/breadcrumb-bar/index';
+
+/** Switch */
+export * from './lib/controls/switch/index';

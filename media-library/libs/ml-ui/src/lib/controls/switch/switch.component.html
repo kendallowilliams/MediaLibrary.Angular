@@ -6,6 +6,6 @@
   [ngClass]="{
     'after:translate-x-[-100%] after:left-[calc(100%-2.5px)]': checked
   }">
-  <input class="hidden" type="checkbox" [checked]="checked" (change)="handleChange($event)" />
+  <input class="hidden" type="checkbox" [(ngModel)]="checked" (ngModelChange)="handleChange($event)" />
 </label>
 <div>{{onLabel}}</div>

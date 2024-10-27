@@ -10,9 +10,6 @@ export * from './button/index';
 export * from './search/search.module';
 export * from './search/search.component';
 
-/** Switch */
-export * from './switch/switch.component';
-
 /** Theme Toggle */
 export * from './theme-toggle/theme-toggle.directive';
 

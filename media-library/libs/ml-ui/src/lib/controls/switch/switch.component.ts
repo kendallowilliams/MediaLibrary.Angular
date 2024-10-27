@@ -11,7 +11,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subject, noop } from 'rxjs';
+import { noop } from 'rxjs';
 
 @Component({
   selector: 'ml-switch',
@@ -32,9 +32,8 @@ export class SwitchComponent implements ControlValueAccessor, OnInit {
   private _onChange: (_: boolean) => void = noop;
   private _onTouched: () => void = noop;
 
-  private _checked = false;
   private _isDisabled = false;
-  public valueChange = new Subject<boolean>();
+  public checked = false;
 
   constructor(private _renderer: Renderer2, private _host: ElementRef) {}
   
@@ -43,21 +42,12 @@ export class SwitchComponent implements ControlValueAccessor, OnInit {
     this._renderer.setStyle(this._host.nativeElement, '--ml-switch-off-label', this.offLabel, RendererStyleFlags2.DashCase);
   }
 
-  public get checked() : boolean {
-    return this._checked;
-  }
-
-  public set checked(checked: boolean) {
-    this._checked = checked;
-    this._onChange(this._checked);
-    this.valueChange.next(this._checked);
-  }
-
   public writeValue(checked: boolean): void {
     this.checked = checked;
+    this._onChange(checked);
   }
 
-  public registerOnChange(fn: never): void {
+  public registerOnChange(fn: (_: boolean) => void): void {
     this._onChange = fn;
   }
 
@@ -69,8 +59,7 @@ export class SwitchComponent implements ControlValueAccessor, OnInit {
     this._isDisabled = isDisabled;
   }
 
-  public handleChange(evt: Event) : void {
-    const input = evt.target as HTMLInputElement;
-    this.writeValue(input.checked);
+  public handleChange(isChecked: boolean) : void {
+    this.writeValue(isChecked);
   }
 }

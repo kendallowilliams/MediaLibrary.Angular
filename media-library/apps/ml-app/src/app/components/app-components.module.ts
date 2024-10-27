@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { AutoHideNavbarLinksDirective, CardModule, ControlsModule, NavbarModule } from "@media-library/ml-ui";
+import { AutoHideNavbarLinksDirective, CardModule, ControlsModule, NavbarModule, SwitchModule } from "@media-library/ml-ui";
 import { AppNavbarComponent } from "./app-navbar/app-navbar.component";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { MlUtilityModule } from "@media-library/ml-utility";
@@ -19,7 +19,8 @@ import { AppAlbumsComponent } from "./music/app-albums/app-albums.component";
     MlUtilityModule,
     AutoHideNavbarLinksDirective,
     RouterModule,
-    CardModule
+    CardModule,
+    SwitchModule
   ],
   exports: [
     AppNavbarComponent,

@@ -12,14 +12,10 @@ export class ThemeToggleDirective implements OnInit {
     this._host.onLabel = 'Dark';
     this._themeService.getDarkEnabled$()
       .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(enabled => this._host.checked = enabled);
+      .subscribe(isEnabled => this._host.checked = isEnabled);
   }
 
   public ngOnInit(): void {
-    this._host.valueChange
-      .pipe(takeUntilDestroyed(this._destroyRef))
-      .subscribe(enabled => {
-        this._themeService.getDarkEnabled$().next(enabled);
-      });
+    this._host.registerOnChange(isChecked => this._themeService.getDarkEnabled$().next(isChecked));
   }
 }

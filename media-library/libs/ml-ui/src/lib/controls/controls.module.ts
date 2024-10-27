@@ -5,7 +5,6 @@ import { CheckboxDirective } from './checkbox/checkbox.directive';
 import { LabelDirective } from './label/directives/label.directive';
 import { SearchModule } from './search/search.module';
 import { SelectModule } from './select';
-import { SwitchComponent } from './switch/switch.component';
 import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
@@ -23,14 +22,12 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
   ],
   declarations: [
     CheckboxDirective,
-    SwitchComponent,
     ThemeToggleDirective,
     ControlValidatorDirective
   ],
   exports: [
     CheckboxDirective,
     LabelDirective,
-    SwitchComponent,
     ThemeToggleDirective,
     ButtonModule,
     SearchModule,
