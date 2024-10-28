@@ -13,7 +13,6 @@ export * from './lib/services/app-root-vcr.service';
 export * from './lib/services/filter.service';
 
 /** Directives */
-export * from './lib/directives/theme.directive';
 export * from './lib/directives/app-root-vcr.directive';
 
 /** Models */

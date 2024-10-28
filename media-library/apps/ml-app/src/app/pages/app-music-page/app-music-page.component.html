@@ -1,4 +1,4 @@
-<ml-tab-group class="block h-full">
+<ml-tab-group class="block h-full" [alignment]="'center'">
   <div class="p-[10px]" [ngStyle]="{ 'height': songsTab.isSelected ? '100%' : 'initial' }" #tabsContainer>
     <ml-tab headerText="Songs" #songsTab [isSelected]="true">
       <ml-songs-grid [songs]="songs$ | async" [albums]="albums$ | async" [artists]="artists$ | async" 

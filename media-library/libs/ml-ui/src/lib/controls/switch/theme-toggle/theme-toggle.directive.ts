@@ -1,10 +1,11 @@
 import { DestroyRef, Directive, OnInit } from '@angular/core';
 import { ThemeService } from '@media-library/ml-utility';
-import { SwitchComponent } from '../switch/switch.component';
+import { SwitchComponent } from '../switch.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
-  selector: 'ml-switch[mlThemeToggle]'
+  selector: 'ml-switch[mlThemeToggle]',
+  standalone: true
 })
 export class ThemeToggleDirective implements OnInit {
   constructor(private _host: SwitchComponent, private _themeService: ThemeService, private _destroyRef: DestroyRef) {

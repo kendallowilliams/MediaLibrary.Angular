@@ -42,3 +42,6 @@ export * from './lib/controls/breadcrumb-bar/index';
 
 /** Switch */
 export * from './lib/controls/switch/index';
+
+/** Search */
+export * from './lib/controls/search/index';

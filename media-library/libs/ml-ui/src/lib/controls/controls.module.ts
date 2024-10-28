@@ -3,9 +3,7 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from './button';
 import { CheckboxDirective } from './checkbox/checkbox.directive';
 import { LabelDirective } from './label/directives/label.directive';
-import { SearchModule } from './search/search.module';
 import { SelectModule } from './select';
-import { ThemeToggleDirective } from './theme-toggle/theme-toggle.directive';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
@@ -14,7 +12,6 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
   imports: [
     CommonModule, 
     ButtonModule, 
-    SearchModule, 
     SelectModule, 
     FontAwesomeModule, 
     TextBoxDirective, 
@@ -22,15 +19,12 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
   ],
   declarations: [
     CheckboxDirective,
-    ThemeToggleDirective,
     ControlValidatorDirective
   ],
   exports: [
     CheckboxDirective,
     LabelDirective,
-    ThemeToggleDirective,
     ButtonModule,
-    SearchModule,
     SelectModule,
     ControlValidatorDirective
   ],
