@@ -40,7 +40,7 @@ export class PopoverDirective implements OnChanges, OnDestroy {
     this._popover = this._vcr.createComponent(PopoverContentComponent);
     this._popover.setInput('content', this.content);
     this._popover.setInput('template', this.template);
-    this._popover.setInput('templateContext', this.templateCtx);
+    this._popover.setInput('templateCtx', this.templateCtx);
     appendTo.appendChild(this._popover.location.nativeElement);
     this._instance = createPopper(
       this._host.nativeElement,
