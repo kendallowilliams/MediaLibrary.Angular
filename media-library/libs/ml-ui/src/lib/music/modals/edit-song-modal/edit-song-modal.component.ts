@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } fro
 import { Album, Artist, Genre, Track } from '@media-library/ml-data';
 import { ModalRef } from '../../../modal';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SelectOption } from '../../../controls';
+import { SelectDropdownConfig, SelectOption } from '../../../controls';
 
 @Component({
   selector: 'ml-edit-song-modal',
@@ -20,6 +20,9 @@ export class EditSongModalComponent implements OnInit {
   public albumOptions: SelectOption[] = [];
   public artistOptions: SelectOption[] = [];
   public genreOptions: SelectOption[] = [];
+  public dropdownConfig: SelectDropdownConfig = {
+    maxOptionsHeight: '100px'
+  };
 
   constructor(private _modalRef: ModalRef<EditSongModalComponent>, private fb: FormBuilder) {}
 

@@ -10,15 +10,18 @@
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Album</label>
-          <ml-select [options]="albumOptions" formControlName="albumId" placeholder="Select an album..."></ml-select>
+          <ml-select [options]="albumOptions" formControlName="albumId" placeholder="Select an album..."
+            [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Artist</label>
-          <ml-select [options]="artistOptions" formControlName="artistId" placeholder="Select an artist..."></ml-select>
+          <ml-select [options]="artistOptions" formControlName="artistId" placeholder="Select an artist..."
+            [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Genre</label>
-          <ml-select [options]="genreOptions" formControlName="genreId" placeholder="Select a genre..."></ml-select>
+          <ml-select [options]="genreOptions" formControlName="genreId" placeholder="Select a genre..."
+            [dropdownConfig]="dropdownConfig"></ml-select>
         </div>
         <div class="flex flex-col gap-[5px]">
           <label mlLabel>Year</label>
