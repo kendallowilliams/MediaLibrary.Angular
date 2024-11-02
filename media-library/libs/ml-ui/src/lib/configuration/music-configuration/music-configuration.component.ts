@@ -1,8 +1,10 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
@@ -17,6 +19,8 @@ import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 })
 export class MusicConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: MusicConfiguration;
+  @Output() public musicRefresh = new EventEmitter();
+
   public albumSort = '';
   public artistSort = '';
   public songSort = '';
@@ -59,7 +63,7 @@ export class MusicConfigurationComponent implements OnInit, OnChanges {
   }
 
   public handleRefresh() {
-    //TODO
+    this.musicRefresh.emit();
   }
 
   public handleUpload() {

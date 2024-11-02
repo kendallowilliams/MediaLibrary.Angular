@@ -65,4 +65,8 @@ export class MusicApiService extends BaseApiService {
     return this.get<Genre[]>(this.controller, 'Genres');
   }
 
+  /** Management */
+  public checkForMusicUpdates(): Observable<void> {
+    return this.post(this.controller, 'CheckForMusicUpdates', null);
+  }
 }

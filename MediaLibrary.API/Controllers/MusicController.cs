@@ -1,6 +1,8 @@
 ﻿using MediaLibrary.API.Services.Interfaces;
+using MediaLibrary.BLL.Services.Interfaces;
 using MediaLibrary.DAL.Models;
 using MediaLibrary.Shared.Models.Configurations;
+using MediaLibrary.Shared.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -11,17 +13,27 @@ namespace MediaLibrary.API.Controllers
     public class MusicController : ControllerBase
     {
         private readonly IMusicService musicService;
+        private readonly IFileService fileService;
+        private readonly IBackgroundTaskQueueService backgroundTaskQueueService;
 
-        public MusicController(IMusicService _musicService) : base()
+        public MusicController(
+            IMusicService _musicService, 
+            IFileService _fileService, 
+            IBackgroundTaskQueueService _backgroundTaskQueueService
+        ) : base()
         {
             this.musicService = _musicService;
+            this.fileService = _fileService;
+            this.backgroundTaskQueueService = _backgroundTaskQueueService;
         }
 
+        #region Configuration
         [HttpGet]
         public async Task<MusicConfiguration> Configuration() => await musicService.GetConfiguration();
 
         [HttpPost]
         public async Task Configuration(MusicConfiguration configuration) => await musicService.UpdateConfiguration(configuration);
+        #endregion
 
         #region ALBUM
         [HttpGet]
@@ -75,6 +87,21 @@ namespace MediaLibrary.API.Controllers
         #region Genres
         [HttpGet]
         public async Task<IEnumerable<Genre>> Genres() => await musicService.GetGenres();
+        #endregion
+
+        #region Cache Control
+        public void ClearCache()
+        {
+            musicService.ClearCache();
+        }
+        #endregion
+
+        #region Management
+        [HttpPost]
+        public void CheckForMusicUpdates()
+        {
+            backgroundTaskQueueService.QueueBackgroundWorkItem((token) => fileService.CheckForMusicUpdates());
+        }
         #endregion
     }
 }

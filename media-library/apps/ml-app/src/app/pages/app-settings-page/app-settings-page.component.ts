@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, HostBinding, OnInit, ViewEncapsulation } from '@angular/core';
-import { ConfigurationsActions, ConfigurationsState, MlDataFeatureState, selectAllConfigurations } from '@media-library/ml-data';
+import { ConfigurationsActions, ConfigurationsState, MlDataFeatureState, MusicApiService, selectAllConfigurations } from '@media-library/ml-data';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -13,7 +13,7 @@ export class AppSettingsPageComponent implements OnInit {
   @HostBinding('class') private _class = 'flex flex-wrap items-stretch p-[30px] gap-[20px] justify-center';
   public configurations$?: Observable<ConfigurationsState | undefined>;
 
-  constructor(private _store: Store<MlDataFeatureState>) {}
+  constructor(private _store: Store<MlDataFeatureState>, private _musicApi: MusicApiService) {}
 
   public ngOnInit(): void {
     this._store.dispatch(ConfigurationsActions.loadMusicConfiguration());
@@ -23,5 +23,10 @@ export class AppSettingsPageComponent implements OnInit {
     this._store.dispatch(ConfigurationsActions.loadPlaylistConfiguration());
     this._store.dispatch(ConfigurationsActions.loadTelevisionConfiguration());
     this.configurations$ = this._store.select(selectAllConfigurations);
+  }
+
+  public handleMusicRefresh(): void {
+    this._musicApi.checkForMusicUpdates()
+      .subscribe();
   }
 }

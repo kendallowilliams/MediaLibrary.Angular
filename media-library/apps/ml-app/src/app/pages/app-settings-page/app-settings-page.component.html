@@ -1,6 +1,7 @@
 <ng-container *ngIf="configurations$ | async as configurations">
   <ml-media-library-configuration *ngIf="configurations.mediaLibraryConfiguration" [configuration]="configurations.mediaLibraryConfiguration"></ml-media-library-configuration>
-  <ml-music-configuration *ngIf="configurations.musicConfiguration" [configuration]="configurations.musicConfiguration"></ml-music-configuration>
+  <ml-music-configuration *ngIf="configurations.musicConfiguration" [configuration]="configurations.musicConfiguration"
+    (musicRefresh)="handleMusicRefresh()"></ml-music-configuration>
   <ml-podcast-configuration *ngIf="configurations.podcastConfiguration" [configuration]="configurations.podcastConfiguration"></ml-podcast-configuration>
   <ml-television-configuration *ngIf="configurations.televisionConfiguration" [configuration]="configurations.televisionConfiguration"></ml-television-configuration>
   <ml-playlist-configuration *ngIf="configurations.playlistConfiguration" [configuration]="configurations.playlistConfiguration"></ml-playlist-configuration>

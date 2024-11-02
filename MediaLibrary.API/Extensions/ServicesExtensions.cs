@@ -1,5 +1,8 @@
 ﻿using MediaLibrary.API.Services;
 using MediaLibrary.API.Services.Interfaces;
+using MediaLibrary.Shared.HostedServices;
+using MediaLibrary.Shared.Services;
+using MediaLibrary.Shared.Services.Interfaces;
 
 namespace MediaLibrary.API.Extensions
 {
@@ -13,6 +16,8 @@ namespace MediaLibrary.API.Extensions
             services.AddSingleton<IPlayerService, PlayerService>();
             services.AddSingleton<ITelevisionService, TelevisionService>();
             services.AddSingleton<IMediaLibraryService, MediaLibraryService>();
+            services.AddSingleton<IBackgroundTaskQueueService, BackgroundTaskQueueService>();
+            services.AddHostedService<BackgroundQueueHostedService>();
         }
     }
 }
