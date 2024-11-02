@@ -29,9 +29,10 @@ export class SongsGridComponent implements OnChanges {
     {
       field: 'id',
       headerName: '',
-      cellRenderer: IconCellRendererComponent,
+      cellRenderer: IconCellRendererComponent<number>,
       cellRendererParams: {
-        icon: faPlayCircle
+        icon: faPlayCircle,
+        clickEvt: (songId: number) => songId && this._playerService.playAudio(MediaPages.Music, songId)
       },
       enableRowGroup: false,
       sortable: false,
@@ -167,7 +168,6 @@ export class SongsGridComponent implements OnChanges {
     this._removeRowColumnGroups();
     this.gridApi?.applyColumnState({
       state: [
-        { colId: 'album', sort: 'asc', sortIndex: 1 },
         { colId: 'title', sort: 'asc', sortIndex: 0 },
       ],
       defaultState: { sort: null },
@@ -181,11 +181,12 @@ export class SongsGridComponent implements OnChanges {
     this._removeRowColumnGroups();
     this.gridApi?.applyColumnState({
       state: [
-        { colId: 'artist', sort: 'asc', sortIndex: 1 },
+        { colId: 'album', sort: 'asc', sortIndex: 1 },
         { colId: 'title', sort: 'asc', sortIndex: 0 },
       ],
       defaultState: { sort: null },
     });
+    this.gridApi?.addRowGroupColumns(['album']);
     this.gridApi?.setColumnFilterModel('artist', { values: [artist] })
       .then(() => this.gridApi?.onFilterChanged());
   }
