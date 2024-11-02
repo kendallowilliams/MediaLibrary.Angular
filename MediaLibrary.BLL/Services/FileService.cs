@@ -121,9 +121,10 @@ namespace MediaLibrary.BLL.Services
             IEnumerable<string> fileTypes = configuration["FileTypes"].Split(",".ToCharArray(), StringSplitOptions.RemoveEmptyEntries),
                                 configPaths = musicConfiguration.MusicPaths.Select(mp => new DirectoryInfo(mp).FullName);
             IEnumerable<TrackPath> savedPaths = await dataService.GetList<TrackPath>(includes: path => path.Tracks),
-                                    invalidPaths = savedPaths.Where(_path => !configPaths.Any(p => _path.Location.StartsWith(p, StringComparison.OrdinalIgnoreCase)));
-            IEnumerable<Album> albumsToDelete = Enumerable.Empty<Album>();
-            IEnumerable<Artist> artistsToDelete = Enumerable.Empty<Artist>();
+                                   invalidPaths = savedPaths.Where(_path => !configPaths.Any(p => _path.Location.StartsWith(p, StringComparison.OrdinalIgnoreCase)));
+            var albumIdsToDelete = Enumerable.Empty<int>();
+            var artistIdsToDelete = Enumerable.Empty<int>();
+            var genreIdsToDelete = Enumerable.Empty<int>();
 
             foreach (TrackPath path in savedPaths.Except(invalidPaths))
             {
@@ -157,10 +158,12 @@ namespace MediaLibrary.BLL.Services
             }
 
             foreach (var _path in invalidPaths) { await dataService.Delete<TrackPath>(_path.Id); }
-            albumsToDelete = await dataService.GetList<Album>(album => album.Tracks.Count() == 0, default, album => album.Tracks);
-            artistsToDelete = await dataService.GetList<Artist>(artist => artist.Tracks.Count() == 0, default, artist => artist.Tracks);
-            foreach (Album album in albumsToDelete) { await dataService.Delete<Album>(album.Id); }
-            foreach (Artist artist in artistsToDelete) { await dataService.Delete<Artist>(artist.Id); }
+            albumIdsToDelete = await dataService.SelectWhere<Album, int>(a => a.Id, a => !a.Tracks.Any());
+            artistIdsToDelete = await dataService.SelectWhere<Artist, int>(a => a.Id, a => !a.Tracks.Any());
+            genreIdsToDelete = await dataService.SelectWhere<Genre, int>(g => g.Id, g => !g.Tracks.Any());
+            await dataService.DeleteAll<Album>(a => albumIdsToDelete.Contains(a.Id));
+            await dataService.DeleteAll<Artist>(a => artistIdsToDelete.Contains(a.Id));
+            await dataService.DeleteAll<Genre>(g => genreIdsToDelete.Contains(g.Id));
         }
 
         public bool CanUseDirectory(string path)
