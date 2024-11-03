@@ -19,9 +19,14 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadAlbums),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => this._musicService.getAlbums()
-        .pipe(map(albums => MusicActions.loadAlbumsSuccess({ albums })
-      ))),
+      mergeMap(([, state]) => {
+        if (state.albumsCached) {
+          return of(MusicActions.loadAlbumsSuccess({ albums: state.albums }));
+        } else {
+          return this._musicService.getAlbums()
+            .pipe(map(albums => MusicActions.loadAlbumsSuccess({ albums })));
+        }
+      }),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadAlbumsFailure({ error }));
@@ -33,9 +38,14 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadAlbums),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => this._musicService.getArtists()
-        .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })
-      ))),
+      mergeMap(([, state]) => {
+        if (state.artistsCached) {
+          return of(MusicActions.loadArtistsSuccess({ artists: state.artists }));
+        } else {
+          return this._musicService.getArtists()
+            .pipe(map(artists => MusicActions.loadArtistsSuccess({ artists })));
+          }
+      }),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadArtistsFailure({ error }));
@@ -47,9 +57,14 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadTracks),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => this._musicService.getTracks()
-        .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })
-      ))),
+      mergeMap(([, state]) =>  {
+        if (state.tracksCached) {
+          return of(MusicActions.loadTracksSuccess({ tracks: state.tracks }));
+        } else {
+          return this._musicService.getTracks()
+            .pipe(map(tracks => MusicActions.loadTracksSuccess({ tracks })));
+        }
+      }),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadTracksFailure({ error }));
@@ -61,9 +76,14 @@ export class MusicEffects {
     this.actions$.pipe(
       ofType(MusicActions.loadGenres),
       withLatestFrom(this._store.select(store => store.music)),
-      mergeMap(([, state]) => this._musicService.getGenres()
-        .pipe(map(genres => MusicActions.loadGenresSuccess({ genres })
-      ))),
+      mergeMap(([, state]) =>   {
+        if (state.genresCached) {
+          return of(MusicActions.loadGenresSuccess({ genres: state.genres }));
+        } else {
+          return this._musicService.getGenres()
+            .pipe(map(genres => MusicActions.loadGenresSuccess({ genres })));
+        }
+      }),
       catchError((error) => {
         console.error('Error', error);
         return of(MusicActions.loadGenresFailure({ error }));
