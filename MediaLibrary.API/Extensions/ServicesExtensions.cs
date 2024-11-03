@@ -1,5 +1,6 @@
 ﻿using MediaLibrary.API.Services;
 using MediaLibrary.API.Services.Interfaces;
+using MediaLibrary.BLL.HostedServices;
 using MediaLibrary.Shared.HostedServices;
 using MediaLibrary.Shared.Services;
 using MediaLibrary.Shared.Services.Interfaces;
@@ -18,6 +19,7 @@ namespace MediaLibrary.API.Extensions
             services.AddSingleton<IMediaLibraryService, MediaLibraryService>();
             services.AddSingleton<IBackgroundTaskQueueService, BackgroundTaskQueueService>();
             services.AddHostedService<BackgroundQueueHostedService>();
+            services.AddHostedService<MediaLibrarySyncHostedService>();
         }
     }
 }

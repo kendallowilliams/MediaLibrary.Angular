@@ -4,18 +4,23 @@ using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using static MediaLibrary.Shared.Enums;
 
-namespace MediaLibrary.Console.HostedServices
+namespace MediaLibrary.BLL.HostedServices
 {
-    public class AppHostedService : IHostedService
+    public class MediaLibrarySyncHostedService : IHostedService
     {
         private readonly IProcessorService processorService;
-        private readonly ILogger<AppHostedService> logger;
+        private readonly ILogger<MediaLibrarySyncHostedService> logger;
         private readonly IDataService dataService;
 
-        public AppHostedService(IProcessorService processorService, ILogger<AppHostedService> logger, IDataService dataService)
+        public MediaLibrarySyncHostedService(IProcessorService processorService, ILogger<MediaLibrarySyncHostedService> logger, IDataService dataService)
         {
             this.processorService = processorService;
             this.logger = logger;
@@ -24,7 +29,7 @@ namespace MediaLibrary.Console.HostedServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            RepeatAsync(cancellationToken);
+            RepeatAsync(cancellationToken).ConfigureAwait(false);
             return Task.CompletedTask;
         }
 

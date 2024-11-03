@@ -1,5 +1,6 @@
 ﻿using MediaLibrary.Shared.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -8,9 +9,12 @@ namespace MediaLibrary.Shared.HostedServices
 {
     public class BackgroundQueueHostedService : BackgroundService
     {
-        public BackgroundQueueHostedService(IBackgroundTaskQueueService taskQueue)
+        private readonly ILogger<BackgroundQueueHostedService> logger;
+
+        public BackgroundQueueHostedService(IBackgroundTaskQueueService taskQueue, ILogger<BackgroundQueueHostedService> logger)
         {
             TaskQueue = taskQueue;
+            this.logger = logger;
         }
 
         public IBackgroundTaskQueueService TaskQueue { get; }
@@ -27,6 +31,7 @@ namespace MediaLibrary.Shared.HostedServices
                 }
                 catch (Exception ex)
                 {
+                    logger.LogError(ex, ex.Message);
                 }
             }
         }

@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using MediaLibrary.BLL.Extensions;
-using MediaLibrary.Console.HostedServices;
 using Microsoft.Extensions.DependencyInjection;
+using MediaLibrary.BLL.HostedServices;
 
 namespace MediaLibrary.Console
 {
@@ -28,7 +28,7 @@ namespace MediaLibrary.Console
                       .ConfigureServices((context, services) =>
                       {
                           services.AddMemoryCache();
-                          services.AddHostedService<AppHostedService>();
+                          services.AddHostedService<MediaLibrarySyncHostedService>();
                           services.ConfigureServices(context.Configuration);
                       })
                       .Build()
