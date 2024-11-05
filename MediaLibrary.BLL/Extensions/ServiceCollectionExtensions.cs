@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using MediaLibrary.BLL.Repository;
+using MediaLibrary.Shared.HostedServices;
 
 namespace MediaLibrary.BLL.Extensions
 {
@@ -48,6 +49,8 @@ namespace MediaLibrary.BLL.Extensions
             services.AddTransient<IProcessorService, ProcessorService>();
             services.AddTransient<PlaylistRepository>();
             services.AddMemoryCache();
+            services.AddSingleton<IBackgroundTaskQueueService, BackgroundTaskQueueService>();
+            services.AddHostedService<BackgroundQueueHostedService>();
         }
     }
 }

@@ -2,6 +2,7 @@
 using MediaLibrary.DAL.Models;
 using MediaLibrary.DAL.Services.Interfaces;
 using MediaLibrary.Shared.Models.Configurations;
+using MediaLibrary.Shared.Services.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,12 +20,18 @@ namespace MediaLibrary.BLL.HostedServices
         private readonly IProcessorService processorService;
         private readonly ILogger<MediaLibrarySyncHostedService> logger;
         private readonly IDataService dataService;
+        private readonly IBackgroundTaskQueueService backgroundTaskQueueService;
 
-        public MediaLibrarySyncHostedService(IProcessorService processorService, ILogger<MediaLibrarySyncHostedService> logger, IDataService dataService)
+        public MediaLibrarySyncHostedService(
+            IProcessorService processorService, 
+            ILogger<MediaLibrarySyncHostedService> logger, 
+            IDataService dataService,
+            IBackgroundTaskQueueService backgroundTaskQueueService)
         {
             this.processorService = processorService;
             this.logger = logger;
             this.dataService = dataService;
+            this.backgroundTaskQueueService = backgroundTaskQueueService;
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -44,11 +51,6 @@ namespace MediaLibrary.BLL.HostedServices
             {
                 var config = await dataService.Get<Configuration>(item => item.Type == ConfigurationTypes.MediaLibrary);
                 var mediaLibraryConfig = config.GetConfigurationObject<MediaLibraryConfiguration>();
-                var tasksToRun = new List<Func<Task>>()
-                {
-                    () => processorService.RefreshMusic(),
-                    () => processorService.RefreshPodcasts()
-                };
                 DateTime nextRunTime = mediaLibraryConfig.ConsoleAppLastRunTimeStamp.AddMinutes(mediaLibraryConfig.ConsoleAppRunInterval),
                          dtNow = DateTime.Now;
 
@@ -58,11 +60,16 @@ namespace MediaLibrary.BLL.HostedServices
 
                 if (Math.Floor(nextRunTime.Subtract(dtNow).TotalSeconds) <= 0.0)
                 {
+                    var tasksToRun = new List<Func<Task>>()
+                    {
+                        () => processorService.RefreshMusic(),
+                        () => processorService.RefreshPodcasts()
+                    };
+
                     mediaLibraryConfig.ConsoleAppLastRunTimeStamp = dtNow;
                     config.SetConfigurationObject(mediaLibraryConfig);
-                    tasksToRun.Add(() => dataService.Update(config));
-
-                    await Task.WhenAll(tasksToRun.Select(task => task()));
+                    backgroundTaskQueueService.QueueBackgroundWorkItem((token) => Task.WhenAll(tasksToRun.Select(task => task())));
+                    await dataService.Update(config);
                 }
                 else
                 {

@@ -17,8 +17,6 @@ namespace MediaLibrary.API.Extensions
             services.AddSingleton<IPlayerService, PlayerService>();
             services.AddSingleton<ITelevisionService, TelevisionService>();
             services.AddSingleton<IMediaLibraryService, MediaLibraryService>();
-            services.AddSingleton<IBackgroundTaskQueueService, BackgroundTaskQueueService>();
-            services.AddHostedService<BackgroundQueueHostedService>();
             services.AddHostedService<MediaLibrarySyncHostedService>();
         }
     }
