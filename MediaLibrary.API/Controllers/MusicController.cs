@@ -75,7 +75,7 @@ namespace MediaLibrary.API.Controllers
             var filePath = await musicService.GetFilePath(id); 
             var provider = new FileExtensionContentTypeProvider();
 
-            if (filePath != null && provider.TryGetContentType(filePath, out string contentType))
+            if (filePath != null && provider.TryGetContentType(filePath, out string? contentType))
             {
                 return new PhysicalFileResult(filePath, contentType) { EnableRangeProcessing = true };
             }
@@ -94,13 +94,16 @@ namespace MediaLibrary.API.Controllers
         {
             musicService.ClearCache();
         }
+
         #endregion
 
         #region Management
         [HttpPost]
         public void CheckForMusicUpdates()
         {
-            backgroundTaskQueueService.QueueBackgroundWorkItem((token) => fileService.CheckForMusicUpdates());
+            var taskFn = () => 
+              fileService.CheckForMusicUpdates().ContinueWith(_ => ClearCache());
+            backgroundTaskQueueService.QueueBackgroundWorkItem((token) => taskFn());
         }
         #endregion
     }

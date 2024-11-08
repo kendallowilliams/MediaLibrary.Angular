@@ -28,5 +28,7 @@ namespace MediaLibrary.API.Services.Interfaces
         Task<Track> GetTrack(int id);
 
         Task<Track> UpdateTrack(Track track);
+
+        void ClearCache();
     }
 }

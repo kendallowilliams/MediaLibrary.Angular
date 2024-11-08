@@ -42,7 +42,7 @@
 
         public enum SettingsTabs { General = 0, Music, Podcast, Television, Playlist, Player }
 
-        public enum CacheKeys { None = 0, Tracks, Albums, Artists, Podcasts, Series }
+        public enum CacheKeys { Tracks, Albums, Artists, Podcasts, Series }
 
         public enum ConfigurationTypes { Home = 0, Music, Playlist, Podcast, Player, Television, MediaLibrary }
     }

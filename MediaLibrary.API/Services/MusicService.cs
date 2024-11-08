@@ -12,13 +12,6 @@ namespace MediaLibrary.API.Services
         private readonly IDataService _dataService;
         private readonly IMemoryCache _memoryCache;
 
-        private const string ALBUMS_KEY = "ML_ALBUMS";
-        private const string ALBUM_KEY = "ML_ALBUM";
-        private const string ARTISTS_KEY = "ML_ARTISTS";
-        private const string ARTIST_KEY = "ML_ARTIST";
-        private const string TRACKS_KEY = "ML_TRACKS";
-        private const string TRACK_KEY = "ML_TRACK";
-
         public MusicService(IDataService dataService, IMemoryCache memoryCache)
         {
             this._dataService = dataService;
@@ -42,10 +35,10 @@ namespace MediaLibrary.API.Services
 
         public async Task<IEnumerable<Album>> GetAlbums(bool reload = false)
         {
-            return _memoryCache.TryGetValue(ALBUMS_KEY, out IEnumerable<Album>? albums) && !reload ? 
+            return _memoryCache.TryGetValue(CacheKeys.Albums, out IEnumerable<Album>? albums) && !reload ? 
                 albums! : 
                 await _dataService.GetList<Album>()
-                    .ContinueWith(task => _memoryCache.Set(ALBUMS_KEY, task.Result));
+                    .ContinueWith(task => _memoryCache.Set(CacheKeys.Albums, task.Result));
         }
 
         public async Task<Album> GetAlbum(int id)
@@ -58,9 +51,9 @@ namespace MediaLibrary.API.Services
 
         public async Task<IEnumerable<Artist>> GetArtists(bool reload = false)
         {
-            return _memoryCache.TryGetValue(ARTISTS_KEY, out IEnumerable<Artist>? artists) && !reload ?
+            return _memoryCache.TryGetValue(CacheKeys.Artists, out IEnumerable<Artist>? artists) && !reload ?
                 artists! :
-                await _dataService.GetList<Artist>().ContinueWith(task => _memoryCache.Set(ARTISTS_KEY, task.Result));
+                await _dataService.GetList<Artist>().ContinueWith(task => _memoryCache.Set(CacheKeys.Artists, task.Result));
         }
 
         public async Task<Artist> GetArtist(int id)
@@ -73,9 +66,9 @@ namespace MediaLibrary.API.Services
 
         public async Task<IEnumerable<Track>> GetTracks(bool reload = false)
         {
-            return _memoryCache.TryGetValue(TRACKS_KEY, out IEnumerable<Track>? tracks) && !reload ?
+            return _memoryCache.TryGetValue(CacheKeys.Tracks, out IEnumerable<Track>? tracks) && !reload ?
                 tracks! :
-                await _dataService.GetList<Track>().ContinueWith(task => _memoryCache.Set(TRACKS_KEY, task.Result));
+                await _dataService.GetList<Track>().ContinueWith(task => _memoryCache.Set(CacheKeys.Tracks, task.Result));
         }
 
         public async Task<IEnumerable<Track>> GetTracksByAlbumId(int albumId)
@@ -112,8 +105,7 @@ namespace MediaLibrary.API.Services
                 throw new Exception("failed to update track.");
             }
 
-            _memoryCache.Remove(TRACKS_KEY);
-            _memoryCache.Remove($"{TRACK_KEY}_{track.Id}");
+            _memoryCache.Remove(CacheKeys.Tracks);
 
             return existingTrack;
         }
@@ -137,6 +129,14 @@ namespace MediaLibrary.API.Services
 
                     return paths != null ? Path.Combine(paths) : null;
                 });
+        }
+
+        public void ClearCache()
+        {
+            foreach (var key in Enum.GetValues(typeof(CacheKeys)))
+            {
+                _memoryCache.Remove(key);
+            }
         }
     }
 }
