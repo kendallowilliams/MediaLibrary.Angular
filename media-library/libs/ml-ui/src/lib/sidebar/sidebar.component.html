@@ -1,0 +1,11 @@
+<div class="relative h-full">
+  <div class="absolute float-left top-0 left-0 h-full flex">
+    <div class="overflow-hidden" [@openClosed]="isOpen ? 'open' : 'closed'">
+      <ng-content></ng-content>
+    </div>
+    <div class="inline-flex items-center justify-center bg-info h-[40px] mt-[20px] w-[20px]
+      rounded-r" (click)="toggle()">
+      <fa-icon [icon]="faAngleRight" [@collapsedExpanded]="isOpen ? 'expanded' : 'collapsed'"></fa-icon>
+    </div>
+  </div>
+</div>

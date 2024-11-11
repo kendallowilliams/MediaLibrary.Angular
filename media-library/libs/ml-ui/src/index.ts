@@ -45,3 +45,9 @@ export * from './lib/controls/switch/index';
 
 /** Search */
 export * from './lib/controls/search/index';
+
+/** Tab */
+export * from './lib/controls/tab/index';
+
+/** Sidebar */
+export * from './lib/sidebar/index';

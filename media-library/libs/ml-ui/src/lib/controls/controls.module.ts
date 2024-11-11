@@ -3,18 +3,16 @@ import { NgModule } from '@angular/core';
 import { ButtonModule } from './button';
 import { CheckboxDirective } from './checkbox/checkbox.directive';
 import { LabelDirective } from './label/directives/label.directive';
-import { SelectModule } from './select';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TextBoxDirective } from './text-box/directives/text-box.directive';
 import { ControlValidatorDirective } from './validation/control-validator.directive';
 
 @NgModule({
   imports: [
-    CommonModule, 
-    ButtonModule, 
-    SelectModule, 
-    FontAwesomeModule, 
-    TextBoxDirective, 
+    CommonModule,
+    ButtonModule,
+    FontAwesomeModule,
+    TextBoxDirective,
     LabelDirective
   ],
   declarations: [
@@ -24,9 +22,8 @@ import { ControlValidatorDirective } from './validation/control-validator.direct
   exports: [
     CheckboxDirective,
     LabelDirective,
-    ButtonModule,
-    SelectModule,
-    ControlValidatorDirective
+    ControlValidatorDirective,
+    TextBoxDirective
   ],
 })
 export class ControlsModule {}

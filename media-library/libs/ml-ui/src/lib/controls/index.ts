@@ -9,11 +9,6 @@ export * from './button/index';
 /** Validation */
 export * from './validation/control-validator.directive';
 
-/** Tab */
-export * from './tab/tab.module';
-export * from './tab/tab-group/tab-group.component';
-export * from './tab/tab.component';
-
 /** Card */
 export * from './card/card.module';
 export * from './card/card.component';

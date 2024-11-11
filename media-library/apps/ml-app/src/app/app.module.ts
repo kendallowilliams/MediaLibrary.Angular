@@ -13,6 +13,7 @@ import { ErrorPagesModule, HttpErrorIntercepter, MediaPlayerModule, PlayerServic
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_ENVIRONMENT } from '@media-library/ml-data';
 import { environment } from '../environments/environment';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { environment } from '../environments/environment';
     AppComponentsModule,
     AppRootVcrDirective,
     ErrorPagesModule,
-    MediaPlayerModule
+    MediaPlayerModule,
+    BrowserAnimationsModule
   ],
   exports: [RouterModule],
   providers: [
