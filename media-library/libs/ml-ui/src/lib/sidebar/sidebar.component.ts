@@ -29,18 +29,19 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
   ]
 })
 export class SidebarComponent implements OnInit {
-  @Input() public width = '300px';
+  /** Width of sidebar (default: 300) */
+  @Input() public width?: number;
   @Input() public isOpen = false;
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
   @HostBinding('style.position') private _position = 'absolute';
   @HostBinding('style.height') private _height = '100%';
-  @HostBinding('style.--ml-sidebar-width') private _width = this.width;
+  @HostBinding('style.--ml-sidebar-width') private _width?: string;
 
   public faAngleRight = faAngleRight;
 
   public ngOnInit(): void {
-    this._width = this.width;
+    this._width = `${this.width || 300}px`;
   }
 
   public toggle(): void {

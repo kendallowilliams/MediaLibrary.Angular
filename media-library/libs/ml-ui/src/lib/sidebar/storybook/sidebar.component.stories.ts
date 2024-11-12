@@ -29,7 +29,8 @@ type Story = StoryObj<SidebarComponent>;
 
 export const Default: Story = {
   args: {
-    isOpen: false
+    isOpen: false,
+    width: 300
   },
   render: (args) => {
     const [{ isOpen }, updateArgs] = useArgs();
@@ -41,7 +42,7 @@ export const Default: Story = {
       },
       template: `
         <div class="w-full flex bg-secondary relative">
-          <ml-sidebar [isOpen]="isOpen" (isOpenChange)="isOpenChange()">
+          <ml-sidebar [isOpen]="isOpen" (isOpenChange)="isOpenChange()" [width]="width">
             <div class="w-full p-[10px] bg-light h-full">
               <div class="flex flex-col gap-[10px] flex-nowrap">
                 <label mlLabel>Text Field</label>
