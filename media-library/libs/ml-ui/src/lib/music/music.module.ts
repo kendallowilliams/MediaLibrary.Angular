@@ -9,7 +9,7 @@ import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-mod
 import { FiltersToolPanelModule } from "@ag-grid-enterprise/filter-tool-panel";
 import { RowGroupingModule } from "@ag-grid-enterprise/row-grouping";
 import { SongOptionsCellRendererComponent } from './cell-renderers/song-options-cell-renderer/song-options-cell-renderer.component';
-import { ButtonModule, ControlsModule } from "../controls";
+import { ButtonModule, ControlsModule, SelectModule } from "../controls";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { EditSongModalComponent } from './modals/edit-song-modal/edit-song-modal.component';
 import { ModalModule } from "../modal";
@@ -50,7 +50,8 @@ import { ListBoxModule } from "../controls/list-box";
     TextBoxDirective,
     FormsModule,
     ReactiveFormsModule,
-    ListBoxModule
+    ListBoxModule,
+    SelectModule
   ]
 })
 export class MusicModule {

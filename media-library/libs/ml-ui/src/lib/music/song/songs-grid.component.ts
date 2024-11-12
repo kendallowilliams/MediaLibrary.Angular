@@ -29,7 +29,7 @@ export class SongsGridComponent implements OnChanges {
     {
       field: 'id',
       headerName: '',
-      cellRenderer: IconCellRendererComponent<number>,
+      cellRenderer: IconCellRendererComponent,
       cellRendererParams: {
         icon: faPlayCircle,
         clickEvt: (songId: number) => songId && this._playerService.playAudio(MediaPages.Music, songId)

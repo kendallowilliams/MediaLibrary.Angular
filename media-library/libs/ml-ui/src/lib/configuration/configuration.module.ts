@@ -14,7 +14,7 @@ import { PlayerConfigurationEditorComponent } from './player-configuration-edito
 import { PlaylistConfigurationEditorComponent } from './playlist-configuration-editor/playlist-configuration-editor.component';
 import { TelevisionConfigurationEditorComponent } from './television-configuration-editor/television-configuration-editor.component';
 import { PodcastConfigurationEditorComponent } from './podcast-configuration-editor/podcast-configuration-editor.component';
-import { CardModule, ControlsModule } from '../controls';
+import { ButtonModule, CardModule, ControlsModule } from '../controls';
 import { ModalModule } from '../modal';
 import { ListBoxModule } from '../controls/list-box';
 import { MusicDirectorySelectorComponent } from './music-configuration/music-directory-selector/music-directory-selector.component';
@@ -47,7 +47,8 @@ import { BreadcrumbBarModule } from '../controls/breadcrumb-bar';
     ModalModule,
     ListBoxModule,
     ControlGroupModule,
-    BreadcrumbBarModule
+    BreadcrumbBarModule,
+    ButtonModule
   ],
   exports: [
     MusicConfigurationComponent,
