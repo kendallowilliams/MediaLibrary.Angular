@@ -49,8 +49,9 @@ export const Default: Story = {
               </div>
             </div>
           </ml-sidebar>
-          <div class="flex h-[600px] w-full p-[30px]">
-            <h1>Sidebar Demo</h1>
+          <div class="h-[600px] w-full p-[30px] text-light">
+            <h1 class="font-bold text-2xl">Sidebar Demo</h1>
+            <p>Note: height will be determined by the nearest positioned ancestor's height.</p>
           </div>
         </div>
       `
