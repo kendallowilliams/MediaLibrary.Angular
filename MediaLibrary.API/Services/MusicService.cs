@@ -43,10 +43,10 @@ namespace MediaLibrary.API.Services
 
         public async Task<Album> GetAlbum(int id)
         {
-            return _memoryCache.TryGetValue($"{ALBUM_KEY}_{id}", out Album? album) ?
-                album! :
-                await _dataService.Get<Album>(album => album.Id == id)
-                    .ContinueWith(task => _memoryCache.Set($"{ALBUM_KEY}_{id}", task.Result));
+            return _memoryCache.TryGetValue(CacheKeys.Albums, out IEnumerable<Album>? albums) &&
+                albums!.Any(album => album.Id == id) ?
+                    albums!.Single(album => album.Id == id) :
+                    await _dataService.Get<Album>(album => album.Id == id);
         }
 
         public async Task<IEnumerable<Artist>> GetArtists(bool reload = false)
@@ -58,10 +58,10 @@ namespace MediaLibrary.API.Services
 
         public async Task<Artist> GetArtist(int id)
         {
-            return _memoryCache.TryGetValue($"{ARTIST_KEY}_{id}", out Artist? artist) ?
-                artist! :
-                await _dataService.Get<Artist>(artist => artist.Id == id)
-                    .ContinueWith(task => _memoryCache.Set($"{ARTIST_KEY}_{id}", task.Result));
+            return _memoryCache.TryGetValue(CacheKeys.Artists, out IEnumerable<Artist>? artists) &&
+                artists!.Any(artist => artist.Id == id) ?
+                    artists!.Single(artist => artist.Id == id) :
+                    await _dataService.Get<Artist>(artist => artist.Id == id);
         }
 
         public async Task<IEnumerable<Track>> GetTracks(bool reload = false)
@@ -78,10 +78,10 @@ namespace MediaLibrary.API.Services
 
         public async Task<Track> GetTrack(int id)
         {
-            return _memoryCache.TryGetValue($"{TRACK_KEY}_{id}", out Track? track) ?
-                track! :
-                await _dataService.Get<Track>(track => track.Id == id)
-                    .ContinueWith(task => _memoryCache.Set($"{TRACK_KEY}_{id}", task.Result));
+            return _memoryCache.TryGetValue(CacheKeys.Tracks, out IEnumerable<Track>? tracks) && 
+                tracks!.Any(track => track.Id == id) ?
+                    tracks!.First(track => track.Id == id) :
+                    await _dataService.Get<Track>(track => track.Id == id);
         }
 
         public async Task<Track> UpdateTrack(Track track)
