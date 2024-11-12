@@ -14,6 +14,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { APP_ENVIRONMENT } from '@media-library/ml-data';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarModule } from "@media-library/ml-ui";
 
 @NgModule({
   declarations: [
@@ -31,8 +32,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRootVcrDirective,
     ErrorPagesModule,
     MediaPlayerModule,
-    BrowserAnimationsModule
-  ],
+    BrowserAnimationsModule,
+    SidebarModule
+],
   exports: [RouterModule],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpErrorIntercepter, multi: true },

@@ -1,4 +1,4 @@
-<div class="relative h-full">
+<div class="relative h-full z-50 drop-shadow" tabindex="0" (focusout)="close($event)">
   <div class="absolute float-left top-0 left-0 h-full flex">
     <div class="overflow-hidden" [@openClosed]="isOpen ? 'open' : 'closed'">
       <ng-content></ng-content>

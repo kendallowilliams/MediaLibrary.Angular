@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from "@angular/animations";
-import { Component, EventEmitter, Input, Output, } from "@angular/core";
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output, } from "@angular/core";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
@@ -8,7 +8,7 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
   animations: [
     trigger('openClosed', [
       state('open', style({
-        width: '300px'
+        width: 'var(--ml-sidebar-width)'
       })),
       state('closed', style({
         width: '0px'
@@ -28,14 +28,30 @@ import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
     ])
   ]
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
+  @Input() public width = '300px';
   @Input() public isOpen = false;
   @Output() public isOpenChange = new EventEmitter<boolean>();
 
+  @HostBinding('style.position') private _position = 'absolute';
+  @HostBinding('style.height') private _height = '100%';
+  @HostBinding('style.--ml-sidebar-width') private _width = this.width;
+
   public faAngleRight = faAngleRight;
+
+  public ngOnInit(): void {
+    this._width = this.width;
+  }
 
   public toggle(): void {
     this.isOpen = !this.isOpen;
     this.isOpenChange.emit(this.isOpen);
+  }
+
+  public close(evt: FocusEvent): void {
+    if (!evt.relatedTarget && this.isOpen) {
+      this.isOpen = false;
+      this.isOpenChange.emit(false);
+    }
   }
 }

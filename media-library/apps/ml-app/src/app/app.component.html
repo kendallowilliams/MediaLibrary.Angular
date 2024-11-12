@@ -2,7 +2,10 @@
   <header>
     <router-outlet [name]="'header'"></router-outlet>
   </header>
-  <main class="grow overflow-auto">
+  <main class="grow overflow-auto relative">
+    <ml-sidebar *ngIf="false">
+      <div class="bg-light w-full h-full"></div>
+    </ml-sidebar>
     <router-outlet mlAppRootVcr></router-outlet>
     <div hidden>
       <ml-media-player></ml-media-player>
