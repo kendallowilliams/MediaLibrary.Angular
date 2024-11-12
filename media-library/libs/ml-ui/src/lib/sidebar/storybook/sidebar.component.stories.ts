@@ -40,7 +40,7 @@ export const Default: Story = {
         isOpenChange: () => updateArgs({...args, isOpen: !isOpen })
       },
       template: `
-        <div class="w-full flex bg-secondary">
+        <div class="w-full flex bg-secondary relative">
           <ml-sidebar [isOpen]="isOpen" (isOpenChange)="isOpenChange()">
             <div class="w-full p-[10px] bg-light h-full">
               <div class="flex flex-col gap-[10px] flex-nowrap">
