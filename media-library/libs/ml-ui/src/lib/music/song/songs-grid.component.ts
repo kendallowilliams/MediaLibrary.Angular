@@ -5,7 +5,7 @@ import { SongOptionsCellRendererComponent } from '../cell-renderers/song-options
 import { PlayerService } from '../../media-player';
 import { IconCellRendererComponent } from '../cell-renderers/icon-cell-renderer/icon-cell-renderer.component';
 import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-import { debounceTime, fromEvent } from 'rxjs';
+import { debounceTime, fromEvent, tap } from 'rxjs';
 import { getAtoZKey } from '@media-library/ml-utility';
 
 @Component({
@@ -153,7 +153,10 @@ export class SongsGridComponent implements OnChanges {
     this.gridApi?.addRowGroupColumns(['title']);
     this._autoSizeColumns();
     fromEvent(window, 'resize')
-      .pipe(debounceTime(100))
+      .pipe(
+        debounceTime(100), 
+        tap(() => this._autoSizeColumns())
+      )
       .subscribe();
     console.clear();
   }
