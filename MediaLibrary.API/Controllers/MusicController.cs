@@ -90,6 +90,7 @@ namespace MediaLibrary.API.Controllers
         #endregion
 
         #region Cache Control
+        [HttpPost]
         public void ClearCache()
         {
             musicService.ClearCache();
