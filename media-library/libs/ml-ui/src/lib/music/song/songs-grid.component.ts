@@ -63,9 +63,11 @@ export class SongsGridComponent implements OnChanges {
     {
       colId: 'album',
       headerName: 'Album',
+      cellClass: 'cursor-pointer',
       valueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
       valueFormatter: params => params.value || '--',
-      filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title
+      filterValueGetter: params => this.albums?.find(a => params.data?.albumId === a.id)?.title,
+      onCellClicked: params => this.selectAlbum(params.value)
     },
     {
       field: 'artistId',
@@ -75,12 +77,19 @@ export class SongsGridComponent implements OnChanges {
     {
       colId: 'artist',
       headerName: 'Artist',
+      cellClass: 'cursor-pointer',
       valueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
       valueFormatter: params => params.value || '--',
       filterValueGetter: params => this.artists?.find(a => params.data?.artistId === a.id)?.name,
+      onCellClicked: params => this.selectArtist(params.value)
     },
     {
       field: 'genreId',
+      hide: true,
+      filter: false
+    },
+    {
+      field: 'position',
       hide: true,
       filter: false
     },
