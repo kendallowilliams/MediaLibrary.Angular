@@ -14,6 +14,7 @@ export * from './lib/services/filter.service';
 
 /** Directives */
 export * from './lib/directives/app-root-vcr.directive';
+export * from './lib/directives/component-renderer.directive';
 
 /** Models */
 export * from './lib/models/filter.model';
