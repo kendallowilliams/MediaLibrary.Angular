@@ -32,10 +32,10 @@ export class ComponentRendererDirective<T> implements OnInit, OnDestroy {
   }
 
   public reload(): void {
-    this._vcr.clear();
     this.destroySubject.next(null);
     this.componentRef?.destroy();
     this.componentRef = null;
+    this._vcr.clear();
     this.loadComponent();
     this.componentReload.emit(this.component)
   }
