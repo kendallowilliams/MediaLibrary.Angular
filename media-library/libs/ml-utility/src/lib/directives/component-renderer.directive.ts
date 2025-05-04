@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnDestroy, OnInit, Type, ViewContainerRef } from "@angular/core";
+import { ComponentRef, Directive, EventEmitter, Input, OnDestroy, OnInit, Output, Type, ViewContainerRef } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 
 @Directive({
@@ -6,11 +6,17 @@ import { Subject, takeUntil } from "rxjs";
   standalone: true,
   exportAs: 'componentRenderer'
 })
-export class ComponentRendererDirective implements OnInit, OnDestroy {
-  @Input() public componentType: Type<unknown> | null = null;
+export class ComponentRendererDirective<T> implements OnInit, OnDestroy {
+  @Input() public componentType: Type<T> | null = null;
   @Input() public inputs: { [key: string]: unknown } = {};
   @Input() public outputs: { [key: string]: (args: unknown) => void } = {};
 
+  @Output() public componentReload = new EventEmitter<T>();
+
+  public get component(): T | undefined {
+    return this.componentRef?.instance;
+  }
+  private componentRef: ComponentRef<T> | null = null;
   private destroySubject = new Subject();
 
   constructor(private _vcr: ViewContainerRef) {}
@@ -22,24 +28,28 @@ export class ComponentRendererDirective implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.destroySubject.next(null);
     this.destroySubject.complete();
+    this.componentRef?.destroy();
   }
 
   public reload(): void {
     this._vcr.clear();
     this.destroySubject.next(null);
+    this.componentRef?.destroy();
+    this.componentRef = null;
     this.loadComponent();
+    this.componentReload.emit(this.component)
   }
 
   private loadComponent(): void {
     if (this.componentType) {
-      const ref = this._vcr.createComponent(this.componentType),
-        component = <{ [key: string]: EventEmitter<unknown> }>ref.instance;
+      this.componentRef = this._vcr.createComponent(this.componentType);
 
       Object.keys(this.inputs).forEach(key => {
-        ref.setInput(key, this.inputs[key]);
+        this.componentRef?.setInput(key, this.inputs[key]);
       });
       Object.keys(this.outputs).forEach(key => {
-        const output = component[key];
+        const component = <{ [key: string]: EventEmitter<unknown> }>this.componentRef?.instance,
+          output = component?.[key];
 
         if (output) {
           output.pipe(takeUntil(this.destroySubject)).subscribe(this.outputs[key]);
