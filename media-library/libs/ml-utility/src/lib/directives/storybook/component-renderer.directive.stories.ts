@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ComponentRendererDirective } from '../component-renderer.directive';
 import { SampleComponent } from './sample-content.component';
 
-const meta: Meta<ComponentRendererDirective> = {
+const meta: Meta<ComponentRendererDirective<SampleComponent>> = {
   title: 'Components/Utilties/ComponentRenderer',
-  component: ComponentRendererDirective,
+  component: ComponentRendererDirective<SampleComponent>,
   decorators: [
     moduleMetadata({
       imports: [CommonModule, ComponentRendererDirective]
@@ -16,7 +16,7 @@ const meta: Meta<ComponentRendererDirective> = {
 };
 
 export default meta;
-type Story = StoryObj<ComponentRendererDirective>;
+type Story = StoryObj<ComponentRendererDirective<SampleComponent>>;
 
 export const Default: Story = {
   args: {
@@ -25,8 +25,7 @@ export const Default: Story = {
     },
     outputs: {
       outputOne: (msg: unknown) => alert(msg)
-    },
-    componentType: SampleComponent
+    }
   },
   render: (args) => ({
     props: {

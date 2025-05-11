@@ -7,7 +7,7 @@ import { Subject, takeUntil } from "rxjs";
   exportAs: 'componentRenderer'
 })
 export class ComponentRendererDirective<T> implements OnInit, OnDestroy {
-  @Input() public componentType: Type<T> | null = null;
+  @Input({ required: true }) public componentType!: Type<T>;
   @Input() public inputs: { [key: string]: unknown } = {};
   @Input() public outputs: { [key: string]: (args: unknown) => void } = {};
 
