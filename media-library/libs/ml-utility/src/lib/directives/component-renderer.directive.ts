@@ -1,14 +1,19 @@
 import { ComponentRef, Directive, EventEmitter, Input, OnDestroy, OnInit, Output, Type, ViewContainerRef } from "@angular/core";
 import { Subject, takeUntil } from "rxjs";
 
+type Outputable<T> = T & { [key: string]: EventEmitter<unknown> };
+
 @Directive({
   selector: '[mlComponentRenderer]',
   standalone: true,
   exportAs: 'componentRenderer'
 })
 export class ComponentRendererDirective<T> implements OnInit, OnDestroy {
+  /** Angular component to be rendered */
   @Input({ required: true }) public componentType!: Type<T>;
+  /** Angular component inputs object ({ [input: string]: unknown }) */
   @Input() public inputs: { [key: string]: unknown } = {};
+  /** Angular component outputs object ({ [output: string]: (args: unknown) => void }) */
   @Input() public outputs: { [key: string]: (args: unknown) => void } = {};
 
   @Output() public componentReload = new EventEmitter<T>();
@@ -48,7 +53,7 @@ export class ComponentRendererDirective<T> implements OnInit, OnDestroy {
         this.componentRef?.setInput(key, this.inputs[key]);
       });
       Object.keys(this.outputs).forEach(key => {
-        const component = <{ [key: string]: EventEmitter<unknown> }>this.componentRef?.instance,
+        const component = this.componentRef?.instance as Outputable<T>,
           output = component?.[key];
 
         if (output) {

@@ -12,6 +12,21 @@ const meta: Meta<ComponentRendererDirective<SampleComponent>> = {
     })
   ],
   argTypes: {
+    inputs: {
+      control: {
+        disable: true
+      }
+    },
+    outputs: {
+      control: {
+        disable: true
+      }
+    },
+    componentType: {
+      control: {
+        disable: true
+      }
+    }
   }
 };
 
