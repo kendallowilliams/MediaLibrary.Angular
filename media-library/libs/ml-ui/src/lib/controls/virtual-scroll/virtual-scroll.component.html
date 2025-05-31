@@ -1,0 +1,9 @@
+<div class="overflow-auto h-[var(--visible-container-height)]" [style.--visible-container-height]="visibleContainerHeight + 'px'" #container>
+  <div class="h-[var(--container-height)]" [style.--container-height]="containerHeight + 'px'">
+    <div class="translate-y-[var(--offset-y)]" [style.--offset-y]="offsetY + 'px'">
+      <div class="h-[var(--row-height)]" [style.--row-height]="rowHeight + 'px'" *ngFor="let template of visibleTemplates">
+        <ng-container [ngTemplateOutlet]="template"></ng-container>
+      </div>
+    </div>
+  </div>
+</div>

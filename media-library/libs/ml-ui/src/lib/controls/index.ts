@@ -17,3 +17,6 @@ export * from './card/card-title/card-title.component';
 export * from './card/card-subtitle/card-subtitle.component';
 export * from './card/card-body/card-body.component';
 export * from './card/card-footer/card-footer.component';
+
+/** Virtual Scroll */
+export * from './virtual-scroll/index';
