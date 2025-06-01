@@ -40,7 +40,7 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, AfterVi
 
   public ngAfterViewInit(): void {
     fromEvent<Event>(this.container.nativeElement, 'scroll')
-      .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(50))
+      .pipe(takeUntilDestroyed(this.destroyRef), debounceTime(25))
       .subscribe(evt => {
         const element = evt.target as HTMLElement
         this.redraw(element?.scrollTop);
@@ -48,8 +48,7 @@ export class VirtualScrollComponent implements OnInit, AfterContentInit, AfterVi
   }
 
   private redraw(scrollTop: number): void {
-    let startNode = Math.floor(scrollTop / this.rowHeight);
-    startNode = Math.max(0, startNode);
+    const startNode = Math.floor(scrollTop / this.rowHeight);
     this.offsetY = startNode * this.rowHeight;
     this.visibleTemplates = this.children
       ?.filter((_, index) => index >= startNode && index <= (startNode + this.visibleItemCount))
