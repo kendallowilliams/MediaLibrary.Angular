@@ -3,11 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Core Data Grid CSS */
-@import '@ag-grid-community/styles/ag-grid.css';
-/* Balham Theme Specific CSS */
-@import '@ag-grid-community/styles/ag-theme-balham.css';
-
 .required:after {
   content: ' *';
   color: theme('colors.danger.DEFAULT');

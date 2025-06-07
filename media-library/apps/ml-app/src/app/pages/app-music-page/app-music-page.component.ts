@@ -10,7 +10,7 @@ import {
 import { faMusic, faCompactDisc, faUser, faHeadphones, faList, faXmark, faFilter } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { map, Observable, of, tap } from 'rxjs';
-import { SongsGridComponent, TabComponent, TabGroupComponent } from '@media-library/ml-ui';
+import { SongsComponent, TabComponent, TabGroupComponent } from '@media-library/ml-ui';
 import { sortAlbums, sortArtists } from '@media-library/ml-utility';
 
 @Component({
@@ -88,13 +88,11 @@ export class AppMusicPageComponent implements OnInit {
     this._store.dispatch(PlaylistsActions.addSongToPlaylists(request));
   }
 
-  public handleAlbumSelect(album: string, songsTab: TabComponent, songsGrid: SongsGridComponent) : void {
-    songsGrid.selectAlbum(album);
+  public handleAlbumSelect(album: string, songsTab: TabComponent, songs: SongsComponent) : void {
     this._tabGroup.goToTab({ tab: songsTab });
   }
 
-  public handleArtistSelect(artist: string, songsTab: TabComponent, songsGrid: SongsGridComponent) : void {
-    songsGrid.selectArtist(artist);
+  public handleArtistSelect(artist: string, songsTab: TabComponent, songs: SongsComponent) : void {
     this._tabGroup.goToTab({ tab: songsTab });
   }
 
