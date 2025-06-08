@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@a
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Directive({
-  selector: 'input[mlCheckbox]'
+    selector: 'input[mlCheckbox]',
+    standalone: false
 })
 export class CheckboxDirective implements OnInit {
   private _labelClasses = ['flex', 'items-center', 'select-none', 'gap-[5px]', 'leading-[20px]', 'p-0', 'm-0', 'text-inherit', 'dark:text-inherit'];

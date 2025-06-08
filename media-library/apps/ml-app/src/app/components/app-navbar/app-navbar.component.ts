@@ -11,10 +11,11 @@ import { DeviceService } from '@media-library/ml-utility';
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './app-navbar.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-navbar',
+    templateUrl: './app-navbar.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppNavbarComponent implements OnInit {
   public isMobile = false;

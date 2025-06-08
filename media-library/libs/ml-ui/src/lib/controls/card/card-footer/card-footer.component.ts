@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-card-footer',
-  template: `<ng-content></ng-content>`,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-card-footer',
+    template: `<ng-content></ng-content>`,
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardFooterComponent {
   @HostBinding('class') private _class = `h-[50px] 

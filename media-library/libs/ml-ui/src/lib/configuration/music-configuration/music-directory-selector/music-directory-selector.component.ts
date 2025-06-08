@@ -5,9 +5,10 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { MessageBoxService } from "../../../message-box";
 
 @Component({
-  selector: 'ml-music-directory-selector',
-  templateUrl: './music-directory-selector.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-music-directory-selector',
+    templateUrl: './music-directory-selector.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MusicDirectorySelectorComponent implements OnInit {
   @Input({required: true}) public rootPath!: string;

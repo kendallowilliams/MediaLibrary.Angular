@@ -8,10 +8,11 @@ import {
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
-  selector: 'ml-navbar-toggler',
-  templateUrl: './navbar-toggler.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-navbar-toggler',
+    templateUrl: './navbar-toggler.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarTogglerComponent {
   @HostBinding('class') private _class = 'block';

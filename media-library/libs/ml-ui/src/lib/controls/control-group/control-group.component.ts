@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/core";
 
 @Component({
-  selector: 'ml-control-group',
-  template: `
+    selector: 'ml-control-group',
+    template: `
       <div class="grid grid-flow-col auto-cols-auto h-control
         [&>*:not([mlButton]):not([mlSecondaryButton])]:border-[1px] 
         [&>*:not([mlButton]):not([mlSecondaryButton])]:rounded-[5px] 
@@ -13,7 +13,8 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from "@angular/
         <ng-content></ng-content>
       </div>
   `,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ControlGroupComponent {}

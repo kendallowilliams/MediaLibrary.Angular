@@ -2,7 +2,8 @@ import { Directive, ElementRef, HostListener } from "@angular/core";
 import { ModalRef } from "../models/modal-ref.model";
 
 @Directive({
-  selector: '[mlModalBackground]'
+    selector: '[mlModalBackground]',
+    standalone: false
 })
 export class ModalBackgroundDirective {
   private _mouseDownTarget: EventTarget | null = null;

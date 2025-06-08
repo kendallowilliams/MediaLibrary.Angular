@@ -3,8 +3,9 @@ import { SelectComponent } from "../select.component";
 import { SelectOption } from "../types/select.types";
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'ml-select[options]'
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'ml-select[options]',
+    standalone: false
 })
 export class SelectOptionsDirective implements OnChanges {
   @Input() public options: SelectOption[] = [];

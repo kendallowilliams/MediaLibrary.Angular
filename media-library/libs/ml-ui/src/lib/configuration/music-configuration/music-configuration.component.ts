@@ -13,9 +13,10 @@ import { faPenToSquare, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'ml-music-configuration',
-  templateUrl: './music-configuration.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-music-configuration',
+    templateUrl: './music-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class MusicConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: MusicConfiguration;

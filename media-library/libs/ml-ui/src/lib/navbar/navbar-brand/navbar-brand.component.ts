@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-navbar-brand',
-  templateUrl: './navbar-brand.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-navbar-brand',
+    templateUrl: './navbar-brand.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarBrandComponent {
   @HostBinding('class') private _class = 'flex items-center';

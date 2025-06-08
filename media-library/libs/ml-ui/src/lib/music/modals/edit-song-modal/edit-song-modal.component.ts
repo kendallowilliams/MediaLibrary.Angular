@@ -5,9 +5,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectDropdownConfig, SelectOption } from '../../../controls';
 
 @Component({
-  selector: 'ml-edit-song-modal',
-  templateUrl: './edit-song-modal.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-edit-song-modal',
+    templateUrl: './edit-song-modal.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class EditSongModalComponent implements OnInit {
   @Input({required: true}) public song: Track | null = null;

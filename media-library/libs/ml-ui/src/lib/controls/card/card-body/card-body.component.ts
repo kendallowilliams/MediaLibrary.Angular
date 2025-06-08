@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-card-body',
-  template: `<ng-content></ng-content>`,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-card-body',
+    template: `<ng-content></ng-content>`,
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardBodyComponent {
   @HostBinding('class') private _class = 'grow p-[30px]';

@@ -13,10 +13,11 @@ import { PlayerConfiguration } from '@media-library/ml-data';
 import { PlayerConfigurationEditorComponent } from '../player-configuration-editor/player-configuration-editor.component';
 
 @Component({
-  selector: 'ml-player-configuration',
-  templateUrl: './player-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-player-configuration',
+    templateUrl: './player-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PlayerConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: PlayerConfiguration;

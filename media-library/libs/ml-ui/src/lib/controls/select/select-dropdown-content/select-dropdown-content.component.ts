@@ -11,10 +11,11 @@ import {
 import { SelectDropdownConfig, SelectOption, SelectOptionGroup } from '../types/select.types';
 
 @Component({
-  selector: 'ml-select-dropdown-content',
-  templateUrl: './select-dropdown-content.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'ml-select-dropdown-content',
+    templateUrl: './select-dropdown-content.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class SelectDropdownContentComponent implements OnInit {
   @Input() public config: SelectDropdownConfig | null = null;

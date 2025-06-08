@@ -16,8 +16,8 @@ export const MESSAGE_BOX_TYPES = ['alert', 'confirm', 'yesNo', 'error', 'warn'] 
 type MessageType = typeof MESSAGE_BOX_TYPES[number];
 
 @Component({
-  selector: 'ml-message-box',
-  template: `
+    selector: 'ml-message-box',
+    template: `
   <ml-modal-content class="w-[400px]">
     <ml-modal-header>
       <span class="mr-[5px]">
@@ -49,8 +49,9 @@ type MessageType = typeof MESSAGE_BOX_TYPES[number];
     </ml-modal-footer>
   </ml-modal-content>
   `,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MessageBoxComponent implements OnDestroy {
   @Input() public title = '';

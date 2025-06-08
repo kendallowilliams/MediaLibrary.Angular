@@ -15,10 +15,11 @@ import { MlDataFeatureState } from '@media-library/ml-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'ml-media-library-configuration-editor',
-  templateUrl: './media-library-configuration-editor.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-media-library-configuration-editor',
+    templateUrl: './media-library-configuration-editor.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MediaLibraryConfigurationEditorComponent implements OnInit {
   @Input({ required: true }) public configuration!: MediaLibraryConfiguration;

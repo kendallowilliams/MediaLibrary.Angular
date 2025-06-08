@@ -4,10 +4,11 @@ import { Subscription } from 'rxjs';
 import { NavbarService } from '../../services/navbar.service';
 
 @Directive({
-  selector: '[mlHideIfNavLinksHidden]',
-  hostDirectives: [{
-    directive: NgIf
-  }]
+    selector: '[mlHideIfNavLinksHidden]',
+    hostDirectives: [{
+            directive: NgIf
+        }],
+    standalone: false
 })
 export class HideIfNavLinksHiddenDirective implements OnInit, OnDestroy {
   private _subscriptions?: Subscription[];

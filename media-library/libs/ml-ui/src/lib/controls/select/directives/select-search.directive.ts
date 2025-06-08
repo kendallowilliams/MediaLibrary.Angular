@@ -4,7 +4,8 @@ import { strMatch } from '@media-library/ml-utility';
 import { SelectSearchComponent } from '../select-search/select-search.component';
 
 @Directive({
-  selector: '[mlSelectSearch]'
+    selector: '[mlSelectSearch]',
+    standalone: false
 })
 export class SelectSearchDirective {
   @Input() public caseInsensitive = true;

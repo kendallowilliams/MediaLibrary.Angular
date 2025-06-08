@@ -5,7 +5,8 @@ import { SelectMultiSelectDirective } from './select-multiselect.directive';
 import { SelectOptionComponent } from '../select-option/select-option.component';
 
 @Directive({
-  selector: '[mlSelectOption]'
+    selector: '[mlSelectOption]',
+    standalone: false
 })
 export class SelectOptionDirective implements OnInit {
   @Input({ required: true }) public option!: SelectOption;

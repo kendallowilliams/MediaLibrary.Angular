@@ -10,10 +10,11 @@ import { SelectOption } from '../types/select.types';
 import { SelectMultiSelectDirective } from '../directives/select-multiselect.directive';
 
 @Component({
-  selector: 'ml-select-option',
-  templateUrl: './select-option.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'ml-select-option',
+    templateUrl: './select-option.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class SelectOptionComponent {
   @Input({ required: true }) public option!: SelectOption;

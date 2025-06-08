@@ -3,11 +3,12 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { NgControl } from "@angular/forms";
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: `
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: `
     ml-select[formControlName],
     ml-select[ngModel]
-  `
+  `,
+    standalone: false
 })
 export class ControlValidatorDirective implements OnInit {
   constructor(

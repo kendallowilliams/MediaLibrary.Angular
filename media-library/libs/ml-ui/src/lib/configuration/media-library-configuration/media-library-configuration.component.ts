@@ -13,10 +13,11 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { MediaLibraryConfigurationEditorComponent } from '../media-library-configuration-editor/media-library-configuration-editor.component';
 
 @Component({
-  selector: 'ml-media-library-configuration',
-  templateUrl: './media-library-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-media-library-configuration',
+    templateUrl: './media-library-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MediaLibraryConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: MediaLibraryConfiguration;

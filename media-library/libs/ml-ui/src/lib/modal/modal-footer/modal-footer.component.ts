@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-modal-footer',
-  template: `<ng-content></ng-content>`,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-modal-footer',
+    template: `<ng-content></ng-content>`,
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ModalFooterComponent {
   @HostBinding('class') private _class = `flex items-center min-h-[50px] h-[50px]

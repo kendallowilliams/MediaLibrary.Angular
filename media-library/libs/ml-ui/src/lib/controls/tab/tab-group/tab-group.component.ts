@@ -7,9 +7,10 @@ export interface TabQuery {
 }
 
 @Component({
-  selector: 'ml-tab-group',
-  templateUrl: './tab-group.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-tab-group',
+    templateUrl: './tab-group.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class TabGroupComponent implements AfterContentInit {
   @Input() public alignment: 'start' | 'center' | 'end' = 'start';

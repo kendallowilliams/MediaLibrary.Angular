@@ -13,10 +13,11 @@ import { PlaylistConfigurationEditorComponent } from '../playlist-configuration-
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'ml-playlist-configuration',
-  templateUrl: './playlist-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-playlist-configuration',
+    templateUrl: './playlist-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PlaylistConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: PlaylistConfiguration;

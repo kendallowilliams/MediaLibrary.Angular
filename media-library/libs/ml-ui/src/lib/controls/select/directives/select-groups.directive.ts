@@ -3,8 +3,9 @@ import { SelectComponent } from "../select.component";
 import { SelectOptionGroup } from "../types/select.types";
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'ml-select[groups]'
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'ml-select[groups]',
+    standalone: false
 })
 export class SelectOptionGroupsDirective implements OnInit {
   @Input() public groups: SelectOptionGroup[] = [];

@@ -3,7 +3,8 @@ import { SelectSearchDirective } from './select-search.directive';
 import { SelectSearchComponent } from '../select-search/select-search.component';
 
 @Directive({
-  selector: '[mlSelectSearchTemplate]'
+    selector: '[mlSelectSearchTemplate]',
+    standalone: false
 })
 export class SelectSearchTemplateDirective implements OnInit, OnDestroy {
   private _componentRef: ComponentRef<SelectSearchComponent> | null = null;

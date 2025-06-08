@@ -4,10 +4,11 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalRef } from '../../../modal';
 
 @Component({
-  selector: 'ml-add-to-playlist-modal',
-  templateUrl: './add-to-playlist-modal.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ml-add-to-playlist-modal',
+    templateUrl: './add-to-playlist-modal.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AddToPlaylistModalComponent implements OnChanges {
   @Input() public playlists: Playlist[] | null = [];

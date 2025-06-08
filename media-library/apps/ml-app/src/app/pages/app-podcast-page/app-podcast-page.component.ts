@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { PodcastConfiguration } from '@media-library/ml-data';
 
 @Component({
-  selector: 'app-podcast-page',
-  templateUrl: './app-podcast-page.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-podcast-page',
+    templateUrl: './app-podcast-page.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class AppPodcastPageComponent {
   private _configuration?: PodcastConfiguration;

@@ -4,9 +4,10 @@ import { ListBoxItem } from '../interfaces/list-box-item.interface';
 import { faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'ml-list-box-item',
-  templateUrl: './list-box-item.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-list-box-item',
+    templateUrl: './list-box-item.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ListBoxItemComponent implements ListBoxItem {
   @Input() public readonly = false;

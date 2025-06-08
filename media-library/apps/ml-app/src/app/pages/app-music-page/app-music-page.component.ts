@@ -14,9 +14,10 @@ import { SongsComponent, TabComponent, TabGroupComponent } from '@media-library/
 import { sortAlbums, sortArtists } from '@media-library/ml-utility';
 
 @Component({
-  selector: 'app-music-page',
-  templateUrl: './app-music-page.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-music-page',
+    templateUrl: './app-music-page.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppMusicPageComponent implements OnInit {
   @HostBinding('class') private _class = 'flex flex-col h-full';

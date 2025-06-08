@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-card-subtitle',
-  templateUrl: './card-subtitle.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-card-subtitle',
+    templateUrl: './card-subtitle.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CardSubtitleComponent {
   @HostBinding('class') private _class = 'text-secondary';

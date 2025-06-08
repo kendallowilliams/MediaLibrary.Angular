@@ -15,10 +15,11 @@ import { MlDataFeatureState } from '@media-library/ml-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'ml-television-configuration-editor',
-  templateUrl: './television-configuration-editor.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-television-configuration-editor',
+    templateUrl: './television-configuration-editor.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TelevisionConfigurationEditorComponent implements OnInit {
   @Input({ required: true }) public configuration!: TelevisionConfiguration;

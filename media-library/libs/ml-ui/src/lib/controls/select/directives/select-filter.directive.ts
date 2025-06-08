@@ -3,7 +3,8 @@ import { SelectComponent } from '../select.component';
 import { strMatch } from '@media-library/ml-utility';
 
 @Directive({
-  selector: '[mlSelectFilter]'
+    selector: '[mlSelectFilter]',
+    standalone: false
 })
 export class SelectFilterDirective implements OnInit, OnChanges {
   @Input() public query: string | null = null;

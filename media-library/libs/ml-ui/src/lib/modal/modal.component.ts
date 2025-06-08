@@ -21,10 +21,10 @@ import { fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  // selector: 'ml-modal',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    // selector: 'ml-modal',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <dialog #mlDialog class="outline-0 border-0 bg-transparent appearance-none max-w-full max-h-full"
       [ngClass]="{
         'backdrop:bg-dark backdrop:opacity-50': config.backdrop === 'visible',
@@ -34,7 +34,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
         <ng-template #modalContent></ng-template>
       </div>
     </dialog>
-    `
+    `,
+    standalone: false
 })
 export class ModalComponent<T> implements AfterViewInit, Modal {
   @ViewChild('mlDialog') private _dialog!: ElementRef<HTMLDialogElement>;

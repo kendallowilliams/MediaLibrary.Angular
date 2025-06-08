@@ -14,15 +14,16 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { noop } from 'rxjs';
 
 @Component({
-  selector: 'ml-switch',
-  templateUrl: './switch.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SwitchComponent),
-    multi: true
-  }]
+    selector: 'ml-switch',
+    templateUrl: './switch.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SwitchComponent),
+            multi: true
+        }],
+    standalone: false
 })
 export class SwitchComponent implements ControlValueAccessor, OnInit {
   @HostBinding('class') private _class = `inline-flex items-center gap-[5px]`;

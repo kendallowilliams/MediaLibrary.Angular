@@ -4,7 +4,8 @@ import { ModalConfig } from '../models/modal-config.model';
 import { ModalService } from '../services/modal.service';
 
 @Directive({
-  selector: '[mlModal]'
+    selector: '[mlModal]',
+    standalone: false
 })
 export class ModalDirective implements OnChanges {
   @Input() public config: ModalConfig = new ModalConfig();

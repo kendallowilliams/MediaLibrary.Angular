@@ -6,9 +6,10 @@ import { debounceTime, fromEvent, tap } from 'rxjs';
 import { getAtoZKey } from '@media-library/ml-utility';
 
 @Component({
-  selector: 'ml-songs',
-  templateUrl: './songs.component.html',
-  encapsulation: ViewEncapsulation.None
+    selector: 'ml-songs',
+    templateUrl: './songs.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class SongsComponent {
   @HostBinding('class') private _class = 'block h-full';

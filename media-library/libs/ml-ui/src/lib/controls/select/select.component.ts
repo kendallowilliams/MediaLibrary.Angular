@@ -15,15 +15,16 @@ import { faCaretDown, faCaretUp, faCircleExclamation, faTimesCircle } from '@for
 export type SelectValueType = SelectOption['value'] | SelectOption['value'][];
 
 @Component({
-  selector: 'ml-select',
-  templateUrl: './select.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SelectComponent),
-    multi: true
-  }]
+    selector: 'ml-select',
+    templateUrl: './select.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => SelectComponent),
+            multi: true
+        }],
+    standalone: false
 })
 export class SelectComponent implements ControlValueAccessor {
   @HostBinding('class') private _class = 'flex group/select';

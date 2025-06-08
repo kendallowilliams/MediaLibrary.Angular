@@ -1,9 +1,10 @@
 import { Component, Input, TemplateRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'ml-tab',
-  encapsulation: ViewEncapsulation.None,
-  template: `<ng-content *ngIf="isSelected"></ng-content>`
+    selector: 'ml-tab',
+    encapsulation: ViewEncapsulation.None,
+    template: `<ng-content *ngIf="isSelected"></ng-content>`,
+    standalone: false
 })
 export class TabComponent {
   @Input() public headerText?: string;

@@ -4,7 +4,8 @@ export const BUTTON_VARIANTS = ['primary', 'secondary', 'success', 'danger', 'wa
 export type ButtonVariant = typeof BUTTON_VARIANTS[number];
 
 @Directive({
-  selector: 'button[mlButton], a[mlButton]'
+    selector: 'button[mlButton], a[mlButton]',
+    standalone: false
 })
 export class ButtonDirective implements OnInit {
   @HostBinding('class') private _class = '';

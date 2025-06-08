@@ -1,9 +1,10 @@
 import { Component, Input, TemplateRef, ViewEncapsulation } from "@angular/core";
 
 @Component({
-  selector: 'ml-popover-content',
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: './popover-content.component.html'
+    selector: 'ml-popover-content',
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: './popover-content.component.html',
+    standalone: false
 })
 export class PopoverContentComponent {
   @Input() public content: string | null = null;

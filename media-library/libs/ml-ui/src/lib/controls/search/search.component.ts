@@ -15,10 +15,11 @@ import { DeviceService } from '@media-library/ml-utility';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'ml-search',
-  templateUrl: './search.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-search',
+    templateUrl: './search.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SearchComponent {
   private _defaultClasses = 'flex items-center gap-[10px] bg-light text-dark dark:bg-dark dark:text-light';

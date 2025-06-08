@@ -10,10 +10,11 @@ import {
 import { DeviceService } from '@media-library/ml-utility';
 
 @Component({
-  selector: 'ml-navbar-icon',
-  templateUrl: './navbar-icon.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-navbar-icon',
+    templateUrl: './navbar-icon.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarIconComponent implements OnInit {
   private _defaultClasses = 'data-[is-mobile=false]:hover:text-info data-[is-mobile=false]:dark:hover:text-info cursor-pointer';

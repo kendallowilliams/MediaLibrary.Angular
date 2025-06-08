@@ -18,14 +18,15 @@ import { ListBoxItemComponent } from './list-box-item/list-box-item.component';
 import { ListBoxItemContext } from './directives/list-box-item-template.directive';
 
 @Component({
-  selector: 'ml-list-box',
-  templateUrl: './list-box.component.html',
-  encapsulation: ViewEncapsulation.None,
-  providers:[{
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => ListBoxComponent),
-      multi: true,
-  }]
+    selector: 'ml-list-box',
+    templateUrl: './list-box.component.html',
+    encapsulation: ViewEncapsulation.None,
+    providers: [{
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => ListBoxComponent),
+            multi: true,
+        }],
+    standalone: false
 })
 export class ListBoxComponent implements ControlValueAccessor, OnChanges, AfterContentInit {
   @Input() public readonly = false;

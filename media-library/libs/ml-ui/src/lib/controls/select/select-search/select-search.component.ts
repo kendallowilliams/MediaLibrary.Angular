@@ -11,10 +11,11 @@ import {
 } from '@angular/core';
 import { faSearch, faTimes } from '@fortawesome/free-solid-svg-icons';
 @Component({
-  selector: 'ml-select-search',
-  templateUrl: './select-search.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.Default,
+    selector: 'ml-select-search',
+    templateUrl: './select-search.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.Default,
+    standalone: false
 })
 export class SelectSearchComponent {
   @Input() public placeholder = '';

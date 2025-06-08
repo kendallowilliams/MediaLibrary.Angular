@@ -6,10 +6,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'ml-modal-content',
-  template: `<ng-content></ng-content>`,
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-modal-content',
+    template: `<ng-content></ng-content>`,
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ModalContentComponent {
   @HostBinding('class') private _class = `flex flex-col shadow rounded-[5px]

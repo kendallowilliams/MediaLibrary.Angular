@@ -13,10 +13,11 @@ import { NavbarMenuService } from '../services/navbar-menu.service';
 import { NavbarService } from '../services/navbar.service';
 
 @Component({
-  selector: 'ml-navbar-menu',
-  templateUrl: './navbar-menu.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-navbar-menu',
+    templateUrl: './navbar-menu.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarMenuComponent implements OnInit, OnDestroy {
   private _defaultClasses = `flex flex-col hidden data-[menu-open=true]:block absolute right-0

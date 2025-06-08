@@ -3,30 +3,30 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output, } from "@a
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
-  selector: 'ml-sidebar',
-  templateUrl: './sidebar.component.html',
-  animations: [
-    trigger('openClosed', [
-      state('open', style({
-        width: 'var(--ml-sidebar-width)'
-      })),
-      state('closed', style({
-        width: '0px'
-      })),
-      transition('open => closed', [ animate('0.3s')]),
-      transition('closed => open', [ animate('0.3s')])
-    ]),
-    trigger('collapsedExpanded', [
-      state('collapsed', style({
-        rotate: '0deg',
-        
-      })),
-      state('expanded', style({
-        rotate: '180deg'
-      })),
-      transition('collapsed <=> expanded', [ animate('0.1s')])
-    ])
-  ]
+    selector: 'ml-sidebar',
+    templateUrl: './sidebar.component.html',
+    animations: [
+        trigger('openClosed', [
+            state('open', style({
+                width: 'var(--ml-sidebar-width)'
+            })),
+            state('closed', style({
+                width: '0px'
+            })),
+            transition('open => closed', [animate('0.3s')]),
+            transition('closed => open', [animate('0.3s')])
+        ]),
+        trigger('collapsedExpanded', [
+            state('collapsed', style({
+                rotate: '0deg',
+            })),
+            state('expanded', style({
+                rotate: '180deg'
+            })),
+            transition('collapsed <=> expanded', [animate('0.1s')])
+        ])
+    ],
+    standalone: false
 })
 export class SidebarComponent implements OnInit {
   /** Width of sidebar (default: 300) */

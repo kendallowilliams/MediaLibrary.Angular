@@ -2,7 +2,8 @@ import { Directive, HostBinding, Input, OnInit } from '@angular/core';
 import { ButtonVariant } from './button.directive';
 
 @Directive({
-  selector: 'button[mlSecondaryButton], a[mlSecondaryButton]'
+    selector: 'button[mlSecondaryButton], a[mlSecondaryButton]',
+    standalone: false
 })
 export class SecondaryButtonDirective implements OnInit {
   @HostBinding('class') private _class = '';

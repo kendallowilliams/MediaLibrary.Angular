@@ -13,10 +13,11 @@ import { TelevisionConfigurationEditorComponent } from '../television-configurat
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'ml-television-configuration',
-  templateUrl: './television-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-television-configuration',
+    templateUrl: './television-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class TelevisionConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: TelevisionConfiguration;

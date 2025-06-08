@@ -9,10 +9,11 @@ import {
 import { NavbarService } from '../navbar/services/navbar.service';
 
 @Component({
-  selector: 'ml-navbar',
-  templateUrl: './navbar.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'ml-navbar',
+    templateUrl: './navbar.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarComponent {
   private _defaultClasses = 'block h-navbar bg-light dark:bg-dark text-dark dark:text-light shadow relative';

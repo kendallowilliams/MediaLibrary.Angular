@@ -25,10 +25,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faFolderOpen, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'ml-music-configuration-editor',
-  templateUrl: './music-configuration-editor.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-music-configuration-editor',
+    templateUrl: './music-configuration-editor.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class MusicConfigurationEditorComponent implements OnInit {
   @Input({ required: true }) public configuration!: MusicConfiguration;

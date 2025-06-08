@@ -10,10 +10,9 @@ import { debounceTime, fromEvent } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: 'ml-virtual-scroll',
-  standalone: true,
-  imports: [CommonModule, ListBoxModule],
-  templateUrl: './virtual-scroll.component.html'
+    selector: 'ml-virtual-scroll',
+    imports: [CommonModule, ListBoxModule],
+    templateUrl: './virtual-scroll.component.html'
 })
 export class VirtualScrollComponent implements OnInit, AfterContentInit, AfterViewInit {
   @Input() public rowHeight = 25;

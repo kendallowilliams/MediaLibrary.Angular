@@ -15,10 +15,11 @@ import { MlDataFeatureState } from '@media-library/ml-data';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'ml-podcast-configuration-editor',
-  templateUrl: './podcast-configuration-editor.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-podcast-configuration-editor',
+    templateUrl: './podcast-configuration-editor.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PodcastConfigurationEditorComponent implements OnInit {
   @Input({ required: true }) public configuration!: PodcastConfiguration;

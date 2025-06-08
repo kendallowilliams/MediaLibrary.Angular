@@ -12,10 +12,11 @@ import {
 import { NavbarMenuComponent } from '../navbar-menu/navbar-menu.component';
 
 @Component({
-  selector: 'ml-navbar-nav',
-  templateUrl: './navbar-nav.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-navbar-nav',
+    templateUrl: './navbar-nav.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class NavbarNavComponent implements OnInit {
   private _defaultClasses = `flex data-[in-menu=false]:flex-row

@@ -6,7 +6,8 @@ export interface ListBoxItemContext {
 }
 
 @Directive({
-  selector: 'ng-template[mlListBoxItem]'
+    selector: 'ng-template[mlListBoxItem]',
+    standalone: false
 })
 export class ListBoxItemTemplateDirective {
   static ngTemplateContextGuard(

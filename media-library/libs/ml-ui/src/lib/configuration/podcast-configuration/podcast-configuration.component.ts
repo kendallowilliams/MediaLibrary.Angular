@@ -13,10 +13,11 @@ import { PodcastConfigurationEditorComponent } from '../podcast-configuration-ed
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'ml-podcast-configuration',
-  templateUrl: './podcast-configuration.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'ml-podcast-configuration',
+    templateUrl: './podcast-configuration.component.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class PodcastConfigurationComponent implements OnInit, OnChanges {
   @Input({required: true }) public configuration!: PodcastConfiguration;
