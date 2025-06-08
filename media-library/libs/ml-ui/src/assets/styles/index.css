@@ -5,15 +5,7 @@
 
 .required:after {
   content: ' *';
-  color: theme('colors.danger.DEFAULT');
 }
 
 .dark .required:after {
-  color: theme('colors.danger.dark');
-}
-
-/** AG Grid */
-.ag-theme-balham {
-  --ag-row-height: 40px;
-  --ag-odd-row-background-color: initial;
 }
